@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="c">
+
+	<!-- 원글의 idx를 참조하고 있는 댓글들 조회 -->
+	<select id="comment_list"
+	        parameterType="int"
+	        resultType="comm">
+	
+		select * from commenttb 
+		where idx=#{idx} order by c_idx
+	
+	</select>
+
+	<!-- 댓글등록 -->
+	<insert id="comment_insert"
+			parameterType="comm">
+	
+		insert into commenttb values(
+			seq_comment_idx.nextVal, 
+			#{idx}, 
+			#{name},
+			#{content}, 
+			#{pwd}, 
+			#{ip}, 
+			sysdate
+		)
+	
+	</insert>
+
+	<!-- 댓글삭제 -->
+	<delete id="comment_delete" parameterType="int">
+		delete from commenttb where c_idx=#{c_idx}
+	</delete>
+
+	<!-- 페이징 처리를 위한 sql문장 -->
+	<select id="comment_list_page" parameterType="java.util.Map"
+			resultType="comm">
+	
+		select * from(
+			select rank() over( order by c_idx ) no, c.*
+			from ( select * from commenttb where idx=#{idx} ) c
+		) where no between #{start} and #{end}
+	
+	</select>
+
+	<!-- 현재 idx에 달려있는 댓글 갯수 -->
+	<select id="comment_idx_count"
+	        parameterType="int"
+	        resultType="int">
+	
+		select count(*) from commenttb
+		where idx=#{idx}
+	
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

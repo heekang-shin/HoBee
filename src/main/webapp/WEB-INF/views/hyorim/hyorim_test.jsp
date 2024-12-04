@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-HIHI~!
-hihi
-kkk
+<h1>효림테스트</h1>
 </body>
 </html>

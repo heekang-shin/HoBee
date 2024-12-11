@@ -26,6 +26,8 @@
 	<!-- Autowired사용을 위한 속성 -->
 	<context:annotation-config/>
 	
+	<beans:bean class="kh.pr.hobee.HomeController"></beans:bean>
+	
 </beans:beans>
 
 

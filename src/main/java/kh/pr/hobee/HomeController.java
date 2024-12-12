@@ -42,5 +42,5 @@ public class HomeController {
 		
 		return VIEW_PATH + "main.jsp";
 	}
-	
+	 
 }

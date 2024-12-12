@@ -25,7 +25,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	public static final String VIEW_PATH = "/WEB-INF/views/";
+	public static final String VIEW_PATH = "/WEB-INF/views/main/";
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -40,7 +40,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return VIEW_PATH + "home.jsp";
+		return VIEW_PATH + "main.jsp";
 	}
-	
+	 
 }

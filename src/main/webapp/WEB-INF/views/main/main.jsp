@@ -351,7 +351,7 @@
 					</div>
 	
 					<div class="con_box aboutinner aos-item" data-aos="fade-up"
-						" onclick="">
+						 onclick="">
 						<img src="/hobee/resources/images/thumbnail3.png" alt="thumbnail">
 						<h2>프로그램 타이틀</h2>
 						<p>30,000원</p>

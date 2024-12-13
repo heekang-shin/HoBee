@@ -30,6 +30,7 @@
 	<beans:bean class="kh.pr.hobee.controller.InvenController">
 		<beans:constructor-arg ref="inven_daoBean"/>
 	</beans:bean>
+	<beans:bean class="kh.pr.hobee.controller.PayController"></beans:bean>
 	
 </beans:beans>
 

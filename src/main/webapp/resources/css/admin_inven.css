@@ -70,7 +70,7 @@ ul li {
 .inven_container{
 	width: 1400px;
 	margin: 0 auto;
-	background-color: #DDD;
+	background-color: #ffffd5;
 	display: flex;
 	font-family: Arial, sans-serif;
 }
@@ -99,11 +99,12 @@ ul li {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 18px;
   width: 100%;
-  padding: 10px;
+  padding-left: 22px;
   text-align: left;
   border-radius: 8px;
+  height: 60px;
 }
 
 .nav ul li button:hover {
@@ -112,6 +113,7 @@ ul li {
 
 .nav ul li button.active {
   background-color: #ffe14d;
+  font
 }
 
 .main-content {
@@ -121,6 +123,7 @@ ul li {
 }
 
 .content {
+  padding-left:10px;
   display: none; /* 기본적으로 숨김 */
 }
 
@@ -130,4 +133,50 @@ ul li {
 
 h2 {
   margin-top: 0;
+}
+
+.con_box {
+    float: left;
+    position: relative;
+    padding:18.5px;
+    
+}
+
+.con_box:last-child {
+    margin-right: 0;
+}
+
+.con_box h2 {
+    font-size: 22px;
+    color: #222222;
+    margin-top: 16px;
+}
+
+.con_box p {
+    font-size: 20px;
+    color: #474747;
+    margin-top: 8px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.con_box span {
+    display: inline-block;
+    width: 46px;
+    line-height: 24px;
+    background-color: #f6f6f6;
+    color: #A8A8A8;
+    margin-left: 4px;
+    text-align: center;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.con_box img {
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.con_box img:hover {
+    transform: translateY(-10px);
 }

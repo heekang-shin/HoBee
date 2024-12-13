@@ -1,4 +1,4 @@
-package vo;
+package kr.pr.hobee.vo;
 
 import org.springframework.stereotype.Component;
 

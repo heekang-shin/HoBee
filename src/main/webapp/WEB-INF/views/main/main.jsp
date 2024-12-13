@@ -179,42 +179,43 @@
 	
 		</div>
 		<!--슬라이드 배너 끝-->
-	
-	
+
+
 		<!--카테고리 시작-->
 		<div class="menu_wrap">
 			<div class="menu_container">
 				<ul class="menu_box aboutinner aos-item" data-aos="fade-up">
-					<li>
-						<img src="/hobee/resources/images/sport_icon.png" alt="sport" onclick="location.href='sport_list.do'"> 
-						<a href="#">운동&#47;스포츠</a>
-					</li>
+					<li><img src="/hobee/resources/images/sport_icon.png"
+						alt="sport"
+						onclick="location.href='select_list.do?category=1'"> <a
+						href="select_list.do?category=1">운동&#47;스포츠</a></li>
 	
 					<li><img src="/hobee/resources/images/music_icon.png"
-						alt="sport" onclick="location.href='sport_list.do'"> <a
-						href="#">음악&#47;악기</a></li>
+						alt="music" onclick="location.href='select_list.do?category=2'">
+						<a href="select_list.do?category=2">음악&#47;악기</a></li>
 	
 					<li><img src="/hobee/resources/images/crafts_icon.png"
-						alt="sport" onclick="location.href='sport_list.do'"> <a
-						href="#">공예&#47;만들기</a></li>
+						alt="craft" onclick="location.href='select_list.do?category=3'">
+						<a href="select_list.do?category=3">공예&#47;만들기</a></li>
 	
-					<li><img src="/hobee/resources/images/self_icon.png"
-						alt="sport" onclick="location.href='sport_list.do'"> <a
-						href="#">자기계발</a></li>
+					<li><img src="/hobee/resources/images/self_icon.png" alt="self"
+						onclick="location.href='select_list.do?category=4'"> <a
+						href="select_list.do?category=4">자기계발</a></li>
 	
-					<li><img src="/hobee/resources/images/game_icon.png"
-						alt="sport" onclick="location.href='sport_list.do'"> <a
-						href="#">게임&#47;오락</a></li>
+					<li><img src="/hobee/resources/images/game_icon.png" alt="game"
+						onclick="location.href='select_list.do?category=5'"> <a
+						href="select_list.do?category=5">게임&#47;오락</a></li>
 	
 					<li><img src="/hobee/resources/images/gathering_icon.png"
-						alt="sport" onclick="location.href='sport_list.do'"> <a
-						href="#">사교</a></li>
+						alt="gathering"
+						onclick="location.href='select_list.do?category=6'">
+						<a href="select_list.do?category=6">사교</a></li>
 				</ul>
 			</div>
 		</div>
 		<!--카테고리 끝-->
-	
-		<!--best 시작-->
+
+	<!--best 시작-->
 		<div class="con_container">
 	
 			<div class="con_header">

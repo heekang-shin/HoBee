@@ -27,6 +27,9 @@
 	<context:annotation-config/>
 	
 	<beans:bean class="kh.pr.hobee.HomeController"></beans:bean>
+	<beans:bean class="kh.pr.hobee.controller.InvenController">
+		<beans:constructor-arg ref="inven_daoBean"/>
+	</beans:bean>
 	
 </beans:beans>
 

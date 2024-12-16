@@ -1,13 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 	<head>
 	<meta charset="UTF-8">
 	<title>header</title>
+	
+	<script>
+		 <!--검색창-->
+	     function enterKey(f){
+	     
+	     	//유효성 체크
+	     	let searchInput = f.search_text.value;
+	     	  if (searchInput.trim() === '') {
+	               alert('검색어를 입력해 주세요.');
+	               return;
+	           }
+	     
+	    		f.action="search.do";
+	    		f.method="get";
+	     	f.sumbit();
+	     	
+	     	$("#id").reset();
+	     }
+		 </script>
+	
 	</head>
+	
 	<body>
-	<!--헤더 시작-->
+		<!--헤더 시작-->
 		<div id="header">
 			<div id="header_inner">
 				<h1 class="logo">
@@ -17,11 +39,10 @@
 				<!--검색창 시작-->
 				<form>
 					<div id="search_inner">
-						
+	
 						<input type="search" placeholder="검색어를 입력해 주세요." name="search_text"
-							onkeypress="if( event.keyCode == 13 ){enterKey(this.form)}"/>
-						 
-						<img src="/hobee/resources/images/search_icon.png" class="search-icon">
+							onkeypress="if( event.keyCode == 13 ){enterKey(this.form)}" /> <img
+							src="/hobee/resources/images/search_icon.png" class="search-icon">
 					</div>
 				</form>
 				<!--검색창 끝-->
@@ -29,7 +50,7 @@
 				<!--snb 시작-->
 				<ul class="snb">
 					<li><img src="/hobee/resources/images/registration_icon.png"
-						alt="모임등록" /> <a href="form.do">모임등록</a></li>
+						alt="모임등록" /> <a href="apply_list.do">모임등록</a></li>
 	
 					<li><img src="/hobee/resources/images/shop_icon.png" alt="찜" />
 						<a href="shop.do">찜목록</a></li>

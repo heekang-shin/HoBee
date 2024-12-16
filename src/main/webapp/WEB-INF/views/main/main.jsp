@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 	
@@ -64,9 +65,19 @@
 	        
 	        <!--검색창-->
 	        function enterKey(f){
+	        
+	        	//유효성 체크
+	        	let searchInput = f.search_text.value;
+	        	  if (searchInput.trim() === '') {
+	                  alert('검색어를 입력해 주세요.');
+	                  return;
+	              }
+	        
 	       		f.action="search.do";
 	       		f.method="get";
 	        	f.sumbit();
+	        	
+	        	$("#id").reset();
 	        }
 	    </script>
 	
@@ -96,7 +107,7 @@
 				<form>
 					<div id="search_inner">
 						
-						<input type="search" placeholder="검색어를 입력해 주세요." name="search_text"
+						<input id="search" type="search" placeholder="검색어를 입력해 주세요." name="search_text"
 							onkeypress="if( event.keyCode == 13 ){enterKey(this.form)}"/>
 						 
 						<img src="/hobee/resources/images/search_icon.png" class="search-icon">
@@ -106,8 +117,11 @@
 	
 				<!--snb 시작-->
 				<ul class="snb">
-					<li><img src="/hobee/resources/images/registration_icon.png"
-						alt="모임등록" /> <a href="form.do">모임등록</a></li>
+					<li>
+					    <img src="/hobee/resources/images/registration_icon.png" alt="모임등록" />
+					    <a href="apply_list.do">모임등록</a>
+					</li>
+
 	
 					<li><img src="/hobee/resources/images/shop_icon.png" alt="찜" />
 						<a href="shop.do">찜목록</a></li>
@@ -222,45 +236,23 @@
 				<a href="#">전체보기</a>
 			</div>
 		
-			<!-- 등록된 제품이 없는 경우 
-	        <c:if test="${ empty list }">
+			<!-- 베스트 제품이 없는 경우-->
+	        <c:if test="${ empty best_list }">
 	        <div>등록된 제품이 없습니다.</div>
-	        </c:if>-->
-	
-	
-				<div class="con_wrapper">
-					<div class="con_box aboutinner aos-item best" data-aos="fade-up" onclick="">
-						<img src="/hobee/resources/images/thumbnail.png" alt="thumbnail">
-						<h2>프로그램 타이틀</h2>
-						<p>30,000원</p>
-						<span>1인당</span>
-					</div>
-	
-					<div class="con_box aboutinner aos-item best" data-aos="fade-up"
-						onclick="">
-						<img src="/hobee/resources/images/thumbnail.png" alt="thumbnail">
-						<h2>프로그램 타이틀</h2>
-						<p>30,000원</p>
-						<span>1인당</span>
-					</div>
-	
-					<div class="con_box aboutinner aos-item best" data-aos="fade-up"
-						onclick="">
-						<img src="/hobee/resources/images/thumbnail.png" alt="thumbnail">
-						<h2>프로그램 타이틀</h2>
-						<p>30,000원</p>
-						<span>1인당</span>
-					</div>
-	
-					<div class="con_box aboutinner aos-item best" data-aos="fade-up"
-						onclick="">
-						<img src="/hobee/resources/images/thumbnail.png" alt="thumbnail">
-						<h2>프로그램 타이틀</h2>
-						<p>30,000원</p>
-						<span>1인당</span>
-					</div>
+	        </c:if> 
+	       
+
+			<!-- 베스트 제품이 있는 경우 -->
+			<div class="con_wrapper">
+			<c:forEach var="vo" items="${best_list}" >
+				<div class="con_box aboutinner aos-item best" data-aos="fade-up" onclick="">
+					<img src="/hobee/resources/images/${vo.hb_title}.png" alt="thumbnail">
+					<h2>${vo.hb_title}</h2>
+					<p><fmt:formatNumber value="${vo.hb_price}"/>원</p>
+					<span>1인당</span>
 				</div>
-	
+			</c:forEach>
+			</div>
 		</div>
 		<!--best 끝-->
 	
@@ -272,44 +264,22 @@
 				<a href="#">전체보기</a>
 			</div>
 	
-			<!--등록된 제품이 없는 경우
-	        <c:if test="${ empty list }">
+			<!-- pick 제품이 없는 경우-->
+	       <c:if test="${ empty pick_list }">
 	        <div>등록된 제품이 없습니다.</div>
-	        </c:if>-->
-	
-				<div class="con_wrapper">
-					<div class="con_box aboutinner aos-item" data-aos="fade-up"
-						onclick="">
-						<img src="/hobee/resources/images/thumbnail2.png" alt="thumbnail">
-						<h2>프로그램 타이틀</h2>
-						<p>30,000원</p>
-						<span>1인당</span>
-					</div>
-	
-					<div class="con_box aboutinner aos-item" data-aos="fade-up"
-						onclick="">
-						<img src="/hobee/resources/images/thumbnail2.png" alt="thumbnail">
-						<h2>프로그램 타이틀</h2>
-						<p>30,000원</p>
-						<span>1인당</span>
-					</div>
-	
-					<div class="con_box aboutinner aos-item" data-aos="fade-up"
-						onclick="">
-						<img src="/hobee/resources/images/thumbnail2.png" alt="thumbnail">
-						<h2>프로그램 타이틀</h2>
-						<p>30,000원</p>
-						<span>1인당</span>
-					</div>
-	
-					<div class="con_box aboutinner aos-item" data-aos="fade-up"
-						onclick="">
-						<img src="/hobee/resources/images/thumbnail2.png" alt="thumbnail">
-						<h2>프로그램 타이틀</h2>
-						<p>30,000원</p>
-						<span>1인당</span>
-					</div>
+	        </c:if> 
+	        
+		<!-- pick 제품이 있는 경우 -->
+			<div class="con_wrapper">
+			<c:forEach var="vo" items="${pick_list}" end="3">
+				<div class="con_box aboutinner aos-item" data-aos="fade-up" onclick="">
+					<img src="/hobee/resources/images/${vo.l_image}.png" alt="thumbnail">
+					<h2>${vo.hb_title}</h2>
+					<p><fmt:formatNumber value="${vo.hb_price}"/>원</p>
+					<span>1인당</span>
 				</div>
+			</c:forEach>
+			</div>
 		</div>
 		<!--pick 끝-->
 	
@@ -329,53 +299,34 @@
 	
 	
 		<!--new 시작-->
-		<div class="con_container">
+	<div class="con_container">
 	
-			<div class="con_header">
-				<h1>신규 HOBEE</h1>
-				<a href="#">전체보기</a>
-			</div>
-	
-			<!--등록된 제품이 없는 경우
-	    <c:if test="${ empty list }">
-	    <div>등록된 제품이 없습니다.</div>
-	    </c:if>-->
-	
-				<div class="con_wrapper">
-					<div class="con_box aboutinner aos-item" data-aos="fade-up"
-						onclick="">
-						<img src="/hobee/resources/images/thumbnail3.png" alt="thumbnail">
-						<h2>프로그램 타이틀</h2>
-						<p>30,000원</p>
-						<span>1인당</span>
-					</div>
-	
-					<div class="con_box aboutinner aos-item" data-aos="fade-up"
-						" onclick="">
-						<img src="/hobee/resources/images/thumbnail3.png" alt="thumbnail">
-						<h2>프로그램 타이틀</h2>
-						<p>30,000원</p>
-						<span>1인당</span>
-					</div>
-	
-					<div class="con_box aboutinner aos-item" data-aos="fade-up"
-						onclick="">
-						<img src="/hobee/resources/images/thumbnail3.png" alt="thumbnail">
-						<h2>프로그램 타이틀</h2>
-						<p>30,000원</p>
-						<span>1인당</span>
-					</div>
-	
-					<div class="con_box aboutinner aos-item" data-aos="fade-up"
-						onclick="">
-						<img src="/hobee/resources/images/thumbnail3.png" alt="thumbnail">
-						<h2>프로그램 타이틀</h2>
-						<p>30,000원</p>
-						<span>1인당</span>
-					</div>
-				</div>
-		</div>
-		<!--new 끝-->
+    <div class="con_header">
+        <h1>신규 HOBEE</h1>
+        <a href="#">전체보기</a>
+    </div>
+
+    <!--new 제품이 없는 경우-->
+    <c:if test="${ empty new_list }">
+        <div>등록된 제품이 없습니다.</div>
+    </c:if> 
+
+    <!-- new 제품이 있는 경우 -->
+    <div class="con_wrapper">
+        <c:forEach var="vo" items="${new_list}">
+                <div class="con_box aboutinner aos-item" data-aos="fade-up" onclick="">
+                    <img src="/hobee/resources/images/${vo.l_image}.png" alt="thumbnail">
+                    <h2>${vo.hb_idx}</h2>
+                    <p><fmt:formatNumber value="${vo.hb_price}"/>원</p>
+                    <span>1인당</span>
+                </div>
+        </c:forEach>
+    </div>
+	</div>
+	<!--new 끝-->
+
+
+
 	
 		<!--푸터 시작-->
 		<footer>

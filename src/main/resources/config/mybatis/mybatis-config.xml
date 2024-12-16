@@ -10,7 +10,7 @@
 	
 	<typeAliases>
 		<typeAlias type="kr.pr.hobee.vo.CategoryVO" alias="category"/>
-		
+		<typeAlias type="vo.HobeeVO" alias="hobee"/>
 	</typeAliases>
 	
 	<mappers>
@@ -18,9 +18,6 @@
 		<mapper resource="config/mybatis/mapper/inventory.xml" />
 	</mappers>
 </configuration>
-
-
-
 
 
 

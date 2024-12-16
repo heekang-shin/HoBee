@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.pr.hobee.dao.InvenDAO;
-import kr.pr.hobee.vo.CategoryVO;
+import kh.pr.hobee.vo.CategoryVO;
 
 @Controller
 public class InvenController {

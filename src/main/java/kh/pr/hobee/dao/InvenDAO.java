@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import kr.pr.hobee.vo.CategoryVO;
+import kh.pr.hobee.vo.CategoryVO;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

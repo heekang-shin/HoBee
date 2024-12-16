@@ -9,7 +9,7 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="kr.pr.hobee.vo.CategoryVO" alias="category"/>
+		<typeAlias type="kh.pr.hobee.vo.CategoryVO" alias="category"/>
 		
 	</typeAliases>
 	

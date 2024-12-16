@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+	
 <!DOCTYPE html>
 <html lang="ko">
 	
@@ -89,7 +89,7 @@
 		<div id="header">
 			<div id="header_inner">
 				<h1 class="logo">
-					<a href="main-page.do">Hobee</a>
+					<a href="main.do">Hobee</a>
 				</h1>
 	
 				<!--검색창 시작-->

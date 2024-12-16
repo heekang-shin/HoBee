@@ -10,7 +10,7 @@ select * from Hobee
 
 
 
-<!-- 헤더, 검색창, 검색된 제품 조회 -->
+<!-- 헤더, 검색된 제품 조회 -->
 <select id="hobee_search_list" resultType="hobee" parameterType="String">
     SELECT * FROM hobee
     WHERE hb_title LIKE '%' || #{search_text} || '%'

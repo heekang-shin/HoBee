@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.pr.hobee.common.Common;
 import kh.pr.hobee.dao.HobeeDAO;
-import vo.HobeeVO;
+import kh.pr.hobee.vo.HobeeVO;
 
 @Controller
 public class MainController {

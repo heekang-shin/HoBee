@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
 * {
@@ -20,12 +21,12 @@ ul li {
 
 /*헤더 시작*/
 #header {
-    position:sticky;
-    top: 0;
+    position: sticky;
+    top: 0px;
     width: 100%;
     background-color: #fff;
     border-bottom: 1px solid #DCDCDC;
-    z-index: 999999999999;
+    z-index: 999;
 }
 
 #header_inner {
@@ -543,6 +544,7 @@ footer {
     width: 100%;
     height: 380px;
     border-top: 1px solid #DCDCDC;
+    bottom:0;
 }
 
 .footer_container {
@@ -653,6 +655,6 @@ footer {
     color: #fff;
     font-size: 15px;
     font-weight: 500;
-    z-index: 99;
+    z-index: 9999;
 }
 /*top버튼 끝*/

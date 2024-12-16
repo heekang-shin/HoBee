@@ -9,12 +9,13 @@
 	</settings>
 	
 	<typeAliases>
-		<!-- <typeAlias type="vo.BoardVO" alias="board"/>
-		<typeAlias type="vo.CommentVO" alias="comm"/> -->
+		<typeAlias type="kr.pr.hobee.vo.CategoryVO" alias="category"/>
+		
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="config/mybatis/mapper/hobee.xml" />
+		<mapper resource="config/mybatis/mapper/inventory.xml" />
 	</mappers>
 </configuration>
 

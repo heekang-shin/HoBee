@@ -21,6 +21,6 @@ public class InvenController {
 	public String selectlist(Model model, int category) {
 		List<CategoryVO> list = inven_dao.selectInven(category);
 		model.addAttribute("list",list);
-		return "/WEB-INF/views/admin_inventory/admin_inven.jsp";
+		return "/WEB-INF/views/inventory/inven.jsp";
 	}
 }

@@ -113,7 +113,7 @@ ul li {
 
 .nav ul li button.active {
   background-color: #ffe14d;
-  font
+  font-weight: bold;
 }
 
 .main-content {

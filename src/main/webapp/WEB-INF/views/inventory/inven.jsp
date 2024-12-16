@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet" href="/hobee/resources/css/admin_inven.css">
+	<link rel="stylesheet" href="/hobee/resources/css/inven.css">
 
 	<script>
 	        function open_payment() {

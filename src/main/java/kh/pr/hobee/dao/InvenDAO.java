@@ -9,9 +9,6 @@ import org.springframework.stereotype.Repository;
 import kh.pr.hobee.vo.CategoryVO;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-@Mapper
-@Repository
 public class InvenDAO {
 	SqlSession sqlSession;
 	public void setSqlSession(SqlSession sqlSession) {

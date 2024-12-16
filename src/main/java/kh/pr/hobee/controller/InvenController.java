@@ -13,7 +13,7 @@ import kh.pr.hobee.vo.CategoryVO;
 public class InvenController {
 	
 	InvenDAO inven_dao;
-	public InvenController(InvenDAO inven_dao) {
+	public void setInven_dao(InvenDAO inven_dao) {
 		this.inven_dao = inven_dao;
 	}
 	

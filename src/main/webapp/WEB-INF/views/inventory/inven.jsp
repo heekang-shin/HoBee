@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<link rel="stylesheet" href="/hobee/resources/css/inven.css">
+	<link rel="icon" href="/hobee/resources/images/Favicon.png">
+	<link rel="stylesheet" href="/hobee/resources/css/main.css">
 
 	<script>
 	        function open_payment() {
@@ -53,6 +55,8 @@
 	
 	</head>
 	<body>
+	
+		<jsp:include page="/WEB-INF/views/header/header.jsp"></jsp:include>
 		<!--카테고리 시작-->
 		<div class="menu_wrap">
 			<div class="menu_container">
@@ -99,7 +103,7 @@
 			<main class="main-content">
 				<c:forEach var="vo" items="${list}">
 					<section class="content" data-category="${vo.category_num}">
-						<div class="con_box aboutinner aos-item best" data-aos="fade-up"
+						<div class="con_box aboutinner aos-item" data-aos="fade-up"
 							onclick="">
 							<img src="/hobee/resources/images/thumbnail.png" alt="thumbnail">
 							<h2>${vo.category_name}</h2>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @charset "UTF-8";
 
 #result{
@@ -20,3 +21,27 @@
 .result_header span{
 	font-weight: 800;
 }
+=======
+@charset "UTF-8";
+
+#result{
+	width: 1400px;
+	max-height: max-content;
+	margin:120px auto;
+	margin-bottom:500px;
+}
+
+#result h1{
+	text-align:center;
+	font-size:36px;
+	font-weight: 400;
+}
+
+.result_header{
+	margin-bottom: 60px;
+}
+
+.result_header span{
+	font-weight: 800;
+}
+>>>>>>> refs/heads/songhyorim

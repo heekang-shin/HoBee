@@ -1,8 +1,9 @@
-package kr.pr.hobee.vo;
+package kh.pr.hobee.vo;
 
 public class CategoryVO {
 	private int category_num;
 	private String category_name;
+	
 	public int getCategory_num() {
 		return category_num;
 	}

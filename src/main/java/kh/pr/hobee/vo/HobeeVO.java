@@ -1,4 +1,4 @@
-package kr.pr.hobee.vo;
+package kh.pr.hobee.vo;
 
 public class HobeeVO {
 	private int hb_idx, hb_price, num_of_p, user_id, hb_tot_num, category_num;

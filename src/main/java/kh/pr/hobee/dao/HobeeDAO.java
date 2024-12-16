@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import kr.pr.hobee.vo.HobeeVO;
+import kh.pr.hobee.vo.HobeeVO;
 
 public class HobeeDAO {
 

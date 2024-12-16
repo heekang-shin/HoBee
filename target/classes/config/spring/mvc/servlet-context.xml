@@ -26,18 +26,20 @@
 	<!-- Autowired사용을 위한 속성 -->
 	<context:annotation-config/>
 	
-	<!-- 
-	<beans:bean class="kh.pr.hobee.HomeController"></beans:bean>
+	<!--  
+	
 	<beans:bean class="kh.pr.hobee.controller.InvenController">
 		<beans:constructor-arg ref="inven_daoBean"/>
 	</beans:bean>
-	<beans:bean class="kh.pr.hobee.controller.PayController"></beans:bean>
+	-->
 	
+	<beans:bean class="kh.pr.hobee.controller.InvenController">
+		<beans:property name="inven_dao"  ref="inven_daoBean"/>
+	</beans:bean>	
 
-	<beans:bean class="kh.pr.hobee.controller.MainController">
-		<beans:property name="hobeeDao" ref="hobee_dao_bean"></beans:property>
-	</beans:bean>
- -->
+	<beans:bean class="kh.pr.hobee.controller.PayController"></beans:bean>
+
+
  
  <beans:bean class="kh.pr.hobee.controller.MainController">
  	<beans:property name="hobeedao" ref="hobee_dao_bean"/>

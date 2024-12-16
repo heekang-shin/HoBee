@@ -7,13 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.pr.hobee.dao.InvenDAO;
-import kr.pr.hobee.vo.CategoryVO;
+import kh.pr.hobee.vo.CategoryVO;
 
 @Controller
 public class InvenController {
 	
 	InvenDAO inven_dao;
-	public InvenController(InvenDAO inven_dao) {
+	public void setInven_dao(InvenDAO inven_dao) {
 		this.inven_dao = inven_dao;
 	}
 	

@@ -9,8 +9,8 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="kr.pr.hobee.vo.CategoryVO" alias="category"/>
-		<typeAlias type="vo.HobeeVO" alias="hobee"/>
+		<typeAlias type="kh.pr.hobee.vo.CategoryVO" alias="category"/>
+		<typeAlias type="kh.pr.hobee.vo.HobeeVO" alias="hobee"/>
 	</typeAliases>
 	
 	<mappers>

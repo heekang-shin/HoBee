@@ -84,6 +84,8 @@
 			</div>
 		</div>
 		<!--카테고리 끝-->
+		
+		<!-- 리스트 시작 -->
 		<div class="inven_container">
 			<div class="sidebar">
 				<nav class="nav">
@@ -110,6 +112,8 @@
 				</c:forEach>
 			</main>
 		</div>
+		<!-- 리스트 끝 -->
+		
 		<br>
 	
 		<input type="button" value="결제하기" onclick="open_payment()">

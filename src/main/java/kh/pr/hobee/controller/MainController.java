@@ -56,7 +56,7 @@ public class MainController {
 	//모임등록 페이지 이동
 		@RequestMapping("apply_list.do")
 		public String applyList() {
-			return Common.VIEW_PATH + "/apply/apply_list.jsp";
+			return Common.VIEW_PATH + "apply/apply_list.jsp";
 		}
 
 }

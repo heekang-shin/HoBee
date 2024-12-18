@@ -6,24 +6,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- best 제품 조회 -->
 <select id="hobee_best_list" resultType="hobee">
-    select * from hobee
- 
+	SELECT * FROM hobee
+	ORDER BY num_of_p DESC
 </select>
 
 <!-- pick 제품 조회 -->
 <select id="hobee_pick_list" resultType="hobee">
 	select * from hobee
-  
-=======
-<select id="hobee_list" resultType="hobee">
-select * from hobee
->>>>>>> refs/heads/master
+	ORDER BY hb_price DESC
 </select>
-
-
-<!-- 신규 제품 상위 4개 조회 -->
+ 
+<!-- 신규 제품 조회 -->
 <select id="hobee_new_list" resultType="hobee">
-select * from hobee
+	SELECT * FROM hobee
+	WHERE hb_write_date >= SYSDATE - 30
+	ORDER BY hb_write_date DESC
 </select>
 
 <!-- 헤더, 검색된 제품 조회 -->

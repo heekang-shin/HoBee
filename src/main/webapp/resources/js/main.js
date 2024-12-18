@@ -1,14 +1,5 @@
 window.onload = function(){
 
-    //메인배너 슬라이드
-    setInterval(function(){
-        $("#slide_container>ul").delay('2500');
-        $("#slide_container>ul").animate({marginLeft:'-1860'},500);
-        $("#slide_container>ul").delay('2500');
-        $("#slide_container>ul").animate({marginLeft:'-3720'},500);
-        $("#slide_container>ul").delay('2500');
-        $("#slide_container>ul").animate({marginLeft:'0'},500);
-    });
 
     //top버튼
     $(document).ready(function() {

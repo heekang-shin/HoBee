@@ -76,8 +76,7 @@
 
 					<div class="con_box aboutinner aos-item best" data-aos="fade-up"
 						onclick="">
-						<img src="/hobee/resources/images/${vo.l_image}.png"
-							alt="thumbnail">
+						<img src="/hobee/resources/images/${vo.s_image}.png" alt="thumbnail">
 						<h2>${vo.hb_title}</h2>
 						<p>
 							<fmt:formatNumber value="${vo.hb_price}"/>
@@ -91,6 +90,8 @@
 			</div>
 		</div>
 	</c:if>
+
+
 
 	<!-- 푸터 시작-->
 	<jsp:include page="/WEB-INF/views/footer/footer.jsp"></jsp:include>

@@ -17,6 +17,9 @@
 <script>
 	window.onload = function(){
 		let search = document.getElementById("array_select");
+		if (search==null){
+			search="new";
+		}
 		search.value = '${param.arr}';
 	  }
 

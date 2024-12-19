@@ -14,6 +14,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where category_num like #{category}||'%'
 	</select>
 
+	<!-- 선택한 카테고리에 해당하는 모임만 조회 -->
+	<select id="hobee_list"
+			resultType="hobee"
+			parameterType="int">
+			select * from hobee
+			where category_num like #{category}||'%'
+			order by hb_write_date
+	</select>
+	
+
+	<!-- 선택한 카테고리에 해당하는 모임만 조회 -->
+	<select id="hobee_list_best"
+			resultType="hobee"
+			parameterType="int">
+			select * from hobee
+			where category_num like #{category}||'%'
+			order by num_of_p desc
+	</select>
 
 </mapper>
 

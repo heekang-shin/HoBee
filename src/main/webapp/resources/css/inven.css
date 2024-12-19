@@ -70,9 +70,7 @@ ul li {
 .inven_container{
 	width: 1400px;
 	margin: 0 auto;
-	background-color: #ffffd5;
 	display: flex;
-	font-family: Arial, sans-serif;
 }
 
 .sidebar {

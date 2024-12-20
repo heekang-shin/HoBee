@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>회원가입</title>
       <link rel="stylesheet" href="resources/css/main.css">
+      <link rel="stylesheet" href="resources/css/CreateAccount_form.css">
   <link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
 		integrity="sha384-eVWmY1Vz02L/uIBq0e4F5rj2Xg3TUZ3I7sAxvnN4+7xj2pkF5+pw0PPxWtrGvFnZ"
@@ -70,53 +71,54 @@
 			</div>
 		</div>
 		<!--헤더 끝-->
+		
+<!-- 회원가입 제목 -->
+<div id="signupHeader">
+    <h1 id="signupTitle">회원가입</h1>
+</div>
 
-  <!-- 회원가입 폼 -->
-  <form>
-    <table>
-      <tr>
-        <th>이름 *</th>
-        <td><input id="username" type="text" name="username" required></td>
-      </tr>
-      <tr>
-        <th>아이디 *</th>
-        <td>
-          <input id="id" type="text" name="id" required>
-          <input type="button" value="중복확인" onclick="chk()">
-        </td>
-      </tr>
-      <tr>
-        <th>비밀번호 *</th>
-        <td><input id="userpwd" type="password" name="userpwd" required></td>
-      </tr>
-      <tr>
-        <th>휴대폰 번호 *</th>
-        <td>
-          <input id="phone" type="text" name="phone" placeholder="010-1234-5678" required>
-          <button type="button">인증번호 발송</button>
-          <div id="recaptcha-container"></div>
-        </td>
-      </tr>
-      <tr id="verificationSection">
-        <th>인증번호 *</th>
-        <td>
-          <input id="verificationCode" type="text" name="verificationCode" required>
-          <button type="button">인증번호 확인</button>
-        </td>
-      </tr>
-      <tr>
-        <th>이메일 *</th>
-        <td><input id="useremail" type="email" name="useremail" required></td>
-      </tr>
-      <tr>
-        <th>생년월일 *</th>
-        <td><input id="birthdate" type="date" name="birthdate" required></td>
-      </tr>
-    </table>
-    <div>
-      <button type="submit">가입하기</button>
-    </div>
-  </form>
+<!-- 회원가입 폼 -->
+<div id="signupContainer">
+    <form id="signupForm" name="signupForm">
+        <!-- 이름 위에 검은 선 -->
+        <div class="black-line"></div>
+        <div class="form-group">
+            <label for="username">이름 *</label>
+            <input id="username" type="text" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="userId">아이디 *</label>
+            <div class="input-with-button">
+                <input id="userId" type="text" name="userId" placeholder="아이디 입력" required>
+                <button type="button" class="btn-inline" onclick="chk()">중복확인</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">비밀번호 *</label>
+            <input id="password" type="password" name="password" placeholder="문자, 숫자 포함 8자 이상" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">비밀번호 확인 *</label>
+            <input id="confirmPassword" type="password" name="confirmPassword" required>
+        </div>
+        <div class="form-group">
+            <label for="email">이메일 *</label>
+            <input id="email" type="email" name="email" placeholder="이메일 입력" required>
+        </div>
+        <div class="form-group">
+            <label for="birthdate">생년월일 *</label>
+            <input id="birthdate" type="date" name="birthdate" required>
+        </div>
+    </form>
+</div>
+
+<!-- 가입하기 버튼 -->
+<div id="signupFooter">
+    <button type="submit" form="signupForm">가입하기</button>
+</div>
+
+
+
 
   <!-- 푸터 -->
   <footer>

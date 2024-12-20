@@ -1,0 +1,110 @@
+@charset "UTF-8";
+/* 회원가입 제목 */
+#signupHeader {
+    text-align: center;
+    margin-bottom: 10px; /* 아래 여백 증가 */
+    margin-top: 50px; /* 위 여백 증가 */
+}
+
+#signupTitle {
+    font-size: 50px; /* 제목 크기 증가 */
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 10px; /* 아래 여백 증가 */
+}
+
+/* 이름 위의 검은 선 */
+.black-line {
+    height: 2px;
+    background-color: #000;
+    margin: 0 auto 20px; /* 아래 여백 증가 */
+    width: 100%;
+}
+
+/* 전체 컨테이너 */
+#signupContainer {
+    width: 600px; /* 컨테이너 너비 증가 */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 40px 0; /* 상하 여백 증가 */
+}
+
+/* 회원가입 폼 */
+#signupForm .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px; /* 폼 그룹 간격 증가 */
+    padding: 0 30px; /* 좌우 여백 증가 */
+    position: relative;
+    border-bottom: 1px solid #dcdcdc; /* 회색 선 유지 */
+}
+
+#signupForm .form-group label {
+    width: 150px; /* 레이블 너비 증가 */
+    font-size: 20px; /* 폰트 크기 증가 */
+    margin-right: 20px; /* 레이블과 필드 간격 증가 */
+    color: #222;
+    text-align: right;
+}
+
+#signupForm .form-group input {
+    flex: 1;
+    height: 50px; /* 입력 필드 높이 증가 */
+    border: 1px solid #dcdcdc;
+    border-radius: 0; /* 둥근 모서리를 제거 */
+    padding: 0 15px; /* 입력 필드 내부 여백 증가 */
+    font-size: 18px; /* 입력 필드 글자 크기 증가 */
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.input-with-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-button input {
+    flex: 1;
+    padding-right: 100px; /* 버튼 공간 증가 */
+}
+
+.btn-inline {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    height: 40px; /* 버튼 높이 증가 */
+    padding: 0 20px; /* 버튼 내부 여백 증가 */
+    background-color: #fff;
+    color: #222;
+    border: 1px solid #dcdcdc;
+    font-size: 16px; /* 버튼 글자 크기 증가 */
+    border-radius: 0; /* 둥근 모서리를 제거 */
+    cursor: pointer;
+}
+
+.btn-inline:hover {
+    background-color: #f0f0f0;
+}
+
+/* 가입하기 버튼 */
+#signupFooter {
+    text-align: center;
+    margin-bottom: 60px; /* 하단 여백 증가 */
+}
+
+#signupFooter button {
+    width: 200px; /* 버튼 너비 증가 */
+    height: 60px; /* 버튼 높이 증가 */
+    background-color: #222;
+    color: #fff;
+    font-size: 20px; /* 버튼 글자 크기 증가 */
+    border: none;
+    border-radius: 0; /* 둥근 모서리를 제거 */
+    cursor: pointer;
+}
+
+#signupFooter button:hover {
+    background-color: #555;
+}

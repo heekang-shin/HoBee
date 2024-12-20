@@ -10,9 +10,29 @@
     <script src="/hobee/resources/js/address.js"></script>
     <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Summernote -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            $('#editor').summernote({
+            	width: '100%',
+            	height: 300,                 // 에디터 높이
+                placeholder: '프로그램 내용을 입력하세요',
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+
             // 동적으로 날짜 입력 필드 추가
             function addDate() {
                 const container = document.getElementById('date-container');
@@ -29,6 +49,7 @@
                 // 새로운 div로 각 입력 필드와 삭제 버튼을 묶음
                 const newDiv = document.createElement('div');
                 newDiv.style.marginTop = '10px';
+                newDiv.style.borderRadius = '4px';
                 newDiv.className = 'date-box';
 
                 // 날짜 입력 필드 생성
@@ -76,7 +97,7 @@
                 const poststart = f.hb_poststart.value;
                 const postend = f.hb_postend.value;
                 const address = f.address.value;
-                const hb_content = f.hb_content ? f.hb_content.value : '';
+                const hb_content = $('#editor').summernote('code');
 
                 // 유효성 체크
                 if (hb_title === '') {
@@ -114,6 +135,11 @@
                     return;
                 }
 
+                if (hb_content === '') {
+                    alert("프로그램 내용을 입력해 주세요.");
+                    return;
+                }
+
                 // 폼 전송 처리
                 f.action = 'apply_insert.do';
                 f.method = 'post';
@@ -134,6 +160,7 @@
     <link rel="icon" href="/hobee/resources/images/Favicon.png">
     <link rel="stylesheet" href="/hobee/resources/css/main.css">
     <link rel="stylesheet" href="/hobee/resources/css/applyForm.css">
+    
 </head>
 
 <body>
@@ -205,6 +232,12 @@
                     <input type="text" id="sample6_extraAddress" placeholder="참고항목">
                 </div>
                 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+            </div>
+
+            <!-- Summernote 추가 -->
+            <div class="form-box">
+                <label>프로그램 내용&nbsp;<b class="req">*</b></label>
+                <textarea id="editor" name="hb_content"></textarea>
             </div>
 
             <!-- 버튼 -->

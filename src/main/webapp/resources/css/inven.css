@@ -23,6 +23,7 @@ ul li {
     height: 120px;
     margin: 60px auto;
     margin-bottom: 120px;
+    
 }
 
 .menu_container {
@@ -70,6 +71,7 @@ ul li {
 	width: 1400px;
 	margin: 0 auto;
 	display: flex;
+	border-top:1px solid #dcdcdc;
 }
 
 .sidebar {

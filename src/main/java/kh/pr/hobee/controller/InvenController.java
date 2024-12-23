@@ -21,21 +21,21 @@ public class InvenController {
 	@RequestMapping("/select_list.do")
 	public String selectlist(Model model, int category, String arr) {
 		
+		//모임 목록의 정렬 방식의 초기값을 최신순으로 설정
 		String sel= "new";
 		
+		//전달 받은 모임 목록 정렬 방식이 null이 아닐경우
 		if(arr!=null) {
-			
 			sel=arr;
 		}
 		
-		List<CategoryVO> cate_list = inven_dao.selectInven(category);
-		List<HobeeVO> hobee_list=null;
+		List<CategoryVO> cate_list = inven_dao.selectInven(category); //카테고리 하위의 세부 카테고리 받아오기
+		List<HobeeVO> hobee_list=null; //모임을 받아오고 전달하기 위한 list 생성
 		
+		//정렬 방식에 따라 mapper의 쿼리문에 orderby를 다르게 주기 위한 if문 
 		if(sel.equals("new")) {
-			System.out.println(sel);
-			hobee_list = inven_dao.selectHobee(category);
+			hobee_list = inven_dao.selectHobee(category); 
 		} else if(sel.equals("best")) {
-			System.out.println(sel);
 			hobee_list = inven_dao.selectHobee_best(category);
 		}
 		

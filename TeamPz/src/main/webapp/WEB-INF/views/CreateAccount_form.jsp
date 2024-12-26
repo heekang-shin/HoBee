@@ -69,6 +69,8 @@
             username.setCustomValidity("");
         }
 
+        //휴대폰 번호 검증
+        if(!phone.value.trim())
         // 아이디 검증
         if (!id.value.trim()) {
             id.setCustomValidity("아이디를 입력해주세요.");
@@ -215,6 +217,10 @@
         <label for="username">이름 *</label>
         <input id="username" type="text" name="username" required>
       </div>
+      <div class="form-group">
+  		<label for="phone">휴대폰 번호 *</label>
+ 		 <input id="phone" type="tel" name="phone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
+	</div> 
       <div class="form-group input-with-button">
         <label for="id">아이디 *</label>
         <input id="id" type="text" name="id" placeholder="아이디 입력" required>

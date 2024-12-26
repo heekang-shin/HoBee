@@ -1,10 +1,33 @@
 @charset "UTF-8";
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
+:root {
+    --font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    --border-gray: #dcdcdc;
+    --header-bg: #fff;
+    --header-text: #222222;
+    --placeholder-color: #a2a2a2;
+    --banner-text-color: #f2f2f2;
+    --banner-hover-bg: #222222;
+    --button-bg: #ffe14d;
+    --button-text-color: #222222;
+    --dot-color: rgba(255, 255, 255, 0.5);
+    --dot-active-color: #fff;
+    --menu-hover-border: #dcdcdc;
+    --content-title-color: #222222;
+    --content-desc-color: #474747;
+    --footer-bg: #f6f6f6;
+    --footer-text: #474747;
+    --footer-link-color: #222222;
+    --footer-terms-border: #222222;
+    --top-btn-bg: #222222;
+    --top-btn-text-color: #fff;
+}
+
 * {
     padding: 0;
     margin: 0;
-    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    font-family: var(--font-family);
 }
 
 a {
@@ -15,17 +38,13 @@ ul li {
     list-style: none;
 }
 
-:root {
-    --border-gray: #dcdcdc;
-}
-
 /*헤더 시작*/
 #header {
     position: sticky;
     top: 0px;
     width: 100%;
-    background-color: #fff;
-    border-bottom: 1px solid #DCDCDC;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-gray);
     z-index: 999;
 }
 
@@ -40,14 +59,25 @@ ul li {
     width: 460px;
     height: 42px;
     border-radius: 8px;
-    border: 1px solid #DCDCDC;
+    border: 1px solid var(--border-gray);
 }
 
 #header_inner h1 a {
     font-size: 28px;
     line-height: 80px;
     float: left;
-    color: #222222;
+    color: var(--header-text);
+}
+
+/*헤더 반응형*/
+@media screen and (min-width: 768px) {
+    #header_inner h1 a {
+        font-size: 28px;
+    }
+
+    #header input[type=search] {
+        width: 460px;
+    }
 }
 
 /*헤더 끝*/
@@ -72,22 +102,10 @@ ul li {
 }
 
 input::placeholder {
-    color: #A2A2A2;
+    color: var(--placeholder-color);
     font-size: 16px;
     position: absolute;
 }
-
-/* 검색창 x버튼 
-input::-ms-clear,
-input::-ms-reveal{
-	display:none;width:0;height:0;
-}
-input::-webkit-search-decoration,
-input::-webkit-search-cancel-button,
-input::-webkit-search-results-button,
-input::-webkit-search-results-decoration{
-	display:none;
-}*/
 
 /*검색창 끝*/
 
@@ -106,7 +124,7 @@ input::-webkit-search-results-decoration{
 
 .snb li a {
     font-size: 15px;
-    color: #222222;
+    color: var(--header-text);
     margin: 0 8px;
 }
 
@@ -159,17 +177,15 @@ input::-webkit-search-results-decoration{
     border-radius: 3px 0 0 3px;
 }
 
-
 .prev:hover,
 .next:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-
 .text {
     width: 1400px;
     height: 540px;
-    color: #f2f2f2;
+    color: var(--banner-text-color);
     font-size: 15px;
     position: absolute;
     top: 0;
@@ -187,7 +203,7 @@ input::-webkit-search-results-decoration{
     top: 40%;
     font-size: 18px;
     line-height: 26px;
-    color: #F0F0F0;
+    color: #f0f0f0;
 }
 
 .text a {
@@ -196,12 +212,9 @@ input::-webkit-search-results-decoration{
     height: 60px;
     position: absolute;
     top: 54%;
-    color: #fff;
-    font-size: 18px;
-    line-height: 60px;
     background-color: #fff;
     border-radius: 8px;
-    color: #222222;
+    color: var(--button-text-color);
     font-size: 16px;
     box-sizing: border-box;
     font-weight: 700;
@@ -210,7 +223,7 @@ input::-webkit-search-results-decoration{
 }
 
 .text a:hover {
-    background-color: #222222;
+    background-color: var(--banner-hover-bg);
     color: #fff;
     text-decoration: none;
 }
@@ -220,7 +233,7 @@ input::-webkit-search-results-decoration{
     width: 30px;
     height: 30px;
     display: inline-block;
-    background-color: #FFE14D;
+    background-color: var(--button-bg);
     border-radius: 15px;
     position: absolute;
     top: 25%;
@@ -231,7 +244,7 @@ input::-webkit-search-results-decoration{
 }
 
 .text a:hover::after {
-    color: #222222;
+    color: var(--button-text-color);
 }
 
 #dot {
@@ -246,7 +259,7 @@ input::-webkit-search-results-decoration{
     height: 10px;
     width: 10px;
     margin: 0 2px;
-    background-color:rgba(255, 255, 255, 0.5);
+    background-color: var(--dot-color);
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;
@@ -254,9 +267,8 @@ input::-webkit-search-results-decoration{
 
 .active,
 .dot:hover {
-    background-color: #fff;
+    background-color: var(--dot-active-color);
 }
-
 
 .fade {
     -webkit-animation-name: fade;
@@ -292,6 +304,7 @@ input::-webkit-search-results-decoration{
 
 /*슬라이드 배너 끝*/
 
+
 /*카테고리 메뉴 시작*/
 .menu_wrap {
     width: 1400px;
@@ -313,11 +326,10 @@ input::-webkit-search-results-decoration{
     float: left;
     margin-left: 60px;
     text-align: center;
-
 }
 
 .menu_box li img:hover {
-    border: 1px solid #DCDCDC;
+    border: 1px solid var(--menu-hover-border);
     border-radius: 18px;
     box-sizing: border-box;
 }
@@ -329,7 +341,7 @@ input::-webkit-search-results-decoration{
 .menu_box a {
     display: block;
     text-align: center;
-    color: #222222;
+    color: var(--header-text);
     font-size: 16px;
     font-weight: 600;
     margin-top: 6px;
@@ -340,7 +352,6 @@ input::-webkit-search-results-decoration{
 }
 
 /*카테고리 메뉴 끝*/
-
 
 /* 콘텐츠 시작 */
 .con_container {
@@ -364,7 +375,7 @@ input::-webkit-search-results-decoration{
     position: absolute;
     top: 0;
     right: 0;
-    color: #222222;
+    color: var(--header-text);
     font-weight: 600;
     font-size: 18px;
 }
@@ -374,7 +385,7 @@ input::-webkit-search-results-decoration{
     width: 24px;
     line-height: 24px;
     border-radius: 12px;
-    background-color: #FFE14D;
+    background-color: var(--button-bg);
     display: inline-block;
     text-align: center;
     margin-left: 8px;
@@ -401,13 +412,13 @@ input::-webkit-search-results-decoration{
 
 .con_box h2 {
     font-size: 22px;
-    color: #222222;
+    color: var(--content-title-color);
     margin-top: 16px;
 }
 
 .con_box p {
     font-size: 20px;
-    color: #474747;
+    color: var(--content-desc-color);
     margin-top: 8px;
     font-weight: 600;
     display: inline-block;
@@ -417,8 +428,8 @@ input::-webkit-search-results-decoration{
     display: inline-block;
     width: 46px;
     line-height: 24px;
-    background-color: #f6f6f6;
-    color: #A8A8A8;
+    background-color: var(--badge-bg);
+    color: var(--badge-text-color);
     margin-left: 4px;
     text-align: center;
     border-radius: 12px;
@@ -437,8 +448,8 @@ input::-webkit-search-results-decoration{
 /*best 태그*/
 .best::after {
     content: "BEST";
-    color: #222222;
-    background: #FFE14D;
+    color: var(--header-text);
+    background: var(--button-bg);
     width: 60px;
     padding: 22px 0;
     text-align: center;
@@ -479,7 +490,7 @@ input::-webkit-search-results-decoration{
     left: 5%;
     font-size: 18px;
     font-weight: 700;
-    color: #474747;
+    color: var(--content-desc-color);
 }
 
 .sub_baneer_box h3 {
@@ -488,7 +499,7 @@ input::-webkit-search-results-decoration{
     left: 5%;
     font-size: 32px;
     font-weight: 700;
-    color: #222222;
+    color: var(--content-title-color);
 }
 
 .sub_baneer_box a {
@@ -498,12 +509,12 @@ input::-webkit-search-results-decoration{
     position: absolute;
     top: 28%;
     right: 5%;
-    color: #fff;
+    color: var(--header-bg);
     font-size: 18px;
     line-height: 60px;
-    background-color: #fff;
+    background-color: var(--header-bg);
     border-radius: 8px;
-    color: #222222;
+    color: var(--header-text);
     font-size: 16px;
     box-sizing: border-box;
     font-weight: 700;
@@ -512,8 +523,8 @@ input::-webkit-search-results-decoration{
 }
 
 .sub_baneer_box a:hover {
-    background-color: #222222;
-    color: #fff;
+    background-color: var(--header-text);
+    color: var(--header-bg);
     text-decoration: none;
 }
 
@@ -522,7 +533,7 @@ input::-webkit-search-results-decoration{
     width: 30px;
     height: 30px;
     display: inline-block;
-    background-color: #FFE14D;
+    background-color: var(--button-bg);
     border-radius: 15px;
     position: absolute;
     top: 25%;
@@ -533,7 +544,7 @@ input::-webkit-search-results-decoration{
 }
 
 .sub_baneer_box a:hover::after{
-    color: #222222;
+    color: var(--button-text-color);
 }
 
 /*서브 배너 끝*/
@@ -543,7 +554,7 @@ input::-webkit-search-results-decoration{
 footer {
     width: 100%;
     height: 380px;
-    border-top: 1px solid #DCDCDC;
+    border-top: 1px solid var(--border-gray);
     bottom:0;
 }
 
@@ -563,14 +574,14 @@ footer {
 
 .footer_left h1 {
     font-size: 28px;
-    color: #222222;
+    color: var(--header-text);
     display: inline-block;
     margin-bottom: 20px;
 }
 
 .footer_left .company_info li {
     font-size: 15px;
-    color: #474747;
+    color: var(--footer-text);
     margin-bottom: 8px;
 }
 
@@ -588,14 +599,14 @@ footer {
 }
 
 .terms li a {
-    color: #222222;
+    color: var(--footer-link-color);
 }
 
 .terms li::before {
     content: '';
     display: inline-block;
     height: 10px;
-    border-left: 1px solid #222222;
+    border-left: 1px solid var(--footer-terms-border);
     box-sizing: border-box;
     padding-left: 10px;
 }
@@ -608,7 +619,7 @@ footer {
 .footer_left p {
     font-size: 14px;
     margin-top: 20px;
-    color: #A2A2A2;
+    color: var(--footer-info-text-color);
 }
 
 .footer_right {
@@ -644,7 +655,7 @@ footer {
 #toTop {
     width: 56px;
     height: 56px;
-    background-color: #222222;
+    background-color: var(--top-btn-bg);
     border-radius: 50%;
     position: fixed;
     right: 2%;
@@ -652,7 +663,7 @@ footer {
     display: block;
     text-align: center;
     line-height: 56px;
-    color: #fff;
+    color: var(--top-btn-text-color);
     font-size: 15px;
     font-weight: 500;
     z-index: 9999;

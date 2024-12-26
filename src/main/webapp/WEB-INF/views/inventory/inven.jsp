@@ -15,10 +15,14 @@
 <script src="/hobee/resources/js/httpRequest.js"></script>
 
 <script>
-	window.onload = function(){
-		let search = document.getElementById("array_select");
-		search.value = '${param.arr}';
-	  }
+	window.onload = function () {
+   	 	const search = document.getElementById("array_select");
+ 	    if (search) {
+    	    // 초기값 설정
+    	    const paramArr = '${param.arr}'; // JSP에서 전달된 값
+     	    search.value = paramArr || 'new'; // 전달된 값이 없으면 기본값으로 'new' 설정
+  	 	 }
+	};
 
 	        function open_payment() {
 	            // 새 창의 URL 설정
@@ -122,8 +126,8 @@
 		<main class="main-content">
 
 			<select id="array_select" onchange="changeArr();">
-				<option value="new">최신순</option>
-				<option value="best">인기순</option>
+				<option class="option" value="new">최신순</option>
+				<option class="option" value="best">인기순</option>
 			</select>
 
 			<c:forEach var="vo" items="${hobee_list}">

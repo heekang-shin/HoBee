@@ -7,6 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="user_list" resultType="users">
 		select * from users
 	</select>
+	
+	
 	<insert id="user_insert" parameterType="users">
 		INSERT INTO Users (
 		USER_ID,
@@ -19,11 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		) VALUES
 		(
 		users_seq.NEXTVAL,
-		#{username},
+		#{user_name},
 		#{id},
-		#{userpwd},
-		#{useremail},
-		TO_DATE(#{birthdate}, 'YYYY-MM-DD'),
+		#{user_pwd},
+		#{usere_mail},
+		TO_DATE(#{birth_date}, 'YYYY-MM-DD'),
 		SYSDATE
 		)
 	</insert>
@@ -41,6 +43,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE ID = #{id} <!-- id와 파라미터 이름 일치 -->
 </select>
 
+<!-- 이름과 이메일을 통한 id조회   -->
+<select id="findUserId" parameterType="users" resultType="users">
+	Select * From Users where user_name = #{user_name} and user_email = #{user_email} 
+
+</select>
+
+<!-- id와 이메일을 통한 비밀번호 조회   -->
+<select id="findUserpwd" parameterType="vo.UsersVO" resultType="String">
+    SELECT user_pwd
+    FROM Users
+    WHERE id = #{id}
+      AND user_email = #{user_email}
+</select>
 
 </mapper>
 

@@ -126,7 +126,7 @@
             <input type="button" class="login-button" value="로그인" onclick="login();">
         </form>
         <div class="links">
-            <a href="#">아이디/비밀번호 찾기</a> | <a href="CreateAccount_form.do">회원가입</a>
+            <a href="find.do">아이디/비밀번호 찾기</a> | <a href="CreateAccount_form.do">회원가입</a>
         </div>
         <div class="social-login">
             <a href="naver_login.do"><img src="resources/images/naver.png" alt="네이버 로그인" class="social-icon"></a>

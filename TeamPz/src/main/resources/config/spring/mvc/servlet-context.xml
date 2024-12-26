@@ -35,7 +35,9 @@
 	
 	<beans:bean class="com.kh.team.NaverLoginController"/>
 	<beans:bean class="com.kh.team.KakaoLoginController"/>
-
+	<beans:bean class="com.kh.team.EmailController">
+		<beans:constructor-arg ref="mss"/>
+	</beans:bean>
 </beans:beans>
 
 

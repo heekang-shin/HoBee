@@ -98,14 +98,14 @@ public class KakaoLoginController {
 
             // UsersVO 객체에 사용자 정보 매핑
             UsersVO user = new UsersVO();
-            user.setSocialType("KAKAO");
-            user.setSocialId(userInfo.optString("id"));
-            user.setUsername(userInfo.getJSONObject("kakao_account").getJSONObject("profile").optString("nickname", "카카오 사용자"));
-            user.setUseremail(userInfo.getJSONObject("kakao_account").optString("email", ""));
+            user.setSocial_Type("KAKAO");
+            user.setSocial_Id(userInfo.optString("id"));
+            user.setUser_name(userInfo.getJSONObject("kakao_account").getJSONObject("profile").optString("nickname", "카카오 사용자"));
+            user.setUser_email(userInfo.getJSONObject("kakao_account").optString("email", ""));
 
             // 세션에 사용자 정보 저장
             session.setAttribute("loggedInUser", user);
-            logger.info("사용자 정보 저장 완료. 사용자 이름: {}", user.getUsername());
+            logger.info("사용자 정보 저장 완료. 사용자 이름: {}", user.getUser_name());
 
             return "redirect:/main.do"; // 메인 페이지로 이동
         } catch (Exception e) {

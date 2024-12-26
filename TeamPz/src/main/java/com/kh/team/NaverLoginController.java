@@ -74,10 +74,10 @@ public class NaverLoginController {
 
             // UsersVO 객체에 네이버 사용자 정보 매핑
             UsersVO user = new UsersVO();
-            user.setSocialType("NAVER");
-            user.setSocialId(userInfo.getString("id"));
-            user.setUsername(userInfo.optString("name", "네이버 사용자"));
-            user.setUseremail(userInfo.optString("email", ""));
+            user.setSocial_Type("NAVER");
+            user.setSocial_Id(userInfo.getString("id"));
+            user.setUser_name(userInfo.optString("name", "네이버 사용자"));
+            user.setUser_email(userInfo.optString("email", ""));
             user.setPhone(userInfo.optString("mobile", ""));
 
             // 세션에 사용자 정보 저장

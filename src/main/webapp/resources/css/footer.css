@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+/*푸터 시작*/
+footer {
+    width: 100%;
+    height: 380px;
+    border-top: 1px solid var(--border-gray);
+    bottom:0;
+}
+
+.footer_container {
+    width: 1400px;
+    height: 260px;
+    margin: 60px auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer_left {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.footer_left h1 {
+    font-size: 28px;
+    color: var(--header-text);
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.footer_left .company_info li {
+    font-size: 15px;
+    color: var(--footer-text);
+    margin-bottom: 8px;
+}
+
+.footer_left .company_info span {
+    font-weight: 700;
+}
+
+.terms li {
+    font-size: 16px;
+    font-weight: 600;
+    float: left;
+    margin-top: 20px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.terms li a {
+    color: var(--footer-link-color);
+}
+
+.terms li::before {
+    content: '';
+    display: inline-block;
+    height: 10px;
+    border-left: 1px solid var(--footer-terms-border);
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+
+.terms li:first-child::before {
+    border: none;
+    padding-left: 0;
+}
+
+.footer_left p {
+    font-size: 14px;
+    margin-top: 20px;
+    color: var(--footer-info-text-color);
+}
+
+.footer_right {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.cs {
+    margin-bottom: 30px;
+    margin-top: 60px;
+}
+
+.cs h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.sns h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.sns li {
+    float: left;
+    margin-right: 10px;
+}
+
+/*푸터 끝*/

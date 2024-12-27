@@ -25,7 +25,7 @@
 	     	$("#id").reset();
 	     }
 		 </script>
-	
+	<link rel="stylesheet" href="/hobee/resources/css/header.css">
 	</head>
 	
 	<body>
@@ -49,9 +49,6 @@
 	
 				<!--snb 시작-->
 				<ul class="snb">
-					<li><img src="/hobee/resources/images/registration_icon.png"
-						alt="모임등록" /> <a href="apply_list.do">모임등록</a></li>
-	
 					<li><img src="/hobee/resources/images/shop_icon.png" alt="찜" />
 						<a href="shop.do">찜목록</a></li>
 	
@@ -61,6 +58,7 @@
 					<li><img src="/hobee/resources/images/login_form.png" alt="로그인" />
 						<a href="login.do">로그인</a></li>
 	
+					<li><a href="host_login.do" class="host">호스트센터</a></li>
 				</ul>
 				<!--snb 끝-->
 			</div>

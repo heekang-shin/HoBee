@@ -16,6 +16,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"></script>
 
+	<!-- ajax -->
+	<script src="/hobee/resources/js/httpRequest.js"></script>
+		
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // 프로그램 날짜 추가 버튼
@@ -46,8 +49,8 @@
             // Summernote 초기화
             $('#editor').summernote({
                 width: 'calc(100% - 200px)',
-                height: 300,
-                placeholder: '프로그램 내용을 입력하세요',
+                height: 400,
+                placeholder: '프로그램 상세 내용을 입력해 주세요.',
                 toolbar: [
                     ['style', ['bold', 'italic', 'underline', 'clear']],
                     ['font', ['strikethrough', 'superscript', 'subscript']],
@@ -126,6 +129,9 @@
             const hbContent = $('#editor').summernote('code');
             const fileInput = document.getElementById('file-input');
 
+            const password = form.password.value.trim();
+            const confirmPassword = form.confirm_password.value.trim();
+
             // 유효성 검사
             if (!hbTitle) {
                 alert("프로그램명을 입력해 주세요.");
@@ -172,10 +178,26 @@
                 return;
             }
 
+            if (!password) {
+                alert("비밀번호를 입력해 주세요.");
+                return;
+            }
+
+            if (password.length < 6) {
+                alert("비밀번호는 최소 6자 이상이어야 합니다.");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert("비밀번호가 일치하지 않습니다.");
+                return;
+            }
+
             // 폼 전송
             form.action = 'apply_insert.do'; 
             form.method = 'post';
             form.submit();
+        
         }
     </script>
 
@@ -222,6 +244,8 @@
                     <option value="6">사교</option>
                 </select>
             </div>
+            
+        
 
 			<div class="form-box">
                 <label>인원 수&nbsp;<b class="req">*</b></label>
@@ -275,6 +299,17 @@
                     <button type="button" class="delete-btn" id="file-delete-btn">삭제</button>
                 </div>
             </div>
+
+			<!-- 비밀번호 입력 -->
+			<div class="form-box pass-box">
+			    <label>비밀번호&nbsp;<b class="req">*</b></label>
+			    <input type="password" name="password" placeholder="비밀번호를 입력해 주세요.">
+			</div>
+			
+			<div class="form-box pass-box">
+			    <label>비밀번호 확인&nbsp;<b class="req">*</b></label>
+			    <input type="password" name="confirm_password" placeholder="비밀번호를 다시 입력해 주세요.">
+			</div>
 
             <!-- 버튼 -->
             <div class="btn-box">

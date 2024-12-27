@@ -32,17 +32,6 @@
 </head>
 
 <body>
-
-	<!-- 헤더 시작-->
-	<jsp:include page="/WEB-INF/views/header/header.jsp"></jsp:include>
-	<!-- 헤더 끝 -->
-
-	<!-- 메인텍스트 시작-->
-	<div class="page-title">
-		<h1>모임등록</h1>
-	</div>
-	<!-- 메인텍스트 끝-->
-
 	<!-- 검색창 시작-->
 	<div class="search-container">
 		<form>
@@ -89,22 +78,12 @@
 			</thead>
 
 			<tbody>
-			<!-- 리스트가 없는 경우 
-			<c:if test="${ empty apply_board_list}">
-				리스트가 없습니다.
-			</c:if>-->
-			
+			<tr>
 			<!-- 리스트가 있는 경우 -->
 			<c:forEach begin="1" end="10">
-				<tr>
-					<td>1</td>
-					<td class="status">답변대기</td>
-					<td><span class="category">스포츠</span></td>
-					<td class="title">스포츠 프로그램 신청합니다.</td>
-					<td>홍길동</td>
-					<td>2024-00-00</td>
-				</tr>
+				
 			</c:forEach>
+			<tr>
 			</tbody>
 		</table>
 	</div>
@@ -130,12 +109,6 @@
 	</div>
 	<!-- 페이징 끝 -->
 	
-	<!-- 푸터 시작-->
-	<jsp:include page="/WEB-INF/views/footer/footer.jsp"></jsp:include>
-	<!-- 푸터 끝 -->
-
-	<!--top버튼 시작-->
-	<a id="toTop" href="#">TOP</a>
-	<!--top버튼 끝-->
+	
 </body>
 </html>

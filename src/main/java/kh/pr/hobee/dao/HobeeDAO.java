@@ -34,7 +34,6 @@ public class HobeeDAO {
 	
 	//검색어조회
 	public List<HobeeVO> searchSelect(String search_text) {
-	 
 	    // 검색어가 있으면 DB에서 조회
 	    List<HobeeVO> search_list = sqlSession.selectList("h.hobee_search_list", search_text);
 	    return search_list;

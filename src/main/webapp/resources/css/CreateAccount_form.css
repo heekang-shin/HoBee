@@ -99,7 +99,6 @@
 #checkResult {
     color: red;
     font-size: 14px;
-    margin-top: 5px;
     text-align: right;
     padding-right: 30px; /* 텍스트 필드와 동일한 오른쪽 여백 */
 }

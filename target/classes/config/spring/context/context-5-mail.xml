@@ -7,8 +7,8 @@
 		<property name="host" value="smtp.naver.com"/>
 		<property name="port" value="465"/>
 		<property name="defaultEncoding" value="utf-8"/>
-		<property name="username" value=""/>
-		<property name="password" value=""/>
+		<property name="username" value="ae097709"/>
+		<property name="password" value="ehdiwl44"/>
 		
 		<property name="javaMailProperties">
 			<props>
@@ -19,10 +19,11 @@
 			</props>
 		</property>
 	</bean>
-		
-	<!-- <bean id="mss" class="service.MailSendService">
+		<bean id="mss" class="service.MailSendService">
 		<constructor-arg ref="mailSender"/>
-	</bean>	 -->	
+	</bean>	 
+		
+
 		
 </beans>
 

@@ -19,6 +19,11 @@
 		
 	</bean>
 		
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="factoryBean" />
+	</bean>
+		
 </beans>
 
 

@@ -62,7 +62,8 @@
         let confirmPassword = document.getElementById("confirmPassword");
         let useremail = document.getElementById("useremail");
         let birthdate = document.getElementById("birthdate");
-        let phone = document.getElementById('phone'); // 폼 요소에 phone id가 있다고 가정
+        let phone = document.getElementById('phone');
+
         // 이름 검증
         if (!username.value.trim()) {
             username.setCustomValidity("이름을 입력해주세요.");
@@ -70,17 +71,17 @@
             username.setCustomValidity("");
         }
         
-        //휴대폰 번호 검증
+        // 휴대폰 번호 검증
         let phoneValue = phone.value.trim();
-        let phoneRegex = /^010[\\d-]{7,}$/;
+        let phoneRegex = /^\d{3}-\d{3,4}-\d{4}$/;
         if (!phoneValue) {
             phone.setCustomValidity("휴대폰 번호를 입력해주세요.");
         } else if (!phoneRegex.test(phoneValue)) {
-            phone.setCustomValidity("010 포함 8자 이상의 숫자를 입력해주세요. 예: 010-1234-5678");
+            phone.setCustomValidity("올바른 휴대폰 번호 형식을 입력해주세요. 예: 010-1234-5678");
         } else {
             phone.setCustomValidity("");
         }
-        
+
         // 아이디 검증
         if (!id.value.trim()) {
             id.setCustomValidity("아이디를 입력해주세요.");
@@ -90,10 +91,10 @@
             id.setCustomValidity("");
         }
 
-        
         // 비밀번호 검증
-        if (!userpwd.value.trim() || userpwd.value.length < 8) {
-            userpwd.setCustomValidity("비밀번호는 8자 이상이어야 합니다.");
+        let passwordRegex = /^(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$/;
+        if (!userpwd.value.trim() || !passwordRegex.test(userpwd.value)) {
+            userpwd.setCustomValidity("비밀번호는 최소 8자 이상이어야 하며, 숫자와 특수문자를 각각 1개 이상 포함해야 합니다.");
         } else {
             userpwd.setCustomValidity("");
         }
@@ -106,8 +107,9 @@
         }
 
         // 이메일 검증
-        if (!useremail.value.trim()) {
-            useremail.setCustomValidity("이메일을 입력해주세요.");
+        let emailRegex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        if (!useremail.value.trim() || !emailRegex.test(useremail.value)) {
+            useremail.setCustomValidity("유효한 이메일 주소를 입력해주세요.");
         } else {
             useremail.setCustomValidity("");
         }
@@ -154,7 +156,6 @@
 </head>
 <body>
 
-
 <jsp:include page="/WEB-INF/views/header/header.jsp"></jsp:include>
 
   <!-- 회원가입 제목 -->
@@ -175,13 +176,11 @@
         <input id="id" type="text" name="id" placeholder="아이디 입력" required>
         <button type="button" class="btn-inline" onclick="chk();">중복확인</button>
       </div>
-       <div class="form-group input-with-button">
+      <div id="checkResult"></div>
+      <div class="form-group">
         <label for="phone">휴대폰 번호 *</label>
-        <input id="phone" type="tel" name="phone" placeholder="010-1234-5678" required pattern="^010[\d-]{7,}$">
-
+        <input id="phone" type="tel" name="phone" placeholder="010-1234-5678" required>
       </div>
-      
-      <div id="checkResult" style="font-size: 14px; color: red; text-align: right;"></div>
       <div class="form-group">
         <label for="userpwd">비밀번호 *</label>
         <input id="userpwd" type="password" name="userpwd" placeholder="문자, 숫자 포함 8자 이상" required>

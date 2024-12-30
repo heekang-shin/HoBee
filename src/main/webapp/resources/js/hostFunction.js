@@ -1,12 +1,9 @@
-document.addEventListener('DOMContentLoaded', function () {
+// 헤더 스크롤
+window.addEventListener('scroll', function () {
     const header = document.getElementById('header');
-    const scrollThreshold = 50; // 스크롤 임계값 (px)
-
-    window.addEventListener('scroll', function () {
-        if (window.scrollY > scrollThreshold) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
+    if (window.scrollY > 0) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
 });

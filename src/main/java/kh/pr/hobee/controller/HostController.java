@@ -1,6 +1,7 @@
 package kh.pr.hobee.controller;
 
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kh.pr.hobee.common.Common;
@@ -21,11 +22,12 @@ public class HostController {
 		return Common.VIEW_PATH + "host/host_apply_form.jsp";
 	}
 
-	// apply_form_check로 이동
 	@RequestMapping("host_apply_insert.do")
-	public String applyInsert() {
-
-		return Common.VIEW_PATH + "host/host_apply_fin.jsp";
+	public String hostInsert(String hb_content) {
+		System.out.println("에디터 내용: " + hb_content);
+		return Common.VIEW_PATH + "main/main.jsp";
 	}
 
+	
+	
 }

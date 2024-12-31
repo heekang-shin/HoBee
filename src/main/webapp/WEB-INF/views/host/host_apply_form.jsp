@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="/hobee/resources/css/host/common.css">
 	<link rel="stylesheet" href="/hobee/resources/css/host/host_apply_form.css">
 	   
-	<!-- 헤더 스크롤 이펙트-->
+	<!-- host공통 스크립트-->
 	<script src="/hobee/resources/js/hostFunction.js"></script>
 	
 	<!-- 주소 -->
@@ -26,182 +26,168 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"></script>
     
+   <!-- 카테고리 -->
+   <script src="/hobee/resources/js/category.js"></script>
+   
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // 프로그램 날짜 추가 버튼
-            const addButton = document.querySelector('.add-btn');
-            if (addButton) {
-                addButton.addEventListener('click', addDate);
+    document.addEventListener('DOMContentLoaded', () => {
+        $('#editor').summernote({
+            width: 'calc(100% - 200px)',
+            height: 400,
+            placeholder: '프로그램 상세 내용을 입력해 주세요.',
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ],
+            callbacks: {
+                onImageUpload: function(files) {
+                    uploadImage(files[0], this);
+                }
             }
-
-            // 파일 삭제 버튼 초기화
-            const deleteButton = document.getElementById('file-delete-btn');
-            const fileInput = document.getElementById('file-input');
-
-            if (deleteButton && fileInput) {
-                deleteButton.addEventListener('click', () => {
-                    if (fileInput.value) {
-                        if (confirm("파일을 삭제하시겠습니까?")) {
-                            fileInput.value = ""; // 파일 입력 필드 초기화
-                            alert("파일이 삭제되었습니다.");
-                        } else {
-                            alert("파일 삭제가 취소되었습니다.");
-                        }
-                    } else {
-                        alert("삭제할 파일이 없습니다.");
-                    }
-                });
-            }
-
-            // Summernote 초기화
-            $('#editor').summernote({
-                width: 'calc(100% - 200px)',
-                height: 400,
-                placeholder: '프로그램 상세 내용을 입력해 주세요.',
-                toolbar: [
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
-                    ['font', ['strikethrough', 'superscript', 'subscript']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['insert', ['link', 'picture', 'video']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                ]
-            });
         });
+    });
 
-        // 프로그램 날짜 추가 함수
-        function addDate() {
-            const container = document.getElementById('date-container');
-            if (!container) return; // 컨테이너가 없으면 종료
+    // 이미지 업로드 함수
+    function uploadImage(file, editor) {
+        const formData = new FormData();
+        formData.append("file", file);
 
-            // 현재 입력 필드 수 확인
-            const currentCount = container.getElementsByClassName('date-box').length;
-
-            // 최대 5개 제한
-            if (currentCount >= 5) {
-                alert('날짜 및 시간은 최대 5개까지만 추가할 수 있습니다.');
-                return;
+        // 이미지 업로드 요청
+        $.ajax({
+            url: '/uploadImage', // 이미지 업로드를 처리할 서버 엔드포인트
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(url) {
+                // 업로드된 이미지 URL을 에디터에 삽입
+                $(editor).summernote('insertImage', url);
+            },
+            error: function() {
+                alert('이미지 업로드 실패');
             }
+        });
+    }
 
-            // 새로운 div로 각 입력 필드와 삭제 버튼을 묶음
-            const newDiv = document.createElement('div');
-            newDiv.className = 'date-box';
-            newDiv.style.marginTop = '10px';
 
-            // 날짜 입력 필드 생성
-            const dateInput = document.createElement('input');
-            dateInput.type = 'date';
-            dateInput.name = 'hb_date[]';
-
-            // 시간 입력 필드 생성
-            const timeInput = document.createElement('input');
-            timeInput.type = 'time';
-            timeInput.name = 'hb_time[]';
-
-            // 삭제 버튼 생성
-            const deleteButton = document.createElement('button');
-            deleteButton.type = 'button';
-            deleteButton.textContent = '-삭제';
-            deleteButton.style.width = '50px';
-            deleteButton.style.height = '42px';
-            deleteButton.style.border = '1px solid #D5292F';
-            deleteButton.style.color = '#D5292F';
-            deleteButton.style.borderRadius = '4px';
-            deleteButton.style.backgroundColor = '#FCEEEE';
-            deleteButton.onclick = function () {
-                container.removeChild(newDiv);
-            };
-
-            // div에 입력 필드와 삭제 버튼 추가
-            newDiv.appendChild(dateInput);
-            newDiv.appendChild(timeInput);
-            newDiv.appendChild(deleteButton);
-
-            // 컨테이너에 div 추가
-            container.appendChild(newDiv);
-        }
+        
 
         // 폼 제출 함수
         function send(form) {
             // 폼 데이터 가져오기
-            const hbTitle = form.hb_title.value.trim();
-            const hbPrice = form.hb_price.value.trim().replace(/,/g, '');
-            const categoryNum = form.category_num.value;
-            const hbDates = Array.from(document.getElementsByName('hb_date[]'));
+            
+            /*타이틀*/
+            let hb_title = form.hb_title.value;
+            
+            /*가격, 쉼표 제거*/
+            let hb_price = form.hb_price.value.trim().replace(/,/g, ''); 
+            form.hb_price.value = hb_price; // 제거된 값을 다시 폼에 설정
+            
+            /*카테고리*/
+            let bigcategory = form.bigcategory.value;
+            let category_name = form.category_name.value;
+            
+            /*인원수*/            
+            let hb_tot_num = form.hb_tot_num.value; 
+            
+            /*날짜*/
+            let hb_date = form.hb_date.value; 
+            
+            /*시간*/
+            let hb_time = form.hb_time.value; 
+            
+            /*모임장소*/
+		   	// 각 필드 값 가져오기
+		    const postcode = document.getElementById('sample6_postcode').value.trim();
+		    const address = document.getElementById('sample6_address').value.trim();
+		    const detailAddress = document.getElementById('sample6_detailAddress').value.trim();
+		    const extraAddress = document.getElementById('sample6_extraAddress').value.trim();
+		
+		    // 빈 값을 제외하고 주소 병합
+		    const fullAddress = [postcode, address, detailAddress, extraAddress]
+		        .filter(value => value) // 빈 문자열 제거
+		        .join(' '); // 공백으로 병합
+		
+		    // 숨겨진 필드에 병합된 주소 설정
+		    form.hb_address.value = fullAddress;
+
+            /*웹에디터*/            
+            // 에디터 내용 가져오기
+		    let hb_content = $('#editor').summernote('code');
+		
+		    // 에디터 내용에서 HTML 태그 제거 후 확인
+		    let strippedContent = $('<div>').html(hb_content).text().trim();
+		    if (!strippedContent) {
+		        alert("프로그램 내용을 입력해 주세요.");
+		        return;
+		    }
+		
+		    // 숨겨진 필드에 설정
+		    form.hb_content.value = hb_content;
+
+            /* 
             const dateValues = hbDates.map(dateField => dateField.value);
             const postStart = form.hb_poststart.value;
             const postEnd = form.hb_postend.value;
-            const address = form.address.value.trim();
-            const hbContent = $('#editor').summernote('code');
-            const fileInput = document.getElementById('file-input');
+            
+            const fileInput = document.getElementById('file-input');*/
 
-            const password = form.password.value.trim();
-            const confirmPassword = form.confirm_password.value.trim();
+            /* 유효성 검사	
 
-            // 유효성 검사
-            if (!hbTitle) {
+            if (!hb_title) {
                 alert("프로그램명을 입력해 주세요.");
                 return;
             }
-
-            if (!hbPrice || isNaN(hbPrice)) {
-                alert("가격을 입력해 주세요.");
+            
+            if (!hb_price || isNaN(hb_price)) {
+                alert("가격을 올바르게 입력해 주세요.");
                 return;
             }
-
-            if (categoryNum === 'all') {
+            
+            if (bigcategory === 'all') {
                 alert("카테고리를 선택해 주세요.");
                 return;
             }
 
-            if (hbDates.length === 0 || dateValues.some(date => date === '')) {
-                alert("모든 프로그램 날짜를 입력해 주세요.");
+            if (category_name === 'all') {
+                alert("상세 카테고리를 선택해 주세요.");
                 return;
             }
-
-            if (!postStart) {
-                alert("모집 시작 날짜를 선택해 주세요.");
+            
+          
+            if (!hb_tot_num) {
+                alert("최대 인원 수를 입력해 주세요.");
                 return;
             }
-
-            if (!postEnd) {
-                alert("모집 종료 날짜를 선택해 주세요.");
+            
+            if (!hb_date) {
+                alert("프로그램 날짜를 선택해 주세요.");
                 return;
             }
-
+            
+            if (!hb_time) {
+                alert("프로그램 시간을 선택해 주세요.");
+                return;
+            }
+            
             if (!address) {
                 alert("모임 장소를 입력해 주세요.");
                 return;
             }
-
-            if (!hbContent || hbContent.trim() === '') {
+            */
+            
+            if (!hb_content || hb_content.trim() === '') {
                 alert("프로그램 내용을 입력해 주세요.");
                 return;
             }
 
-            if (!fileInput.value) {
-                alert("대표 이미지를 업로드해 주세요.");
-                return;
-            }
 
-            if (!password) {
-                alert("비밀번호를 입력해 주세요.");
-                return;
-            }
-
-            if (password.length < 6) {
-                alert("비밀번호는 최소 6자 이상이어야 합니다.");
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                alert("비밀번호가 일치하지 않습니다.");
-                return;
-            }
-
-            // 폼 전송
-            form.action = 'apply_insert.do'; 
+            form.action = 'host_apply_insert.do'; 
             form.method = 'post';
             form.submit();
         
@@ -227,25 +213,24 @@
 
 		<!--대시보드 영역-->
 		<div class="dashboard">
-
 		
 		    <form enctype="multipart/form-data">
-		        <input type="hidden" value="0" name="status"><!-- 게시상태 -->
 		        <div class="form-container">
 		            <div class="form-box">
 		                <label>프로그램명&nbsp;<b class="req">*</b></label>
 		                <input type="text" name="hb_title" placeholder="프로그램명을 입력해 주세요.">
 		            </div>
-		
+		            
 		            <div class="form-box">
-		                <label>가격&nbsp;<b class="req">*</b></label>
-		                <input name="hb_price" type="text" placeholder="금액을 입력해 주세요."
-		                    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />&nbsp;원
-		            </div>
+				        <label>가격&nbsp;<b class="req">*</b></label>
+				        <input type="text" name="hb_price" placeholder="금액을 입력해 주세요."
+				            oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />&nbsp;원
+				    </div>
+
 		
 		            <div class="form-box">
 		                <label>카테고리&nbsp;<b class="req">*</b></label>
-		                <select name="category_num">
+		                <select name="bigcategory" id="main-category">
 		                    <option value="all">전체</option>
 		                    <option value="1">운동/스포츠</option>
 		                    <option value="2">음악/악기</option>
@@ -255,23 +240,46 @@
 		                    <option value="6">사교</option>
 		                </select>
 		                
-		                 <select name="category_num">
-		                    <option value="all">전체</option>
-		                    <option value="1">운동/스포츠</option>
-		                    <option value="2">음악/악기</option>
-		                    <option value="3">공예/만들기</option>
-		                    <option value="4">자기계발</option>
-		                    <option value="5">게임/오락</option>
-		                    <option value="6">사교</option>
-		                </select>
+		                  <select id="sub-category" name="category_name" disabled>
+      					 	 <option value="all">전체</option>
+  						  </select>
 		            </div>
 		            
 					<div class="form-box">
 		                <label>인원 수&nbsp;<b class="req">*</b></label>
-		                <input name="num_of_p" type="text" placeholder="최대 인원수를 입력해 주세요."
-		                    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />&nbsp;명
+		                <input type="number" name="hb_tot_num" placeholder="0">&nbsp;명
+		            </div>
+		            
+		            <div class="form-box">
+		                <label>날짜&nbsp;<b class="req">*</b></label>
+		                <input name="hb_date" type="date">
+		             </div>
+		             
+		             <div class="form-box">
+		                <label>시간&nbsp;<b class="req">*</b></label>
+		                <input name="hb_time" type="time">
+		             </div>
+		            
+		            <div class="form-box addr-container">
+					    <label>모임 장소&nbsp;<b class="req">*</b></label>
+					    <div class="addr-box">
+		         			<input type="hidden" name="hb_address">
+					        <input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호">
+					        <input type="text" id="sample6_address" name="address" placeholder="주소"><br>
+					        <input type="text" id="sample6_detailAddress" name="detailAddress" placeholder="상세주소"><br>
+					        <input type="text" id="sample6_extraAddress" name="extraAddress" placeholder="참고항목">
+					    </div>
+					    <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+					</div>
+
+		            <!-- Summernote -->
+		            <div class="form-box edit-box">
+		                <label>프로그램 내용&nbsp;<b class="req">*</b></label>
+		                <input type="hidden" name="hb_content">
+		                <textarea id="editor" name="hb_content"></textarea>
 		            </div>
 		
+					<!-- 
 		            <div class="form-box date-wrap">
 		                <label>프로그램 날짜&nbsp;<b class="req">*</b></label>
 		                <div id="date-container">
@@ -281,7 +289,7 @@
 		                        <button type="button" class="add-btn">&#43추가</button>
 		                    </div>
 		                </div>
-		            </div>
+		            </div> 
 		
 		            <div class="form-box post-box">
 		                <label>모집 시작 날짜&nbsp;<b class="req">*</b></label>
@@ -293,22 +301,9 @@
 		                <input type="date" name="hb_postend">
 		            </div>
 		
-		            <div class="form-box addr-container">
-		                <label>모임 장소&nbsp;<b class="req">*</b></label>
-		                <div class="addr-box">
-		                    <input type="text" id="sample6_postcode" placeholder="우편번호">
-		                    <input type="text" id="sample6_address" name="address" placeholder="주소"><br>
-		                    <input type="text" id="sample6_detailAddress" name="detailaddress" placeholder="상세주소"><br>
-		                    <input type="text" id="sample6_extraAddress" placeholder="참고항목">
-		                </div>
-		                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-		            </div>
-		
-		            <!-- Summernote -->
-		            <div class="form-box edit-box">
-		                <label>프로그램 내용&nbsp;<b class="req">*</b></label>
-		                <textarea id="editor" name="hb_content"></textarea>
-		            </div>
+		            
+		 		-->
+		 		
 		
 		            <!-- 썸네일 -->
 		            <div class="form-box">
@@ -322,9 +317,9 @@
 		            <!-- 버튼 -->
 		            <div class="btn-box">
 		                <input type="button" value="취소하기" onclick="history.back();">
-		                 <input type="button" value="제출하기" onclick="location.href='host_apply_insert.do'">
+		                 <input type="button" value="제출하기" onclick="send(this.form);">
 		            </div>
-		        </div>
+		        </div> 
 		    </form>
 		    <!--신청 폼 끝 -->
 			

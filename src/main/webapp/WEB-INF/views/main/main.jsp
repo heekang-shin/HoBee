@@ -185,7 +185,8 @@
 
 				<li><img src="/hobee/resources/images/gathering_icon.png"
 					alt="gathering" onclick="location.href='select_list.do?category=6'">
-					<a href="select_list.do?category=6">사교</a></li>
+					<a href="select_list.do?category=6">사교</a>
+				</li>
 			</ul>
 		</div>
 	</div>

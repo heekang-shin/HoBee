@@ -33,7 +33,6 @@ public class MainController {
 		
 		//new 제품 조회
 		List<HobeeVO> new_list = hobeedao.pickSelect();
-		 System.out.println("list 사이즈: " + new_list.size());
 		model.addAttribute("new_list", new_list);
 		
 		return Common.VIEW_PATH + "main/main.jsp";

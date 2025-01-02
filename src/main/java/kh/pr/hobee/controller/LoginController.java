@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.pr.hobee.dao.UsersDAO;
 import kh.pr.hobee.vo.UsersVO;
+import util.BCryptPwd;
 
 @Controller
 public class LoginController {
@@ -46,18 +47,27 @@ public class LoginController {
 	public String showLoginForm() {
 		return kh.pr.hobee.common.Common.VIEW_PATH + "login/login_form.jsp";
 	}
-
+	// 로그인 처리
 	@ResponseBody
 	@RequestMapping("/Login.do")
 	public String processLogin(String id, String password, HttpSession session) {
-		UsersVO user = users_dao.select_id(id);
-		if (user != null && user.getUser_pwd().equals(password)) {
-			session.setAttribute("loggedInUser", user);
-			return "success";
-		} else {
-			return "fail";
-		}
+	    // DB에서 사용자 조회
+	    UsersVO user = users_dao.select_id(id);
+
+	    if (user != null) {
+	        BCryptPwd pwdUtil = new BCryptPwd();
+	        // 비밀번호 비교 (입력된 비밀번호와 DB 저장된 암호화된 비밀번호)
+	        boolean isValid = pwdUtil.decryption(user.getUser_pwd(), password);
+
+	        if (isValid) {
+	            session.setAttribute("loggedInUser", user); // 세션에 사용자 정보 저장
+	            return "success";
+	        }
+	    }
+
+	    return "fail"; // 로그인 실패
 	}
+
 
 	// 로그아웃 처리
 	@RequestMapping("/logout.do")
@@ -85,18 +95,25 @@ public class LoginController {
 			return "unknown";
 		}
 	}
-
 	// 회원가입 처리
 	@ResponseBody
 	@RequestMapping("/create_account.do")
 	public String processCreateAccount(UsersVO user) {
-		int result = users_dao.Create(user);
-		if (result > 0) {
-			return "success";
-		} else {
-			return "error";
-		}
+	    // 비밀번호 암호화
+	    BCryptPwd pwdUtil = new BCryptPwd();
+	    String encryptedPassword = pwdUtil.encryption(user.getUser_pwd()); // 입력된 비밀번호 암호화
+	    user.setUser_pwd(encryptedPassword); // 암호화된 비밀번호를 VO에 설정
+
+	    // DAO 호출 및 사용자 정보 저장
+	    int result = users_dao.Create(user);
+
+	    if (result > 0) {
+	        return "success";
+	    } else {
+	        return "error";
+	    }
 	}
+
 
 	// 회원가입 완료 페이지
 	@RequestMapping("/createAccount.do")

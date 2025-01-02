@@ -54,21 +54,22 @@
         xhr.send("id=" + encodeURIComponent(id)); // 서버로 요청 데이터 전송
     }
 
+    
     // 입력값 검증 함수
     function validateForm() {
-        let username = document.getElementById("username");
+        let user_name = document.getElementById("user_name");
         let id = document.getElementById("id");
-        let userpwd = document.getElementById("userpwd");
+        let user_pwd = document.getElementById("user_pwd");
         let confirmPassword = document.getElementById("confirmPassword");
-        let useremail = document.getElementById("useremail");
-        let birthdate = document.getElementById("birthdate");
+        let user_email = document.getElementById("user_email");
+        let birth_date = document.getElementById("birth_date");
         let phone = document.getElementById('phone');
 
         // 이름 검증
-        if (!username.value.trim()) {
-            username.setCustomValidity("이름을 입력해주세요.");
+        if (!user_name.value.trim()) {
+            user_name.setCustomValidity("이름을 입력해주세요.");
         } else {
-            username.setCustomValidity("");
+            user_name.setCustomValidity("");
         }
         
         // 휴대폰 번호 검증
@@ -93,14 +94,14 @@
 
         // 비밀번호 검증
         let passwordRegex = /^(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$/;
-        if (!userpwd.value.trim() || !passwordRegex.test(userpwd.value)) {
-            userpwd.setCustomValidity("비밀번호는 최소 8자 이상이어야 하며, 숫자와 특수문자를 각각 1개 이상 포함해야 합니다.");
+        if (!user_pwd.value.trim() || !passwordRegex.test(user_pwd.value)) {
+            user_pwd.setCustomValidity("비밀번호는 최소 8자 이상이어야 하며, 숫자와 특수문자를 각각 1개 이상 포함해야 합니다.");
         } else {
-            userpwd.setCustomValidity("");
+            user_pwd.setCustomValidity("");
         }
 
         // 비밀번호 확인 검증
-        if (userpwd.value !== confirmPassword.value) {
+        if (user_pwd.value !== confirmPassword.value) {
             confirmPassword.setCustomValidity("비밀번호가 일치하지 않습니다.");
         } else {
             confirmPassword.setCustomValidity("");
@@ -108,17 +109,17 @@
 
         // 이메일 검증
         let emailRegex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-        if (!useremail.value.trim() || !emailRegex.test(useremail.value)) {
-            useremail.setCustomValidity("유효한 이메일 주소를 입력해주세요.");
+        if (!user_email.value.trim() || !emailRegex.test(user_email.value)) {
+            user_email.setCustomValidity("유효한 이메일 주소를 입력해주세요.");
         } else {
-            useremail.setCustomValidity("");
+            user_email.setCustomValidity("");
         }
 
         // 생년월일 검증
-        if (!birthdate.value.trim()) {
-            birthdate.setCustomValidity("생년월일을 입력해주세요.");
+        if (!birth_date.value.trim()) {
+            birth_date.setCustomValidity("생년월일을 입력해주세요.");
         } else {
-            birthdate.setCustomValidity("");
+            birth_date.setCustomValidity("");
         }
 
         // 모든 입력 필드 검증 결과 반환
@@ -168,8 +169,8 @@
     <form id="signupForm" name="signupForm" novalidate>
       <div class="black-line"></div>
       <div class="form-group">
-        <label for="username">이름 *</label>
-        <input id="username" type="text" name="username" required>
+        <label for="user_name">이름 *</label>
+        <input id="user_name" type="text" name="user_name" required>
       </div>
       <div class="form-group input-with-button">
         <label for="id">아이디 *</label>
@@ -182,20 +183,20 @@
         <input id="phone" type="tel" name="phone" placeholder="010-1234-5678" required>
       </div>
       <div class="form-group">
-        <label for="userpwd">비밀번호 *</label>
-        <input id="userpwd" type="password" name="userpwd" placeholder="문자, 숫자 포함 8자 이상" required>
+        <label for="user_pwd">비밀번호 *</label>
+        <input id="user_pwd" type="password" name="user_pwd" placeholder="문자, 숫자 포함 8자 이상" required>
       </div>
       <div class="form-group">
         <label for="confirmPassword">비밀번호 확인 *</label>
         <input id="confirmPassword" type="password" name="confirmPassword" required>
       </div>
       <div class="form-group">
-        <label for="useremail">이메일 *</label>
-        <input id="useremail" type="email" name="useremail" placeholder="이메일 입력" required>
+        <label for="user_email">이메일 *</label>
+        <input id="user_email" type="email" name="user_email" placeholder="이메일 입력" required>
       </div>
       <div class="form-group">
-        <label for="birthdate">생년월일 *</label>
-        <input id="birthdate" type="date" name="birthdate" required>
+        <label for="birth_date">생년월일 *</label>
+        <input id="birth_date" type="date" name="birth_date" required>
       </div>
       <div id="signupFooter">
         <button type="button" onclick="submitForm()">가입하기</button>

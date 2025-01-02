@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ID,
 		USER_PWD,
 		USER_EMAIL,
+		PHONE,
 		BIRTH_DATE,
 		JOIN_DATE
 		) VALUES
@@ -25,6 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{id},
 		#{user_pwd},
 		#{user_email},
+		#{phone},
 		TO_DATE(#{birth_date}, 'YYYY-MM-DD'),
 		SYSDATE
 		)

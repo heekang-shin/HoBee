@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+:root {
+    --font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    --main-color:#FFE14D;
+    --border-gray: #dcdcdc;
+    --header-bg: #fff;
+    --header-text: #222222;
+    --placeholder-color: #a2a2a2;
+    --banner-text-color: #f2f2f2;
+    --banner-hover-bg: #222222;
+    --button-bg: #ffe14d;
+    --button-text-color: #222222;
+    --dot-color: rgba(255, 255, 255, 0.5);
+    --dot-active-color: #fff;
+    --menu-hover-border: #dcdcdc;
+    --content-title-color: #222222;
+    --content-desc-color: #474747;
+    --footer-bg: #f6f6f6;
+    --footer-text: #474747;
+    --footer-link-color: #222222;
+    --footer-terms-border: #222222;
+    --top-btn-bg: #222222;
+    --top-btn-text-color: #fff;
+    --color-black:#222222;
+    --color-light-gray:#f8f8f8;
+}
+
+/*헤더 시작*/
+#header {
+    position: sticky;
+    top: 0px;
+    width: 100%;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-gray);
+    z-index: 999;
+}
+
+#header_inner {
+    width: 1400px;
+    height: 80px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#header input[type=search] {
+    width: 460px;
+    height: 42px;
+    border-radius: 8px;
+    border: 1px solid var(--border-gray);
+}
+
+#header_inner h1 a {
+    font-size: 28px;
+    line-height: 80px;
+    float: left;
+    color: var(--header-text);
+}
+
+/*헤더 끝*/
+
+
+
+/*snb 시작*/
+.snb {
+    line-height: 80px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+}
+
+.snb li {
+    float: left;
+}
+
+.snb li a {
+    font-size: 15px;
+    color: var(--header-text);
+    margin: 0 8px;
+}
+
+.snb li::before {
+    content: '';
+    display: inline-block;
+    height: 10px;
+    border-left: 1px solid var(--border-gray);
+    box-sizing: border-box;
+    padding-left: 8px;
+}
+
+.snb li:first-child::before {
+    border-left: none;
+    padding-left: 0;
+}
+
+.snb li:nth-child(4)::before{
+	 border-left: none;
+    padding-left: 0;
+}
+
+.snb li:last-child a{
+	width:90px;
+	line-height: 34px;
+	text-align: center;
+	display: inline-block;
+	background-color:var(--main-color);
+	border:1.5px solid var(--color-black);
+	border-radius: 4px;	
+	text-align: center;
+	color:var(--color-black);
+	font-weight: 600;
+}
+
+/*snb 끝*/
+
+/*검색창 시작*/
+#search_inner {
+    width: 460px;
+    line-height: 80px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#search_inner input {
+    padding-left: 40px;
+    box-sizing: border-box;
+}
+
+.search-icon {
+    position: absolute;
+    top: 26px;
+    left: 10px;
+}
+
+input::placeholder {
+    color: var(--placeholder-color);
+    font-size: 16px;
+    position: absolute;
+}
+
+/*검색창 끝*/

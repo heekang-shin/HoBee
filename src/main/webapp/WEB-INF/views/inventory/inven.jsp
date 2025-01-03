@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insert title here</title>
+<title>Hobee 프로그램 목록</title>
 <link rel="stylesheet" href="/hobee/resources/css/inven.css">
 <link rel="icon" href="/hobee/resources/images/Favicon.png">
 
@@ -24,13 +24,6 @@
 	     	    search.value = paramArr || 'new'; // 전달된 값이 없으면 기본값으로 'new' 설정
 	  	 	 }
 		};
-	
-		function open_payment() {
-	            // 새 창의 URL 설정
-			const url = 'payment.do'; // 스프링 컨트롤러에서 처리할 URL
-			const options = 'width=680,height=700,top=150,left=580';
-			window.open(url, '_blank', options);
-		}
 		        
 		document.addEventListener('DOMContentLoaded', () => {
 			const buttons = document.querySelectorAll('.nav ul li button');
@@ -136,14 +129,14 @@
 				<option class="option" value="best">인기순</option>
 			</select>
 		
-			<!-- 카테고리에서 선택된 모임 출력 -->
+			<!-- 선택된 카테고리에 해당하는 모임들 출력 -->
 			<c:forEach var="vo" items="${hobee_list}">
 				<section class="content" id="select-cate"
 					data-category="${vo.category_num}">
 					<div class="con_box aboutinner aos-item" data-aos="fade-up"
 						onclick="">
 						<img src="/hobee/resources/images/${vo.s_image}.png"
-							alt="thumbnail">
+							alt="thumbnail" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">
 						<h2>${vo.hb_title}</h2>
 						<p>${vo.hb_price}원</p>
 						<span>1인당</span>
@@ -153,8 +146,44 @@
 		</main>
 	</div>
 	<br>
-
-	<input type="button" value="결제하기" onclick="open_payment()">
 	<jsp:include page="/WEB-INF/views/footer/footer.jsp"></jsp:include>
 </body>
+
+		<!--카테고리 끝-->
+		
+		<!-- 리스트 시작 -->
+		<div class="inven_container">
+			<div class="sidebar">
+				<nav class="nav">
+					<ul>
+						<li><button data-category="all">전체 보기</button></li>
+						<c:forEach var="vo" items="${list}">
+							<li><button data-category="${vo.category_num}">${vo.category_name}</button></li>
+						</c:forEach>
+					</ul>
+				</nav>
+			</div>
+	
+			<main class="main-content">
+				<c:forEach var="vo" items="${list}">
+					<section class="content" data-category="${vo.category_num}">
+						<div class="con_box aboutinner aos-item best" data-aos="fade-up"
+							onclick="">
+							<img src="/hobee/resources/images/thumbnail.png" alt="thumbnail">
+							<h2>${vo.category_name}</h2>
+							<p>30,000원</p>
+							<span>1인당</span>
+						</div>
+					</section>
+				</c:forEach>
+			</main>
+		</div>
+		<!-- 리스트 끝 -->
+		
+		<br>
+	
+		<input type="button" value="결제하기" onclick="open_payment()">
+	
+	</body>
+
 </html>

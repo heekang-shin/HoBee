@@ -68,6 +68,12 @@ public class LoginController {
 	    return "fail"; // 로그인 실패
 	}
 
+	//에러페이지
+	@RequestMapping("/errorPage.do")
+	public String errorPage() {
+		return kh.pr.hobee.common.Common.VIEW_PATH+ "login/errorPage.jsp"; // errorPage.jsp 또는 View 이름
+	}
+
 
 	// 로그아웃 처리
 	@RequestMapping("/logout.do")

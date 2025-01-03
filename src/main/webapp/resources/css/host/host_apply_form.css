@@ -134,37 +134,85 @@
 }
 
 
-/*웹 에디터*/
-.edit-box{
-  	width:100%;
-}
-
-.edit-box label{
-	display: inline-block;
-	width: 200px;
-	height: auto;
-	text-align: left;
-	padding-right: 20px;
-	box-sizing: border-box;
-	font-weight: 500;
-	padding-left: 10px;
-}
-
-/*썸네일*/
-.img-box {
+/*프로그램 상세*/
+.edit-box textarea {
 	width: calc(100% - 200px);
+	height:250px;
+	 border: 1px solid var(--border-color-gray);
+	 border-radius: var(--border-radius);
+    resize: none; /* 크기 조절을 막음 */
+    overflow: auto; /* 스크롤이 필요한 경우 자동으로 추가 */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* 이미지 업로드 */
+.upload-box {
     display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.image-preview {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border:1px solid var(--border-color-gray);
+    border-radius:8px;
+}
+
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+
+.upload-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.upload-inner span {
+    color: var(--color-gray);
+    margin: 0;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
     align-items: center;
 }
 
-.img-box input[type="file"] {
+.delete-btn {
+	width:80px;
+	height:42px;
+    background-color: var(--color-white);
+    color: var(--color-red);
+    border: 1px solid var(--color-red);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease;
+}
+
+.delete-btn:hover {
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+
+.upload-inner input[type="file"] {
 	width:100%;
     height: 42px;
     cursor: pointer;
     box-sizing: border-box;
 }
 
-.img-box input[type="file"]::-webkit-file-upload-button {
+.upload-inner input[type="file"]::-webkit-file-upload-button {
     background-color: var(--color-white); 
     color:var(--color-black); 
     border: 1px solid var(--color-black);
@@ -174,28 +222,13 @@
     transition: background-color var(--transition-duration) ease; 
 }
 
-.delete-btn{
-	height: 42px;
-    width: 50px;
-	background-color: var(--color-red-sub); 
-    color: var(--color-red); 
-    border: 1px solid var(--color-red); 
-    border-radius: var(--border-radius); 
-    cursor: pointer;
-    transition: background-color var(--transition-duration) ease; 
-}
-
-.pass-box input[type="password"]{
-	width: calc(100% - 380px);
-	height: 46px;
-	background-color: var(--color-light-gray);
-	padding-left: 10px;
-	box-sizing: border-box;
-	border: none;
-}
-
 
 /*폼 끝*/
+
+
+
+
+
 
 /*폼 제출 버튼 시작*/
 .btn-box {

@@ -47,6 +47,9 @@
  
  <beans:bean class="kh.pr.hobee.controller.HostController"></beans:bean>
  
+ 
+ 
+ 
 </beans:beans>
 
 

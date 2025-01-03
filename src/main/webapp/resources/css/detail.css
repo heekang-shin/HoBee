@@ -18,7 +18,7 @@
 
 /*왼쪽 컨테이너*/
 .left_container {
-	flex: 2; /* 가로 비율 설정 */
+	width: 910px; /* 가로 비율 설정 */
 	box-sizing: border-box;
 }
 

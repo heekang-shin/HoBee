@@ -44,4 +44,11 @@ public class InvenController {
 		return "/WEB-INF/views/inventory/inven.jsp";
 	}
 	
+	@RequestMapping("/hobee_detail.do")
+	public String detail(Model model, int hbidx) {
+		HobeeVO hobee_vo = inven_dao.hobeeDetail(hbidx);
+		model.addAttribute("hobee",hobee_vo);
+		return "/WEB-INF/views/detail/detail.jsp";
+	}
+	
 }

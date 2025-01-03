@@ -29,4 +29,9 @@ public class InvenDAO {
 		return list;
 	}
 	
+	public HobeeVO hobeeDetail(int hb_idx) {
+		HobeeVO vo = sqlSession.selectOne("i.hobee_detail", hb_idx);
+		return vo;
+	}
+	
 }

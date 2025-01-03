@@ -27,5 +27,10 @@ public class HobeeDAO {
 		    List<HobeeVO> search_list = sqlSession.selectList("h.hobee_search_list", search_text);
 		    return search_list;
 		}
+		
+		public HobeeVO hobeeDetail(int hb_idx) {
+			HobeeVO vo = sqlSession.selectOne("h.hobee_detail", hb_idx);
+			return vo;
+		}
 	
 }

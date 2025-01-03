@@ -22,9 +22,3 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
-
-# target 폴더 제외
-target/
-
-# pom.properties 파일 무시
-target/m2e-wtp/web-resources/META-INF/maven/kh.pr/hobee/pom.properties

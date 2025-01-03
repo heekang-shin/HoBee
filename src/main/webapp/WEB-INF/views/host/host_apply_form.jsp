@@ -85,6 +85,11 @@
         		alert("가격을 올바르게 입력해 주세요.");
         		return;
         	}
+        	
+        	if (hb_price <= 0) {
+        	    alert("가격은 0보다 커야 합니다.");
+        	    return;
+        	}
         		            
         	if (bigcategory === 'all') {
         		alert("카테고리를 선택해 주세요.");
@@ -128,7 +133,7 @@
         		return;
         	}
         	*/
-
+			form.method='post';
             form.action = 'host_apply_insert.do';
             form.submit();
         }
@@ -152,7 +157,7 @@
 
 			<!-- 대시보드 영역 -->
 			<div class="dashboard">
-				<form method="post" enctype="multipart/form-data">
+				<form enctype="multipart/form-data">
 					<div class="form-container">
 						<!-- 프로그램명 -->
 						<div class="form-box">
@@ -231,23 +236,62 @@
 						<!-- 썸네일 -->
 						<div class="form-box">
 					    <label>썸네일 <b class="req">*</b></label>
+					
 					    <div class="upload-box">
 					        
 					        <div class="image-preview" id="thumbnail-preview">
 					            <img src="/hobee/resources/images/img_icon.png" alt="썸네일 미리보기">
 					        </div>
-					
+						  
 					        <div class="upload-inner">
 					            <p>썸네일<span> (권장크기 : 1000x1000px)</span></p>
 					            <div class="button-group">
-					                <input type="file" name="s_image" id="thumbnail-input" accept=".png" onchange="updateImage('thumbnail-preview', 'thumbnail-input', 'preview')">
+					                <input type="file" name="s_image_filename" id="thumbnail-input" accept=".png" onchange="updateImage('thumbnail-preview', 'thumbnail-input', 'preview')">
 					                <button type="button" class="delete-btn" onclick="updateImage('thumbnail-preview', 'thumbnail-input', 'remove')">삭제</button>
 					            </div>
 					        </div>
 					    </div>
 					</div>
 					
-
+					<!-- 대표이미지 
+						<div class="form-box">
+					    <label>대표이미지 <b class="req">*</b></label>
+					
+					    <div class="upload-box">
+					        
+					        <div class="image-preview" id="thumbnail-preview">
+					            <img src="/hobee/resources/images/img_icon.png" alt="썸네일 미리보기">
+					        </div>
+						  
+					        <div class="upload-inner">
+					            <p>대표이미지<span> (권장크기 : 1000x1000px)</span></p>
+					            <div class="button-group">
+					                <input type="file" name="l_image_filename" id="thumbnail-input" accept=".png" onchange="updateImage('thumbnail-preview', 'thumbnail-input', 'preview')">
+					                <button type="button" class="delete-btn" onclick="updateImage('thumbnail-preview', 'thumbnail-input', 'remove')">삭제</button>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+					
+										<div class="form-box">
+					    <label>상세이미지 <b class="req">*</b></label>
+					
+					    <div class="upload-box">
+					        
+					        <div class="image-preview" id="thumbnail-preview">
+					            <img src="/hobee/resources/images/img_icon.png" alt="썸네일 미리보기">
+					        </div>
+						  
+					        <div class="upload-inner">
+					            <p>상세이미지<span> (권장크기 : 1000x1000px)</span></p>
+					            <div class="button-group">
+					                <input type="file" name="in_image_filename" id="thumbnail-input" accept=".png" onchange="updateImage('thumbnail-preview', 'thumbnail-input', 'preview')">
+					                <button type="button" class="delete-btn" onclick="updateImage('thumbnail-preview', 'thumbnail-input', 'remove')">삭제</button>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+						-->
 						<!-- 버튼 -->
 						<div class="btn-box">
 							<input type="button" value="취소하기" onclick="history.back();">

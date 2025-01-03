@@ -8,6 +8,8 @@ public class HobeeVO {
 
     // MultipartFile 필드
     private MultipartFile s_image_filename; // 썸네일 이미지 파일
+    private MultipartFile l_image_filename; // 대표이미지 이미지 파일
+    private MultipartFile in_image_filename; // 상세이미지 이미지 파일
 
 	public int getHb_idx() {
 		return hb_idx;
@@ -23,6 +25,14 @@ public class HobeeVO {
 
 	public void setHb_price(int hb_price) {
 		this.hb_price = hb_price;
+	}
+
+	public MultipartFile getIn_image_filename() {
+		return in_image_filename;
+	}
+
+	public void setIn_image_filename(MultipartFile in_image_filename) {
+		this.in_image_filename = in_image_filename;
 	}
 
 	public int getNum_of_p() {
@@ -99,6 +109,14 @@ public class HobeeVO {
 
 	public String getS_image() {
 		return s_image;
+	}
+
+	public MultipartFile getL_image_filename() {
+		return l_image_filename;
+	}
+
+	public void setL_image_filename(MultipartFile l_image_filename) {
+		this.l_image_filename = l_image_filename;
 	}
 
 	public void setS_image(String s_image) {

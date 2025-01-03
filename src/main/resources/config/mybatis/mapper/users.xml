@@ -45,11 +45,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE ID = #{id} <!-- id와 파라미터 이름 일치 -->
 </select>
 
-<!-- 이름과 이메일을 통한 id조회   -->
-<select id="findUserId" parameterType="users" resultType="users">
-	Select * From Users where user_name = #{user_name} and user_email = #{user_email} 
-
+<!-- 이름과 이메일을 통한 id 조회 -->
+<select id="findUserId" parameterType="users" resultType="String">
+    SELECT id
+    FROM Users
+    WHERE user_name = #{user_name}
+      AND user_email = #{user_email}
 </select>
+
 
 <!-- id와 이메일을 통한 비밀번호 조회   -->
 <select id="findUserpwd" parameterType="users" resultType="String">

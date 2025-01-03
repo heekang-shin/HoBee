@@ -38,11 +38,25 @@ public class UsersDAO {
 		return sqlSession.selectOne("u.select_id", id);
 	}
 	
-	//이름, 이메일을 통한 id 조회
-	public UsersVO findUserId( UsersVO vo) {
-		UsersVO res = sqlSession.selectOne("u.findUserId",vo);
-		return res;
+	// 이름과 이메일을 통한 ID 조회
+	public String findUserId(UsersVO vo) {
+	    System.out.println("DAO로 전달된 이름: " + vo.getUser_name());
+	    System.out.println("DAO로 전달된 이메일: " + vo.getUser_email());
+	    
+	    // 쿼리 실행
+	    String result = sqlSession.selectOne("u.findUserId", vo);
+	    
+	    // 디버깅: 쿼리 실행 결과 확인
+	    if (result != null) {
+	        System.out.println("쿼리 실행 결과 ID: " + result);
+	    } else {
+	        System.out.println("쿼리 실행 결과 없음");
+	    }
+	    
+	    return result;
 	}
+
+
 	// id, 이메일을 통한 pwd 조회
 	public String findUserpwd(UsersVO vo) {
 	    System.out.println("DAO로 전달된 ID: " + vo.getId());

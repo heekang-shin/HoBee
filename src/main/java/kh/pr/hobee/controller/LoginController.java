@@ -131,21 +131,24 @@ public class LoginController {
 	@RequestMapping("/findUserId.do")
 	@ResponseBody
 	public String findUserId(String name, String email) {
-		// UsersVO 객체 생성 및 값 설정
-		UsersVO vo = new UsersVO();
-		vo.setUser_name(name); // JSP에서 넘어온 name을 VO에 설정
-		vo.setUser_email(email); // JSP에서 넘어온 email을 VO에 설정
+	    System.out.println("입력된 이름: " + name);
+	    System.out.println("입력된 이메일: " + email);
 
-		// DAO 메서드 호출
-		UsersVO result = users_dao.findUserId(vo);
+	    UsersVO vo = new UsersVO();
+	    vo.setUser_name(name);
+	    vo.setUser_email(email);
 
-		// 조회 결과 반환
-		if (result != null) {
-			return "success:" + result.getId(); // "success:아이디" 형식으로 반환
-		} else {
-			return "fail"; // 조회 실패 시 "fail" 반환
-		}
+	    String result = users_dao.findUserId(vo);
+
+	    if (result != null) {
+	        System.out.println("조회된 ID: " + result);
+	        return "success:" + result; // "success:아이디" 형식으로 반환
+	    } else {
+	        System.out.println("조회된 ID가 없습니다.");
+	        return "fail"; // 조회 실패 시 "fail" 반환
+	    }
 	}
+
 
 	// 비밀번호 찾기
 	@RequestMapping("/findPassword.do")

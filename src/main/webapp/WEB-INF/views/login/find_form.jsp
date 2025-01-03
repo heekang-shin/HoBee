@@ -11,238 +11,221 @@
     <link rel="stylesheet" href="resources/css/find_form.css">
     <link rel="stylesheet" href="resources/css/modal.css">
     <script>
-        let res = null; // 서버에서 받은 인증 코드 저장 변수
+    let res = null; // 서버에서 받은 인증 코드 저장 변수
 
-        // 아이디 찾기 모달을 여는 함수
-        function openModalForId() {
-            let nameInput = document.getElementById('find_name');
-            let emailInput = document.getElementById('find_email');
-            let nameValue = nameInput.value.trim();
-            let emailValue = emailInput.value.trim();
+    // 아이디 찾기 모달을 여는 함수
+    function openModalForId() {
+        let nameInput = document.getElementById('find_name');
+        let emailInput = document.getElementById('find_email');
+        let nameValue = nameInput.value.trim();
+        let emailValue = emailInput.value.trim();
 
-            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (!nameValue) {
-                nameInput.setCustomValidity("이름을 입력하세요.");
-                nameInput.reportValidity();
-                return;
-            } else {
-                nameInput.setCustomValidity("");
-            }
-
-            if (!emailValue) {
-                emailInput.setCustomValidity("이메일을 입력하세요.");
-                emailInput.reportValidity();
-                return;
-            } else if (!emailRegex.test(emailValue)) {
-                emailInput.setCustomValidity("유효하지 않은 이메일 형식입니다.");
-                emailInput.reportValidity();
-                return;
-            } else {
-                emailInput.setCustomValidity("");
-            }
-
-            // 이메일 인증 요청
-            mailCheck(emailValue);
-
-            // 모달 창 열기 및 이메일 설정
-            document.getElementById('auth_email').value = emailValue;
-            document.getElementById('emailModal').style.display = 'flex';
+        if (!nameValue) {
+            nameInput.setCustomValidity("이름을 입력하세요.");
+            nameInput.reportValidity();
+            return;
+        } else {
+            nameInput.setCustomValidity("");
         }
 
-        // 인증 코드를 이메일로 요청하는 함수
-        function mailCheck(userEmail) {
-            let url = "mailCheck.do";
-            let param = "email=" + encodeURIComponent(userEmail);
-
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", url, true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        resultMail(xhr.responseText);
-                    } else {
-                        console.error("서버 요청 실패: ", xhr.statusText);
-                    }
-                }
-            };
-
-            xhr.send(param);
+        if (!emailValue) {
+            emailInput.setCustomValidity("이메일을 입력하세요.");
+            emailInput.reportValidity();
+            return;
+        } else if (!emailRegex.test(emailValue)) {
+            emailInput.setCustomValidity("유효하지 않은 이메일 형식입니다.");
+            emailInput.reportValidity();
+            return;
+        } else {
+            emailInput.setCustomValidity("");
         }
 
-        // 서버에서 인증 코드를 받은 후 처리
-        function resultMail(responseText) {
-            alert("인증코드가 이메일로 전송됐습니다.");
-            let checkInput = document.getElementById("auth_code");
-            checkInput.disabled = false;
-            res = responseText; // 서버에서 받은 인증번호 저장
+        // 이메일 인증 요청
+        mailCheck(emailValue);
+
+        // 모달 창 열기 및 이메일 설정
+        document.getElementById('auth_email').value = emailValue;
+        document.getElementById('emailModal').style.display = 'flex';
+    }
+
+    // 인증 코드를 이메일로 요청하는 함수
+    function mailCheck(userEmail) {
+        let url = "mailCheck.do";
+        let param = "email=" + encodeURIComponent(userEmail);
+
+        sendRequest(url, param, resultMail, "POST");
+    }
+
+    // 서버에서 인증 코드를 받은 후 처리
+    function resultMail(responseText) {
+        alert("인증코드가 이메일로 전송됐습니다.");
+        let checkInput = document.getElementById("auth_code");
+        checkInput.disabled = false;
+        res = responseText; // 서버에서 받은 인증번호 저장
+    }
+
+    // 인증 코드 확인 함수
+    function change_input() {
+        let checkInput = document.getElementById("auth_code"); // 인증 코드 입력 필드
+        let mailCheckWarn = document.getElementById("mail_check_warn"); // 결과 메시지 표시 영역
+        let nameInput = document.getElementById("find_name").value.trim(); // 이름 입력 값
+        let emailInput = document.getElementById("find_email").value.trim(); // 이메일 입력 값
+
+        if (checkInput.value === res) {
+            mailCheckWarn.innerHTML = "인증 성공";
+            //조회된 id 호출 함수
+            findUserId(nameInput, emailInput);
+        } else {
+            mailCheckWarn.innerHTML = "인증 코드 불일치";
+        }
+    }
+
+    function openModalForPassword() {
+        let idInput = document.getElementById('find_id');
+        let emailInput = document.getElementById('find_email_pw');
+        let idValue = idInput.value.trim();
+        let emailValue = emailInput.value.trim();
+
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!idValue) {
+            idInput.setCustomValidity("아이디를 입력하세요.");
+            idInput.reportValidity();
+            return;
+        } else {
+            idInput.setCustomValidity("");
         }
 
-        // 인증 코드 확인 함수
-        function change_input() {
-            let checkInput = document.getElementById("auth_code"); // 인증 코드 입력 필드
-            let mailCheckWarn = document.getElementById("mail_check_warn"); // 결과 메시지 표시 영역
-            let nameInput = document.getElementById("find_name").value.trim(); // 이름 입력 값
-            let emailInput = document.getElementById("find_email").value.trim(); // 이메일 입력 값
-
-            if (checkInput.value === res) {
-                mailCheckWarn.innerHTML = "인증 성공";
-                //조회된 id 호출 함수
-                findUserId(nameInput, emailInput);
-            } else {
-                mailCheckWarn.innerHTML = "인증 코드 불일치";
-            }
+        if (!emailValue) {
+            emailInput.setCustomValidity("이메일을 입력하세요.");
+            emailInput.reportValidity();
+            return;
+        } else if (!emailRegex.test(emailValue)) {
+            emailInput.setCustomValidity("유효하지 않은 이메일 형식입니다.");
+            emailInput.reportValidity();
+            return;
+        } else {
+            emailInput.setCustomValidity("");
         }
 
-        // 비밀번호 찾기 모달 열기 함수
-        function openModalForPassword() {
-            let idInput = document.getElementById('find_id');
-            let emailInput = document.getElementById('find_email_pw');
-            let idValue = idInput.value.trim();
-            let emailValue = emailInput.value.trim();
+        // 이메일 인증 요청
+        mailCheckForPassword(emailValue);
 
-            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        // 모달 창 열기 및 이메일 설정
+        document.getElementById('auth_email_pw').value = emailValue;
+        document.getElementById('emailModalPw').style.display = 'flex';
+    }
 
-            if (!idValue) {
-                idInput.setCustomValidity("아이디를 입력하세요.");
-                idInput.reportValidity();
-                return;
-            } else {
-                idInput.setCustomValidity("");
-            }
 
-            if (!emailValue) {
-                emailInput.setCustomValidity("이메일을 입력하세요.");
-                emailInput.reportValidity();
-                return;
-            } else if (!emailRegex.test(emailValue)) {
-                emailInput.setCustomValidity("유효하지 않은 이메일 형식입니다.");
-                emailInput.reportValidity();
-                return;
-            } else {
-                emailInput.setCustomValidity("");
-            }
+    function mailCheckForPassword(userEmail) {
+        let url = "mailCheckPassword.do";
+        let param = "email=" + encodeURIComponent(userEmail);
 
-            // 이메일 인증 요청
-            mailCheckForPassword(emailValue);
+        sendRequest(url, param, resultMailPw, "POST");
+    }
 
-            // 모달 창 열기 및 이메일 설정
-            document.getElementById('auth_email_pw').value = emailValue;
-            document.getElementById('emailModalPw').style.display = 'flex';
+    // 서버에서 비밀번호 인증 코드를 받은 후 처리
+    function resultMailPw(responseText) {
+        alert("인증코드가 이메일로 전송됐습니다.");
+        let checkInput = document.getElementById("auth_code_pw");
+        checkInput.disabled = false;
+        res = responseText; // 서버에서 받은 인증번호 저장
+    }
+
+    function verifyPasswordAuthCode() {
+        let checkInput = document.getElementById("auth_code_pw");
+        let mailCheckWarn = document.getElementById("mail_check_warn_pw");
+        let idInput = document.getElementById("find_id").value.trim();
+        let emailInput = document.getElementById("find_email_pw").value.trim();
+
+        if (checkInput.value === res) {
+            mailCheckWarn.innerHTML = "인증 성공";
+            findPassword(idInput, emailInput);
+        } else {
+            mailCheckWarn.innerHTML = "인증 코드 불일치";
+        }
+    }
+    
+    function findPassword(id, email) {
+        let url = "findPassword.do";
+        let param = "id=" + encodeURIComponent(id) + "&email=" + encodeURIComponent(email);
+
+        sendRequest(url, param, pwResultText, "POST");
+    }
+
+    function pwResultText(responseText) {
+        let pwResultText = document.getElementById("pwResultText");
+
+        if (responseText.startsWith("success:")) {
+            let password = responseText.split(":")[1];
+            pwResultText.innerText = "조회된 비밀번호: " + password;
+        } else if (responseText === "fail") {
+            pwResultText.innerText = "조회된 비밀번호가 없습니다.";
         }
 
-        function mailCheckForPassword(userEmail) {
-            let url = "mailCheckPassword.do";
-            let param = "email=" + encodeURIComponent(userEmail);
-
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", url, true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        res = xhr.responseText; // 서버에서 받은 인증번호 저장
-                        alert("인증코드가 이메일로 전송됐습니다.");
-                    } else {
-                        console.error("서버 요청 실패: ", xhr.statusText);
-                    }
-                }
-            };
-
-            xhr.send(param);
-        }
-
-        // 인증 코드 확인 및 비밀번호 찾기
-        function verifyPasswordAuthCode() {
-            let checkInput = document.getElementById("auth_code_pw");
-            let mailCheckWarn = document.getElementById("mail_check_warn_pw");
-            let idInput = document.getElementById("find_id").value.trim();
-            let emailInput = document.getElementById("find_email_pw").value.trim();
-
-            if (checkInput.value === res) {
-                mailCheckWarn.innerHTML = "인증 성공";
-                findPassword(idInput, emailInput);
-            } else {
-                mailCheckWarn.innerHTML = "인증 코드 불일치";
-            }
-        }
-
-        function findPassword(id, email) {
-            let url = "findPassword.do";
-            let param = "id=" + encodeURIComponent(id) + "&email=" + encodeURIComponent(email);
-
-            console.log("AJAX 요청 URL: ", url);
-            console.log("AJAX 요청 파라미터: ", param);
-
-            sendRequest(url, param, pwResultText, "POST");
-        }
+        document.getElementById('pwResultModal').style.display = 'flex';
+    }
 
 
-        function pwResultText() {
+    // 공통 AJAX 요청 함수
+    function sendRequest(url, param, callback, method) {
+        let xhr = new XMLHttpRequest();
+        xhr.open(method, url, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                let data = xhr.responseText;
-
-                let pwResultText = document.getElementById("pwResultText");
-
-                if (data.startsWith("success:")) {
-                    let password = data.split(":")[1];
-                    pwResultText.innerText = "조회된 비밀번호: " + password;
-                } else if (data === "fail") {
-                    pwResultText.innerText = "조회된 비밀번호가 없습니다.";
-                }
-
-                document.getElementById('pwResultModal').style.display = 'flex';
+                callback(xhr.responseText);
             }
+        };
+
+        xhr.send(param);
+    }
+
+    function findUserId(name, email) {
+        let url = "findUserId.do";
+        let param = "name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email);
+
+        sendRequest(url, param, idResultText, "POST");
+    }
+
+    function idResultText(responseText) {
+        let idResultText = document.getElementById("idResultText");
+
+        if (responseText.startsWith("success:")) {
+            let id = responseText.split(":")[1];
+            idResultText.innerText = "조회된 아이디: " + id;
+        } else if (responseText === "fail") {
+            idResultText.innerText = "조회된 ID가 없습니다.";
         }
 
-        // 모달 창 닫기 함수들
-        function closeIdResultModal() {
-            document.getElementById('idResultModal').style.display = 'none';
-        }
+        document.getElementById('idResultModal').style.display = 'flex';
+    }
 
-        function closePasswordModal() {
-            document.getElementById('emailModalPw').style.display = 'none';
-            document.getElementById('auth_code_pw').value = '';
-            document.getElementById('mail_check_warn_pw').innerHTML = '';
-        }
+    // 모달 창 닫기 함수들
+    function closeIdResultModal() {
+        document.getElementById('idResultModal').style.display = 'none';
+    }
 
-        function closePwResultModal() {
-            document.getElementById('pwResultModal').style.display = 'none';
-        }
+    function closePasswordModal() {
+        document.getElementById('emailModalPw').style.display = 'none';
+        document.getElementById('auth_code_pw').value = '';
+        document.getElementById('mail_check_warn_pw').innerHTML = '';
+    }
 
-        function closeModal() {
-            document.getElementById('emailModal').style.display = 'none';
-            document.getElementById('auth_code').value = '';
-            document.getElementById('mail_check_warn').innerHTML = '';
-        }
+    function closePwResultModal() {
+        document.getElementById('pwResultModal').style.display = 'none';
+    }
 
-        function findUserId(name, email) {
-            let url = "findUserId.do";
-            let param = "name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email);
+    function closeModal() {
+        document.getElementById('emailModal').style.display = 'none';
+        document.getElementById('auth_code').value = '';
+        document.getElementById('mail_check_warn').innerHTML = '';
+    }
+</script>
 
-            sendRequest(url, param, idResultText, "POST");
-        }
-
-        function idResultText() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                let data = xhr.responseText;
-
-                let idResultText = document.getElementById("idResultText");
-
-                if (data.startsWith("success:")) {
-                    let id = data.split(":")[1];
-                    idResultText.innerText = "조회된 아이디: " + id;
-                } else if (data === "fail") {
-                    idResultText.innerText = "조회된 ID가 없습니다.";
-                }
-
-                document.getElementById('idResultModal').style.display = 'flex';
-            }
-        }
-    </script>
 </head>
 <body>
    <jsp:include page="/WEB-INF/views/header/header.jsp"></jsp:include>

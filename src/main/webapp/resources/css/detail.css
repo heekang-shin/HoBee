@@ -4,6 +4,7 @@
 	margin: 0;
 	padding: 0;
 	color: #222222;
+	font-size:16px;
 }
 
 .detail_container {
@@ -26,8 +27,8 @@
 	width: 100%;
 }
 
-.content_container {
-	padding-top: 30px;
+.content_container p{
+	margin-top: 20px;
 }
 
 .content_container img {
@@ -35,14 +36,63 @@
 }
 
 /*서브 타이틀(소개, 모임장소, 모임문의, 유의사항, 환불정책- 공통 )*/
-.sub-title{
-	width:100%;
-	border-bottom:1.5px solid #222222;
+.sub-title {
+	width: 100%;
+	height: 50px;
+	border-bottom: 1.5px solid #222222;
+	position: relative;
 }
 
-.refund:hover{
+/*유의사항*/
+#arrow1 {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 12px;
+	height: 12px;
+	border-top: 1.5px solid #222222;
+	border-left: 1.5px solid #222222;
+	transform: rotate(-135deg);
+}
+
+#notice-details{
+	margin-top: 20px;
+	line-height: 26px;
+	transition: 0.5s ease, opacity 0.5s ease;
+}
+
+
+
+/*환불정책*/
+#arrow2 {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 12px;
+	height: 12px;
+	border-top: 1.5px solid #222222;
+	border-left: 1.5px solid #222222;
+	transform: rotate(-135deg);
+}
+
+
+#refund {
+	position: relative;
 	cursor: pointer;
 }
+
+#refund-details{
+	margin-top: 20px;
+	line-height: 26px;
+	color:#222222;
+	transition: 0.5s ease, opacity 0.5s ease;
+}
+
+
+
+
+
+
 
 /*오른쪽 컨테이너*/
 .right_container {
@@ -78,7 +128,6 @@
 	color: #a8a8a8;
 	font-size: 18px;
 }
-
 
 /*날짜, 시간, 인원수*/
 .option_container {
@@ -195,35 +244,3 @@
 	background-color: #222222;
 	color: #ffffff;
 }
-
-
-/*환불정책*/
-/* 환불정책 내용을 기본적으로 숨김 */
-.refund-details {
-	display: none;
-	margin-top: 10px;
-}
-
-.refund-details p{
-	font-size:16px;
-	line-height: 26px;
-	color:#222222;
-}
-
-
-/*화살표*/
-.arrow {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
-    background-image: url("/hobee/resources/images/down_arrow.png"); /* 아래쪽 화살표 */
-    background-size: contain;
-    background-repeat: no-repeat;
-    transition: transform 0.3s ease;
-}
-
-.arrow-up {
-    background-image: url("/hobee/resources/images/up_arrow.png"); /* 위쪽 화살표 */
-}
-

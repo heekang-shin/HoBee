@@ -180,6 +180,7 @@
 	border: 1px solid #dcdcdc;
 	border-radius: 4px;
 	font-size: 16px;
+	cursor: pointer;
 }
 
 /*총금액*/
@@ -206,6 +207,10 @@
 	padding: 30px 30px 20px 0;
 	box-sizing: border-box;
 	float: right;
+}
+
+.total_container span{
+	font-size: 24px;
 }
 
 /*버튼*/

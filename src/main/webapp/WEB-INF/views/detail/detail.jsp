@@ -71,11 +71,8 @@
 		document.getElementById("people").value = pp; // 업데이트된 인원수 반영
 
 		let res = document.getElementById('res');
-		res.innerHTML = pp * $
-		{
-			hobee.hb_price
-		}
-		; // 총금액 계산 및 업데이트
+		res.innerHTML = pp * ${hobee.hb_price}+" 원"; // 총금액 계산 및 업데이트
+		
 	}
 </script>
 
@@ -253,10 +250,12 @@
 
 			<div class="total_container">
 				<p>총금액</p>
-				<h2>
-					<a id="res">${hobee.hb_price}</a>원
+				<h2 id="res">
+					${hobee.hb_price}
+				<span>원</span>
 				</h2>
 			</div>
+				
 
 
 			<div class="btn-inner">

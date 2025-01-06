@@ -59,7 +59,7 @@
 			</thead>
 
 			<tbody>
-				<c:forEach begin="1" end="10">
+				<c:forEach items="${apply}">
 					<tr>
 						<td class="line"><input type="checkbox"></td>
 						<td width="5%" class="line">1</td>

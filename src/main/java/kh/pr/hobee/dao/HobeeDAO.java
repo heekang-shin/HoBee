@@ -39,9 +39,11 @@ public class HobeeDAO {
 	    return search_list;
 	}
 	
-	
-
-	
+	//프로그램 등록
+	public int insertFin(HobeeVO vo) {
+		int res = sqlSession.insert("h.hobee_insert", vo);
+		return res;
+	}
 	
 	
 }

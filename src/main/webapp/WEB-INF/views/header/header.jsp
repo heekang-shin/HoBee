@@ -51,7 +51,7 @@
                     <a href="join_form.do">회원가입</a></li>
                 <li><img src="/hobee/resources/images/login_form.png" alt="로그인" />
                     <a href="login.do">로그인</a></li>
-                <li><a href="host_login.do" class="host">호스트센터</a></li>
+                <li><a href="host_list.do" class="host">호스트센터</a></li>
             </ul>
             <!--snb 끝-->
         </div>

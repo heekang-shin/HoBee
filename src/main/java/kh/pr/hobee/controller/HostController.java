@@ -2,6 +2,8 @@ package kh.pr.hobee.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.pr.hobee.common.Common;
@@ -25,11 +26,18 @@ public class HostController {
 
 	@Autowired
 	private HttpServletRequest request;
+	
+	
+	HobeeDAO hobeedao;
 
-	// 로그인 페이지로 이동
-	@RequestMapping("host_login.do")
+	public void setHobeedao(HobeeDAO hobeedao) {
+		this.hobeedao = hobeedao;
+	}
+
+	// 리스트 페이지로 이동
+	@RequestMapping("host_list.do")
 	public String hostList() {
-		return Common.VIEW_PATH + "host/host_login.jsp";
+		return Common.VIEW_PATH + "host/host_list.jsp";
 	}
 
 	// host_apply_form으로 이동
@@ -38,21 +46,52 @@ public class HostController {
 		return Common.VIEW_PATH + "host/host_apply_form.jsp";
 	}
 
-	//host_apply_insert.do
+	
+	// host_apply_insert.do
 	@RequestMapping("host_apply_insert.do")
-	public String hostInsert(HobeeVO vo) {
+	public String hostInsert(HobeeVO vo, Model model) {
 
 		String webPath = "/resources/images/upload/"; // 상대경로
-		String savePath = application.getRealPath(webPath);// 절대경로
-		
+		String savePath = application.getRealPath(webPath); // 절대경로
+
 		System.out.println("절대경로:" + savePath);
 
-		// 업로드를 위한 파일 정보 가져오기
-		MultipartFile photo = vo.getS_image_filename();
+		// 업로드를 위한 파일 정보 처리
+		handleFileUpload(vo.getS_image_filename(), savePath, "s_image", vo);
+		handleFileUpload(vo.getIn_image_filename(), savePath, "in_image", vo);
+		handleFileUpload(vo.getL_image_filename(), savePath, "l_image", vo);
+
+		// 시간 데이터 포맷 적용
+		if (vo.getHb_time() != null) {
+			try {
+				LocalTime time = LocalTime.parse(vo.getHb_time());
+				String formattedTime = time.format(DateTimeFormatter.ofPattern("HH:mm"));
+				vo.setHb_time(formattedTime);
+			} catch (Exception e) {
+				System.err.println("Invalid time format: " + vo.getHb_time());
+			}
+		}
+		
+			
+		System.out.println("주소:" + vo.getHb_address());
+		System.out.println("주소:" + vo.getExtraAddress());
+
+		
+		System.out.println("카테고리:"+ vo.getCategory_num());
+		
+		// DAO를 통해 데이터 삽입
+		int res = hobeedao.insertFin(vo);
+		System.out.println("삽입 결과: " + res);
+		
+		return Common.VIEW_PATH + "host/host_apply_fin.jsp";
+	}
+	
+
+	private void handleFileUpload(MultipartFile file, String savePath, String fieldName, HobeeVO vo) {
 		String filename = "no_file";
 
-		if (!photo.isEmpty()) {
-			filename = photo.getOriginalFilename();
+		if (file != null && !file.isEmpty()) {
+			filename = file.getOriginalFilename();
 
 			// 저장할 파일의 경로
 			File saveFile = new File(savePath, filename);
@@ -68,18 +107,24 @@ public class HostController {
 
 			// 파일을 절대경로에 생성, 복사본을 넣는 것이다.
 			try {
-				photo.transferTo(saveFile);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				file.transferTo(saveFile);
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 		}
-		// 파일이름 저장
-		vo.setS_image(filename);
 
-		System.out.println("파일이름:" + filename);
-		return Common.VIEW_PATH + "host/host_login.jsp";
+		// VO에 파일 이름 설정
+		if ("s_image".equals(fieldName)) {
+			vo.setS_image(filename);
+		} else if ("in_image".equals(fieldName)) {
+			vo.setIn_image(filename);
+		} else if ("l_image".equals(fieldName)) {
+			vo.setL_image(filename);
+		}
+
+		System.out.println(fieldName + " 파일이름:" + filename);
 	}
-
+	
+	
+	
 }

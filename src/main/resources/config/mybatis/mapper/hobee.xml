@@ -31,9 +31,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
-	<!-- hobee 테이블에 데이터 삽입 -->
 	
-
+	<insert id="hobee_insert" parameterType="hobee">
+		insert into hobee values(
+			SEQ_HB_IDX.nextVal,
+	        #{hb_title}, 
+	        #{s_image}, 
+	        #{l_image}, 
+	        #{in_image}, 
+	        #{hb_content}, 
+	        #{hb_price}, 
+	        #{num_of_p}, 
+	        #{user_id}, 
+	        #{hb_date}, 
+	        #{hb_tot_num}, 
+	        SYSDATE, 
+	        #{category_num}, 
+	        #{status}, 
+	        #{hb_notice}, 
+	        #{hb_time}, 
+	        #{hb_address}, 
+	        #{postcode}, 
+	        #{address}, 
+	        #{detailAddress},
+	        #{extraAddress}
+		)
+	</insert>
 
 </mapper>
 

@@ -34,6 +34,10 @@
                 <img src="/hobee/resources/images/host_shop.png" alt="신청자 관리">
                 <a href="#">신청자 관리</a>
             </li>
+            <li>
+                <img src="/hobee/resources/images/host_inquiry.png" alt="문의 관리">
+                <a href="#">문의 관리</a>
+            </li>
         </ul>
     </div>
 	</body>

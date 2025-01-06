@@ -35,7 +35,7 @@
 					<img src="/hobee/resources/images/fin_icon.png">
 					<h1>모임등록 완료</h1>
 					<p>Hobee 모임등록이 완료되었습니다.</p>
-					<input type="button" value="목록으로" onclick="location.href='host_login.do'">
+					<input type="button" value="목록으로" onclick="location.href='host_list.do'">
 				</div>
 			</div>
 		</div>

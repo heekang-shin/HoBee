@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,13 +50,13 @@
     <table>
         <thead>
             <tr>
-                <th class="line"><input type="checkbox"></th>
+                <th width="5%" class="line"><input type="checkbox"></th>
                 <th width="5%" class="line">번호</th>
-                <th width="13%" class="line">카테고리</th>
-                <th class="line">프로그램명</th>
+                <th width="10%" class="line">카테고리</th>
+                <th width="23%" class="line" >프로그램명</th>
                 <th width="10%" class="line">금액</th>
                 <th width="10%" class="line">작성일</th>
-                <th width="10%" class="line">판매상태</th>
+                <th width="7%" class="line">판매상태</th>
             </tr>
         </thead>
 
@@ -67,13 +71,27 @@
             <!-- 신청한 프로그램 리스트 출력 -->
             <c:forEach var="vo" items="${apply_list}">
                 <tr>
-                    <td class="line"><input type="checkbox"></td>
-	                <td width="5%" class="line">번호</td>
-	                <td width="13%" class="line">카테고리</td>
-	                <td class="line">프로그램명</td>
-	                <td width="10%" class="line">금액</td>
-	                <td width="10%" class="line">작성일</td>
-	                <td width="10%" class="line">판매상태</td>
+                    <td width="5%" class="line"><input type="checkbox"></td>
+	                <td width="5%" class="line">${vo.hb_idx}</td>
+	                <td width="10%" class="line">${vo.category_num}</td>
+	                <td width="23%" class="line" style="text-align: left;">${vo.hb_title}</td>
+	                <td width="10%" class="line" ><fmt:formatNumber value="${vo.hb_price}"/> 원</td>
+	                 <td width="10%" class="line">${vo.hb_write_date}</td>
+	                 
+	                 <td width="7%" class="line">
+					    <c:choose>
+					        <c:when test="${vo.status == 0}">
+					            판매대기
+					        </c:when>
+					        <c:when test="${vo.status == 1}">
+					            게시중
+					        </c:when>
+					        <c:otherwise>
+					            상태 없음
+					        </c:otherwise>
+					    </c:choose>
+					</td>
+				
                 </tr>
             </c:forEach>
         </tbody>

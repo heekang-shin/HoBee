@@ -148,42 +148,4 @@
 	<br>
 	<jsp:include page="/WEB-INF/views/footer/footer.jsp"></jsp:include>
 </body>
-
-		<!--카테고리 끝-->
-		
-		<!-- 리스트 시작 -->
-		<div class="inven_container">
-			<div class="sidebar">
-				<nav class="nav">
-					<ul>
-						<li><button data-category="all">전체 보기</button></li>
-						<c:forEach var="vo" items="${list}">
-							<li><button data-category="${vo.category_num}">${vo.category_name}</button></li>
-						</c:forEach>
-					</ul>
-				</nav>
-			</div>
-	
-			<main class="main-content">
-				<c:forEach var="vo" items="${list}">
-					<section class="content" data-category="${vo.category_num}">
-						<div class="con_box aboutinner aos-item best" data-aos="fade-up"
-							onclick="">
-							<img src="/hobee/resources/images/thumbnail.png" alt="thumbnail">
-							<h2>${vo.category_name}</h2>
-							<p>30,000원</p>
-							<span>1인당</span>
-						</div>
-					</section>
-				</c:forEach>
-			</main>
-		</div>
-		<!-- 리스트 끝 -->
-		
-		<br>
-	
-		<input type="button" value="결제하기" onclick="open_payment()">
-	
-	</body>
-
 </html>

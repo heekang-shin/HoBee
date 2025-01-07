@@ -2,12 +2,10 @@ package kh.pr.hobee.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
 
 import kh.pr.hobee.vo.CategoryVO;
-import lombok.RequiredArgsConstructor;
+import kh.pr.hobee.vo.HobeeVO;
 
 public class InvenDAO {
 	SqlSession sqlSession;
@@ -18,6 +16,22 @@ public class InvenDAO {
 	public List<CategoryVO> selectInven(int category){
 		List<CategoryVO> list = sqlSession.selectList("i.big_list", category);
 		return list;
+	}
+	
+	public List<HobeeVO> selectHobee(int category){
+		List<HobeeVO> list = sqlSession.selectList("i.hobee_list", category);
+		return list;
+	}
+	
+	
+	public List<HobeeVO> selectHobee_best(int category){
+		List<HobeeVO> list = sqlSession.selectList("i.hobee_list_best", category);
+		return list;
+	}
+	
+	public HobeeVO hobeeDetail(int hb_idx) {
+		HobeeVO vo = sqlSession.selectOne("i.hobee_detail", hb_idx);
+		return vo;
 	}
 	
 }

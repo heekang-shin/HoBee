@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +48,17 @@ public class HostController {
 	}
 
 	
-	// host_apply_insert.do
+	//호스트 프로그램 신청 리스트 조회
+	@RequestMapping("host_apply_list.do")
+	public String applyList(Model model) {
+		List<HobeeVO> apply_list = hobeedao.applyList();
+		model.addAttribute("apply_list", apply_list);
+		return Common.VIEW_PATH + "host/host_apply_list.jsp";
+	}
+	
+	
+	
+	//호스트 신청 폼
 	@RequestMapping("host_apply_insert.do")
 	public String hostInsert(HobeeVO vo, Model model) {
 

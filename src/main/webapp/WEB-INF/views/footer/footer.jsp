@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>footer</title>
-<link rel="stylesheet" href="/hobee/resources/css/main.css">
+<link rel="stylesheet" href="/hobee/resources/css/footer.css">
+<link rel="stylesheet" href="/hobee/resources/css/common.css">
 </head>
 <body>
 <!--푸터 시작-->

@@ -32,6 +32,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where category_num like #{category}||'%'
 			order by num_of_p desc
 	</select>
+	
+	<select id="hobee_detail"
+			resultType="hobee"
+			parameterType="int">
+		select * from hobee
+		where hb_idx=#{hb_idx}	
+	</select>
 
 </mapper>
 

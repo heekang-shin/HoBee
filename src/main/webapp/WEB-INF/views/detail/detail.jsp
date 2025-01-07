@@ -92,6 +92,18 @@
 		<div class="left_container">
 			<img src="/hobee/resources/images/${hobee.l_image}.png">
 			
+				<!--평점 혹은 별점 혹은 리뷰-->
+				<div class="star-rating">
+			<h3>${hobee.hb_title}</h3>
+				  <input type="radio" class="star" value="1">
+				  <input type="radio" class="star" value="2">
+				  <input type="radio" class="star" value="3">
+				  <input type="radio" class="star" value="4">
+				  <input type="radio" class="star" value="5">
+				</div>
+			
+			
+			
 			<!-- 소개 -->
 			<div class="sub-title">
 			<h2>소개</h2>

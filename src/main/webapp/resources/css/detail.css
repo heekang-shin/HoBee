@@ -227,3 +227,34 @@
     background-image: url("/hobee/resources/images/up_arrow.png"); /* 위쪽 화살표 */
 }
 
+/* 리뷰 혹은 평점 혹은 별점 */
+.star-rating {
+  display: flex;
+  align-items: center; /* 텍스트와 별점을 수평 중앙 정렬 */
+}
+
+.star-rating h3 {
+  margin-right: 20px; /* 제목과 별점 사이에 공백 추가 */
+}
+
+.star {
+  appearance: none;
+}
+
+.star::after {
+  content: '☆';
+  color: hsl(45, 100%, 55%);
+  font-size: 20px;
+}
+
+.star:hover::after,
+.star:has(~ .star:hover)::after,
+.star:checked::after,
+.star:has(~ .star:checked)::after {
+  content: '★';
+}
+
+.star:hover ~ .star::after {
+  content: '☆';
+}
+

@@ -50,9 +50,6 @@
 		<beans:constructor-arg ref="mss"/>
 	</beans:bean>
 
- 
- 
- <beans:bean class="kh.pr.hobee.controller.ApplyController"></beans:bean>
  <beans:bean class="kh.pr.hobee.controller.HostController"></beans:bean>
  
 

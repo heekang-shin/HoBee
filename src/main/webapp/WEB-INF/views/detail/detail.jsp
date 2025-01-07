@@ -86,7 +86,7 @@
 
 		<!-- 왼쪽 컨테이너 -->
 		<div class="left_container">
-			<img src="/hobee/resources/images/${hobee.l_image}.png">
+			<img src="/hobee/resources/images/upload/${hobee.l_image}">
 
 			<!-- 소개 -->
 			<div class="sub-title">
@@ -95,7 +95,7 @@
 
 			<div class="content_container">
 				<p>${hobee.hb_content}</p>
-				 <img src="/hobee/resources/images/${hobee.in_image}.png">
+				 <img src="/hobee/resources/images/upload/${hobee.in_image}">
 			</div>
 
 			<!-- 모임장소 -->

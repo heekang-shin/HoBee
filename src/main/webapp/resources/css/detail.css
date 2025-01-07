@@ -249,3 +249,68 @@
 	background-color: #222222;
 	color: #ffffff;
 }
+
+
+/* 1:1문의 */
+.inquiry-board {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+}
+
+.inquiry-form {
+    margin-bottom: 20px;
+}
+
+.inquiry-form h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.inquiry-form textarea {
+    width: 97%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    resize: none;
+}
+
+.inquiry-form button {
+    display: block;
+    width: 100px;
+    padding: 10px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #222222;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.inquiry-form button:hover {
+    background-color: #FFE14D;
+    color: #222222;
+}
+
+.inquiry-list h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.inquiry-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.inquiry-list li {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background-color: #ffffff;
+}

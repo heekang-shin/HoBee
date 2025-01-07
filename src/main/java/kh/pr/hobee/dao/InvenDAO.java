@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import kh.pr.hobee.vo.CategoryVO;
 import kh.pr.hobee.vo.HobeeVO;
+import kh.pr.hobee.vo.InquiryVO;
 
 public class InvenDAO {
 	SqlSession sqlSession;
@@ -32,6 +33,11 @@ public class InvenDAO {
 	public HobeeVO hobeeDetail(int hb_idx) {
 		HobeeVO vo = sqlSession.selectOne("i.hobee_detail", hb_idx);
 		return vo;
+	}
+	
+	public List<InquiryVO> getAllInquiries() {
+		List<InquiryVO> list = sqlSession.selectList("i.hobee_inquiry");
+		return list;
 	}
 	
 }

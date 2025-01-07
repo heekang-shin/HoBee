@@ -39,6 +39,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from hobee
 		where hb_idx=#{hb_idx}	
 	</select>
-
+	
+	<!-- 1:1문의 가져오기 -->
+	<select id="hobee_inquiry"
+			resultType = "inquiry">
+		select * from inquiries		
+	</select>
 </mapper>
 

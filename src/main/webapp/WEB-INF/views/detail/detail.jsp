@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -164,11 +165,36 @@
 								});
 			</script>
 
-			<!-- 1:1문의 -->
+			<!-- 1:1 문의 게시판 -->
 			<div class="sub-title">
-				<h2>1:1문의</h2>
+				<h2>1:1 문의</h2>
 			</div>
 
+			<div class="inquiry-board">
+				<!-- 문의 작성 -->
+				<div class="inquiry-form">
+					<h3>문의 작성</h3>
+					<form action="submitInquiry.do" method="POST">
+						<textarea name="content" placeholder="문의 내용을 입력하세요." required></textarea>
+						<button type="submit">문의 등록</button>
+					</form>
+				</div>
+
+				<!-- 문의 목록 -->
+				<div class="inquiry-list">
+					<h3>문의 목록</h3>
+					<ul>
+						<c:forEach var="inquiry" items="${inquiries}">
+							<li>
+								<p>
+									<strong>${inquiry.id}</strong> (${inquiry.created_date})
+								</p>
+								<p>${inquiry.content}</p>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+			</div>
 
 			<!-- 환불정책 -->
 			<div class="sub-title">

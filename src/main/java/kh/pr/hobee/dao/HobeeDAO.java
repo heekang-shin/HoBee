@@ -33,18 +33,17 @@ public class HobeeDAO {
 	}
 	
 	//검색어조회
-		public List<HobeeVO> searchSelect(String search_text) {
-		 
-		    // 검색어가 있으면 DB에서 조회
-		    List<HobeeVO> search_list = sqlSession.selectList("h.hobee_search_list", search_text);
-		    return search_list;
-		}
-		
-		/*
-		 * public HobeeVO hobeeDetail(int hb_idx) { HobeeVO vo =
-		 * sqlSession.selectOne("h.hobee_detail", hb_idx); return vo; }
-		 */
+	public List<HobeeVO> searchSelect(String search_text) {
+	    // 검색어가 있으면 DB에서 조회
+	    List<HobeeVO> search_list = sqlSession.selectList("h.hobee_search_list", search_text);
+	    return search_list;
+	}
 	
+	//프로그램 등록
+	public int insertFin(HobeeVO vo) {
+		int res = sqlSession.insert("h.hobee_insert", vo);
+		return res;
+	}
 	
 	
 }

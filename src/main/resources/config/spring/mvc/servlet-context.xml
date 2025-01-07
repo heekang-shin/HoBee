@@ -34,24 +34,25 @@
 	<beans:bean class="kh.pr.hobee.controller.InvenController">
 		<beans:property name="inven_dao" ref="inven_daoBean" />
 	</beans:bean>
+
 	<beans:bean class="kh.pr.hobee.controller.PayController"></beans:bean>
+
+
+	<!-- 메인 컨트롤러 -->
 	<beans:bean class="kh.pr.hobee.controller.MainController">
 		<beans:property name="hobeedao" ref="hobee_dao_bean" />
 	</beans:bean>
 
-	
-	<beans:bean class="kh.pr.hobee.controller.LoginController">
-		<beans:property name="users_dao" ref="users_daoBean" />
-	</beans:bean>
-	
-	<beans:bean class="kh.pr.hobee.controller.NaverLoginController"/>
-	<beans:bean class="kh.pr.hobee.controller.KakaoLoginController"/>
-	<beans:bean class="kh.pr.hobee.controller.EmailController">
-		<beans:constructor-arg ref="mss"/>
+	<!-- HostController -->
+	<beans:bean class="kh.pr.hobee.controller.HostController">
+		<beans:property name="hobeedao" ref="hobee_dao_bean" />
 	</beans:bean>
 
- <beans:bean class="kh.pr.hobee.controller.HostController"></beans:bean>
- 
+	<!-- CategoryController -->
+	<beans:bean class="kh.pr.hobee.controller.CategoryController">
+		<beans:property name="categoryDAO" ref="category_dao_bean" />
+	</beans:bean>
+
 
 </beans:beans>
 

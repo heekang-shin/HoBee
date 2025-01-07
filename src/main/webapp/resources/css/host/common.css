@@ -2,7 +2,7 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
 *{
-	margin: 0;
+	margin: 0; 
 	padding: 0;
 	font-family:var(--font-family);
 }
@@ -11,12 +11,13 @@
 	--font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 	--color-black: #222222;
 	--color-white: #ffffff;
+	--color-gray:#A8A8A8;
 	--color-light-gray: #f8f8f8;
 	--color-main:#FFE14D;
 	--color-red:#D5292F;
 	--color-red-sub:#FDF1F2;
-	--border-radius:4px;
 	
+	--border-radius:4px;
 	--border-color-gray:#DCDCDC;
 	--body-font-size:16px;
 }
@@ -37,283 +38,40 @@ li{
 
 /*content*/
 .content {
-    margin-left: 260px;
-    padding: 40px;
+	width:1520px;
+	height:auto;
+   margin-left: 260px;
+   padding: 40px;
    
 }
 
-.title-box h3 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin: 0;
+.title-box {
+    width: 100%;
+    display: flex; 
+    align-items: center; 
+    margin-top:50px;
 }
 
+.title-box h3 {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--color-black); 
+    margin-left: 6px;
+}
 
 
 /*대시보드*/
 .dashboard{
-	width:1580px;
+	width:100%;
 	height: auto;
-	background-color:#fff;
-	padding:70px;
-	box-sizing: border-box;
-	border-radius: 20px;
-	margin-top:18px;
-	box-shadow: 5px 5px 10px rgba(100,100,100,0.1);
-}
-
-
-
-/*검색창*/
-.search-container {
-	max-width: 1100px;
-	height: 80px;
-	margin: 0px auto;
-	background-color: #f7f7f7;
-	display: flex;
-	justify-content: center;
-}
-
-/* 검색창 폼 */
-.search-container form {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-}
-
-/* 기본 드롭다운 스타일 */
-.search-select {
-	width: 120px;
-	height: 40px;
-	padding: 0 10px;
-	font-size: 16px;
-	font-weight: 700;
-	color: #222222;
-	border: 1px solid #DCDCDC;
-	border-radius: 4px;
-	appearance: none; /* 기본 화살표 제거 */
-	-webkit-appearance: none; /* Safari 및 Chrome */
-	-moz-appearance: none; /* Firefox */
-	background: url("/hobee/resources/images/select_arrow.png") no-repeat
-		right 0px center;
-	background-size: 40px;
-	cursor: pointer;
-	background-color: #fff;
-}
-
-/* 드롭다운 포커스 스타일 */
-.search-select:focus {
-	outline: none;
-	border-color: #222222;
-}
-/* 옵션 스타일 */
-.search-select option {
-	font-size: 16px;
-	padding: 8px;
-	color: #222222;
-}
-
-/* 검색 입력 필드 */
-.search-input {
-	width: 300px;
-	height: 42px;
-	border: 1px solid #DCDCDC;
-	border-radius: 4px;
-	font-size: 14px;
-	padding: 0 10px;
-	outline: none;
-}
-
-/* 검색 버튼 스타일 */
-.search-button {
-	width: 42px;
-	height: 42px;
-	background-color: #222;
-	color: #fff;
-	border: none;
-	border-radius: 4px;
-	font-size: 16px;
-	cursor: pointer;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-image: url("/hobee/resources/images/search_icon_white.png");
-	background-repeat: no-repeat;
-	background-position: center;
-}
-
-.search-button:hover {
-	background-color: #444;
-}
-
-
-
-/*리스트*/
-.table-container {
-    max-width: 1100px;
-    margin: 60px auto 0;
-}
-
-/*총 게시글 수*/
-.total-num {
-	width: 100%;
-	margin: 20px auto;
-	font-size: 16px;
-	color: var(--color-black);
-	font-weight: 400;
-}
-
-.total-num span {
-	font-weight: 600;
-}
-
-/* 테이블 스타일 */
-table {
-	width: 100%;
-	border-collapse: collapse;
-	text-align: center;
-	font-size: 16px;
-}
-
-thead {
-	border-top: 2px solid var(--color-black);
-	font-weight: bold;
-	height: 60px;
-}
-
-th, td {
-	height: 52px;
-	border-bottom: 1px solid var(--border-color-gray);
-}
-
-th {
-	font-weight: 700;
-	color: var(--color-black);
-	position: relative;
-}
-
-th.line::after {
-    content: '';
-    position: absolute;
-    top: 38%;
-    right: 0;
-    width: 1px;
-    height: 16px;
-    background-color: var(--border-color-gray); 
-}
-
-th.line:last-child{
-	background-color:none;
-}
-
-tbody td{
-	font-weight: 300;
-}
-
-.title{
-	text-align: left;
-	padding-left:30px;
-}
-
-
-.line::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 1px;
-    height: 100%;
-    background-color: var(--border-color-gray); 
-}
-
-.line:last-child::after{
 	background-color:var(--color-white);
+	padding:70px;
+	border-radius: 20px;
+	margin:0 auto;
+	margin-top:20px;
+	box-shadow: 5px 5px 10px rgba(100,100,100,0.1);
+	box-sizing: border-box;
 }
 
-/*-----------리스트 끝 -----------*/
 
-
-/*페이징 처리 시작*/
-.pagination {
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    gap: 8px; 
-    margin-top: 20px;
-    margin-bottom: 120px;
-}
-
-.pagination a {
-    text-decoration: none;
-    color: var(--color-black); 
-    font-size: 16px;
-    padding: 8px 12px;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.pagination a:hover {
-    background-color: var(--color-light-gray);
-    color: var(--color-black);
-}
-
-.pagination a.active {
-    background-color: var(--color-black);
-    color: var(--color-white);
-    border: 1px solid var(--color-black);
-}
-
-.pagination a.first-page,
-.pagination a.last-page,
-.pagination a.prev-page,
-.pagination a.next-page {
-    font-weight: bold;
-}
-
-/*페이징 처리 끝*/
-
-/* 신청 버튼 */
-.applybtn-box {
-    width: 1100px;
-    height: 40px;
-    margin: 40px auto;
-    display: flex; /* 버튼을 가로로 정렬 */
-    justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
-    gap: 10px; /* 버튼 사이 간격 */
-}
-
-.applybtn-box input[type="button"] {
-    display: inline-block;
-    width: 100px;
-    height: 40px;
-    text-align: center;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease; /* 부드러운 전환 효과 */
-}
-
-.applybtn-box input[type="button"]:last-child{
-	border: 1px solid var(--color-black);
-    background-color: var(--color-white);
-    color: var(--color-black);
-}
-
-.applybtn-box input[type="button"]:first-child{
-	border: 1px solid var(--color-red);
-    background-color: var(--color-red-sub);
-    color:var(--color-red);
-}
-
-.applybtn-box input[type="button"]:first-child:hover {
-    background-color: var(--color-red);
-    color: var(--color-white);
-}
-
-.applybtn-box input[type="button"]:last-child:hover {
-    background-color: var(--color-black);
-    color: var(--color-white);
-}
 

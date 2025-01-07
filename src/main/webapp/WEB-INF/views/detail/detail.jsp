@@ -95,7 +95,7 @@
 
 			<div class="content_container">
 				<p>${hobee.hb_content}</p>
-				 <img src="/hobee/resources/images/${hobee.in_image1}.png">
+				 <img src="/hobee/resources/images/${hobee.in_image}.png">
 			</div>
 
 			<!-- 모임장소 -->
@@ -136,7 +136,7 @@
 				// 주소로 좌표를 검색합니다
 				geocoder
 						.addressSearch(
-								'서울 강남구 테헤란로10길 9 5층 M관',
+								'${hobee.address}',
 								function(result, status) {
 
 									// 정상적으로 검색이 완료됐으면 
@@ -237,7 +237,7 @@
 
 				<div class="option_inner">
 					<h3>시간</h3>
-					<input type="text" value="12:00" readonly>
+					<input type="text" value="${hobee.hb_time}" readonly>
 				</div>
 
 				<div class="option_inner people_num">

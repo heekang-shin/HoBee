@@ -186,7 +186,7 @@ public class HostController {
 	    if (res > 0) {
 	        System.out.println("수정 성공");
 	        // 수정 후 상세 페이지로 리다이렉트
-	        return Common.VIEW_PATH + "host/host_list.jsp";
+	        return "redirect:host_list.do";
 	    } else {
 	        System.out.println("수정 실패");
 	        model.addAttribute("errorMsg", "수정에 실패했습니다.");

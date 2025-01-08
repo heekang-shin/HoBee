@@ -107,13 +107,13 @@ function send(form) {
         return;
     }
 
-    if (!hb_content || hb_content === '') {
+    if (!hb_content) {
         alert("프로그램 내용을 입력해 주세요.");
         document.getElementsByName("hb_content")[0].focus();
         return;
     }
 
-    if (!hb_notice || hb_notice === '') {
+    if (!hb_notice) {
         alert("유의사항을 입력해 주세요.");
         document.getElementsByName("hb_notice")[0].focus();
         return;
@@ -167,7 +167,7 @@ function send(form) {
 			<div class="dashboard">
 				<form enctype="multipart/form-data">
 					<input type="hidden" name="status" value="0">
-					<input type="hidden" name="user_id" value="admin">
+					<input type="hidden" name="USER_ID" value="admin">
 					<input type="hidden" name="num_of_p" value="4">
 									
 					<div class="form-container">

@@ -49,14 +49,13 @@
         <thead>
             <tr>
                 <th width="5%" class="line">번호</th>
-                <th width="5%" class="line">번호</th>
-                <th width="7%" class="line">카테고리</th>
-                <th width="20%" class="line" >프로그램명</th>
+                <th width="10%" class="line">카테고리</th>
+                <th width="25%" class="line" >프로그램명</th>
                 <th width="10%" class="line">금액</th>
                 <th width="10%" class="line">시작 날짜</th>
                 <th width="10%" class="line">시작 시간</th>
-                <th width="13%" class="line">작성일</th>
-                <th width="7%" class="line">판매상태</th>
+                <th width="20%" class="line">작성일</th>
+                <th width="10%" class="line">판매상태</th>
             </tr>
         </thead>
 
@@ -64,7 +63,7 @@
             <!-- 신청한 프로그램이 없는 경우 -->
             <c:if test="${empty apply_list}">
                 <tr>
-                    <td colspan="7" class="line" style="text-align: center;">신청된 프로그램이 없습니다.</td>
+                    <td colspan="8" class="line" style="text-align: center;">신청된 프로그램이 없습니다.</td>
                 </tr>
             </c:if>
 
@@ -72,17 +71,16 @@
             <c:forEach var="vo" items="${apply_list}">
                 <tr>
 	                <td width="5%" class="line">${vo.hb_idx}</td>
-	                <td width="5%" class="line">1</td>
-	                <td width="7%" class="line">${vo.category_num}</td>
-	                <td width="20%" class="line" style="text-align: left;">
+	                <td width="10%" class="line">${vo.category_num}</td>
+	                <td width="25%" class="line" style="text-align: left;">
 	                	<a href="host_apply_detail.do?hb_idx=${vo.hb_idx}">${vo.hb_title}</a>
 	                </td>
 	                <td width="10%" class="line" ><fmt:formatNumber value="${vo.hb_price}"/> 원</td>
 	                <td width="10%" class="line">${vo.hb_date}</td>
 	                <td width="10%" class="line">${vo.hb_time}</td>
-	                <td width="13%" class="line">${vo.hb_write_date}</td>
+	                <td width="20%" class="line">${vo.hb_write_date}</td>
 	                 
-	                 <td width="7%" class="line">
+	                 <td width="10%" class="line">
 					    <c:choose>
 					        <c:when test="${vo.status == 0}">
 					            신청완료

@@ -19,8 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 신규 제품 조회 -->
 	<select id="hobee_new_list" resultType="hobee">
 		SELECT * FROM hobee
-		WHERE
-		hb_write_date >= SYSDATE - 30
+		WHERE hb_write_date >= SYSDATE - 30
 		ORDER BY hb_write_date DESC
 	</select>
 
@@ -28,74 +27,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="hobee_search_list" resultType="hobee"
 		parameterType="String">
 		SELECT * FROM hobee
-		WHERE hb_title LIKE '%' ||
-		#{search_text} || '%'
+		WHERE hb_title LIKE '%' || #{search_text} || '%'
 	</select>
 
-
-	<!-- 호스트 제품 등록 -->
+	<!-- host 프로그램 추가 -->	
 	<insert id="hobee_insert" parameterType="hobee">
-		insert into hobee
-		values(
-		SEQ_HB_IDX.nextVal,
-		#{hb_title},
-		#{s_image},
-		#{l_image},
-		#{in_image},
-		#{hb_content},
-		#{hb_price},
-		#{num_of_p},
-		#{user_id},
-		#{hb_date},
-		#{hb_tot_num},
-		TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
-		#{category_num},
-		#{status},
-		#{hb_notice},
-		#{hb_time},
-		#{hb_address},
-		#{postcode},
-		#{address},
-		#{detailAddress},
-		#{extraAddress}
+		insert into hobee values(
+			SEQ_HB_IDX.nextVal,
+	        #{hb_title}, 
+	        #{s_image}, 
+	        #{l_image}, 
+	        #{in_image}, 
+	        #{hb_content}, 
+	        #{hb_price}, 
+	        #{num_of_p}, 
+	        #{user_id}, 
+	        #{hb_date}, 
+	        #{hb_tot_num}, 
+	        SYSDATE, 
+	        #{category_num}, 
+	        #{status}, 
+	        #{hb_notice}, 
+	        #{hb_time}, 
+	        #{hb_address}, 
+	        #{postcode}, 
+	        #{address}, 
+	        #{detailAddress},
+	        #{extraAddress}
 		)
 	</insert>
-
-	<!-- 호스트 프로그램 신청 조회 -->
+	
+	<!--host apply 리스트 조회 -->
 	<select id="hobee_apply_list" resultType="hobee">
-		SELECT * FROM hobee
+		select * from hobee
 	</select>
-
-	<!-- 호스트 신청 프로그램 한개 조회 -->
+	
+	<!-- host 한개 조회 -->
 	<select id="hobee_apply_one" parameterType="int" resultType="hobee">
-	    SELECT * FROM hobee 
-	    WHERE hb_idx = #{hb_idx}
+		select * from hobee
+		where hb_idx=#{hb_idx}
 	</select>
-
 	
 	
-
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

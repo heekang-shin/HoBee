@@ -209,7 +209,7 @@
 					<div class="con_box aboutinner aos-item best" data-aos="fade-up"
 						onclick="">
 						 <img src="/hobee/resources/images/upload/${vo.s_image}"
-							alt="thumbnail">
+							alt="thumbnail" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">
 						<h2>${vo.hb_title}</h2>
 						<p>
 							<fmt:formatNumber value="${vo.hb_price}" />
@@ -241,7 +241,7 @@
 					<div class="con_box aboutinner aos-item" data-aos="fade-up"
 						onclick="">
 						<img src="/hobee/resources/images/upload/${vo.s_image}"
-							alt="thumbnail">
+							alt="thumbnail" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">
 						<h2>${vo.hb_title}</h2>
 						<p>
 							<fmt:formatNumber value="${vo.hb_price}" />
@@ -288,7 +288,7 @@
 					<div class="con_box aboutinner aos-item" data-aos="fade-up"
 						onclick="">
 						<img src="/hobee/resources/images/upload/${vo.s_image}"
-							alt="thumbnail">
+							alt="thumbnail" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">
 						<h2>${vo.hb_title}</h2>
 						<p>
 							<fmt:formatNumber value="${vo.hb_price}" />

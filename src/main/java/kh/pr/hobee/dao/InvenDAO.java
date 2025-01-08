@@ -35,8 +35,8 @@ public class InvenDAO {
 		return vo;
 	}
 	
-	public List<InquiryVO> getAllInquiries() {
-		List<InquiryVO> list = sqlSession.selectList("i.hobee_inquiry");
+	public List<InquiryVO> getAllInquiries(int hb_idx) {
+		List<InquiryVO> list = sqlSession.selectList("i.hobee_inquiry", hb_idx);
 		return list;
 	}
 	

@@ -42,8 +42,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 1:1문의 가져오기 -->
 	<select id="hobee_inquiry"
-			resultType = "inquiry">
-		select * from inquiries		
+			resultType = "inquiry"
+			parameterType="int">
+		select * from inquiries
+		where hb_idx=#{hb_idx}			
 	</select>
 </mapper>
 

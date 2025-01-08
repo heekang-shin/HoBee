@@ -1,8 +1,15 @@
 package kh.pr.hobee.vo;
 
 public class InquiryVO {
-	private int id;
+	private int id,hb_idx;
 	private String title, content, writer, created_date, secret, answer, answer_date, answer_writer;
+	
+	public int getHb_idx() {
+		return hb_idx;
+	}
+	public void setHb_idx(int hb_idx) {
+		this.hb_idx = hb_idx;
+	}
 	
 	public int getId() {
 		return id;

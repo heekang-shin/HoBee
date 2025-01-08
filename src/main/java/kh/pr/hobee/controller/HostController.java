@@ -199,7 +199,6 @@ public class HostController {
 	@RequestMapping("apply_del.do")
 	public String applyDel(HobeeVO vo) {
 		int res = hobeedao.hostDel(vo.getHb_idx());
-		System.out.println("삭제 실패");
 		return "redirect:host_list.do";
 	}
 	

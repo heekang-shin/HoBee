@@ -35,10 +35,10 @@ public class HostController {
 		this.hobeedao = hobeedao;
 	}
 
-	/**/
-	// 리스트 페이지로 이동
+	// 호스트 리스트 페이지로 이동
 	@RequestMapping("host_list.do")
 	public String hostList(Model model) {
+		
 		List<HobeeVO> apply_list = hobeedao.applyList();
 		model.addAttribute("apply_list", apply_list);
 		return Common.VIEW_PATH + "host/host_list.jsp";
@@ -225,6 +225,12 @@ public class HostController {
 		return Common.VIEW_PATH + "host/host_list.jsp";
 	}
 	
+	
+	//1:1문의 리스트 조회
+	@RequestMapping("host_inq.do")
+	public String inqList() {
+		return Common.VIEW_PATH + "host/inq/host_inq.jsp";
+	}
 	
 	
 }

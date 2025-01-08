@@ -36,7 +36,7 @@
             </li>
             <li>
                 <img src="/hobee/resources/images/host_inquiry.png" alt="문의 관리">
-                <a href="#">문의 관리</a>
+                <a href="host_inq.do">문의 관리</a>
             </li>
         </ul>
     </div>

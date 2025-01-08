@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -57,7 +58,7 @@
 	<div class="table-container">
     <div class="total-num">
         <p>
-            전체<span>&nbsp;1건</span>
+            전체<span>&nbsp;${fn:length(apply_list)}</span>건
         </p>
     </div>
 
@@ -86,11 +87,11 @@
 			   
 			</c:if>
 
-
-            <!-- 신청한 프로그램 리스트 출력 -->
-            <c:forEach var="vo" items="${apply_list}">
+            
+            <c:forEach var="vo" items="${apply_list}" varStatus="status">
                 <tr>
-	                <td width="5%" class="line">${vo.hb_idx}</td>
+	                <td width="5%" class="line">${status.index + 1}</td>
+	                <!-- <td> width="5%" class="line">${vo.hb_idx}</td> -->
 	                <td width="10%" class="line">${vo.category_num}</td>
 	                <td width="25%" class="line" style="text-align: left;">
 	                	<a href="host_apply_detail.do?hb_idx=${vo.hb_idx}">${vo.hb_title}</a>

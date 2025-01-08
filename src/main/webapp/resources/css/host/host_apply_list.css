@@ -221,3 +221,47 @@ tbody td a{
 	color:var(--color-white);
 	background-color:var(--color-black);
 }
+
+
+/*목록으로*/
+.go-list{
+	display: inline-block;
+	width:80px;
+	height: 40px;
+	background-color: var(--color-black);
+	color:#fff;
+	line-height: 40px;
+	border-radius: var(--border-radius);
+	margin-top:20px;
+	border:1px solid #222222;
+}
+
+.no-search td{
+	padding: 40px 0;
+	font-size:20px;
+	font-weight: 600;
+}
+
+.no-search td a{
+	font-size: 16px;
+	font-weight: 500;
+}
+
+
+/*검색창*/
+/* 기본 스타일 초기화 */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none; /* 기본 스타일 제거 */
+  appearance: none;
+}
+
+/* 삭제 버튼 커스텀 */
+input[type="search"]::-webkit-search-cancel-button {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-image: url("/hobee/resources/images/del_icon.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}

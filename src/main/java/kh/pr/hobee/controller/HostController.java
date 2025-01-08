@@ -202,4 +202,29 @@ public class HostController {
 		return "redirect:host_list.do";
 	}
 	
+	
+	//호스트 검색
+	@RequestMapping("host_search.do")
+	public String applySch(String search_text, String search_category,Model model) {
+		 
+		List<HobeeVO> search_list = null;
+
+	    // 검색 카테고리에 따라 다른 조회 메서드 호출
+	    if ("title".equals(search_category)) {
+	    	//타이틀 검색
+	        search_list = hobeedao.searchByTitle(search_text);
+	    } else if ("content".equals(search_category)) {
+	    	//내용 검색
+	        search_list = hobeedao.searchByContent(search_text);
+	    } else {
+	        // 전체 검색
+	        search_list = hobeedao.searchByAll(search_text);
+	    }
+
+	    model.addAttribute("apply_list", search_list);
+		return Common.VIEW_PATH + "host/host_list.jsp";
+	}
+	
+	
+	
 }

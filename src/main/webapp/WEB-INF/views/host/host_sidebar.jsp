@@ -28,7 +28,7 @@
             </li>
             <li>
                 <img src="/hobee/resources/images/host_list.png" alt="프로그램 신청">
-                <a href="#">프로그램 신청</a>
+                <a href="host_list.do">프로그램 신청</a>
             </li>
             <li>
                 <img src="/hobee/resources/images/host_shop.png" alt="신청자 관리">

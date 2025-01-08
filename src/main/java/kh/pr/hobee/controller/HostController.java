@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.AbstractListModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -96,51 +95,106 @@ public class HostController {
 	
 
 	private void handleFileUpload(MultipartFile file, String savePath, String fieldName, HobeeVO vo) {
-		String filename = "no_file";
+	    String filename = null;
 
-		if (file != null && !file.isEmpty()) {
-			filename = file.getOriginalFilename();
+	    if (file != null && !file.isEmpty()) {
+	        filename = file.getOriginalFilename();
 
-			// 저장할 파일의 경로
-			File saveFile = new File(savePath, filename);
+	        // 기존 파일 삭제
+	        if ("s_image".equals(fieldName) && vo.getS_image() != null) {
+	            deleteExistingFile(savePath, vo.getS_image());
+	        } else if ("l_image".equals(fieldName) && vo.getL_image() != null) {
+	            deleteExistingFile(savePath, vo.getL_image());
+	        } else if ("in_image".equals(fieldName) && vo.getIn_image() != null) {
+	            deleteExistingFile(savePath, vo.getIn_image());
+	        }
 
-			if (!saveFile.exists()) {
-				saveFile.mkdirs();
-			} else {
-				// 동일한 이름의 파일이 존재한다면 현재 업로드 시간을 붙여서 중복을 방지
-				long time = System.currentTimeMillis();
-				filename = String.format("%d_%s", time, filename);
-				saveFile = new File(savePath, filename);
-			}
+	        // 저장할 파일의 경로
+	        File saveFile = new File(savePath, filename);
 
-			// 파일을 절대경로에 생성, 복사본을 넣는 것이다.
-			try {
-				file.transferTo(saveFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+	        // 동일한 이름의 파일이 존재하면 중복 방지 처리
+	        if (saveFile.exists()) {
+	            long time = System.currentTimeMillis();
+	            filename = String.format("%d_%s", time, filename);
+	            saveFile = new File(savePath, filename);
+	        }
 
-		// VO에 파일 이름 설정
-		if ("s_image".equals(fieldName)) {
-			vo.setS_image(filename);
-		} else if ("in_image".equals(fieldName)) {
-			vo.setIn_image(filename);
-		} else if ("l_image".equals(fieldName)) {
-			vo.setL_image(filename);
-		}
+	        try {
+	            file.transferTo(saveFile);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        // 파일이 업로드되지 않으면 기존 파일명을 유지
+	        if ("s_image".equals(fieldName)) {
+	            filename = vo.getS_image();
+	        } else if ("l_image".equals(fieldName)) {
+	            filename = vo.getL_image();
+	        } else if ("in_image".equals(fieldName)) {
+	            filename = vo.getIn_image();
+	        }
+	    }
 
-		System.out.println(fieldName + " 파일이름:" + filename);
+	    // VO에 파일 이름 설정
+	    if ("s_image".equals(fieldName)) {
+	        vo.setS_image(filename);
+	    } else if ("in_image".equals(fieldName)) {
+	        vo.setIn_image(filename);
+	    } else if ("l_image".equals(fieldName)) {
+	        vo.setL_image(filename);
+	    }
+
+	    System.out.println(fieldName + " 파일이름: " + filename);
 	}
+
 	
+	private void deleteExistingFile(String savePath, String filename) {
+	    if (filename != null && !filename.equals("no_file")) {
+	        File existingFile = new File(savePath, filename);
+	        if (existingFile.exists()) {
+	            existingFile.delete();
+	            System.out.println("Deleted File: " + filename);
+	        }
+	    }
+	}
+
 	
-	//한개 조회
+	//host 한개 조회
 	@RequestMapping("host_apply_detail.do")
 	public String applyList(int hb_idx, Model model) {
 		HobeeVO vo = hobeedao.applyOne(hb_idx);
 		model.addAttribute("vo",vo);
 		return Common.VIEW_PATH + "host/host_apply_detail.jsp";
 	}
+	
+	
+	//host 한개 수정
+	@RequestMapping("apply_modify.do")
+	public String applyModify(HobeeVO vo, Model model) {
+	    String webPath = "/resources/images/upload/"; // 상대경로
+	    String savePath = application.getRealPath(webPath); // 절대경로
+
+	    System.out.println("절대경로: " + savePath);
+
+	    // 업로드된 파일 처리
+	    handleFileUpload(vo.getS_image_filename(), savePath, "s_image", vo);
+	    handleFileUpload(vo.getL_image_filename(), savePath, "l_image", vo);
+	    handleFileUpload(vo.getIn_image_filename(), savePath, "in_image", vo);
+
+	    // 데이터 수정 처리
+	    int res = hobeedao.modify(vo);
+	    if (res > 0) {
+	        System.out.println("수정 성공");
+	        // 수정 후 상세 페이지로 리다이렉트
+	        return Common.VIEW_PATH + "host/host_list.jsp";
+	    } else {
+	        System.out.println("수정 실패");
+	        model.addAttribute("errorMsg", "수정에 실패했습니다.");
+	        // 수정 실패 시 원래 페이지로 이동
+	        return "redirect:host_apply_detail.do?hb_idx=" + vo.getHb_idx();
+	    }
+	}
+
 	
 	
 	

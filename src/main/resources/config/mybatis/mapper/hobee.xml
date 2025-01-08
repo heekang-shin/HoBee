@@ -69,4 +69,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	<!-- host apply 수정 -->
+	<update id="hobee_apply_update" parameterType="hobee">
+    UPDATE hobee SET 
+        hb_title = #{hb_title},
+        s_image = #{s_image},
+        l_image = #{l_image},
+        in_image = #{in_image},
+        hb_content = #{hb_content},
+        hb_price = #{hb_price},
+        num_of_p = #{num_of_p},
+        user_id = #{user_id},
+        hb_date = #{hb_date},
+        hb_tot_num = #{hb_tot_num},
+        category_num = #{category_num},
+        status = #{status},
+        hb_notice = #{hb_notice},
+        hb_time = #{hb_time},
+        hb_address = #{hb_address},
+        postcode = #{postcode},
+        address = #{address},
+        detailAddress = #{detailAddress},
+        extraAddress = #{extraAddress}
+    WHERE hb_idx = #{hb_idx}
+</update>
+
+	
 </mapper>

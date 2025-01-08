@@ -57,4 +57,11 @@ public class HobeeDAO {
 		HobeeVO vo = sqlSession.selectOne("h.hobee_apply_one", hb_idx);
 		return vo;
 	}
+	
+	//host apply 수정
+	public int modify(HobeeVO vo) {
+		int res = sqlSession.insert("h.hobee_apply_update", vo);
+		return res;
+	}
+	
 }

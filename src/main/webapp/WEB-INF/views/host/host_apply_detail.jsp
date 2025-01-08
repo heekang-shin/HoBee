@@ -12,8 +12,7 @@
 	
 	<!-- 공통 스타일 -->
 	<link rel="stylesheet" href="/hobee/resources/css/host/common.css">
-	<link rel="stylesheet"
-		href="/hobee/resources/css/host/host_apply_form.css">
+	<link rel="stylesheet" href="/hobee/resources/css/host/host_apply_form.css">
 	
 	<!-- host 공통 스크립트 -->
 	<script src="/hobee/resources/js/hostFunction.js"></script>
@@ -153,6 +152,20 @@
 		
 		}
 	
+	    </script>
+	    
+	    <script>
+	    	function del(f){
+	    		
+				if (!confirm("정말 삭제 하시겠어요?")) {
+					 return;
+				}
+				
+				f.method = 'post';
+			    f.action = 'apply_del.do';
+			    f.submit();
+	    		
+	    	}
 	    </script>
 	</head>
 	
@@ -315,6 +328,7 @@
 							<div class="btn-box">
 								<input type="button" value="취소하기" onclick="history.back();">
 								<input type="button" value="수정하기" onclick="modify(this.form);">
+								<input type="button" value="삭제하기" onclick="del(this.form);">
 							</div>
 	
 						</div>

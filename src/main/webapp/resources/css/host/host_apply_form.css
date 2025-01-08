@@ -243,7 +243,7 @@
 
 .btn-box input[type="button"] {
  display: inline-block;
-    width: 110px;
+    width: 100px;
     height: 42px;
     text-align: center;
     border-radius: 4px;
@@ -252,30 +252,44 @@
     font-weight: 600; 
 }
 
-.btn-box input[type="button"]:first-child {
-	background-color: var(--color-red-sub);
-	color: var(--color-red);
-	border: 1px solid var(--color-red);
-	transition: background-color 0.3s ease;
-}
-
-.btn-box input[type="button"]:last-child {
+.btn-box input[type="button"]:nth-child(1) {
 	background-color: var(--color-white);
 	color: var(--color-black);
 	border: 1px solid var(--color-black);
 	transition: background-color 0.3s ease;
 }
 
-.btn-box input[type="button"]:first-child:hover {
-	border:1px solid var(--color-red);
-	background-color: var(--color-red);
+.btn-box input[type="button"]:nth-child(2) {
+	background-color: #F1F9FF;
+	color: #0074C9;
+	border: 1px solid #0074C9;
+	transition: background-color 0.3s ease;
+}
+
+.btn-box input[type="button"]:nth-child(3) {
+	background-color: #FCEEEE;
+	color: var(--color-red);
+	border: 1px solid var(--color-red);
+	transition: background-color 0.3s ease;
+}
+
+.btn-box input[type="button"]:nth-child(1):hover {
+	background-color: var(--color-black);
 	color:var(--color-white);
 }
 
-.btn-box input[type="button"]:last-child:hover {
-	background-color: var(--color-black);
+.btn-box input[type="button"]:nth-child(2):hover {
+	background-color: #0074C9;
+	color: var(--color-white);
+	transition: background-color 0.3s ease;
+}
+
+.btn-box input[type="button"]:nth-child(3):hover {
+	background-color: var(--color-red);
 	color: var(--color-white);
 }
+
+
 /*폼 제출 버튼 끝*/
 
 /*필수*/
@@ -287,32 +301,4 @@
 
 
 
-/*날짜 추가
-.add-btn{
-	width:50px;
-	height: 42px;
-	border-radius: var(--border-radius);
-	border: 1px solid var(--color-black);
-	background-color: var(--color-white);
-}
-
-.add-btn:hover{
-	background-color: var(--color-black);
-	color:var(--color-white);
-}
-
-게시 날짜
-.post-box{
-	width:100%;
-}
-
-.post-box input[type="date"] {
-    width: 188px;
-    height: 42px;
-	border-radius: var(--border-radius);
-	border: 1px solid var(--border-color-gray);
-	box-sizing: border-box;
-	padding:0 10px;
-}
-*/
 

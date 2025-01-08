@@ -103,7 +103,7 @@
 
 	<!-- 신청 버튼 시작-->
 	<div class="applybtn-box">
-		<input type="button" value="삭제하기" onclick="loc">
+		<input type="button" value="취소하기" onclick="history.back();">
 		<input type="button" value="신청하기" onclick="location.href='host_apply_form.do'">
 	</div>
 	<!-- 신청 버튼 끝 -->

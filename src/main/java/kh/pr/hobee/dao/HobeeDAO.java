@@ -64,4 +64,10 @@ public class HobeeDAO {
 		return res;
 	}
 	
+	//host apply 삭제
+	public int hostDel(int hb_idx) {
+		int res = sqlSession.delete("h.hobee_apply_del", hb_idx);
+		return res;
+	}
+	
 }

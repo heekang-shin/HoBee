@@ -93,7 +93,7 @@ public class HostController {
 		return Common.VIEW_PATH + "host/host_list.jsp";
 	}
 	
-
+	//파일 업로드
 	private void handleFileUpload(MultipartFile file, String savePath, String fieldName, HobeeVO vo) {
 	    String filename = null;
 
@@ -147,7 +147,7 @@ public class HostController {
 	    System.out.println(fieldName + " 파일이름: " + filename);
 	}
 
-	
+	//기존 파일 삭제
 	private void deleteExistingFile(String savePath, String filename) {
 	    if (filename != null && !filename.equals("no_file")) {
 	        File existingFile = new File(savePath, filename);
@@ -194,8 +194,13 @@ public class HostController {
 	        return "redirect:host_apply_detail.do?hb_idx=" + vo.getHb_idx();
 	    }
 	}
-
 	
-	
+	//host 삭제
+	@RequestMapping("apply_del.do")
+	public String applyDel(HobeeVO vo) {
+		int res = hobeedao.hostDel(vo.getHb_idx());
+		System.out.println("삭제 실패");
+		return "redirect:host_list.do";
+	}
 	
 }

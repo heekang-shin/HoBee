@@ -61,7 +61,10 @@
 	transition: 0.5s ease, opacity 0.5s ease;
 }
 
-
+#notice {
+	position: relative;
+	cursor: pointer;
+}
 
 /*환불정책*/
 #arrow2 {
@@ -280,6 +283,10 @@
     resize: none;
 }
 
+.inquiry-form #inquiry-title {
+    height: 30px;
+}
+
 .inquiry-form button {
     display: block;
     width: 100px;
@@ -313,4 +320,32 @@
     border: 1px solid #dcdcdc;
     border-radius: 4px;
     background-color: #ffffff;
+}
+
+/*문의목록 페이징처리*/
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #222222;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+.pagination a.active {
+    font-weight: bold;
+    background-color: #FFE14D;
+    color: #222222;
+}
+
+.pagination a:hover {
+    background-color: #222222;
+    color: #ffffff;
 }

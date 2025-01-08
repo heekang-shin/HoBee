@@ -135,9 +135,7 @@
 				var geocoder = new kakao.maps.services.Geocoder();
 
 				// 주소로 좌표를 검색합니다
-				geocoder
-						.addressSearch(
-								'${hobee.address}',
+				geocoder.addressSearch('${hobee.address}',
 								function(result, status) {
 
 									// 정상적으로 검색이 완료됐으면 
@@ -175,25 +173,44 @@
 				<div class="inquiry-form">
 					<h3>문의 작성</h3>
 					<form action="submitInquiry.do" method="POST">
+						<textarea name="title" id ="inquiry-title" placeholder="문의 제목을 입력하세요." required></textarea>
 						<textarea name="content" placeholder="문의 내용을 입력하세요." required></textarea>
 						<button type="submit">문의 등록</button>
 					</form>
 				</div>
 
-				<!-- 문의 목록 -->
 				<div class="inquiry-list">
 					<h3>문의 목록</h3>
 					<ul>
 						<c:forEach var="inquiry" items="${inquiries}">
 							<li>
-								<p>
-									<strong>${inquiry.id}</strong> (${inquiry.created_date})
+								<p><strong>${inquiry.title}</strong></p>
+								<p style="text-align:right">
+									작성자 | <strong>${inquiry.writer}</strong> (${inquiry.created_date})
 								</p>
 								<p>${inquiry.content}</p>
 							</li>
 						</c:forEach>
 					</ul>
+
+					<!-- 페이징 버튼 -->
+					<div class="pagination">
+						<c:if test="${currentPage > 1}">
+							<a
+								href="hobee_detail.do?hbidx=${hobee.hb_idx}&page=${currentPage - 1}">이전</a>
+						</c:if>
+
+						<c:forEach begin="1" end="${totalPages}" var="page">
+							<a href="hobee_detail.do?hbidx=${hobee.hb_idx}&page=${page}"
+								class="${currentPage == page ? 'active' : ''}">${page}</a>
+						</c:forEach>
+
+						<c:if test="${currentPage < totalPages}">
+							<a href="hobee_detail.do?hbidx=${hobee.hb_idx}&page=${currentPage + 1}">다음</a>
+						</c:if>
+					</div>
 				</div>
+
 			</div>
 
 			<!-- 환불정책 -->
@@ -205,7 +222,7 @@
 			</div>
 
 			<div id="notice-details" style="display: none">
-				<p>유의사항 내용</p>
+				<p>${hobee.hb_notice}</p>
 			</div>
 
 			<!-- 환불정책 -->

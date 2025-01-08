@@ -152,6 +152,10 @@ tbody td{
 	font-weight: 300;
 }
 
+tbody td a{
+	color:var(--color-black);
+}
+
 .title{
 	text-align: left;
 	padding-left:30px;

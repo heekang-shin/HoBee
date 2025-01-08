@@ -32,7 +32,7 @@
 
 <script>
 
-function send(form) {
+function modify(form) {
     // 폼 데이터 가져오기
     let hb_title = form.hb_title.value;
     let hb_price = form.hb_price.value.trim().replace(/,/g, '');
@@ -57,6 +57,8 @@ function send(form) {
 
     form.hb_address.value = fullAddress;
 
+    
+    
     // 유효성 검사
     if (!hb_title) {
         alert("프로그램명을 입력해 주세요.");
@@ -107,13 +109,13 @@ function send(form) {
         return;
     }
 
-    if (!hb_content || hb_content === '') {
+    if (!hb_content) {
         alert("프로그램 내용을 입력해 주세요.");
         document.getElementsByName("hb_content")[0].focus();
         return;
     }
 
-    if (!hb_notice || hb_notice === '') {
+    if (!hb_notice) {
         alert("유의사항을 입력해 주세요.");
         document.getElementsByName("hb_notice")[0].focus();
         return;
@@ -140,9 +142,15 @@ function send(form) {
         return;
     }
 
+    
+    if (!confirm("정말 수정하시겠어요?")) {
+        return;
+    }
+    
     form.method = 'post';
-    form.action = 'host_apply_insert.do';
+    form.action = 'apply_modify.do';
     form.submit();
+	
 	}
 
     </script>
@@ -166,21 +174,21 @@ function send(form) {
 			<!-- 대시보드 영역 -->
 			<div class="dashboard">
 				<form enctype="multipart/form-data">
-					<input type="hidden" name="status" value="0">
-					<input type="hidden" name="user_id" value="admin">
-					<input type="hidden" name="num_of_p" value="4">
+					<input type="hidden" name="status" value="${vo.status}">
+					<input type="hidden" name="user_id" value="${vo.user_id}">
+					<input type="hidden" name="num_of_p" value="${vo.num_of_p}">
 									
 					<div class="form-container">
 						<!-- 프로그램명 -->
 						<div class="form-box">
 							<label>프로그램명 <b class="req">*</b></label> <input type="text"
-								name="hb_title" placeholder="프로그램명을 입력해 주세요.">
+								name="hb_title" placeholder="프로그램명을 입력해 주세요." value="${vo.hb_title}">
 						</div>
 
 						<!-- 가격 -->
 						<div class="form-box">
 							<label>가격 <b class="req">*</b></label> <input type="text"
-								name="hb_price" placeholder="금액을 입력해 주세요."
+								name="hb_price" placeholder="금액을 입력해 주세요." value="${vo.hb_price}"
 								oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/\d(?=(?:\d{3})+$)/g, '$&,')" />
 							&nbsp;원
 						</div>
@@ -210,19 +218,19 @@ function send(form) {
 						<!-- 인원수 -->
 						<div class="form-box">
 							<label>인원 수 <b class="req">*</b></label>
-							<input type="number" name="hb_tot_num" placeholder="0"> &nbsp;명
+							<input type="number" name="hb_tot_num" placeholder="0" value="${vo.hb_tot_num}"> &nbsp;명
 						</div>
 
 						<!-- 날짜 -->
 						<div class="form-box">
 							<label>날짜 <b class="req">*</b></label>
-							<input name="hb_date" type="date">
+							<input name="hb_date" type="date" value="${vo.hb_date}">
 						</div>
 
 						<!-- 시간 -->
 						<div class="form-box">
 							<label>시간 <b class="req">*</b></label>
-							<input name="hb_time" type="time">
+							<input name="hb_time" type="time"  value="${vo.hb_time}">
 						</div>
 
 						<!-- 주소 -->
@@ -230,10 +238,10 @@ function send(form) {
 						    <label>모임 장소 <b class="req">*</b></label>
 						    <div class="addr-box">
 						        <input type="hidden" name="hb_address">
-								<input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호">
-								<input type="text" id="sample6_address" name="address" placeholder="주소">
-								<input type="text" id="sample6_detailAddress" name="detailAddress" placeholder="상세주소">
-								<input type="text" id="sample6_extraAddress"  name="extraAddress" placeholder="참고항목">
+								<input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호" value="${vo.postcode}">
+								<input type="text" id="sample6_address" name="address" placeholder="주소" value="${vo.address}">
+								<input type="text" id="sample6_detailAddress" name="detailAddress" placeholder="상세주소" value="${vo.detailAddress}">
+								<input type="text" id="sample6_extraAddress"  name="extraAddress" placeholder="참고항목" value="${vo.extraAddress}">
 						    </div>
 						    <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 						</div>
@@ -241,13 +249,13 @@ function send(form) {
 						<!-- 프로그램 상세내용 -->
 						<div class="form-box edit-box">
 							<label>프로그램 내용 <b class="req">*</b></label>
-							<textarea name="hb_content" placeholder="프로그램 상세 내용을 입력해 주세요."></textarea>
+							<textarea name="hb_content" placeholder="프로그램 상세 내용을 입력해 주세요.">${vo.hb_content}</textarea>
 						</div>
 
 						<!-- 프로그램 상세내용 -->
 						<div class="form-box edit-box">
 							<label>유의사항 <b class="req">*</b></label>
-							<textarea name="hb_notice" placeholder="유의사항을 입력해 주세요."></textarea>
+							<textarea name="hb_notice" placeholder="유의사항을 입력해 주세요." >${vo.hb_notice}</textarea>
 						</div>
 
 						<!-- 썸네일 -->
@@ -255,10 +263,10 @@ function send(form) {
 						    <label>썸네일 <b class="req">*</b></label>
 						    <div class="upload-box">
 						        <div class="image-preview" id="thumbnail-preview">
-						            <img src="/hobee/resources/images/img_icon.png" alt="썸네일 미리보기">
+						            <img src="/hobee/resources/images/${vo.s_image}" alt="썸네일 미리보기">
 						        </div>
 						        <div class="upload-inner">
-						            <p>썸네일<span> (권장크기 : 1000x1000px)</span></p>
+						            <p>썸네일<span> (권장크기 : 330x220px)</span></p>
 						            <div class="button-group">
 						                <input type="file" name="s_image_filename" id="s-thumbnail-input" accept=".png" onchange="updateImage('thumbnail-preview', 's-thumbnail-input', 'preview')">
 						                <button type="button" class="delete-btn" onclick="updateImage('thumbnail-preview', 's-thumbnail-input', 'remove')">삭제</button>
@@ -272,10 +280,10 @@ function send(form) {
 						    <label>대표이미지 <b class="req">*</b></label>
 						    <div class="upload-box">
 						        <div class="image-preview" id="l-thumbnail-preview">
-						            <img src="/hobee/resources/images/img_icon.png" alt="대표이미지 미리보기">
+						            <img src="/hobee/resources/images/${vo.l_image}" alt="대표이미지 미리보기">
 						        </div>
 						        <div class="upload-inner">
-						            <p>대표이미지<span> (권장크기 : 1000x1000px)</span></p>
+						            <p>대표이미지<span> (권장크기 : 920x520px)</span></p>
 						            <div class="button-group">
 						                <input type="file" name="l_image_filename" id="l-thumbnail-input" accept=".png" onchange="updateImage('l-thumbnail-preview', 'l-thumbnail-input', 'preview')">
 						                <button type="button" class="delete-btn" onclick="updateImage('l-thumbnail-preview', 'l-thumbnail-input', 'remove')">삭제</button>
@@ -289,10 +297,10 @@ function send(form) {
 						    <label>상세이미지 <b class="req">*</b></label>
 						    <div class="upload-box">
 						        <div class="image-preview" id="in-thumbnail-preview">
-						            <img src="/hobee/resources/images/img_icon.png" alt="상세이미지 미리보기">
+						            <img src="/hobee/resources/images/${vo.in_image}" alt="상세이미지 미리보기">
 						        </div>
 						        <div class="upload-inner">
-						            <p>상세이미지<span> (권장크기 : 1000x1000px)</span></p>
+						            <p>상세이미지<span> (권장크기 : 920x1000px)</span></p>
 						            <div class="button-group">
 						                <input type="file" name="in_image_filename" id="in-thumbnail-input" accept=".png" onchange="updateImage('in-thumbnail-preview', 'in-thumbnail-input', 'preview')">
 						                <button type="button" class="delete-btn" onclick="updateImage('in-thumbnail-preview', 'in-thumbnail-input', 'remove')">삭제</button>
@@ -305,7 +313,7 @@ function send(form) {
 						<!-- 버튼 -->
 						<div class="btn-box">
 							<input type="button" value="취소하기" onclick="history.back();">
-							<input type="button" value="제출하기" onclick="send(this.form);">
+							<input type="button" value="수정하기" onclick="modify(this.form);">
 						</div>
 
 					</div>

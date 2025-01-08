@@ -1,5 +1,6 @@
 package kh.pr.hobee.dao;
 
+import java.awt.image.VolatileImage;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -39,7 +40,7 @@ public class HobeeDAO {
 		return search_list;
 	}
 
-	// 호스트 프로그램 등록
+	// 프로그램 등록
 	public int insertFin(HobeeVO vo) {
 		int res = sqlSession.insert("h.hobee_insert", vo);
 		return res;
@@ -49,6 +50,12 @@ public class HobeeDAO {
 	public List<HobeeVO> applyList() {
 		List<HobeeVO> apply_list = sqlSession.selectList("h.hobee_apply_list");
 		return apply_list;
+	}
+
+	// 호스트 프로그램 한개 조회
+	public HobeeVO applyOne(int hb_idx) {
+		HobeeVO vo = sqlSession.selectOne("h.hobee_apply_one", hb_idx);
+		return vo;
 	}
 
 }

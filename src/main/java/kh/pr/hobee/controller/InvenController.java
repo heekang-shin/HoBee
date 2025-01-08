@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kh.pr.hobee.dao.InvenDAO;
 import kh.pr.hobee.vo.CategoryVO;
 import kh.pr.hobee.vo.HobeeVO;
+import kh.pr.hobee.vo.InquiryVO;
 
 @Controller
 public class InvenController {
@@ -48,7 +49,11 @@ public class InvenController {
 	public String detail(Model model, int hbidx) {
 		HobeeVO hobee_vo = inven_dao.hobeeDetail(hbidx);
 		model.addAttribute("hobee",hobee_vo);
+		List<InquiryVO> inquiries = inven_dao.getAllInquiries();
+        model.addAttribute("inquiries", inquiries);
 		return "/WEB-INF/views/detail/detail.jsp";
 	}
+	
+   
 	
 }

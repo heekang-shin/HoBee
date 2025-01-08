@@ -79,7 +79,61 @@
 
 	    
 
-	    
+	 // 모든 .star 요소 선택
+	    let stars = document.querySelectorAll('.star');
+
+	    // 클릭한 별점 상태를 저장할 변수
+	    let selectedRating = 0;
+
+	    // 별점 클릭 이벤트 처리
+	    stars.forEach((star, index) => {
+	      star.addEventListener('click', () => {
+	        selectedRating = index + 1;
+	        console.log(`${selectedRating}점이 선택되었습니다.`);
+
+	        // 별점 상태 업데이트
+	        updateStars(selectedRating);
+
+	        // 서버로 별점 전송 예시 (AJAX 요청)
+	        submitRating(selectedRating);
+	      });
+	    });
+
+	    // 별점 상태 업데이트 함수
+	    function updateStars(rating) {
+	      stars.forEach((star, index) => {
+	        if (index < rating) {
+	          star.classList.add('selected');
+	        } else {
+	          star.classList.remove('selected');
+	        }
+	      });
+
+	      // 화면에 평균 별점 업데이트
+	      document.querySelector('.average-score').textContent = `(${rating}/5)`;
+	    }
+
+	    // 서버로 별점 전송 함수 (예시)
+	    function submitRating(rating) {
+	      fetch('/submitRating', {
+	        method: 'POST',
+	        headers: {
+	          'Content-Type': 'application/json',
+	        },
+	        body: JSON.stringify({ rating }),
+	      })
+	        .then(response => response.json())
+	        .then(data => {
+	          console.log('서버 응답:', data);
+
+	          // 서버에서 받은 평균 별점 업데이트
+	          document.querySelector('.average-score').textContent = `(평균: ${data.averageRating}/5)`;
+	        })
+	        .catch(error => {
+	          console.error('에러 발생:', error);
+	        });
+	    }
+
 
 	</script>
 </head>

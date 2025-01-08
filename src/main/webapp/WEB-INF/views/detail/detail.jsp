@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,7 +87,7 @@
 
 		<!-- 왼쪽 컨테이너 -->
 		<div class="left_container">
-			<img src="/hobee/resources/images/${hobee.l_image}.png">
+			<img src="/hobee/resources/images/upload/${hobee.l_image}">
 
 			<!-- 소개 -->
 			<div class="sub-title">
@@ -95,7 +96,7 @@
 
 			<div class="content_container">
 				<p>${hobee.hb_content}</p>
-				 <img src="/hobee/resources/images/${hobee.in_image}.png">
+				 <img src="/hobee/resources/images/upload/${hobee.in_image}">
 			</div>
 
 			<!-- 모임장소 -->
@@ -134,9 +135,7 @@
 				var geocoder = new kakao.maps.services.Geocoder();
 
 				// 주소로 좌표를 검색합니다
-				geocoder
-						.addressSearch(
-								'${hobee.address}',
+				geocoder.addressSearch('${hobee.address}',
 								function(result, status) {
 
 									// 정상적으로 검색이 완료됐으면 
@@ -164,11 +163,55 @@
 								});
 			</script>
 
-			<!-- 1:1문의 -->
+			<!-- 1:1 문의 게시판 -->
 			<div class="sub-title">
-				<h2>1:1문의</h2>
+				<h2>1:1 문의</h2>
 			</div>
 
+			<div class="inquiry-board">
+				<!-- 문의 작성 -->
+				<div class="inquiry-form">
+					<h3>문의 작성</h3>
+					<form action="submitInquiry.do" method="POST">
+						<textarea name="title" id ="inquiry-title" placeholder="문의 제목을 입력하세요." required></textarea>
+						<textarea name="content" placeholder="문의 내용을 입력하세요." required></textarea>
+						<button type="submit">문의 등록</button>
+					</form>
+				</div>
+
+				<div class="inquiry-list">
+					<h3>문의 목록</h3>
+					<ul>
+						<c:forEach var="inquiry" items="${inquiries}">
+							<li>
+								<p><strong>${inquiry.title}</strong></p>
+								<p style="text-align:right">
+									작성자 | <strong>${inquiry.writer}</strong> (${inquiry.created_date})
+								</p>
+								<p>${inquiry.content}</p>
+							</li>
+						</c:forEach>
+					</ul>
+
+					<!-- 페이징 버튼 -->
+					<div class="pagination">
+						<c:if test="${currentPage > 1}">
+							<a
+								href="hobee_detail.do?hbidx=${hobee.hb_idx}&page=${currentPage - 1}">이전</a>
+						</c:if>
+
+						<c:forEach begin="1" end="${totalPages}" var="page">
+							<a href="hobee_detail.do?hbidx=${hobee.hb_idx}&page=${page}"
+								class="${currentPage == page ? 'active' : ''}">${page}</a>
+						</c:forEach>
+
+						<c:if test="${currentPage < totalPages}">
+							<a href="hobee_detail.do?hbidx=${hobee.hb_idx}&page=${currentPage + 1}">다음</a>
+						</c:if>
+					</div>
+				</div>
+
+			</div>
 
 			<!-- 환불정책 -->
 			<div class="sub-title">
@@ -179,7 +222,7 @@
 			</div>
 
 			<div id="notice-details" style="display: none">
-				<p>유의사항 내용</p>
+				<p>${hobee.hb_notice}</p>
 			</div>
 
 			<!-- 환불정책 -->

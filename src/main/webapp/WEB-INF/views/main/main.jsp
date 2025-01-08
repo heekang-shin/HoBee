@@ -208,8 +208,8 @@
 				<c:forEach var="vo" items="${best_list}" begin="0" end="3">
 					<div class="con_box aboutinner aos-item best" data-aos="fade-up"
 						onclick="">
-						<img src="/hobee/resources/images/${vo.s_image}.png"
-							alt="thumbnail">
+						 <img src="/hobee/resources/images/upload/${vo.s_image}"
+							alt="thumbnail" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">
 						<h2>${vo.hb_title}</h2>
 						<p>
 							<fmt:formatNumber value="${vo.hb_price}" />
@@ -240,8 +240,8 @@
 				<c:forEach var="vo" items="${pick_list}" begin="0" end="3">
 					<div class="con_box aboutinner aos-item" data-aos="fade-up"
 						onclick="">
-						<img src="/hobee/resources/images/${vo.s_image}.png"
-							alt="thumbnail">
+						<img src="/hobee/resources/images/upload/${vo.s_image}"
+							alt="thumbnail" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">
 						<h2>${vo.hb_title}</h2>
 						<p>
 							<fmt:formatNumber value="${vo.hb_price}" />
@@ -287,8 +287,8 @@
 				<c:forEach var="vo" items="${new_list}" begin="0" end="3">
 					<div class="con_box aboutinner aos-item" data-aos="fade-up"
 						onclick="">
-						<img src="/hobee/resources/images/${vo.s_image}.png"
-							alt="thumbnail">
+						<img src="/hobee/resources/images/upload/${vo.s_image}"
+							alt="thumbnail" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">
 						<h2>${vo.hb_title}</h2>
 						<p>
 							<fmt:formatNumber value="${vo.hb_price}" />

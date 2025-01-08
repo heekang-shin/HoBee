@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,44 +41,63 @@
 
 	<!-- 리스트 시작 -->
 	<div class="table-container">
-		<div class="total-num">
-			<p>
-				전체<span>&nbsp;1건</span>
-			</p>
-		</div>
+    <div class="total-num">
+        <p>
+            전체<span>&nbsp;1건</span>
+        </p>
+    </div>
 
-		<table>
-			<thead>
-				<tr>
-					<th class="line"><input type="checkbox"></th>
-					<th width="5%" class="line">번호</th>
-					<th width="10%" class="line">카테고리</th>
-					<th width="10%" class="line">상세카테고리</th>
-					<th class="line">프로그램명</th>
-					<th width="10%" class="line">금액</th>
-					<th width="10%" class="line">판매시작일</th>
-					<th width="10%" class="line">판매종료일</th>
-					<th width="10%" class="line">게시상태</th>
-				</tr>
-			</thead>
+    <table>
+        <thead>
+            <tr>
+                <th width="5%" class="line"><input type="checkbox"></th>
+                <th width="5%" class="line">번호</th>
+                <th width="10%" class="line">카테고리</th>
+                <th width="23%" class="line" >프로그램명</th>
+                <th width="10%" class="line">금액</th>
+                <th width="10%" class="line">작성일</th>
+                <th width="7%" class="line">판매상태</th>
+            </tr>
+        </thead>
 
-			<tbody>
-				<c:forEach items="${apply}">
-					<tr>
-						<td class="line"><input type="checkbox"></td>
-						<td width="5%" class="line">1</td>
-						<td width="10%" class="line">운동</td>
-						<td width="10%" class="line">스포츠</td>
-						<td class="line">test</td>
-						<td width="10%" class="line">5000원</td>
-						<td width="10%" class="line">2024-00-00</td>
-						<td width="10%" class="line">2024-00-00</td>
-						<td width="10%" class="line">게시상태</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+        <tbody>
+            <!-- 신청한 프로그램이 없는 경우 -->
+            <c:if test="${empty apply_list}">
+                <tr>
+                    <td colspan="7" class="line" style="text-align: center;">신청된 프로그램이 없습니다.</td>
+                </tr>
+            </c:if>
+
+            <!-- 신청한 프로그램 리스트 출력 -->
+            <c:forEach var="vo" items="${apply_list}">
+                <tr>
+                    <td width="5%" class="line"><input type="checkbox"></td>
+	                <td width="5%" class="line">${vo.hb_idx}</td>
+	                <td width="10%" class="line">${vo.category_num}</td>
+	                <td width="23%" class="line" style="text-align: left;">${vo.hb_title}</td>
+	                <td width="10%" class="line" ><fmt:formatNumber value="${vo.hb_price}"/> 원</td>
+	                 <td width="10%" class="line">${vo.hb_write_date}</td>
+	                 
+	                 <td width="7%" class="line">
+					    <c:choose>
+					        <c:when test="${vo.status == 0}">
+					            판매대기
+					        </c:when>
+					        <c:when test="${vo.status == 1}">
+					            게시중
+					        </c:when>
+					        <c:otherwise>
+					            상태 없음
+					        </c:otherwise>
+					    </c:choose>
+					</td>
+				
+                </tr>
+            </c:forEach>
+        </tbody>
+	    </table>
 	</div>
+
 
 	<!-- 신청 버튼 시작-->
 	<div class="applybtn-box">

@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
-	
+	<!-- 호스트 제품 등록 -->
 	<insert id="hobee_insert" parameterType="hobee">
 		insert into hobee values(
 			SEQ_HB_IDX.nextVal,
@@ -57,6 +57,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        #{extraAddress}
 		)
 	</insert>
+	
+	<!-- 호스트 프로그램 신청 조회 -->
+	<select id="hobee_apply_list" resultType="hobee">
+    	SELECT hb_idx, hb_title, hb_price, hb_write_date, status
+	    FROM hobee
+	</select>
 
 </mapper>
 

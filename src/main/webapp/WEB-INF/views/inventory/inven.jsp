@@ -135,7 +135,7 @@
 					data-category="${vo.category_num}">
 					<div class="con_box aboutinner aos-item" data-aos="fade-up"
 						onclick="">
-						<img src="/hobee/resources/images/${vo.s_image}.png"
+						<img src="/hobee/resources/images/upload/${vo.s_image}"
 							alt="thumbnail" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">
 						<h2>${vo.hb_title}</h2>
 						<p>${vo.hb_price}원</p>

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -26,8 +27,7 @@ public class HostController {
 
 	@Autowired
 	private HttpServletRequest request;
-	
-	
+
 	HobeeDAO hobeedao;
 
 	public void setHobeedao(HobeeDAO hobeedao) {
@@ -36,7 +36,11 @@ public class HostController {
 
 	// 리스트 페이지로 이동
 	@RequestMapping("host_list.do")
-	public String hostList() {
+	public String hostList(Model model) {
+		List<HobeeVO> apply_list = hobeedao.applyList();
+		model.addAttribute("apply_list", apply_list);
+		System.out.println("apply_list size: " + apply_list.size());
+
 		return Common.VIEW_PATH + "host/host_list.jsp";
 	}
 
@@ -46,8 +50,7 @@ public class HostController {
 		return Common.VIEW_PATH + "host/host_apply_form.jsp";
 	}
 
-	
-	// host_apply_insert.do
+	// 호스트 신청 폼
 	@RequestMapping("host_apply_insert.do")
 	public String hostInsert(HobeeVO vo, Model model) {
 
@@ -71,21 +74,23 @@ public class HostController {
 				System.err.println("Invalid time format: " + vo.getHb_time());
 			}
 		}
-		
-			
+
 		System.out.println("주소:" + vo.getHb_address());
 		System.out.println("주소:" + vo.getExtraAddress());
 
-		
-		System.out.println("카테고리:"+ vo.getCategory_num());
-		
+		System.out.println("카테고리:" + vo.getCategory_num());
+
 		// DAO를 통해 데이터 삽입
 		int res = hobeedao.insertFin(vo);
 		System.out.println("삽입 결과: " + res);
-		
+
+		// 데이터 삽입 후 전체 리스트 조회
+	/*	List<HobeeVO> apply_list = hobeedao.applyList();
+		model.addAttribute("apply_list", apply_list);
+		System.out.println("apply_list size: " + apply_list.size());*/
+
 		return Common.VIEW_PATH + "host/host_apply_fin.jsp";
 	}
-	
 
 	private void handleFileUpload(MultipartFile file, String savePath, String fieldName, HobeeVO vo) {
 		String filename = "no_file";
@@ -124,7 +129,5 @@ public class HostController {
 
 		System.out.println(fieldName + " 파일이름:" + filename);
 	}
-	
-	
-	
+
 }

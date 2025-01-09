@@ -226,11 +226,6 @@ public class HostController {
 	}
 	
 	
-	//1:1문의 리스트 조회
-	@RequestMapping("host_inq.do")
-	public String inqList() {
-		return Common.VIEW_PATH + "host/inq/host_inq.jsp";
-	}
 	
 	
 }

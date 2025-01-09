@@ -279,3 +279,48 @@ input[type="search"]::-webkit-search-cancel-button {
   background-repeat: no-repeat;
   cursor: pointer;
 }
+
+
+/* 공통 스타일 */
+.inq_btn {
+    display: inline-block;
+    width:80px;
+    line-height:32px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #474747;
+    box-sizing: border-box;
+    color: #474747;
+}
+
+/* '답변하기' 스타일 */
+.btn-answer {
+    background-color: #fff;
+}
+
+/* '답변보기' 스타일 */
+.btn-view {
+    background-color: #f8f8f8;
+}
+
+/* Hover 스타일 */
+.inq_btn:hover {
+    opacity: 0.9;
+}
+
+
+/*inq*/
+.inq-container {
+    max-width: 1100px;
+    margin: 60px auto 0;
+}
+
+.inq-question-header{
+	border-top:1px solid #222222;
+	border-bottom:1px solid #222222;
+	height: 58px;
+	line-height: 60px;
+}
+
+
+

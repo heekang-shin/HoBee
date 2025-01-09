@@ -17,6 +17,11 @@
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
 		
+	<!-- inqDAO -->
+	<bean id="inq_dao_bean" class="kh.pr.hobee.dao.InquiryDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>	 
+		
 		
 		
 </beans>

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -13,6 +16,7 @@
 	
 	<!-- 공통 스타일 -->
 	<link rel="stylesheet" href="/hobee/resources/css/host/common.css">
+	<link rel="stylesheet" href="/hobee/resources/css/host/host_inq_list.css">
 	
 	<!-- 헤더 스크롤 이펙트-->
 	<script src="/hobee/resources/js/hostFunction.js"></script>

@@ -84,7 +84,6 @@
 			       	 <a href="host_list.do" class="go-list">목록으로</a>
 			        </td>
 			    </tr>
-			   
 			</c:if>
 
             

@@ -17,6 +17,7 @@
 	<mappers>
 		<mapper resource="config/mybatis/mapper/hobee.xml" />
 		<mapper resource="config/mybatis/mapper/inventory.xml" />
+		<mapper resource="config/mybatis/mapper/inquiry.xml" />
 	</mappers>
 </configuration>
 

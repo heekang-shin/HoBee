@@ -45,4 +45,36 @@ public class inqController {
 		return Common.VIEW_PATH_HOST + "inq/host_inq_detail.jsp";
 	}
 
+	
+	//inq 답변폼으로 이동
+	@RequestMapping("inq_write.do")
+	public String writeForm(int id,Model model) {
+		InquiryVO vo = inqdao.inqOne(id);
+		model.addAttribute("vo", vo);
+		return Common.VIEW_PATH_HOST + "inq/host_inq_write.jsp";
+	}
+	
+	//inq 답변 제출
+	@RequestMapping("inq_update.do")
+	public String writeFormFin(InquiryVO vo) {
+		int res  = inqdao.inqFin(vo);
+		return "redirect:inq_list.do";
+	}
+	
+	//inq 답변 삭제
+	@RequestMapping("inq_del.do")
+	public String writeDel(int id) {
+		int res  = inqdao.inqDel(id);
+		return "redirect:inq_list.do";
+	}
+	
+	//inq 답변폼으로 이동
+	@RequestMapping("inq_write_update.do")
+	public String writeUpdate(int id,Model model) {
+		InquiryVO vo = inqdao.inqOne(id);
+		model.addAttribute("vo", vo);
+		return Common.VIEW_PATH_HOST + "inq/host_inq_write.jsp";
+	}
+	
+	
 }

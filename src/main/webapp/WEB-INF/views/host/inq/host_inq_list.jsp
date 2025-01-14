@@ -69,7 +69,7 @@
 					</tr>
 				</c:if>
 
-				<c:if test="${empty inq_list && empty search_list}">
+				<c:if test="${empty search_list}">
 					<tr class="no-search">
 						<td colspan="6" class="line" style="text-align: center;">검색된
 							1:1문의가 존재하지 않습니다.<br> <a href="#" class="go-list">목록으로</a>
@@ -81,14 +81,17 @@
 					<tr>
 						<td width="5%" class="line">${vo.id}</td>
 						<td width="30%" class="line">${vo.hb_title}</td>
-						<td width="30%" class="line"><a href="host_inq_detail.do?id=${vo.id}">${vo.title}</a></td>
+						<td width="30%" class="line">
+							<a href="host_inq_detail.do?id=${vo.id}">${vo.title}</a>
+						</td>
 						<td width="10%" class="line">${vo.writer}</td>
 						<td width="10%" class="line">${vo.created_date}</td>
 						<td width="10%" class="line">
-						    <c:set var="btnClass" value="${!empty vo.answer ? 'btn-answer' : 'btn-view'}" />
-						    <a href="host_inq_detail.do?id=${vo.id}" class="inq_btn ${btnClass}">
-						        ${!empty vo.answer ? '답변하기' : '답변보기'}
-						    </a>
+					    <!-- 답변 상태에 따라 링크 동적으로 설정 -->
+						   <c:set var="btnClass" value="${fn:trim(vo.answer) == '' ? 'btn-answer' : 'btn-view'}" />
+							<a href="host_inq_detail.do?id=${vo.id}" class="inq_btn ${btnClass}">
+							    ${fn:trim(vo.answer) == '' ? '답변하기' : '답변보기'}
+							</a>
 						</td>
 					</tr>
 				</c:forEach>

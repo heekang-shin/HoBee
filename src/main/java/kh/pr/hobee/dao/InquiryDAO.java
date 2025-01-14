@@ -31,6 +31,22 @@ public class InquiryDAO {
 		return vo;
 	}
 
+	// inq 답변 제출
+	public int inqFin(InquiryVO vo) {
+		int res = sqlSession.update("i.inq_update",vo);
+		return res;
+	}
 	
+	//inq 답변 삭제
+	public int inqDel(int id) {
+		int res = sqlSession.delete("i.inq_del",id);
+		return res;
+	}
+	
+	//inq 답변 수정
+	public int inqUpdate(int id) {
+		int res = sqlSession.update("i.inq_write_update",id);
+		return res;
+	}
 	
 }

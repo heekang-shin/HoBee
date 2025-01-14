@@ -11,7 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			h.hb_title,
 			i.title,
 			i.writer,
-			i.created_date
+			i.created_date,
+			i.answer
 		FROM
 			inquiries i
 		JOIN
@@ -26,7 +27,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id=#{id}
 	</select>
 	
-
+	<!-- inq 답변 추가 -->
+	<update id="inq_update" parameterType="inquiry">
+	    UPDATE inquiries
+	    SET 
+	        answer = #{answer},
+	        answer_date = SYSDATE,
+	        answer_writer = #{answer_writer}
+	    WHERE 
+	        id = #{id}
+	</update>
+		
+	<!-- inq답변 삭제 -->
+	<delete id="inq_del" parameterType="int">
+	delete from inquiries 
+		where id=#{id}
+	</delete>
+	
+	<!-- inq 답변 수정 -->
+	<update id="inq_write_update" parameterType="int">
+	UPDATE inquiries
+	    SET 
+	        answer = #{answer},
+	        answer_date = SYSDATE,
+	        answer_writer = #{answer_writer}
+	    WHERE 
+	        id = #{id}
+	</update>
+	
 </mapper>
 
 

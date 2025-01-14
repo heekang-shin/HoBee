@@ -35,7 +35,9 @@
 		<beans:property name="inven_dao" ref="inven_daoBean" />
 	</beans:bean>
 
-	<beans:bean class="kh.pr.hobee.controller.PayController"></beans:bean>
+	<beans:bean class="kh.pr.hobee.controller.PayController">
+		<beans:property name="inven_dao" ref="inven_daoBean" />
+	</beans:bean>
 
 
 	<!-- 메인 컨트롤러 -->

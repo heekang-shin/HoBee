@@ -46,6 +46,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			parameterType="int">
 		select * from inquiries
 		where hb_idx=#{hb_idx}			
+		order by id desc
 	</select>
+	
+	<!-- 예약 추가 -->
+	<insert id="hobee_reserve" parameterType="kh.pr.hobee.vo.ReserveVO">
+   		 INSERT INTO reserve (
+       	     reserve_id,
+   		     reserve_date,
+        	 hb_idx,
+        	 user_id,
+        	 price
+    	 )
+    	 VALUES (
+          	 seq_reserve_reserve_id.nextVal, 
+       		 SYSDATE, 
+        	 #{hb_idx}, 
+        	 #{user_id},
+        	 #{price}
+    	 )
+	 </insert>
+	 
+	 <insert id="hobee_wishlist" parameterType="kh.pr.hobee.vo.WishlistVO">
+   		 INSERT INTO wishlist (
+       	     wish_idx,
+        	 hb_idx,
+        	 user_id
+    	 )
+    	 VALUES (
+          	 seq_wish_idx.nextVal, 
+        	 #{hb_idx}, 
+        	 #{user_id}
+    	 )
+	 </insert>
+	 
+	 <select id="hobee_allwish" 
+	 		 resultType = "kh.pr.hobee.vo.WishlistVO"
+	 		 parameterType="int">
+	 	select * from wishlist
+	 	where user_id=#{user_id}
+	 </select>
+	 
+	 <delete id="hobee_deleteWishlist" parameterType = "kh.pr.hobee.vo.WishlistVO">
+		delete from wishlist 
+		where user_id=#{user_id} and hb_idx=#{hb_idx}
+	</delete>
+	
+	<insert id="saveInquiry" parameterType="kh.pr.hobee.vo.InquiryVO">
+    	INSERT INTO inquiries (id,hb_idx, title, content, writer, created_date)
+   		VALUES (seq_inq_idx.nextVal,#{hb_idx}, #{title}, #{content}, #{writer}, sysdate)
+	</insert>
 </mapper>
 

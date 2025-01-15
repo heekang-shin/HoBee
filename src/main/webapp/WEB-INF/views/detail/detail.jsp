@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,12 +46,134 @@
 	    // 새 창의 URL 설정
 	    const url = 'payment.do?price='+price+'&hbidx='+${hobee.hb_idx}+'&userid='+2; // 스프링 컨트롤러로 price 값 전달
 		const options = 'width=680,height=650,top=180%,left=600%';
+<script>
+		function open_payment() {
+	        // 새 창의 URL 설정
+		const url = 'payment.do'; // 스프링 컨트롤러에서 처리할 URL
+		const options = 'width=680,height=700,top=150,left=580';
 		window.open(url, '_blank', options);
 	}
 	function op(o) {
 	    let pp = parseInt(document.getElementById("people").value); // 문자열 값을 숫자로 변환
 	    if (isNaN(pp) || pp < 1) { // 초기값이 이상하거나 잘못된 경우를 방지
 	        pp = 1;
+		}
+		function op(o) {
+			let pp = parseInt(document.getElementById("people").value); // 문자열 값을 숫자로 변환
+			if (isNaN(pp) || pp < 1) { // 초기값이 이상하거나 잘못된 경우를 방지
+				pp = 1;
+			}
+	
+			switch (o) {
+			case "+":
+				pp++;
+				break;
+			case "-":
+				if (pp > 1) { // 인원수가 1 이하로 내려가지 않도록 제한
+					pp--;
+				}
+				break;
+			}
+	
+			document.getElementById("people").value = pp; // 업데이트된 인원수 반영
+	
+			let res = document.getElementById('res');
+			res.innerHTML = pp * ${hobee.hb_price}; // 총금액 계산 및 업데이트
+		}
+		
+		
+	    /* 환불정책 내용을 토글하는 함수
+	    function toggleRefundDetails() {
+	        const refundDetails = document.querySelector('.refund-details');
+	        const arrowIcon = document.querySelector('.arrow');
+
+	        // 토글 환불 내용 표시
+	        if (refundDetails.style.display === 'none' || refundDetails.style.display === '') {
+	            refundDetails.style.display = 'block'; // 보이기
+	            arrowIcon.classList.add('arrow-up'); // 화살표 뒤집기
+	        } else {
+	            refundDetails.style.display = 'none'; // 숨기기
+	            arrowIcon.classList.remove('arrow-up'); // 화살표 원래대로
+	        }
+	    }
+	    */
+	    
+	 // 별점과 리뷰 개수 저장 변수
+	    let totalRating = 0;   // 총 별점 합계
+	    let reviewCount = 0;   // 리뷰 개수
+	    let selectedRating = 0;  // 선택한 별점
+
+	    // ⭐️ 별점 1 클릭 시 호출되는 함수
+	    function rateStar1() {
+	        selectedRating = 1;
+	        updateStars(1);
+	        showReviewGroup();
+	        console.log("1점 선택");
+	    }
+
+	    // ⭐️ 별점 2 클릭 시 호출되는 함수
+	    function rateStar2() {
+	        selectedRating = 2;
+	        updateStars(2);
+	        showReviewGroup();
+	        console.log("2점 선택");
+	    }
+
+	    // ⭐️ 별점 3 클릭 시 호출되는 함수
+	    function rateStar3() {
+	        selectedRating = 3;
+	        updateStars(3);
+	        showReviewGroup();
+	        console.log("3점 선택");
+	    }
+
+	    // ⭐️ 별점 4 클릭 시 호출되는 함수
+	    function rateStar4() {
+	        selectedRating = 4;
+	        updateStars(4);
+	        showReviewGroup();
+	        console.log("4점 선택");
+	    }
+
+	    // ⭐️ 별점 5 클릭 시 호출되는 함수
+	    function rateStar5() {
+	        selectedRating = 5;
+	        updateStars(5);
+	        showReviewGroup();
+	        console.log("5점 선택");
+	    }
+
+	    // ✅ 별점 버튼 색상 업데이트 함수
+	    function updateStars(rating) {
+	        let stars = document.querySelectorAll('.star-rating input[type="button"]');
+	        stars.forEach(function(star, index) {
+	            star.classList.toggle('selected', index < rating);
+	        });
+
+	        // 평균 평점 및 리뷰 개수 표시 업데이트
+	        updateAverageScore();
+	    }
+
+	    // ✅ 리뷰 입력란과 등록 버튼 보이기 함수
+	    function showReviewGroup() {
+	        let reviewGroup = document.getElementById('review-group');
+	        reviewGroup.classList.remove('hidden');
+	        reviewGroup.classList.add('visible');
+	    }
+
+	 // ✅ 평균 평점 및 리뷰 개수 업데이트 함수
+	    function updateAverageScore() {
+	        let averageScoreElement = document.querySelector('.average-score');
+	        let reviewCountElement = document.querySelector('.review-count');
+
+	        // 선택된 요소가 존재할 때만 업데이트
+	        if (averageScoreElement && reviewCountElement) {
+	            let averageScore = (reviewCount === 0) ? 0 : (totalRating / reviewCount).toFixed(1);
+	            averageScoreElement.textContent = "(" + averageScore + "/5)";
+	            reviewCountElement.textContent = "(" + reviewCount + ")";
+	        } else {
+	            console.error("평균 점수 또는 리뷰 개수를 표시할 요소를 찾을 수 없습니다.");
+	        }
 	    }
 
 	    switch (o) {
@@ -63,8 +186,62 @@
 	            }
 	            break;
 	    }
-
 	    document.getElementById("people").value = pp; // 업데이트된 인원수 반영
+	 // ✅ AJAX 요청을 보내는 함수 정의
+	    function sendRequest(url, param, callback, method) {
+	        let xhr = new XMLHttpRequest(); // XMLHttpRequest 객체 생성
+	        xhr.open(method, url, true);
+	        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	        xhr.onreadystatechange = function () {
+	            if (xhr.readyState === 4 && xhr.status === 200) {
+	                callback(xhr); // 콜백 함수에 xhr 객체를 전달
+	            }
+	        };
+
+	        xhr.send(param); // 파라미터 전송
+	    }
+
+	    // ✅ 리뷰 등록 버튼 클릭 시 호출되는 함수
+	    function registration() {
+	        if (selectedRating === 0) {
+	            alert("별점을 선택해 주세요!");
+	            return;
+	        }
+
+	        let content = document.querySelector('textarea[name="content"]').value;
+
+	        if (!content.trim()) {
+	            alert("리뷰 내용을 입력해 주세요!");
+	            return;
+	        }
+
+	        // AJAX 요청 보내기
+	        let url = "Review.do";
+	        let param = "rating=" + selectedRating + "&content=" + encodeURIComponent(content);
+	        sendRequest(url, param, resultFn, "POST");
+	    }
+
+	 // ✅ 서버 응답을 처리하는 함수
+	    function resultFn(xhr) {
+	        let data = xhr.responseText;
+
+	        // 에러 처리
+	        if (data === "error") {
+	            alert("로그인 후 이용해주세요.");
+	            return;
+	        }
+
+	        // 데이터를 쉼표로 분리하여 평균 평점과 리뷰 개수 추출
+	        let values = data.split(",");
+	        let averageRating = parseFloat(values[0]);
+	        let reviewCount = parseInt(values[1]);
+
+	        // 화면에 평균 평점과 리뷰 개수 업데이트
+	        document.querySelector('.average-score').textContent = "(" + averageRating.toFixed(1) + "/5)";
+	        document.querySelector('.review-count').textContent = "(" + reviewCount + ")";
+	    }
+
 
 	    let res = document.getElementById('res');
 	    let price = pp * ${hobee.hb_price};
@@ -123,6 +300,38 @@
 		<!-- 왼쪽 컨테이너 -->
 		<div class="left_container">
 			<img src="/hobee/resources/images/upload/${hobee.l_image}">
+			<img src="/hobee/resources/images/${hobee.l_image}.png">
+
+			<div class="review-system">
+				<!-- 리뷰 섹션 -->
+				<div class="review-section">
+					<h2>${hobee.hb_title }</h2>
+
+				<div class="star-rating">
+				    <input type="button" value="★" onclick="rateStar1()">
+				    <input type="button" value="★" onclick="rateStar2()">
+				    <input type="button" value="★" onclick="rateStar3()">
+				    <input type="button" value="★" onclick="rateStar4()">
+				    <input type="button" value="★" onclick="rateStar5()">
+				    <!-- 평균 점수와 리뷰 개수 표시 -->
+				    <span class="average-score">${averageRating.toFixed(1)}/5</span>
+   					<span class="review-count">(${reviewCount})</span>
+				</div>
+
+
+
+					<!-- 리뷰 입력란과 등록 버튼 -->
+					<div id="review-group" class="hidden">
+						<textarea name="content" placeholder="리뷰 내용을 입력하세요..." required></textarea>
+						<input type="button" value="등록하기" onclick="registration()">
+					</div>
+				</div>
+
+
+
+			</div>
+
+
 
 			<!-- 소개 -->
 			<div class="sub-title">
@@ -132,6 +341,7 @@
 			<div class="content_container">
 				<p>${hobee.hb_content}</p>
 				 <img src="/hobee/resources/images/upload/${hobee.in_image}">
+
 			</div>
 
 			<!-- 모임장소 -->
@@ -199,6 +409,7 @@
 			</script>
 
 			<!-- 1:1 문의 게시판 -->
+
 			<div class="sub-title">
 				<h2>1:1 문의</h2>
 			</div>
@@ -258,6 +469,7 @@
 					</div>
 				</div>
 
+
 			</div>
 
 			<!-- 환불정책 -->
@@ -266,6 +478,7 @@
 					<h2>유의사항</h2>
 				</div>
 				<div id="arrow1"></div>
+
 			</div>
 
 			<div id="notice-details" style="display: none">
@@ -281,6 +494,7 @@
 			</div>
 
 			<div id="refund-details" style="display: none">
+
 				<p>
 					<b>1. 결제 후 1시간 이내에는 무료 취소가 가능합니다.</b><br> (단, 신청마감 이후 취소 시,
 					Hobee 진행 당일 결제 후 취소 시 취소 및 환불 불가)<br>
@@ -297,14 +511,10 @@
 					10월 25일에 취소 할 경우, 신청마감일 1일 전에 해당하며 50%의 수수료가 발생합니다.<br>
 					<br> <b>[환불 신청 방법]</b><br> 1. 해당 Hobee 결제한 계정으로 로그인<br>
 					2. 마이페이지 - 신청내역 or 결제내역<br> 3. 취소를 원하는 Hobee 상세 정보 버튼 - 취소<br>
-					※ 결제 수단에 따라 예금주, 은행명, 계좌번호 입력
-				</p>
+					※ 결제 수단에 따라 예금주, 은행명, 계좌번호 입력</p>
 			</div>
 
-
 		</div>
-
-
 
 
 		<!--오른쪽 사이드바-->
@@ -345,8 +555,6 @@
 				<span>원</span>
 				</h2>
 			</div>
-				
-
 
 			<div class="btn-inner">
 				<input type="button" value="신청하기" id="apply-btn" onclick="open_payment(${hobee.hb_price})">
@@ -356,7 +564,6 @@
 		</div>
 
 	</div>
-
 	<!--top버튼 시작-->
 	<a id="toTop" href="#">TOP</a>
 	<!--top버튼 끝-->

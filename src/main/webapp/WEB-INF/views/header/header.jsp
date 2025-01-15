@@ -32,7 +32,6 @@
                 <a href="main.do">Hobee</a>
             </h1>
 
-
             <!--검색창 시작-->
             <form onsubmit="return enterKey(this);">
                 <div id="search_inner">
@@ -57,5 +56,6 @@
         </div>
     </div>
     <!--헤더 끝-->
+
 </body>
 </html>

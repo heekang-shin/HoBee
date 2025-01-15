@@ -10,9 +10,24 @@
 <meta charset="UTF-8">
 <title>문의페이지</title>
 
+<!-- 스타일 시트 -->
 <link rel="stylesheet" href="/hobee/resources/css/host/common.css">
-<link rel="stylesheet"
-	href="/hobee/resources/css/host/host_inq_list.css">
+<link rel="stylesheet" href="/hobee/resources/css/host/host_inq_list.css">
+
+<script>
+function enterKey(f) {
+    // 유효성 체크
+    let searchInput = f.search_text.value;
+    if (searchInput === '') {
+        alert('검색어를 입력해 주세요.');
+        return; // 기본 동작 중단
+    }
+
+    f.action = "inq_search.do";
+    f.method = "get";
+    f.submit(); 
+}
+</script>
 
 </head>
 <body>
@@ -23,8 +38,8 @@
 			<div class="select-box">
 				<select class="search-select" name="search_category">
 					<option value="all">전체</option>
-					<option value="title">제목</option>
-					<option value="content">내용</option>
+					<option value="title">문의 제목</option>
+					<option value="content">문의 내용</option>
 				</select>
 			</div>
 
@@ -61,21 +76,26 @@
 
 			<tbody>
 				<!-- 신청한 프로그램이 없는 경우 -->
-				<c:if test="${ empty inq_list }">
-					<tr class="no-search">
-						<td colspan="6" class="line" style="text-align: center;">등록된
-							1:1문의가 존재하지 않습니다.<br> <a href="#" class="go-list">목록으로</a>
-						</td>
-					</tr>
+				<c:if test="${empty inq_list and not empty search_list}">
+				    <tr class="no-search">
+				        <td colspan="6" class="line" style="text-align: center;">
+				            등록된 1:1문의가 존재하지 않습니다.<br> 
+				            <a href="inq_list.do" class="go-list">목록으로</a>
+				        </td>
+				    </tr>
 				</c:if>
 
-				<c:if test="${empty search_list}">
-					<tr class="no-search">
-						<td colspan="6" class="line" style="text-align: center;">검색된
-							1:1문의가 존재하지 않습니다.<br> <a href="#" class="go-list">목록으로</a>
-						</td>
-					</tr>
+
+				<!-- 검색된 리스트가 없는 경우 -->
+				<c:if test="${empty inq_list and empty search_list}">
+				    <tr class="no-search">
+				        <td colspan="6" class="line" style="text-align: center;">
+				            검색된 1:1문의가 존재하지 않습니다.<br> 
+				            <a href="inq_list.do" class="go-list">목록으로</a>
+				        </td>
+				    </tr>
 				</c:if>
+
 
 				<c:forEach var="vo" items="${inq_list}">
 					<tr>

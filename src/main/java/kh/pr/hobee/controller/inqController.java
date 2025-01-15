@@ -77,4 +77,30 @@ public class inqController {
 	}
 	
 	
+	//inq 검색
+	@RequestMapping("inq_search.do")
+	public String applySch(String search_text, String search_category, Model model) {
+		 
+		List<InquiryVO> search_list = null;
+
+	    // 검색 카테고리에 따라 다른 조회 메서드 호출
+	    if ("title".equals(search_category)) {
+	    	//타이틀 검색
+	        search_list = inqdao.searchByTitle(search_text);
+	    } else if ("content".equals(search_category)) {
+	    	//내용 검색
+	        search_list = inqdao.searchByContent(search_text);
+	    } else {
+	        // 전체 검색
+	        search_list = inqdao.searchByAll(search_text);
+	    }
+
+	    model.addAttribute("inq_list", search_list);
+	    return Common.VIEW_PATH_HOST + "inq/host_inq_main.jsp";
+	}
+	
+	
+	
+	
+	
 }

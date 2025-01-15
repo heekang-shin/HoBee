@@ -55,6 +55,65 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        id = #{id}
 	</update>
 	
+		<!-- 제목으로 검색 -->
+	<select id="inq_search_by_title" resultType="inquiry" parameterType="String">
+	    SELECT 
+	        i.id,
+	        h.hb_title,
+	        i.title,
+	        i.writer,
+	        i.created_date,
+	        i.answer
+	    FROM 
+	        inquiries i
+	    JOIN 
+	        hobee h 
+	    ON 
+	        i.hb_idx = h.hb_idx
+	    WHERE 
+	        i.title LIKE '%' || #{search_text} || '%'
+	</select>
+	
+	<!-- 내용으로 검색 -->
+	<select id="inq_search_by_content" resultType="inquiry" parameterType="String">
+	    SELECT 
+	        i.id,
+	        h.hb_title,
+	        i.title,
+	        i.writer,
+	        i.created_date,
+	        i.answer
+	    FROM 
+	        inquiries i
+	    JOIN 
+	        hobee h 
+	    ON 
+	        i.hb_idx = h.hb_idx
+	    WHERE 
+	        i.content LIKE '%' || #{search_text} || '%'
+	</select>
+	
+	<!-- 전체 검색 -->
+	<select id="inq_search_by_all" resultType="inquiry" parameterType="String">
+	    SELECT 
+	        i.id,
+	        h.hb_title,
+	        i.title,
+	        i.writer,
+	        i.created_date,
+	        i.answer
+	    FROM 
+	        inquiries i
+	    JOIN 
+	        hobee h 
+	    ON 
+	        i.hb_idx = h.hb_idx
+	    WHERE 
+	        i.title LIKE '%' || #{search_text} || '%'
+	        OR i.content LIKE '%' || #{search_text} || '%'
+	</select>
+	
+	
 </mapper>
 
 

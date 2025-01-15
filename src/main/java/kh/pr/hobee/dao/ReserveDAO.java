@@ -14,11 +14,11 @@ public class ReserveDAO {
 		this.sqlSession = sqlSession;
 	}
 
-	/*
+	
 	// 신청내역 리스트 조회
 	public List<ReserveVO> resList() {
 		List<ReserveVO> res_list = sqlSession.selectList("r.res_list");
 		return res_list;
-	}*/
+	}
 
 }

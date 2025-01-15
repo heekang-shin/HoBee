@@ -9,7 +9,7 @@
 <html>
 	<head>
 	<meta charset="UTF-8">
-	<title>Hobee:신청내역</title>
+	<title>Hobee:신청자 내역</title>
 	
 	<!-- 파비콘 -->
 	<link rel="icon" href="/hobee/resources/images/Favicon.png">
@@ -34,7 +34,7 @@
 		<div class="content">
 			<div class="title-box">
 				<img src="/hobee/resources/images/title_icon.png">
-				<h3>신청 관리</h3>
+				<h3>신청자 관리</h3>
 			</div>
 
 			<!--대시보드 영역 -->

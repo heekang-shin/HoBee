@@ -72,7 +72,7 @@ public class MypageController {
 	@RequestMapping("/mypage_apply_form.do")
 	public String apply(
 	        @RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
-	        @RequestParam(defaultValue = "5") int itemsPerPage, // 페이지당 항목 수 기본값 10
+	        @RequestParam(defaultValue = "3") int itemsPerPage, // 페이지당 항목 수 기본값 3
 	        int user_Id,
 	        Model model
 	) {

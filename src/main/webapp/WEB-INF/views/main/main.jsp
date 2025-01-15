@@ -111,7 +111,7 @@
             </li>
             <li>
                 <img src="/hobee/resources/images/shop_icon.png" alt="찜" />
-                <a href="shop.do">찜목록</a>
+                <a href="mypage_heart_form.do?user_Id=2">찜목록</a>
             </li>
 
             <!-- 로그인 상태 확인 -->

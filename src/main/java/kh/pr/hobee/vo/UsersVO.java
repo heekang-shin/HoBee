@@ -20,6 +20,15 @@ public class UsersVO {
 	private String id_lock;
 	private String homecheck;
 	private String nick_name;
+	private String pwd_change;//염지연
+
+	public String getPwd_change() {
+		return pwd_change;
+	}
+
+	public void setPwd_change(String pwd_change) {
+		this.pwd_change = pwd_change;
+	}
 
 	public String getSocial_Id() {
 		return social_Id;

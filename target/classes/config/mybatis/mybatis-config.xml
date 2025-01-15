@@ -13,12 +13,14 @@
 		<typeAlias type="kh.pr.hobee.vo.CategoryVO" alias="category" />
 		<typeAlias type="kh.pr.hobee.vo.HobeeVO" alias="hobee" />
 		<typeAlias type="kh.pr.hobee.vo.UsersVO" alias="users" />
+		<typeAlias type="kh.pr.hobee.vo.ReserveVO" alias="reserve" />
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="config/mybatis/mapper/hobee.xml" />
 		<mapper resource="config/mybatis/mapper/inventory.xml" />
 		<mapper resource="config/mybatis/mapper/users.xml" />
+		 <mapper resource="config/mybatis/mapper/mypage.xml" />
 	</mappers>
 </configuration>
 

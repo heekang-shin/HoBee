@@ -51,7 +51,11 @@
 		<beans:constructor-arg ref="mss"/>
 	</beans:bean>
 
-
+ <beans:bean class="kh.pr.hobee.controller.MypageController">
+	 
+	 <beans:property name="mypage_dao"  ref="mypage_daoBean"/>
+	 <beans:property name="bcp"  ref="bcp_bean"/>
+	 </beans:bean>
 
 </beans:beans>
 

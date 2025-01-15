@@ -36,7 +36,7 @@
     
     <li>
         <img src="/hobee/resources/images/shop_icon.png" alt="찜일" />
-        <a href="shop.do">찜목록</a>
+        <a href="mypage_heart_form.do?user_Id=2">찜목록</a>
     </li>
 
     <!-- 로로그인하지 않은 상태 -->

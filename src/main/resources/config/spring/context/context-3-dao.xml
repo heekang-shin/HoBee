@@ -17,6 +17,13 @@
 		<property name="sqlSession" ref="sqlSessionBean" />
 	</bean>
 		
+		
+<bean id="mypage_daoBean" class="kh.pr.hobee.dao.MypageDAO">
+	<property name="sqlSession" ref="sqlSessionBean"/>
+</bean>
+		
+		
+		
 </beans>
 
 

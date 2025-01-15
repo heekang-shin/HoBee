@@ -1,8 +1,7 @@
 @charset "UTF-8";
 
-
-
 /*페이징*/
+
 .pagination {
     display: flex;
     justify-content: center; 
@@ -38,4 +37,6 @@
 .pagination a.next-page {
     font-weight: bold;
 }
+
+
 

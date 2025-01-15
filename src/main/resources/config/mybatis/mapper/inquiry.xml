@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="i">
+
+	<!-- inq 리스트 조회 -->
+	<select id="inq_list" resultType="inquiry">
+		SELECT
+			i.id,
+			h.hb_title,
+			i.title,
+			i.writer,
+			i.created_date,
+			i.answer
+		FROM
+			inquiries i
+		JOIN
+			hobee h
+		ON
+		i.hb_idx = h.hb_idx
+	</select>
+	
+	<!-- inq 한개 조회 -->
+	<select id="inq_one" parameterType="int" resultType="inquiry">
+		select * from inquiries
+		where id=#{id}
+	</select>
+	
+	<!-- inq 답변 추가 -->
+	<update id="inq_update" parameterType="inquiry">
+	    UPDATE inquiries
+	    SET 
+	        answer = #{answer},
+	        answer_date = SYSDATE,
+	        answer_writer = #{answer_writer}
+	    WHERE 
+	        id = #{id}
+	</update>
+		
+	<!-- inq답변 삭제 -->
+	<delete id="inq_del" parameterType="int">
+	delete from inquiries 
+		where id=#{id}
+	</delete>
+	
+	<!-- inq 답변 수정 -->
+	<update id="inq_write_update" parameterType="int">
+	UPDATE inquiries
+	    SET 
+	        answer = #{answer},
+	        answer_date = SYSDATE,
+	        answer_writer = #{answer_writer}
+	    WHERE 
+	        id = #{id}
+	</update>
+	
+		<!-- 제목으로 검색 -->
+	<select id="inq_search_by_title" resultType="inquiry" parameterType="String">
+	    SELECT 
+	        i.id,
+	        h.hb_title,
+	        i.title,
+	        i.writer,
+	        i.created_date,
+	        i.answer
+	    FROM 
+	        inquiries i
+	    JOIN 
+	        hobee h 
+	    ON 
+	        i.hb_idx = h.hb_idx
+	    WHERE 
+	        i.title LIKE '%' || #{search_text} || '%'
+	</select>
+	
+	<!-- 내용으로 검색 -->
+	<select id="inq_search_by_content" resultType="inquiry" parameterType="String">
+	    SELECT 
+	        i.id,
+	        h.hb_title,
+	        i.title,
+	        i.writer,
+	        i.created_date,
+	        i.answer
+	    FROM 
+	        inquiries i
+	    JOIN 
+	        hobee h 
+	    ON 
+	        i.hb_idx = h.hb_idx
+	    WHERE 
+	        i.content LIKE '%' || #{search_text} || '%'
+	</select>
+	
+	<!-- 전체 검색 -->
+	<select id="inq_search_by_all" resultType="inquiry" parameterType="String">
+	    SELECT 
+	        i.id,
+	        h.hb_title,
+	        i.title,
+	        i.writer,
+	        i.created_date,
+	        i.answer
+	    FROM 
+	        inquiries i
+	    JOIN 
+	        hobee h 
+	    ON 
+	        i.hb_idx = h.hb_idx
+	    WHERE 
+	        i.title LIKE '%' || #{search_text} || '%'
+	        OR i.content LIKE '%' || #{search_text} || '%'
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -54,7 +54,7 @@
 		    </li>
 		    <li class="menu-item">
 		        <img src="/hobee/resources/images/host_shop.png" alt="신청자 관리">
-		        <a href="rev_list.do" class="menu-link">신청자 관리</a>
+		        <a href="res_list.do" class="menu-link">신청자 관리</a>
 		    </li>
 		    <li class="menu-item">
 		        <img src="/hobee/resources/images/host_inquiry.png" alt="문의 관리">

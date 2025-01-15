@@ -20,6 +20,11 @@
 	<!-- inqDAO -->
 	<bean id="inq_dao_bean" class="kh.pr.hobee.dao.InquiryDAO">
 		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>	
+	
+	<!-- resDAO -->
+	<bean id="res_dao_bean" class="kh.pr.hobee.dao.ReserveDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>	 
 		
 		

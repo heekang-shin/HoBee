@@ -46,7 +46,7 @@
 		    </li>
 		    <li class="menu-item">
 		        <img src="/hobee/resources/images/host_p.png" alt="호스트 정보">
-		        <a href="host_info.do" class="menu-link">호스트 정보</a>
+		        <a href="#" class="menu-link">호스트 정보</a>
 		    </li>
 		    <li class="menu-item">
 		        <img src="/hobee/resources/images/host_list.png" alt="프로그램 신청">

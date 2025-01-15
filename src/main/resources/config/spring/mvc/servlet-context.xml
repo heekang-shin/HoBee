@@ -59,9 +59,9 @@
 		<beans:property name="inqdao" ref="inq_dao_bean" />
 	</beans:bean>
 	
-	
+	<!-- resController -->
 	<beans:bean class="kh.pr.hobee.controller.ReserveController">
-		<beans:property name="reserveDAO" ref="res_dao_bean" />
+		<beans:property name="reservedao" ref="res_dao_bean" />
 	</beans:bean>
 
 </beans:beans>

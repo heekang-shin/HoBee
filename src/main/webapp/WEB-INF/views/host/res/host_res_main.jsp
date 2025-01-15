@@ -39,7 +39,9 @@
 
 			<!--대시보드 영역 -->
 			<div class="dashboard">
-				여기로 등장				
+				<!-- apply 리스트 -->
+				<jsp:include page="/WEB-INF/views/host/res/host_res_list.jsp"></jsp:include>
+				
 				<!-- 페이징 -->
 				<jsp:include page="/WEB-INF/views/host/host_paging.jsp"></jsp:include>
 			</div>

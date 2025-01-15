@@ -12,7 +12,7 @@
 		<typeAlias type="kh.pr.hobee.vo.CategoryVO" alias="category"/>
 		<typeAlias type="kh.pr.hobee.vo.HobeeVO" alias="hobee"/>
 		<typeAlias type="kh.pr.hobee.vo.InquiryVO" alias="inquiry"/>
-		<typeAlias type="kh.pr.hobee.vo.ReserveVO" alias="res"/>
+		<typeAlias type="kh.pr.hobee.vo.ReserveVO" alias="reserve"/>
 	</typeAliases>
 	
 	<mappers>

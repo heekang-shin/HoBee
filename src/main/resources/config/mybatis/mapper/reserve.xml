@@ -4,10 +4,99 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="r">
 
-	<select id="res_list" resultType="res">
-		SELECT * FROM reserve
+	<!-- 신청자 조회 -->
+	<select id="res_list" resultType="reserve">
+		SELECT
+			r.reserve_id,
+			h.hb_title,
+			u.user_name,
+			r.user_id,
+			r.reserve_date,
+			r.price
+		FROM
+			reserve r
+		JOIN
+			hobee h
+		ON
+			r.hb_idx = h.hb_idx
+		JOIN
+			users u
+		ON
+			r.user_id = u.user_id
+		ORDER BY
+			r.reserve_date DESC
 	</select>
-		
+
+	<!-- 제목으로 검색 -->
+	<select id="inq_search_by_title" resultType="reserve" parameterType="String">
+	    	SELECT
+			r.reserve_id,
+			h.hb_title,
+			u.user_name,
+			r.user_id,
+			r.reserve_date,
+			r.price
+		FROM
+			reserve r
+		JOIN
+			hobee h
+		ON
+			r.hb_idx = h.hb_idx
+		JOIN
+			users u
+		ON
+			r.user_id = u.user_id
+	    WHERE 
+	        h.hb_title LIKE '%' || #{search_text} || '%'
+	</select>
+	
+	<!-- 내용으로 검색 -->
+	<select id="inq_search_by_content" resultType="reserve" parameterType="String">
+	    SELECT
+			r.reserve_id,
+			h.hb_title,
+			u.user_name,
+			r.user_id,
+			r.reserve_date,
+			r.price
+		FROM
+			reserve r
+		JOIN
+			hobee h
+		ON
+			r.hb_idx = h.hb_idx
+		JOIN
+			users u
+		ON
+			r.user_id = u.user_id
+	    WHERE 
+	        u.user_name LIKE '%' || #{search_text} || '%'
+	</select>
+	
+	<!-- 전체 검색 -->
+	<select id="inq_search_by_all" resultType="reserve" parameterType="String">
+	    SELECT
+			r.reserve_id,
+			h.hb_title,
+			u.user_name,
+			r.user_id,
+			r.reserve_date,
+			r.price
+		FROM
+			reserve r
+		JOIN
+			hobee h
+		ON
+			r.hb_idx = h.hb_idx
+		JOIN
+			users u
+		ON
+			r.user_id = u.user_id
+	    WHERE 
+	        h.hb_title LIKE '%' || #{search_text} || '%'
+	        OR u.user_name LIKE '%' || #{search_text} || '%'
+	</select>
+
 
 </mapper>
 

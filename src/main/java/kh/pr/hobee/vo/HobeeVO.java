@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class HobeeVO {
     private int hb_idx, hb_price, num_of_p, user_id, hb_tot_num, category_num,status;
-    private String hb_title, hb_content, hb_notice, hb_date, hb_write_date,s_image, l_image, in_image,hb_time,hb_address,postcode,address,detailAddress,extraAddress;
+    private String hb_title, hb_content, hb_notice, hb_date, hb_write_date,s_image, l_image, in_image,hb_time,hb_address,postcode,address,detailAddress,extraAddress,category_name;
 
     // MultipartFile 필드
     private MultipartFile s_image_filename; // 썸네일 이미지 파일
@@ -23,6 +23,14 @@ public class HobeeVO {
 		return hb_price;
 	}
 	
+	public String getCategory_name() {
+		return category_name;
+	}
+
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
+
 	public void setHb_price(int hb_price) {
 		this.hb_price = hb_price;
 	}

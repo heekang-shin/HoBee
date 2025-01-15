@@ -97,7 +97,7 @@ function enterKey(f) {
 				</c:if>
 
 
-				<c:forEach var="vo" items="${inq_list}">
+				<c:forEach var="vo" items="${inq_list}" begin="1" end="10">
 					<tr>
 						<td width="5%" class="line">${vo.id}</td>
 						<td width="30%" class="line">${vo.hb_title}</td>

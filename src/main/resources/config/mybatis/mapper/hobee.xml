@@ -62,7 +62,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!--host apply 리스트 조회 -->
 	<select id="hobee_apply_list" resultType="hobee">
-		select * from hobee
+		SELECT 
+		    h.HB_IDX, 
+		    h.HB_TITLE, 
+		    h.HB_PRICE, 
+		    h.HB_DATE, 
+		    h.HB_TIME, 
+		    h.HB_WRITE_DATE, 
+		    h.STATUS, 
+		    h.USER_ID, 
+		    c.CATEGORY_NAME, 
+		    c.BIGCATEGORY
+		FROM 
+		    hobee h
+		JOIN 
+		    category c
+		ON 
+		    h.CATEGORY_NUM = c.CATEGORY_NUM
+		WHERE 
+		    h.STATUS = 0 
+		ORDER BY 
+		    h.HB_WRITE_DATE DESC
 	</select>
 
 	<!-- host 한개 조회 -->

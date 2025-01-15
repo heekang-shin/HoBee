@@ -89,9 +89,9 @@
             
             <c:forEach var="vo" items="${apply_list}" varStatus="status">
                 <tr>
-	                <td width="5%" class="line">${status.index + 1}</td>
-	                <!-- <td> width="5%" class="line">${vo.hb_idx}</td> -->
-	                <td width="10%" class="line">${vo.category_num}</td>
+	                <!-- <td width="5%" class="line">${status.index + 1}</td>-->
+	                <td width="5%" class="line">${vo.hb_idx}</td> 
+	                <td width="10%" class="line">${vo.category_name}</td>
 	                <td width="25%" class="line" style="text-align: left;">
 	                	<a href="host_apply_detail.do?hb_idx=${vo.hb_idx}">${vo.hb_title}</a>
 	                </td>

@@ -38,7 +38,6 @@ public class HostController {
 	// 호스트 리스트 페이지로 이동
 	@RequestMapping("host_list.do")
 	public String hostList(Model model) {
-		
 		List<HobeeVO> apply_list = hobeedao.applyList();
 		model.addAttribute("apply_list", apply_list);
 		return Common.VIEW_PATH + "host/host_list.jsp";

@@ -8,27 +8,25 @@
       <property name="sqlSession" ref="sqlSessionBean"/>
    </bean>
 
-   <bean id="hobee_dao_bean" class="kh.pr.hobee.dao.HobeeDAO">
-      <property name="sqlSession" ref="sqlSessionBean"/>
-   </bean>
-   
-   <!-- CategoryDAO -->
-   <bean id="category_dao_bean" class="kh.pr.hobee.dao.CategoryDAO">
-      <property name="sqlSession" ref="sqlSessionBean"/>
-   </bean>
-      
-   <!-- inqDAO -->
-   <bean id="inq_dao_bean" class="kh.pr.hobee.dao.InquiryDAO">
-      <property name="sqlSession" ref="sqlSessionBean"/>
-   </bean>   
-   
-   <!-- resDAO -->
-   <bean id="res_dao_bean" class="kh.pr.hobee.dao.ReserveDAO">
-      <property name="sqlSession" ref="sqlSessionBean"/>
-   </bean>    
-      
-      
-      
+	<bean id="hobee_dao_bean" class="kh.pr.hobee.dao.HobeeDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<!-- CategoryDAO -->
+	<bean id="category_dao_bean" class="kh.pr.hobee.dao.CategoryDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+		
+	<!-- inqDAO -->
+	<bean id="inq_dao_bean" class="kh.pr.hobee.dao.InquiryDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>	
+	
+	<!-- resDAO -->
+	<bean id="res_dao_bean" class="kh.pr.hobee.dao.ReserveDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>	 
+		
 </beans>
 
 

@@ -70,4 +70,31 @@ public class HobeeDAO {
 		return res;
 	}
 	
+	
+	
+	//host 제목에 따른 검색
+	public List<HobeeVO> searchByTitle(String search_text) {
+		List<HobeeVO> search_list = sqlSession.selectList("h.hobee_search_by_title", search_text);
+		return search_list;
+	}
+
+	//host 내용에 따른 검색
+	public List<HobeeVO> searchByContent(String search_text) {
+		List<HobeeVO> search_list = sqlSession.selectList("h.hobee_search_by_content", search_text);
+		return search_list;
+	}
+
+	//host 전체 검색
+	public List<HobeeVO> searchByAll(String search_text) {
+		List<HobeeVO> search_list = sqlSession.selectList("h.hobee_search_by_all", search_text);
+		return search_list;
+	}
+	
+	
+
+	
+	
+	
+	
+	
 }

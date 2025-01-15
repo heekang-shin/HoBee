@@ -24,7 +24,6 @@
     </script>
     <link rel="stylesheet" href="/hobee/resources/css/header.css">
 </head>
-
 <body>
     <!--헤더 시작-->
     <div id="header">
@@ -32,6 +31,7 @@
             <h1 class="logo">
                 <a href="main.do">Hobee</a>
             </h1>
+
 
             <!--검색창 시작-->
             <form onsubmit="return enterKey(this);">

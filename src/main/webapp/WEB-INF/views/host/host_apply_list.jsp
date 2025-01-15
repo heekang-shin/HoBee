@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -11,6 +12,22 @@
 
 <link rel="stylesheet" href="/hobee/resources/css/host/common.css">
 <link rel="stylesheet" href="/hobee/resources/css/host/host_apply_list.css">
+
+<script>
+	// 검색창 동작
+	function enterKey(f) {
+	    // 유효성 체크
+	    let searchInput = f.search_text.value;
+	    if (searchInput === '') {
+	        alert('검색어를 입력해 주세요.');
+	        return; // 기본 동작 중단
+	    }
+	
+	    f.action = "host_search.do";
+	    f.method = "get";
+	    f.submit(); 
+	}
+</script>
 
 </head>
 <body>
@@ -32,7 +49,7 @@
 				onkeypress="if( event.keyCode == 13 ){enterKey(this.form)}" />
 
 			<!-- 검색 버튼 -->
-			<input type="button" class="search-button" onclick="">
+			<input type="button" class="search-button" onclick="enterKey(this.form);">
 
 		</form>
 	</div>
@@ -41,7 +58,7 @@
 	<div class="table-container">
     <div class="total-num">
         <p>
-            전체<span>&nbsp;1건</span>
+            전체<span>&nbsp;${fn:length(apply_list)}</span>건
         </p>
     </div>
 
@@ -61,16 +78,19 @@
 
         <tbody>
             <!-- 신청한 프로그램이 없는 경우 -->
-            <c:if test="${empty apply_list}">
-                <tr>
-                    <td colspan="8" class="line" style="text-align: center;">신청된 프로그램이 없습니다.</td>
-                </tr>
-            </c:if>
+            <c:if test="${empty apply_list && empty search_list}">
+			    <tr class="no-search">
+			        <td colspan="8" class="line" style="text-align: center;" >검색된 프로그램이 존재하지 않습니다.<br>
+			       	 <a href="host_list.do" class="go-list">목록으로</a>
+			        </td>
+			    </tr>
+			</c:if>
 
-            <!-- 신청한 프로그램 리스트 출력 -->
-            <c:forEach var="vo" items="${apply_list}">
+            
+            <c:forEach var="vo" items="${apply_list}" varStatus="status">
                 <tr>
-	                <td width="5%" class="line">${vo.hb_idx}</td>
+	                <td width="5%" class="line">${status.index + 1}</td>
+	                <!-- <td> width="5%" class="line">${vo.hb_idx}</td> -->
 	                <td width="10%" class="line">${vo.category_num}</td>
 	                <td width="25%" class="line" style="text-align: left;">
 	                	<a href="host_apply_detail.do?hb_idx=${vo.hb_idx}">${vo.hb_title}</a>
@@ -103,7 +123,7 @@
 
 	<!-- 신청 버튼 시작-->
 	<div class="applybtn-box">
-		<input type="button" value="취소하기" onclick="history.back();">
+		<input type="button" value="취소하기" onclick="location.href='host_list.do'">
 		<input type="button" value="신청하기" onclick="location.href='host_apply_form.do'">
 	</div>
 	<!-- 신청 버튼 끝 -->

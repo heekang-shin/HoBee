@@ -2,7 +2,7 @@ package kh.pr.hobee.vo;
 
 public class InquiryVO {
 	private int id,hb_idx;
-	private String title, content, writer, created_date, secret, answer, answer_date, answer_writer;
+	private String title, content, writer, created_date, secret, answer, answer_date, answer_writer,hb_title;
 	
 	public int getHb_idx() {
 		return hb_idx;
@@ -13,6 +13,12 @@ public class InquiryVO {
 	
 	public int getId() {
 		return id;
+	}
+	public String getHb_title() {
+		return hb_title;
+	}
+	public void setHb_title(String hb_title) {
+		this.hb_title = hb_title;
 	}
 	public void setId(int id) {
 		this.id = id;

@@ -35,7 +35,9 @@
 		<beans:property name="inven_dao" ref="inven_daoBean" />
 	</beans:bean>
 
-	<beans:bean class="kh.pr.hobee.controller.PayController"></beans:bean>
+	<beans:bean class="kh.pr.hobee.controller.PayController">
+		<beans:property name="inven_dao" ref="inven_daoBean" />
+	</beans:bean>
 
 
 	<!-- 메인 컨트롤러 -->
@@ -53,6 +55,16 @@
 		<beans:property name="categoryDAO" ref="category_dao_bean" />
 	</beans:bean>
 
+	<!-- inqController -->
+	<beans:bean class="kh.pr.hobee.controller.inqController">
+		<beans:property name="hobeedao" ref="hobee_dao_bean" />
+		<beans:property name="inqdao" ref="inq_dao_bean" />
+	</beans:bean>
+	
+	
+	<beans:bean class="kh.pr.hobee.controller.ReserveController">
+		<beans:property name="reserveDAO" ref="res_dao_bean" />
+	</beans:bean>
 
 </beans:beans>
 

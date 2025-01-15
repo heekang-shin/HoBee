@@ -4,6 +4,25 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 		
 
+	<bean id="inven_daoBean" class="kh.pr.hobee.dao.InvenDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+
+
+		<bean id="hobee_dao_bean" class="kh.pr.hobee.dao.HobeeDAO">
+			<property name="sqlSession" ref="sqlSessionBean"/>
+		</bean>
+		
+			<bean id="users_daoBean" class="kh.pr.hobee.dao.UsersDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
+		
+		
+<bean id="mypage_daoBean" class="kh.pr.hobee.dao.MypageDAO">
+	<property name="sqlSession" ref="sqlSessionBean"/>
+</bean>
+		
+		
 		
 </beans>
 
@@ -12,7 +31,7 @@
 
 
 
-
+ 
 
 
 

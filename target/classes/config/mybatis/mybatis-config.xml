@@ -6,21 +6,23 @@
 		<setting name="cacheEnabled" value="false" />
 		<setting name="useGeneratedKeys" value="true" />
 		<setting name="defaultExecutorType" value="REUSE" />
+		<setting name="jdbcTypeForNull" value="VARCHAR" />
 	</settings>
-	
+
 	<typeAliases>
-		<typeAlias type="vo.BoardVO" alias="board"/>
-		<typeAlias type="vo.CommentVO" alias="comm"/>
+		<typeAlias type="kh.pr.hobee.vo.CategoryVO" alias="category" />
+		<typeAlias type="kh.pr.hobee.vo.HobeeVO" alias="hobee" />
+		<typeAlias type="kh.pr.hobee.vo.UsersVO" alias="users" />
+		<typeAlias type="kh.pr.hobee.vo.ReserveVO" alias="reserve" />
 	</typeAliases>
-	
+
 	<mappers>
-		<mapper resource="config/mybatis/mapper/board.xml" />
-		<mapper resource="config/mybatis/mapper/comment.xml" />
+		<mapper resource="config/mybatis/mapper/hobee.xml" />
+		<mapper resource="config/mybatis/mapper/inventory.xml" />
+		<mapper resource="config/mybatis/mapper/users.xml" />
+		 <mapper resource="config/mybatis/mapper/mypage.xml" />
 	</mappers>
 </configuration>
-
-
-
 
 
 

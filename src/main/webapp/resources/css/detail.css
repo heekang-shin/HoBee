@@ -1,70 +1,48 @@
 @charset "UTF-8";
 
-/* 공통 스타일 초기화 */
 * {
-<<<<<<< HEAD
 	margin: 0;
 	padding: 0;
 	color: #222222;
 	font-size:16px;
-=======
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    color: #222222;
->>>>>>> refs/heads/JS
 }
 
-/* 전체 컨테이너 */
 .detail_container {
-    width: 1400px;
-    margin: 80px auto;
-    position: relative;
-    display: flex;
-    gap: 20px;
-    padding-bottom: 50px;
+	width: 1400px;
+	margin: 80px auto;
+	position: relative;
+	display: flex; /* 플렉스 레이아웃으로 변경 */
+	gap: 20px; /* 왼쪽과 오른쪽 컨테이너 간격 추가 */
+	padding-bottom: 50px; /* footer와의 간격 확보 */
+	box-sizing: border-box;
 }
 
-/* 왼쪽 컨테이너 */
+/*왼쪽 컨테이너*/
 .left_container {
-    width: 910px;
+	width: 910px; /* 가로 비율 설정 */
+	box-sizing: border-box;
 }
 
 .left_container img {
-    width: 100%;
+	width: 100%;
 }
 
-<<<<<<< HEAD
 .content_container p{
 	margin-top: 20px;
-=======
-/* 콘텐츠 컨테이너 */
-.content_container {
-    padding-top: 30px;
->>>>>>> refs/heads/JS
 }
 
 .content_container img {
-    margin-top: 30px;
+	margin-top: 30px;
 }
 
-<<<<<<< HEAD
 /*서브 타이틀(소개, 모임장소, 모임문의, 유의사항, 환불정책- 공통 )*/
 .sub-title {
 	width: 100%;
 	height: 50px;
 	border-bottom: 1.5px solid #222222;
 	position: relative;
-=======
-/* 서브 타이틀 */
-.sub-title {
-    width: 100%;
-    border-bottom: 1.5px solid #222222;
-    margin-bottom: 20px;
->>>>>>> refs/heads/JS
 }
 
-<<<<<<< HEAD
 /*유의사항*/
 #arrow1 {
 	position: absolute;
@@ -86,13 +64,8 @@
 #notice {
 	position: relative;
 	cursor: pointer;
-=======
-.refund:hover {
-    cursor: pointer;
->>>>>>> refs/heads/JS
 }
 
-<<<<<<< HEAD
 /*환불정책*/
 #arrow2 {
 	position: absolute;
@@ -125,68 +98,83 @@
 
 
 /*오른쪽 컨테이너*/
-=======
-/* 오른쪽 컨테이너 */
->>>>>>> refs/heads/JS
 .right_container {
-    width: 420px;
-    height: 730px;
-    background-color: #ffffff;
-    border: 1px solid #dcdcdc;
-    border-radius: 10px;
-    padding: 20px;
+	width: 420px;
+	height: 730px;
+	top: 0;
+	right: 0;
+	background-color: #ffffff;
+	border: 1px solid #dcdcdc;
+	border-radius: 10px;
 }
 
-/* 프로그램 제목 */
+.left_container h2 {
+	margin: 70px 0 10px;
+	font-size: 28px;
+}
+
+/*프로그램 제목*/
+.right_title {
+	width: 100%;
+	height: auto;
+	padding: 30px 0 30px 30px;
+	box-sizing: border-box;
+}
+
 .right_title h3 {
-    font-size: 28px;
-    margin-bottom: 12px;
+	width: 100%;
+	font-size: 28px;
+	margin-bottom: 12px;
 }
 
 .right_title p {
-    color: #a8a8a8;
-    font-size: 18px;
+	color: #a8a8a8;
+	font-size: 18px;
 }
 
-<<<<<<< HEAD
 /*날짜, 시간, 인원수*/
-=======
-/* 날짜, 시간, 인원수 */
->>>>>>> refs/heads/JS
 .option_container {
-    background: #f8f8f8;
-    padding: 30px;
-    border-radius: 8px;
+	width: 100%;
+	height: auto;
+	background: #f8f8f8;
+	padding: 30px;
+	box-sizing: border-box;
 }
 
 .option_inner {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .option_inner input[type="text"] {
-    width: 100%;
-    height: 50px;
-    padding: 10px;
-    border: 1px solid #dcdcdc;
-    border-radius: 4px;
-    font-size: 16px;
+	width: 100%;
+	height: 50px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #dcdcdc;
+	border-radius: 4px;
+	font-size: 16px;
 }
 
 .option_inner h3 {
-    font-size: 18px;
-    margin-bottom: 8px;
+	font-size: 18px;
+	margin-bottom: 8px;
 }
 
-/* 인원수 */
-.people_num input[type="text"] {
-    width: 77%;
+/*인원수*/
+.people_num {
+	margin-bottom: 0;
 }
 
-.people_num input[type="button"] {
-    width: 10%;
+.people_num  input[type="text"] {
+	width: 77%;
+	height: 50px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #dcdcdc;
+	border-radius: 4px;
+	font-size: 16px;
 }
 
-<<<<<<< HEAD
 .people_num  input[type="button"] {
 	width: 10%;
 	height: 50px;
@@ -204,22 +192,26 @@
 	height: auto;
 }
 
-=======
-/* 총 금액 */
->>>>>>> refs/heads/JS
 .total_container p {
-    font-size: 20px;
-    padding: 30px 0 20px;
-    color: #a8a8a8;
+	line-height: 30px;
+	width: auto;
+	font-size: 20px;
+	display: inline-block;
+	padding: 30px 0 20px 30px;
+	box-sizing: border-box;
+	color: #a8a8a8;
 }
 
 .total_container h2 {
-    font-size: 24px;
-    padding: 30px 30px 20px 0;
-    float: right;
+	line-height: 30px;
+	width: auto;
+	font-size: 24px;
+	display: inline-block;
+	padding: 30px 30px 20px 0;
+	box-sizing: border-box;
+	float: right;
 }
 
-<<<<<<< HEAD
 .total_container span{
 	font-size: 24px;
 }
@@ -232,37 +224,35 @@
 	padding: 30px;
 }
 
-=======
-/* 버튼 */
->>>>>>> refs/heads/JS
 .btn-inner input[type="button"] {
-    width: 100%;
-    height: 52px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    font-weight: 700;
-    border-radius: 8px;
+	width: 100%;
+	height: 52px;
+	margin-bottom: 20px;
+	border: none;
+	font-size: 16px;
+	font-weight: 700;
+	border-radius: 8px;
 }
 
 .btn-inner input[type="button"]:first-child {
-    background-color: #FFE14D;
+	background-color: #FFE14D;
 }
 
 .btn-inner input[type="button"]:first-child:hover {
-    background-color: #222222;
-    color: #ffffff;
+	background-color: #222222;
+	color: #ffffff;
 }
 
 .btn-inner input[type="button"]:last-child {
-    border: 1px solid #222222;
+	border: 1px solid #222222;
+	background-color: #ffffff;
 }
 
 .btn-inner input[type="button"]:last-child:hover {
-    background-color: #222222;
-    color: #ffffff;
+	background-color: #222222;
+	color: #ffffff;
 }
 
-<<<<<<< HEAD
 
 /* 1:1문의 */
 .inquiry-board {
@@ -271,44 +261,17 @@
     background-color: #f8f8f8;
     border: 1px solid #dcdcdc;
     border-radius: 10px;
-=======
-/* 환불 정책 */
-.refund-details {
-    display: none;
-    margin-top: 10px;
->>>>>>> refs/heads/JS
 }
 
-<<<<<<< HEAD
 .inquiry-form {
     margin-bottom: 20px;
-=======
-.refund-details p {
-    font-size: 16px;
-    line-height: 26px;
-    color: #222222;
->>>>>>> refs/heads/JS
 }
 
-<<<<<<< HEAD
 .inquiry-form h3 {
     font-size: 18px;
     margin-bottom: 10px;
-=======
-/* 화살표 */
-.arrow {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
-    background-image: url("/hobee/resources/images/down_arrow.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    transition: transform 0.3s ease;
->>>>>>> refs/heads/JS
 }
 
-<<<<<<< HEAD
 .inquiry-form textarea {
     width: 97%;
     height: 100px;
@@ -318,13 +281,8 @@
     border: 1px solid #dcdcdc;
     border-radius: 4px;
     resize: none;
-=======
-.arrow-up {
-    background-image: url("/hobee/resources/images/up_arrow.png");
->>>>>>> refs/heads/JS
 }
 
-<<<<<<< HEAD
 .inquiry-form #inquiry-title {
     height: 30px;
 }
@@ -417,101 +375,3 @@
     font-size: 12px; /* 작은 글씨 */
     color: #666666; /* 연한 회색 */
 }
-=======
-
-/* ⭐ 리뷰 섹션 스타일 */
-.review-section {
-    margin-bottom: 30px;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.review-section h2 {
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-/* ⭐ 별점 선택 영역 스타일 */
-.star-rating {
-    display: flex;
-    align-items: center;  /* 별과 텍스트 수직 정렬 */
-    gap: 5px;
-    margin-bottom: 15px;
-}
-
-/* ⭐ 리뷰 입력란과 버튼 그룹 스타일 */
-#review-group {
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#review-group.visible {
-    display: flex;
-}
-
-#review-group textarea {
-    width: 100%;
-    height: 80px;
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#review-group input[type="button"] {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#review-group input[type="button"]:hover {
-    background-color: #0056b3;
-}
-
-/* ⭐ 별점 버튼 기본 스타일 */
-.star-rating input[type="button"] {
-    font-size: 32px;
-    color: #ccc;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-/* ⭐ 선택된 별점 버튼 스타일 */
-.star-rating input[type="button"].selected {
-    color: #FFD700;  /* 금색 */
-}
-
-/* ⭐ 평균 점수와 리뷰 개수 스타일 */
-.average-score,
-.review-count {
-    font-size: 16px;        /* 별 크기와 동일하게 설정 */
-    color: #333;            /* 텍스트 색상 */
-    margin-left: 10px;      /* 별과 숫자 사이 간격 */
-    line-height: 1;         /* 텍스트와 별 높이 맞춤 */
-}
-
-/* 📱 반응형 디자인 - 모바일에서 별 크기 조정 */
-@media screen and (max-width: 768px) {
-    .star-rating input[type="button"],
-    .average-score,
-    .review-count {
-        font-size: 28px;    /* 모바일에서는 별과 숫자 크기 조금 작게 조정 */
-    }
-}
-
-/* 📱 반응형 디자인 - 더 작은 화면에서 */
-@media screen and (max-width: 480px) {
-    .star-rating input[type="button"],
-    .average-score,
-    .review-count {
-        font-size: 24px;    /* 더 작은 화면에서는 크기 더 줄임 */
-    }
-}
->>>>>>> refs/heads/JS

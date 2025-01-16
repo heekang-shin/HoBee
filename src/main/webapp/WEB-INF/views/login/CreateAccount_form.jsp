@@ -6,7 +6,6 @@
   <meta charset="UTF-8">
 
   <title>회원가입</title>
-  <link rel="stylesheet" href="resources/css/main.css">
   <link rel="stylesheet" href="resources/css/CreateAccount_form.css">
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"

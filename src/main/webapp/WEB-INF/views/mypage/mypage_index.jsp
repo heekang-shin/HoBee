@@ -93,21 +93,21 @@
 		  
 	<ul class="menu">
 		<li>
-		<a onclick ="location.href='mypage_heart_form.do?user_Id=2'">찜목록</a>
+		<a onclick ="location.href='mypage_heart_form.do?user_Id=${sessionScope.loggedInUser.user_Id}'">찜목록</a>
 		</li>
 		
 		<li>
-		<a onclick="location.href='mypage_apply_form.do?user_Id=2'">신청내역</a>
+		<a onclick="location.href='mypage_apply_form.do?user_Id=${sessionScope.loggedInUser.user_Id}'">신청내역</a>
 		</li>
 		
 		
 		<li>
-			<a onclick="location.href='user_update_form.do?user_Id=300'">회원정보수정
+			<a onclick="location.href='user_update_form.do?user_Id=${sessionScope.loggedInUser.user_Id}'">회원정보수정
 		</a>
 		</li>
 		
 		<li>
-		<a onclick="location.href='user_delete_form.do?user_Id=300'">회원탈퇴</a>
+		<a onclick="location.href='user_delete_form.do?user_Id=${sessionScope.loggedInUser.user_Id}'">회원탈퇴</a>
 		</li>
 	</ul>
 

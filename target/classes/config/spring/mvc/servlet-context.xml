@@ -55,9 +55,10 @@
 	</beans:bean>
 
 	<beans:bean
-		class="kh.pr.hobee.controller.NaverLoginController" />
+		class="kh.pr.hobee.controller.NaverLoginController" />		
 	<beans:bean
 		class="kh.pr.hobee.controller.KakaoLoginController" />
+		
 	<beans:bean class="kh.pr.hobee.controller.EmailController">
 		<beans:constructor-arg ref="mss" />
 	</beans:bean>
@@ -81,16 +82,13 @@
  <beans:bean class="kh.pr.hobee.controller.MypageController">
 	 
 	 <beans:property name="mypage_dao"  ref="mypage_daoBean"/>
-	 <beans:property name="bcp"  ref="bcp_bean"/>
+	 <!-- <beans:property name="bcp"  ref="bcp_bean"/> -->
 	 </beans:bean>
 	 
 	<beans:bean class="kh.pr.hobee.controller.RatingController">
 		<beans:property name="review_dao" ref="review_daoBean" />
 	</beans:bean>
 
-
-	<beans:bean class="kh.pr.hobee.controller.ApplyController"></beans:bean>
-	<beans:bean class="kh.pr.hobee.controller.HostController"></beans:bean>
 	
 </beans:beans>
 

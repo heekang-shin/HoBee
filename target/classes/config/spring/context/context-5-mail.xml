@@ -20,9 +20,9 @@
 		</property>
 	</bean>
 		
-	<!-- <bean id="mss" class="service.MailSendService">
+	 <bean id="mss" class="service.MailSendService">
 		<constructor-arg ref="mailSender"/>
-	</bean>	 -->	
+	</bean>	
 		
 </beans>
 

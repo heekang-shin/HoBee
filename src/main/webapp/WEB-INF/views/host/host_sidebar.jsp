@@ -42,7 +42,7 @@
        <ul class="menu">
 		    <li class="menu-item">
 		        <img src="/hobee/resources/images/host_main.png" alt="메인">
-		        <a href="host_main.do" class="menu-link">홈페이지 바로가기</a>
+		        <a href="host_main.do" class="menu-link">호스트센터 바로가기</a>
 		    </li>
 		    <li class="menu-item">
 		        <img src="/hobee/resources/images/host_p.png" alt="호스트 정보">

@@ -55,6 +55,7 @@ public class HostController {
 	//호스트 메인
 	@RequestMapping("host_main.do")
 	public String hostMain(Model model) {
+		
 		// 전체 프로그램 신청 리스트 가져오기
 		List<HobeeVO> apply_list = hobeedao.applyList();
 		int totalItems = apply_list.size();

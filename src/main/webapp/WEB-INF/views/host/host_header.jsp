@@ -23,7 +23,7 @@
 			<!-- user menu 시작-->
 			<div class="user">
 				<div class="user-info">
-					반갑습니다 <b class="user-name">홍길동</b>님
+					반갑습니다 <b class="user-name">${sessionScope.loggedInUser.user_id}</b>님
 				</div>
 			
 				<input type="button" value="로그아웃">

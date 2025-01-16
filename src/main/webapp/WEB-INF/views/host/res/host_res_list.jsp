@@ -12,7 +12,7 @@
 
 <!-- 스타일 시트 -->
 <link rel="stylesheet" href="/hobee/resources/css/host/common.css">
-<link rel="stylesheet" href="/hobee/resources/css/host/host_inq_list.css">
+<link rel="stylesheet" href="/hobee/resources/css/host/host_res_list.css">
 
 <script>
 function enterKey(f) {
@@ -23,7 +23,7 @@ function enterKey(f) {
         return; // 기본 동작 중단
     }
 
-    f.action = "inq_search.do";
+    f.action = "res_search.do";
     f.method = "get";
     f.submit(); 
 }
@@ -38,8 +38,8 @@ function enterKey(f) {
 			<div class="select-box">
 				<select class="search-select" name="search_category">
 					<option value="all">전체</option>
-					<option value="title">문의 제목</option>
-					<option value="content">문의 내용</option>
+					<option value="title">프로그램명</option>
+					<option value="content">신청자명</option>
 				</select>
 			</div>
 
@@ -65,55 +65,47 @@ function enterKey(f) {
 		<table>
 			<thead>
 				<tr>
-					<th width="5%" class="line">번호</th>
+					<th width="10%" class="line">번호</th>
 					<th width="30%" class="line">프로그램명</th>
-					<th width="30%" class="line">문의 제목</th>
-					<th width="10%" class="line">작성자</th>
-					<th width="10%" class="line">등록일</th>
-					<th width="10%" class="line">답변상태</th>
+					<th width="15%" class="line">신청자명</th>
+					<th width="15%" class="line">신청자 아이디</th>
+					<th width="15%" class="line">신청일</th>
+					<th width="15%" class="line">신청 금액</th>
 				</tr>
 			</thead>
 
 			<tbody>
-				<!-- 신청한 프로그램이 없는 경우 -->
-				<c:if test="${empty inq_list and not empty search_list}">
+				<!-- 신청한 프로그램이 없는 경우-->
+				<c:if test="${empty res_list and not empty search_list }">
 				    <tr class="no-search">
 				        <td colspan="6" class="line" style="text-align: center;">
-				            등록된 1:1문의가 존재하지 않습니다.<br> 
-				            <a href="inq_list.do" class="go-list">목록으로</a>
+				            등록된 신청자가 존재하지 않습니다.<br> 
+				            <a href="res_list.do" class="go-list">목록으로</a>
 				        </td>
 				    </tr>
 				</c:if>
-
+				 
 
 				<!-- 검색된 리스트가 없는 경우 -->
-				<c:if test="${empty inq_list and empty search_list}">
+				<c:if test="${empty res_list and empty search_list}">
 				    <tr class="no-search">
 				        <td colspan="6" class="line" style="text-align: center;">
-				            검색된 1:1문의가 존재하지 않습니다.<br> 
-				            <a href="inq_list.do" class="go-list">목록으로</a>
+				            검색된 신청 내역은 존재하지 않습니다.<br> 
+				            <a href="res_list.do" class="go-list">목록으로</a>
 				        </td>
 				    </tr>
 				</c:if>
 
 
-				<c:forEach var="vo" items="${inq_list}" begin="0" end="11" varStatus="status">
+				<c:forEach var="vo" items="${res_list}" begin="0" end="11" varStatus="status">
 					<tr>
 						<!-- totalItems에서 현재 반복 순서를 빼서 최신순으로 표시 -->
-	        			<td width="5%" class="line">${totalItems - status.index}</td>
+	        			<td width="10%" class="line">${totalItems - status.index}</td>
 						<td width="30%" class="line">${vo.hb_title}</td>
-						<td width="30%" class="line">
-							<a href="host_inq_detail.do?id=${vo.id}">${vo.title}</a>
-						</td>
-						<td width="10%" class="line">${vo.writer}</td>
-						<td width="10%" class="line">${vo.created_date}</td>
-						<td width="10%" class="line">
-					    <!-- 답변 상태에 따라 링크 동적으로 설정 -->
-						   <c:set var="btnClass" value="${fn:trim(vo.answer) == '' ? 'btn-answer' : 'btn-view'}" />
-							<a href="host_inq_detail.do?id=${vo.id}" class="inq_btn ${btnClass}">
-							    ${fn:trim(vo.answer) == '' ? '답변하기' : '답변보기'}
-							</a>
-						</td>
+						<td width="15%" class="line">${vo.user_name}</td>
+						<td width="15%" class="line">${vo.user_id}</td>
+						<td width="15%" class="line">${vo.reserve_date}</td>
+						<td width="15%" class="line"><fmt:formatNumber value="${vo.price}"/> 원</td>
 					</tr>
 				</c:forEach>
 			</tbody>

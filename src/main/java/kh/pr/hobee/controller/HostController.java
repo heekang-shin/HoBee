@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -18,7 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kh.pr.hobee.common.Common;
 import kh.pr.hobee.dao.HobeeDAO;
+import kh.pr.hobee.dao.InquiryDAO;
+import kh.pr.hobee.dao.ReserveDAO;
 import kh.pr.hobee.vo.HobeeVO;
+import kh.pr.hobee.vo.InquiryVO;
+import kh.pr.hobee.vo.ReserveVO;
 
 @Controller
 public class HostController {
@@ -34,39 +39,81 @@ public class HostController {
 	public void setHobeedao(HobeeDAO hobeedao) {
 		this.hobeedao = hobeedao;
 	}
+	
+	InquiryDAO inqdao;
 
+	public void setInqdao(InquiryDAO inqdao) {
+		this.inqdao = inqdao;
+	}
+
+	ReserveDAO reservedao;
+
+	public void setReservedao(ReserveDAO reservedao) {
+		this.reservedao = reservedao;
+	}
+	
+	// 호스트 메인
+	@RequestMapping("host_main.do")
+	public String hostMain(Model model) {
+		//전체 프로그램 신청 리스트 가져오기
+		List<HobeeVO> apply_list = hobeedao.applyList();
+		int totalItems = apply_list.size(); 
+		
+		// 질문 프로그램 신청 리스트 가져오기
+		List<InquiryVO> inqList = inqdao.selectInq();
+
+		//전체 항목 수 계산
+		int inqtotalItems = inqList.size();
+
+		//nullCount 계산
+		int nullCount = inqdao.selectNull();
+		 
+	    // 전체 신청 내역 리스트 가져오기
+	    List<ReserveVO> resList = reservedao.resList();
+	    int restotalItems = resList.size(); 
+	  
+	    //날짜 가져오기
+	    model.addAttribute("now", new Date()); 
+	    
+		model.addAttribute("apply_list", apply_list); 
+		model.addAttribute("inqList", inqList); 
+		model.addAttribute("resList", resList); 
+		
+		model.addAttribute("totalItems", totalItems); 
+		model.addAttribute("inqtotalItems", inqtotalItems); 
+		model.addAttribute("restotalItems", restotalItems); 
+		model.addAttribute("nullCount", nullCount); 
+
+		return Common.VIEW_PATH_HOST + "main/host_main.jsp";
+	}
 
 	// 호스트 리스트 페이지로 이동
 	@RequestMapping("host_list.do")
-	public String hostList(
-	        @RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
-	        @RequestParam(defaultValue = "10") int itemsPerPage, // 페이지당 항목 수 기본값 10
-	        Model model
-	) {
-	    // 전체 호스트 리스트 가져오기
-	    List<HobeeVO> apply_list = hobeedao.applyList();
+	public String hostList(@RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
+			@RequestParam(defaultValue = "10") int itemsPerPage, // 페이지당 항목 수 기본값 10
+			Model model) {
+		// 전체 호스트 리스트 가져오기
+		List<HobeeVO> apply_list = hobeedao.applyList();
 
-	    // 페이징 처리 계산
-	    int totalItems = apply_list.size(); // 총 항목 수
-	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수
+		// 페이징 처리 계산
+		int totalItems = apply_list.size(); // 총 항목 수
+		int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수
 
-	    // 현재 페이지에 맞는 데이터 가져오기
-	    int start = (page - 1) * itemsPerPage; // 시작 인덱스
-	    int end = Math.min(start + itemsPerPage, totalItems); // 끝 인덱스
-	    List<HobeeVO> paginatedList = apply_list.subList(start, end);
+		// 현재 페이지에 맞는 데이터 가져오기
+		int start = (page - 1) * itemsPerPage; // 시작 인덱스
+		int end = Math.min(start + itemsPerPage, totalItems); // 끝 인덱스
+		List<HobeeVO> paginatedList = apply_list.subList(start, end);
 
-	    // Model 객체에 데이터 추가
-	    model.addAttribute("apply_list", paginatedList); // 페이징 처리된 데이터
-	    model.addAttribute("currentPage", page); // 현재 페이지
-	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
-	    model.addAttribute("totalItems", totalItems); //  총 항목 수
+		// Model 객체에 데이터 추가
+		model.addAttribute("apply_list", paginatedList); // 페이징 처리된 데이터
+		model.addAttribute("currentPage", page); // 현재 페이지
+		model.addAttribute("totalPages", totalPages); // 총 페이지 수
+		model.addAttribute("totalItems", totalItems); // 총 항목 수
 
-	    // JSP로 이동
-	    return Common.VIEW_PATH + "host/host_list.jsp";
+		// JSP로 이동
+		return Common.VIEW_PATH + "host/host_list.jsp";
 	}
-	
-	
-	
+
 	// host_apply_form으로 이동
 	@RequestMapping("host_apply_form.do")
 	public String applyForm() {
@@ -235,6 +282,5 @@ public class HostController {
 		model.addAttribute("apply_list", search_list);
 		return Common.VIEW_PATH + "host/host_list.jsp";
 	}
-
 
 }

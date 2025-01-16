@@ -5,20 +5,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kh.pr.hobee.common.BCryptPwd;
 import kh.pr.hobee.common.Common;
 import kh.pr.hobee.dao.MypageDAO;
 import kh.pr.hobee.vo.HobeeVO;
 import kh.pr.hobee.vo.ReserveVO;
 import kh.pr.hobee.vo.UsersVO;
+import util.BCryptPwd;
+
+
 
 @Controller
 public class MypageController {
+
+	@Autowired
+	HttpSession session;
+
+	@Autowired
+	HttpServletRequest request;
 
 	MypageDAO mypage_dao;
 
@@ -35,11 +47,13 @@ public class MypageController {
 	// 찜목록 로그인한 사람이 찜한내역 가져오기
 	@SuppressWarnings("null")
 	@RequestMapping("/mypage_heart_form.do")
-	public String heart(int user_Id, Model model) {
-
+	public String heart(Model model, HttpSession session) {
+		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+		
+		int user_Id = user.getUser_Id();
+		System.out.println("찜목록유저ID:"+user_Id);
 		// user_Id를 기반으로 heart_list 가져오기
 		List<Integer> heart_list = mypage_dao.selectheart(user_Id);
-
 		System.out.println(heart_list.size());
 		System.out.println(heart_list);
 
@@ -73,12 +87,15 @@ public class MypageController {
 	public String apply(
 	        @RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
 	        @RequestParam(defaultValue = "5") int itemsPerPage, // 페이지당 항목 수 기본값 10
-	        int user_Id,
-	        Model model
+	        Model model,
+	        HttpSession session
 	) {
+		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+		int user_Id = user.getUser_Id();
+		System.out.println("신청내역ID:"+user_Id);
 	    // 신청 내역 ID 리스트 가져오기
 	    List<Integer> apply_list = mypage_dao.select_apply(user_Id);
-
+	    
 	    // 페이징 처리 계산
 	    int totalItems = apply_list.size(); // 총 항목 수
 	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수

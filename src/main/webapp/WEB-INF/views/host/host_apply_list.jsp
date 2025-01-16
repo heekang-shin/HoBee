@@ -87,7 +87,7 @@
 			</c:if>
 
             
-            <c:forEach var="vo" items="${apply_list}" varStatus="status">
+            <c:forEach var="vo" items="${apply_list}" begin="0" end="10">
                 <tr>
 	                <!-- <td width="5%" class="line">${status.index + 1}</td>-->
 	                <td width="5%" class="line">${vo.hb_idx}</td> 

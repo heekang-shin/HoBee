@@ -124,6 +124,10 @@
 		<div class="left_container">
 			<img src="/hobee/resources/images/upload/${hobee.l_image}">
 
+
+
+
+
 			<!-- 소개 -->
 			<div class="sub-title">
 				<h2>소개</h2>

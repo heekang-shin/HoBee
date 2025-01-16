@@ -45,10 +45,7 @@
 			<ul class="snb">
 				<!-- 로그인하지 않은 상태 -->
 				<c:if test="${empty sessionScope.loggedInUser}">
-					<li>
-						<img src="/hobee/resources/images/shop_icon.png" alt="찜" />
-						<a href="shop.do">찜목록</a>
-					</li>
+					
 					<li>
 						<img src="/hobee/resources/images/join_icon.png" alt="회원가입" />
 						<a href="CreateAccount_form.do">회원가입</a>

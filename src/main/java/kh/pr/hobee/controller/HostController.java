@@ -59,12 +59,11 @@ public class HostController {
 	    model.addAttribute("apply_list", paginatedList); // 페이징 처리된 데이터
 	    model.addAttribute("currentPage", page); // 현재 페이지
 	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
+	    model.addAttribute("totalItems", totalItems); //  총 항목 수
 
 	    // JSP로 이동
 	    return Common.VIEW_PATH + "host/host_list.jsp";
 	}
-	
-	
 	
 	
 	

@@ -17,20 +17,20 @@
     <!-- 첫 페이지 버튼 -->
     <c:choose>
         <c:when test="${currentPage > 1}">
-            <a href="?page=1&user_Id=${user_Id}" class="first-page">«</a>
+            <a href="?page=1&user_Id=${user_Id}" class="first-page">&#60;&#60;</a>
         </c:when>
         <c:otherwise>
-            <span class="first-page disabled">«</span>
+            <span class="first-page disabled">&#60;&#60;</span>
         </c:otherwise>
     </c:choose>
 
     <!-- 이전 페이지 버튼 -->
     <c:choose>
         <c:when test="${currentPage > 1}">
-            <a href="?page=${currentPage - 1}&user_Id=${user_Id}" class="prev-page"><</a>
+            <a href="?page=${currentPage - 1}&user_Id=${user_Id}" class="prev-page">&#60;</a>
         </c:when>
         <c:otherwise>
-            <span class="prev-page disabled"><</span>
+            <span class="prev-page disabled">&#60;</span>
         </c:otherwise>
     </c:choose>
 
@@ -49,20 +49,20 @@
     <!-- 다음 페이지 버튼 -->
     <c:choose>
         <c:when test="${currentPage < totalPages}">
-            <a href="?page=${currentPage + 1}&user_Id=${user_Id}" class="next-page">></a>
+            <a href="?page=${currentPage + 1}&user_Id=${user_Id}" class="next-page">&#62;</a>
         </c:when>
         <c:otherwise>
-            <span class="next-page disabled">></span>
+            <span class="next-page disabled">&#62;</span>
         </c:otherwise>
     </c:choose>
 
     <!-- 마지막 페이지 버튼 -->
     <c:choose>
         <c:when test="${currentPage < totalPages}">
-            <a href="?page=${totalPages}&user_Id=${user_Id}" class="last-page">»</a>
+            <a href="?page=${totalPages}&user_Id=${user_Id}" class="last-page">&#62;&#62;</a>
         </c:when>
         <c:otherwise>
-            <span class="last-page disabled">»</span>
+            <span class="last-page disabled">&#62;&#62;</span>
         </c:otherwise>
     </c:choose>
 </div>

@@ -58,7 +58,7 @@ function enterKey(f) {
 	<div class="table-container">
 		<div class="total-num">
 			<p>
-				전체<span>1</span>건
+				전체<span>&nbsp;${totalItems}</span>건
 			</p>
 		</div>
 
@@ -97,9 +97,10 @@ function enterKey(f) {
 				</c:if>
 
 
-				<c:forEach var="vo" items="${res_list}" begin="1" end="10">
+				<c:forEach var="vo" items="${res_list}" begin="0" end="11" varStatus="status">
 					<tr>
-						<td width="10%" class="line">${vo.reserve_id}</td>
+						<!-- totalItems에서 현재 반복 순서를 빼서 최신순으로 표시 -->
+	        			<td width="10%" class="line">${totalItems - status.index}</td>
 						<td width="30%" class="line">${vo.hb_title}</td>
 						<td width="15%" class="line">${vo.user_name}</td>
 						<td width="15%" class="line">${vo.user_id}</td>

@@ -6,10 +6,10 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kh.pr.hobee.common.Common;
 import kh.pr.hobee.dao.ReserveDAO;
-import kh.pr.hobee.vo.InquiryVO;
 import kh.pr.hobee.vo.ReserveVO;
 
 
@@ -25,11 +25,33 @@ public class ReserveController {
 	
 	// 신청 내역 리스트 페이지로 이동
 	@RequestMapping("res_list.do")
-	public String resList(Model model) {
-		List<ReserveVO> res_list = reservedao.resList();
-		model.addAttribute("res_list", res_list);
-		return Common.VIEW_PATH_HOST + "res/host_res_main.jsp";
+	public String resList(
+	        @RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
+	        @RequestParam(defaultValue = "10") int itemsPerPage, // 페이지당 항목 수 기본값 10
+	        Model model
+	) {
+	    // 전체 신청 내역 리스트 가져오기
+	    List<ReserveVO> resList = reservedao.resList();
+
+	    // 페이징 처리 계산
+	    int totalItems = resList.size(); // 총 항목 수
+	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수
+
+	    // 현재 페이지에 맞는 데이터 가져오기
+	    int start = (page - 1) * itemsPerPage; // 시작 인덱스
+	    int end = Math.min(start + itemsPerPage, totalItems); // 끝 인덱스
+	    List<ReserveVO> paginatedList = resList.subList(start, end);
+
+	    // Model 객체에 데이터 추가
+	    model.addAttribute("res_list", paginatedList); // 페이징 처리된 데이터
+	    model.addAttribute("currentPage", page); // 현재 페이지
+	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
+	    model.addAttribute("totalItems", totalItems); // 총 페이지 수
+
+	    // JSP로 이동
+	    return Common.VIEW_PATH_HOST + "res/host_res_main.jsp";
 	}
+
 
 	
 	//신청 내역 검색

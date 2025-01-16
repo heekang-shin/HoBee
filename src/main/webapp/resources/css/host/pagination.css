@@ -7,6 +7,7 @@
     align-items: center;
     gap: 10px;
     font-size: 16px;
+    margin-top: 30px;
 }
 
 .pagination a,
@@ -23,6 +24,7 @@
     cursor: pointer;
     background-color:var(--color-white);
     transition: all 0.3s;
+    font-size:14px;
 }
 
 .pagination a:hover {

@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import kh.pr.hobee.vo.CategoryVO;
 import kh.pr.hobee.vo.HobeeVO;
 import kh.pr.hobee.vo.InquiryVO;
+import kh.pr.hobee.vo.ReserveVO;
+import kh.pr.hobee.vo.WishlistVO;
 
 public class InvenDAO {
 	SqlSession sqlSession;
@@ -38,6 +40,32 @@ public class InvenDAO {
 	public List<InquiryVO> getAllInquiries(int hb_idx) {
 		List<InquiryVO> list = sqlSession.selectList("i.hobee_inquiry", hb_idx);
 		return list;
+	}
+	
+	public int addReserve(ReserveVO res_vo) {
+		int reserve = sqlSession.insert("i.hobee_reserve", res_vo);
+		return reserve;
+	}
+	
+	public int addWishlist(WishlistVO vo) {
+		int res = sqlSession.insert("i.hobee_wishlist", vo);
+		return res;
+	}
+	
+	public int deleteWishlist(WishlistVO vo) {
+		int res = sqlSession.delete("i.hobee_deleteWishlist", vo);
+		return res;
+	}
+	
+	
+	
+	public List<WishlistVO> allwish(int user_id){
+		List<WishlistVO> list = sqlSession.selectList("i.hobee_allwish", user_id);
+		return list;
+	}
+	
+	public int saveInquiry(InquiryVO inquiryVO) {
+	    return sqlSession.insert("i.saveInquiry", inquiryVO);
 	}
 	
 }

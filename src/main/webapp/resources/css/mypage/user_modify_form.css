@@ -1,0 +1,81 @@
+@charset "UTF-8";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+
+/* 테이블 시작 */
+
+table {
+			border-collapse: collapse;
+			width: 1400px;
+			margin: 10px auto;
+			
+		}
+
+		.modify {
+			text-align: left;
+			
+			margin-top: 120px;
+			font: bold 20px "고딕";
+			border-bottom: 5px solid #999;
+		}
+
+		th {
+
+			border-bottom: 1px solid #999;
+				text-align: left;
+				padding: 20px;
+
+		}
+
+		td {
+			border-bottom: 1px solid #999;
+	
+   
+	
+		}
+
+		.button {
+			padding: 15px;
+			text-align: center;
+			border-bottom: none;
+		}
+		
+		
+		
+/* 확인 버튼 스타일 */
+.button input[type="button"] {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+     margin-top:70px;
+     width:150px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0; /* 네모 모양 */
+   
+}
+
+.button input[type="button"]:hover {
+    background-color: gray;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 50%; /* 입력 칸이 테이블 셀 전체를 차지 */
+    padding: 10px; /* 내부 여백 */
+    margin: 5px 0; /* 위아래 여백 */
+    box-sizing: border-box; /* 패딩 포함하여 넓이 계산 */
+    border: 1px solid #ccc; /* 기본 테두리 색 */
+    border-radius: 4px; /* 둥근 모서리 */
+    font-size: 14px; /* 글꼴 크기 */
+    transition: border-color 0.3s, box-shadow 0.3s; /* 포커스 효과 */
+}
+
+
+

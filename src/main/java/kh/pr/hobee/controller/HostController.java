@@ -39,7 +39,7 @@ public class HostController {
 	public void setHobeedao(HobeeDAO hobeedao) {
 		this.hobeedao = hobeedao;
 	}
-	
+
 	InquiryDAO inqdao;
 
 	public void setInqdao(InquiryDAO inqdao) {
@@ -51,38 +51,38 @@ public class HostController {
 	public void setReservedao(ReserveDAO reservedao) {
 		this.reservedao = reservedao;
 	}
-	
-	// 호스트 메인
+
+	//호스트 메인
 	@RequestMapping("host_main.do")
 	public String hostMain(Model model) {
-		//전체 프로그램 신청 리스트 가져오기
+		// 전체 프로그램 신청 리스트 가져오기
 		List<HobeeVO> apply_list = hobeedao.applyList();
-		int totalItems = apply_list.size(); 
-		
+		int totalItems = apply_list.size();
+
 		// 질문 프로그램 신청 리스트 가져오기
 		List<InquiryVO> inqList = inqdao.selectInq();
 
-		//전체 항목 수 계산
+		// 전체 항목 수 계산
 		int inqtotalItems = inqList.size();
 
-		//nullCount 계산
+		// nullCount 계산
 		int nullCount = inqdao.selectNull();
-		 
-	    // 전체 신청 내역 리스트 가져오기
-	    List<ReserveVO> resList = reservedao.resList();
-	    int restotalItems = resList.size(); 
-	  
-	    //날짜 가져오기
-	    model.addAttribute("now", new Date()); 
-	    
-		model.addAttribute("apply_list", apply_list); 
-		model.addAttribute("inqList", inqList); 
-		model.addAttribute("resList", resList); 
-		
-		model.addAttribute("totalItems", totalItems); 
-		model.addAttribute("inqtotalItems", inqtotalItems); 
-		model.addAttribute("restotalItems", restotalItems); 
-		model.addAttribute("nullCount", nullCount); 
+
+		// 전체 신청 내역 리스트 가져오기
+		List<ReserveVO> resList = reservedao.resList();
+		int restotalItems = resList.size();
+
+		// 날짜 가져오기
+		model.addAttribute("now", new Date());
+
+		model.addAttribute("apply_list", apply_list);
+		model.addAttribute("inqList", inqList);
+		model.addAttribute("resList", resList);
+
+		model.addAttribute("totalItems", totalItems);
+		model.addAttribute("inqtotalItems", inqtotalItems);
+		model.addAttribute("restotalItems", restotalItems);
+		model.addAttribute("nullCount", nullCount);
 
 		return Common.VIEW_PATH_HOST + "main/host_main.jsp";
 	}
@@ -282,5 +282,7 @@ public class HostController {
 		model.addAttribute("apply_list", search_list);
 		return Common.VIEW_PATH + "host/host_list.jsp";
 	}
+
+	
 
 }

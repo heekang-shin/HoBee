@@ -96,5 +96,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	INSERT INTO inquiries (id,hb_idx, title, content, writer, created_date)
    		VALUES (seq_inq_idx.nextVal,#{hb_idx}, #{title}, #{content}, #{writer}, sysdate)
 	</insert>
+	
+	<!-- 특정 사용자가 특정 hb_idx를 찜했는지 확인 -->
+    <select id="checkWishlist" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM wishlist WHERE user_id = #{user_id} AND hb_idx = #{hb_idx}
+    </select>
 </mapper>
 

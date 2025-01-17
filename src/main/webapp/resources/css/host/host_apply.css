@@ -1,0 +1,243 @@
+@charset "UTF-8";
+
+* {
+	padding:0;
+	margin:0;
+	font-size: var(--font-size-base);
+}
+
+
+/* 회원가입 제목 */
+#signupHeader {
+	text-align: center;
+	margin-bottom: 10px;
+	margin-top: 90px;
+}
+
+#signupTitle {
+	font-size: 44px;
+	font-weight: bold;
+	color: var(--color-black);
+}
+
+/* 전체 컨테이너*/
+#signupContainer {
+	width: 720px;
+	margin: 0 auto;
+	background-color: var(--color-white);
+	padding: 20px 0;
+}
+
+/*notice*/
+.notice {
+	display: flex;
+	align-items: center;
+	position: relative;
+	background-color: var(--color-light-gray);
+	margin: 0 auto 30px auto;
+}
+
+.notice p {
+	width: 100%;
+	border-radius: 8px;
+	text-align: center;
+	padding: 20px;
+	box-sizing: border-box;
+	color: var(- -color-black);
+	font-size: 16px;
+}
+
+/*폼*/
+.form-group {
+	width: 100%;
+	height: auto;
+	display: flex;
+	align-items: center;
+	position: relative;
+	border-top:1px solid var(--border-color-gray);
+	padding:10px 0;
+}
+
+.host-img{
+	border-bottom:1px solid var(--border-color-gray);
+}
+
+.form-group label {
+	width: 150px;
+    font-size: 16px;
+    padding-left:10px;
+    box-sizing:border-box;
+    color: var(--color-black);
+    text-align: left;
+    font-weight: 600;
+}
+
+.form-group input[type="text"]:focus {
+    border-color: var(--color-black);
+    outline: none;
+}
+
+.form-group input[type="text"] {
+    width: calc(720px - 150px);
+    height: 54px;
+    line-height: 54px;
+    font-size: 14px;
+    color: var(--color-black);
+    padding-left:10px;
+    box-sizing: border-box;
+    background-color:var(--color-light-gray);
+    border:none;
+}
+
+.form-group input::placeholder {
+    color: var(--color-m-gray);
+    font-size: 16px; 
+ 	margin-top:6px;
+}
+
+.form-group input[type="button"]{
+		width:80px;
+	height:42px;
+	position: absolute;
+	right:10px;
+	border:1px solid var(--border-gray);
+	background-color:var(--color-white);
+	color:var(color-black);
+	border-radius: var(--border-radius);
+}
+
+/*textarea*/
+.form-group textarea{
+	 width: calc(720px - 150px);
+	background-color:var(--color-light-gray);
+	border:none;
+	 padding: 10px;
+	 box-sizing: border-box;
+} 
+
+textarea::placeholder{
+	color: var(--color-m-gray);
+    font-size: 16px; 
+}
+
+
+/* 이미지 업로드 */
+.upload-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: calc(720px - 150px);
+}
+
+.image-preview {
+   width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border:1px solid var(--border-color-gray);
+    border-radius:8px;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.upload-inner {
+   display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.upload-inner span {
+    color: var(--color-gray);
+    margin: 0;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.delete-btn {
+	width:80px;
+	height:42px;
+    background-color: var(--color-white);
+    color: var(--color-red);
+    border: 1px solid var(--color-red);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+     position: absolute;
+    right: 0px; /* 버튼을 오른쪽 끝에 맞춤 */
+    transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease;
+}
+
+.delete-btn:hover {
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+
+.upload-inner input[type="file"] {
+	width:100%;
+    height: 42px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.upload-inner input[type="file"]::-webkit-file-upload-button {
+    background-color: var(--color-white); 
+    color:var(--color-black); 
+    border: 1px solid var(--color-black);
+    border-radius: var(--border-radius); 
+    padding: 8px 10px; 
+    cursor: pointer;
+    transition: background-color var(--transition-duration) ease; 
+}
+
+/*중복확인 결과 표시*/
+#checkResult {
+	flex: 1;
+	padding-left: 150px;
+	box-sizing:border-box;
+    color: red;
+    font-size: 16px;
+    text-align: left;
+}
+
+
+/*black-line*/
+.black-line {
+	border-top: 2px solid var(--color-black);
+}
+
+/*req*/
+.req {
+	color: var(--color-main);
+}
+
+/*가입버튼*/
+#signupFooter{
+	width:100%;
+	height: auto;
+	margin:40px auto 120px auto;
+	text-align: center;
+}
+
+#signupFooter button[type="button"]{
+	width:120px;
+	height: 50px;
+	border:none;
+	background-color:var(--color-black);
+	color:var(--color-white);
+	font-weight: 600;
+}
+
+#signupFooter button[type="button"]:hover{
+	background-color:var(--color-main);
+	border:1px solid var(--color-black);
+	color:var(--color-black);
+}

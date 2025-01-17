@@ -6,6 +6,11 @@
   <meta charset="UTF-8">
 
   <title>회원가입</title>
+  
+  <!-- 파비콘 -->
+  <link rel="icon" href="/hobee/resources/images/Favicon.png">
+	
+  <link rel="stylesheet" href="resources/css/common.css">
   <link rel="stylesheet" href="resources/css/CreateAccount_form.css">
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -22,8 +27,9 @@
 
         if (!id) {
             // 아이디 입력 유효성 검사
-            checkResultLabel.innerText = "아이디를 입력해주세요.";
+            checkResultLabel.innerText = "아이디를 입력해 주세요.";
             checkResultLabel.style.color = "red"; // 경고 메시지 스타일
+            checkResultLabel.style.marginBottom = "10px";
             return;
         }
 
@@ -38,14 +44,17 @@
                 if (result === "fail") {
                     checkResultLabel.innerText = "이미 사용 중인 아이디입니다.";
                     checkResultLabel.style.color = "red";
+                    checkResultLabel.style.marginBottom = "10px";
                     isIdAvailable = false;
                 } else if (result === "true") {
                     checkResultLabel.innerText = "사용 가능한 아이디입니다.";
                     checkResultLabel.style.color = "green";
+                    checkResultLabel.style.marginBottom = "10px";
                     isIdAvailable = true;
                 } else {
                     checkResultLabel.innerText = "알 수 없는 오류가 발생했습니다.";
                     checkResultLabel.style.color = "red";
+                    checkResultLabel.style.marginBottom = "10px";
                 }
             }
         };
@@ -169,14 +178,14 @@
       <div class="black-line"></div>
       <div class="form-group">
         <label for="user_name">이름 *</label>
-        <input id="user_name" type="text" name="user_name" required>
+        <input id="user_name" type="text" name="user_name" placeholder="이름을 입력해 주세요." required>
       </div>
-      <div class="form-group input-with-button">
+      <div class="form-group input-with-button name-box">
         <label for="id">아이디 *</label>
-        <input id="id" type="text" name="id" placeholder="아이디 입력" required>
+        <input id="id" type="text" name="id" placeholder="아이디 입력해 주세요." required>
         <button type="button" class="btn-inline" onclick="chk();">중복확인</button>
       </div>
-      <div id="checkResult"></div>
+       <div id="checkResult"></div>
       <div class="form-group">
         <label for="phone">휴대폰 번호 *</label>
         <input id="phone" type="tel" name="phone" placeholder="010-1234-5678" required>
@@ -191,7 +200,7 @@
       </div>
       <div class="form-group">
         <label for="user_email">이메일 *</label>
-        <input id="user_email" type="email" name="user_email" placeholder="이메일 입력" required>
+        <input id="user_email" type="email" name="user_email" placeholder="이메일을 입력해 주세요." required>
       </div>
       <div class="form-group">
         <label for="birth_date">생년월일 *</label>

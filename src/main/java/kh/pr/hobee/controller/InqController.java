@@ -13,7 +13,7 @@ import kh.pr.hobee.dao.InquiryDAO;
 import kh.pr.hobee.vo.InquiryVO;
 
 @Controller
-public class inqController {
+public class InqController {
 
 	HobeeDAO hobeedao;
 

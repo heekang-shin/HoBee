@@ -32,7 +32,6 @@
                 <a href="main.do">Hobee</a>
             </h1>
 
-
             <!--검색창 시작-->
             <form onsubmit="return enterKey(this);">
                 <div id="search_inner">
@@ -42,20 +41,44 @@
                 </div>
             </form>
             
-            <!--snb 시작-->
-            <ul class="snb">
-            <!-- 
-                <li><img src="/hobee/resources/images/shop_icon.png" alt="찜" />
-                    <a href="shop.do">찜목록</a></li> -->
-                <li><img src="/hobee/resources/images/join_icon.png" alt="회원가입" />
-                    <a href="join_form.do">회원가입</a></li>
-                <li><img src="/hobee/resources/images/login_form.png" alt="로그인" />
-                    <a href="login.do">로그인</a></li>
-                <li><a href="host_list.do" class="host">호스트센터</a></li>
-            </ul>
-            <!--snb 끝-->
+          <!--snb 시작-->
+			<ul class="snb">
+				<!-- 로그인하지 않은 상태 -->
+				<c:if test="${empty sessionScope.loggedInUser}">
+					
+					<li>
+						<img src="/hobee/resources/images/join_icon.png" alt="회원가입" />
+						<a href="CreateAccount_form.do">회원가입</a>
+					</li>
+					<li>
+						<img src="/hobee/resources/images/login_form.png" alt="로그인" />
+						<a href="login_form.do">로그인</a>
+					</li>
+				</c:if>
+
+				<!-- 로그인한 상태 -->
+				<c:if test="${not empty sessionScope.loggedInUser}">
+					<li>
+					<img src="/hobee/resources/images/join_icon.png" alt="마이페이지" />
+						<a href="mypage_heart_form.do?user_id=${sessionScope.loggedInUser.user_Id}">마이페이지</a>
+					</li>
+					<li>
+						<span>환영합니다 ${sessionScope.loggedInUser.user_name} 님!</span>
+					</li>
+					<li>
+						<a href="logout.do">로그아웃</a>
+					</li>
+				</c:if>
+
+				<!-- 공통 -->
+				<li>
+					<a href="host_main.do" class="host">호스트센터</a>
+				</li>
+			</ul>
+			<!--snb 끝-->
         </div>
     </div>
     <!--헤더 끝-->
+
 </body>
 </html>

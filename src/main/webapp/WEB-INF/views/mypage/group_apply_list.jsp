@@ -115,7 +115,7 @@
 <!-- 페이징 버튼 -->
 <div class="pagination">
     <c:if test="${currentPage > 1}">
-        <a href="?page=${currentPage - 1}&user_Id=2">이전</a>
+        <a href="?page=${currentPage - 1}&user_Id=${sessionScope.loggedInUser.user_Id}">이전</a>
     </c:if>
     
     <c:forEach var="i" begin="1" end="${totalPages}">
@@ -124,13 +124,13 @@
                 <span class="current-page">${i}</span>
             </c:when>
             <c:otherwise>
-                <a href="?page=${i}&user_Id=2">${i}</a>
+                <a href="?page=${i}&user_Id=${sessionScope.loggedInUser.user_Id}">${i}</a>
             </c:otherwise>
         </c:choose>
     </c:forEach>
     
     <c:if test="${currentPage < totalPages}">
-        <a href="?page=${currentPage + 1}&user_Id=2">다음</a>
+        <a href="?page=${currentPage + 1}&user_Id=${sessionScope.loggedInUser.user_Id}">다음</a>
     </c:if>
 </div>
 

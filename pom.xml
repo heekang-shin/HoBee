@@ -196,14 +196,60 @@
 			<version>2.13.3</version>
 		</dependency>
 
-		<!-- 암호화spring-security-web -->
 <dependency>
-    <groupId>org.springframework.security</groupId>
-    <artifactId>spring-security-web</artifactId>
-    <version>4.0.0.RELEASE</version>
-</dependency>
-		
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>19.3.0.0</version>
+		</dependency>
 
+		<!-- JSON 라이브러리 -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20231013</version>
+		</dependency>
+		<!-- HttpClient 라이브러리 (버전 4.5.13) - 톰캣 9.0과 호환되는 버전으로 HTTP 요청 처리에 사용 -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
+		</dependency>
+
+		<!-- Spring Web 라이브러리 (버전 4.0.0.RELEASE) - 웹 애플리케이션 개발을 위한 핵심 기능 제공 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>4.0.0.RELEASE</version>
+		</dependency>
+
+<!-- 
+  javax.annotation 의존성: 
+  이 의존성은 Java EE의 일부인 javax.annotation 패키지를 제공합니다.
+  주로 `@PostConstruct`, `@PreDestroy` 같은 애노테이션을 사용하기 위해 필요합니다.
+  Java 9 이상에서는 javax.annotation 패키지가 JDK에서 제거되었기 때문에,
+  해당 애노테이션을 사용하려면 이 의존성을 명시적으로 추가해야 합니다.
+-->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+		<!-- Spring Security Crypto 라이브러리 -->
+		<!-- 비밀번호 암호화 및 비교를 위한 BCryptPasswordEncoder를 제공 -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-crypto</artifactId>
+		    <version>4.0.0.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>5.3.29</version> <!-- Spring 버전에 맞게 수정 -->
+		</dependency>
+		
+		
 	</dependencies>
 	<build>
 		<plugins>

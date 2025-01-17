@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.pr.hobee.common.Common;
 import kh.pr.hobee.dao.ReviewDAO;
 import kh.pr.hobee.vo.ReviewVO;
 import kh.pr.hobee.vo.UsersVO;
@@ -30,42 +30,56 @@ public class RatingController {
 		this.review_dao = review_dao;
 	}
 
-	@ResponseBody
 	@RequestMapping("Review.do")
-	public String insertReview(HttpSession session, String rating, String content, Model model) {
-		// 세션에 담아둔 이름 갖고오기
+	public String insertReview(String rating, String reviewContent, String hbidx, Model model) {
+		// 로그 추가: 입력 값 확인
+		System.out.println("[디버그] 전달받은 별점 값: " + rating);
+		System.out.println("[디버그] 전달받은 리뷰 내용: " + reviewContent);
+		System.out.println("[디버그] 전달받은 게시글 ID: " + hbidx);
+
+		// 세션에서 사용자 정보 확인
 		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
-		
-		if(user == null) {
-			return "error";
+		if (user == null) {
+			System.out.println("[디버그] 사용자가 로그인하지 않았습니다. 로그인 페이지로 리다이렉트");
+			return "redirect:/login_form.do";
 		}
-		
+
 		String username = user.getUser_name();
+		System.out.println("[디버그] 로그인된 사용자 이름: " + username);
 
-		// 로그 확인
-		System.out.println("작성자: " + username);
-		System.out.println("별점: " + rating);
-		System.out.println("내용: " + content);
-
+		// 리뷰 객체 생성 및 저장
 		ReviewVO review = new ReviewVO();
 		review.setUser_name(username);
 		review.setRating(Integer.parseInt(rating));
-		review.setContent(content);
+		review.setContent(reviewContent);
+		review.setHb_idx(Integer.parseInt(hbidx));
 
 		review_dao.insertReview(review);
+		System.out.println("[디버그] 리뷰가 데이터베이스에 성공적으로 저장되었습니다.");
+
 		// 리뷰 목록 조회
 		List<ReviewVO> reviews = review_dao.reviewList();
+		System.out.println("[디버그] 조회된 리뷰 개수: " + reviews.size());
 
-		// 평균 평점과 리뷰 개수 계산
+		// 평균 평점 계산
 		double totalRating = 0;
-		int reviewCount = reviews.size();
 		for (ReviewVO r : reviews) {
-			totalRating += r.getRating();
+		    totalRating += r.getRating();
 		}
-		double averageRating = (reviewCount == 0) ? 0 : totalRating / reviewCount;
+		double averageRating = (reviews.size() == 0) ? 0 : totalRating / reviews.size();
 
-		// 문자열로 평균 평점과 리뷰 개수를 반환
-		return averageRating + "," + reviewCount;
+		// 평균 평점 포맷팅 (소수점 한 자리로)
+		String formattedAverageRating = String.format("%.1f", averageRating);
 
+		System.out.println("[디버그] 평균 평점: " + formattedAverageRating);
+
+		// 모델에 저장
+		model.addAttribute("reviews", reviews);
+		model.addAttribute("formattedAverageRating", formattedAverageRating); // 포맷된 값을 전달
+		model.addAttribute("reviewCount", reviews.size());
+
+
+		return Common.VIEW_PATH + "detail/detail.jsp";
 	}
+
 }

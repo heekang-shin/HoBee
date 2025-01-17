@@ -17,13 +17,21 @@ public class ReviewDAO {
 
 	// 리뷰 등록 메서드
 	public int insertReview(ReviewVO vo) {
-		int res = sqlSession.insert("review.review_insert", vo);
-		return res;
+	    // MyBatis를 통해 review_insert 쿼리 실행
+	    int res = sqlSession.insert("review.review_insert", vo);
+	    return res; // 결과 반환
 	}
+
 
 	// 모든 리뷰 조회 메서드
 	public List<ReviewVO> reviewList() {
 		List<ReviewVO> list = sqlSession.selectList("review.review_list");
+		return list;
+	}
+	
+	//특정 hbidx로 리뷰 조회
+	public List<ReviewVO> get_reviewList(int hb_idx){
+		List<ReviewVO> list = sqlSession.selectList("review.selreview_list",hb_idx);
 		return list;
 	}
 }

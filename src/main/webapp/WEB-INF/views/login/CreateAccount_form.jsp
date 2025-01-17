@@ -131,7 +131,7 @@
         if (!validateForm()) {
             return;
         }
-
+        console.log("버튼눌림?");
         let form = document.getElementById("signupForm");
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "create_account.do", true);

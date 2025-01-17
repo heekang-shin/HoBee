@@ -18,7 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		USER_EMAIL,
 		PHONE,
 		BIRTH_DATE,
-		JOIN_DATE
+		JOIN_DATE,
+		LV
 		) VALUES
 		(
 		users_seq.NEXTVAL,
@@ -28,7 +29,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{user_email},
 		#{phone},
 		TO_DATE(#{birth_date}, 'YYYY-MM-DD'),
-		SYSDATE
+		SYSDATE,
+		#{lv}
 		)
 	</insert>
 

@@ -45,6 +45,10 @@
 	<beans:bean class="kh.pr.hobee.controller.LoginController">
 		<beans:property name="users_dao" ref="users_daoBean" />
 	</beans:bean>
+	
+	<beans:bean class="kh.pr.hobee.controller.AdminController">
+		<beans:property name="users_dao" ref="users_daoBean" />
+	</beans:bean>
 
 	<beans:bean
 		class="kh.pr.hobee.controller.NaverLoginController" />

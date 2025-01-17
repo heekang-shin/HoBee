@@ -64,7 +64,7 @@
     line-height: 80px;
     position: absolute;
     top: 0;
-    right: -50px;
+    right: 0;
     display: inline-block;
 }
 
@@ -75,11 +75,11 @@
 .snb li a {
     font-size: 15px;
     color: var(--header-text);
-    margin: 0 12px; /* 기존 8px에서 12px로 조정하여 간격 확장 */
 }
 
 .snb li span {
-    margin-left: 10px; /* 환영 메시지 앞쪽 간격 추가 */
+	color:var(--color-black);
+	font-size:16px;
 }
 
 .snb li:last-child a {
@@ -94,31 +94,26 @@
     font-weight: 600;
 }
 
-.snb li:nth-child(3) a {
-    margin-left: 15px; /* 로그아웃 버튼 앞쪽 간격 추가 */
-}
-
 .snb li:last-child {
     margin-left: 15px; /* 호스트센터 버튼 앞쪽 간격 추가 */
 }
 
-.snb li::before {
-    content: '';
+.snb li:nth-child(1)::after {
+   content: '';
     display: inline-block;
-    height: 10px;
-    border-left: 1px solid var(--border-gray);
+    height: 16px;
+    border-left: 1px solid var(--menu-hover-border);
     box-sizing: border-box;
-    padding-left: 8px;
+    margin: 0 10px;
 }
 
-.snb li:first-child::before {
-    border-left: none;
-    padding-left: 0;
-}
-
-.snb li:nth-child(4)::before {
-    border-left: none;
-    padding-left: 0;
+.hello::after {
+   content: '';
+    display: inline-block;
+    height: 16px;
+    border-left: 1px solid var(--menu-hover-border);
+    box-sizing: border-box;
+    margin: 0 10px;
 }
 /*snb 끝*/
 
@@ -145,6 +140,24 @@ input::placeholder {
     color: var(--placeholder-color);
     font-size: 16px;
     position: absolute;
+    top:11px;
 }
 
+
+/* 기본 스타일 초기화 */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none; /* 기본 스타일 제거 */
+  appearance: none;
+}
+
+/* 삭제 버튼 커스텀 */
+input[type="search"]::-webkit-search-cancel-button {
+  content: '';
+  width: 28px;
+  height: 28px;
+  background-image: url("/hobee/resources/images/del_icon.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
 /*검색창 끝*/

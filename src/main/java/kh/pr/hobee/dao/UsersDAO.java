@@ -69,6 +69,13 @@ public class UsersDAO {
 	    return userPwd;
 	}
 
+	//관리자 계정 중복 체크 
+	public boolean admin_Duplicate_check(String id) {
+	    int count = sqlSession.selectOne("u.Duplicate_check", id); // MyBatis 매퍼 호출
+	    return count > 0; // 중복 여부 반환
+	}
+
+
 
 
 }

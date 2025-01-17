@@ -42,7 +42,7 @@
 		</script>
 		<script>
 		/* function open_payment(price) {
-	
+
 		    // 새 창의 URL 설정
 		    const url = 'payment.do?price='+price+'&hbidx='+${hobee.hb_idx}+'&userid='+${sessionScope.loggedInUser.user_Id}; // 스프링 컨트롤러로 price 값 전달
 			const options = 'width=680,height=650,top=180%,left=600%';
@@ -53,6 +53,7 @@
 		    if (isNaN(pp) || pp < 1) { // 초기값이 이상하거나 잘못된 경우를 방지
 		        pp = 1;
 		    }
+
 	
 		    switch (o) {
 		        case "+":

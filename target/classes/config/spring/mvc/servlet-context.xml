@@ -72,7 +72,7 @@
 	</beans:bean>
 
 	<!-- inqController -->
-	<beans:bean class="kh.pr.hobee.controller.inqController">
+	<beans:bean class="kh.pr.hobee.controller.InqController">
 		<beans:property name="hobeedao" ref="hobee_dao_bean" />
 		<beans:property name="inqdao" ref="inq_dao_bean" />
 	</beans:bean>

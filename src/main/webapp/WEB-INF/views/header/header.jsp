@@ -59,14 +59,15 @@
 				<!-- 로그인한 상태 -->
 				<c:if test="${not empty sessionScope.loggedInUser}">
 					<li>
-					<img src="/hobee/resources/images/join_icon.png" alt="마이페이지" />
+						<img src="/hobee/resources/images/join_icon.png" alt="마이페이지" />
 						<a href="mypage_heart_form.do?user_id=${sessionScope.loggedInUser.user_Id}">마이페이지</a>
 					</li>
 					<li>
-						<span>환영합니다 ${sessionScope.loggedInUser.user_name} 님!</span>
+						<a class="hello">환영합니다 ${sessionScope.loggedInUser.user_name}님</a>
 					</li>
 					<li>
-						<a href="logout.do">로그아웃</a>
+						<img src="/hobee/resources/images/loginout.png" alt="로그아웃" />
+						<a href="logout.do" class="logout-btn">로그아웃</a>
 					</li>
 				</c:if>
 

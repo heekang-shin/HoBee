@@ -39,7 +39,9 @@
 			document.getElementById('arrow2').style.transform = 'rotate(-135deg)'
 		}
 	}
+	</script>
 	
+	<script>
 	function open_payment(price) {
 
 	    // 새 창의 URL 설정

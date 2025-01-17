@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import kh.pr.hobee.dao.ReserveDAO;
 import kh.pr.hobee.vo.HobeeVO;
 import kh.pr.hobee.vo.InquiryVO;
 import kh.pr.hobee.vo.ReserveVO;
+import kh.pr.hobee.vo.UsersVO;
 
 @Controller
 public class HostController {
@@ -33,6 +35,9 @@ public class HostController {
 
 	@Autowired
 	private HttpServletRequest request;
+	
+	@Autowired
+	HttpSession session;
 
 	HobeeDAO hobeedao;
 
@@ -51,10 +56,29 @@ public class HostController {
 	public void setReservedao(ReserveDAO reservedao) {
 		this.reservedao = reservedao;
 	}
+	
+	
 
-	//호스트 메인
+	// 호스트 메인
 	@RequestMapping("host_main.do")
 	public String hostMain(Model model) {
+
+		// 세션에서 사용자 정보 확인
+		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+		if (user == null) {
+			System.out.println("[디버그] 사용자가 로그인하지 않았습니다. 로그인 페이지로 리다이렉트");
+			return "redirect:/login_form.do";
+		} 
+		
+		if ("일반".equals(user.getLv())) {
+		    // 사용자가 호스트 권한이 없는 경우
+		    System.out.println("[디버그] 사용자 ID: " + user.getId() + " - 호스트 권한 없음. 호스트 신청 페이지로 이동");
+		    return Common.VIEW_PATH_HOST + "apply/host_apply.jsp";
+		}
+
+		// 다른 조건을 처리하거나 디버그 추가
+		System.out.println("[디버그] 사용자 ID: " + user.getId() + " - 권한 확인 완료");
+		
 		
 		// 전체 프로그램 신청 리스트 가져오기
 		List<HobeeVO> apply_list = hobeedao.applyList();

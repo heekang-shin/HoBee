@@ -15,6 +15,7 @@
     --dot-color: rgba(255, 255, 255, 0.5);
     --dot-active-color: #fff;
     --menu-hover-border: #dcdcdc;
+    --border-gray: #dcdcdc;
     --content-title-color: #222222;
     --content-desc-color: #474747;
     --footer-bg: #f6f6f6;
@@ -31,6 +32,10 @@
     --color-white:#ffffff;
     --color-gray:#A8A8A8;
     --color-m-gray:#999999;
+   	--color-main:#FFE14D;
+   	--color-red:#D5292F;
+   	--border-color-gray:#DCDCDC;
+   	--border-radius:4px;
 }
 
 * {

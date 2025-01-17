@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review">
+
+	<insert id="review_insert" parameterType="review">
+		INSERT INTO review (
+		REVIEW_ID,
+		USER_NAME,
+		RATING,
+		CONTENT,
+		CREATED_AT
+		)
+		VALUES (
+		review_seq.NEXTVAL,
+		#{user_name}, <!-- 시퀀스를 사용해 REVIEW_ID 자동 생성 -->
+		#{rating},
+		#{content},
+		SYSDATE
+		)
+	</insert>
+
+	<select id="review_list" resultType="review">
+		SELECT * FROM review ORDER BY created_at DESC
+	</select>
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

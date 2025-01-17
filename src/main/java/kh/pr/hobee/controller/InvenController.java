@@ -47,6 +47,7 @@ public class InvenController {
 		return "/WEB-INF/views/inventory/inven.jsp";
 	}
 	
+	//상세페이지
 	@RequestMapping("/hobee_detail.do")
 	public String detail(Model model, int hbidx, Integer page) {
 		if (page == null || page < 1) {
@@ -72,7 +73,6 @@ public class InvenController {
 
 		return "/WEB-INF/views/detail/detail.jsp";
 	}
-	
 	@ResponseBody
 	@RequestMapping("/addWishlist.do")
 	public Map<String, Object> toggleWishlist(@RequestBody WishlistVO vo) {

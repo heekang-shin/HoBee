@@ -43,7 +43,7 @@
 	function open_payment(price) {
 
 	    // 새 창의 URL 설정
-	    const url = 'payment.do?price='+price+'&hbidx='+${hobee.hb_idx}+'&userid='+2; // 스프링 컨트롤러로 price 값 전달
+	    const url = 'payment.do?price='+price+'&hbidx='+${hobee.hb_idx}+'&userid='+${sessionScope.loggedInUser.user_Id}; // 스프링 컨트롤러로 price 값 전달
 		const options = 'width=680,height=650,top=180%,left=600%';
 		window.open(url, '_blank', options);
 	}
@@ -123,6 +123,10 @@
 		<!-- 왼쪽 컨테이너 -->
 		<div class="left_container">
 			<img src="/hobee/resources/images/upload/${hobee.l_image}">
+
+
+
+
 
 			<!-- 소개 -->
 			<div class="sub-title">
@@ -350,7 +354,7 @@
 
 			<div class="btn-inner">
 				<input type="button" value="신청하기" id="apply-btn" onclick="open_payment(${hobee.hb_price})">
-				<input type="button" id="wishlist-btn" value="찜하기" onclick="toggleWishlist(${hobee.hb_idx}, 2)">
+				<input type="button" id="wishlist-btn" value="찜하기" onclick="toggleWishlist(${hobee.hb_idx}, ${sessionScope.loggedInUser.user_Id})">
 			</div>
 
 		</div>

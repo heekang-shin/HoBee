@@ -6,6 +6,7 @@
 		<setting name="cacheEnabled" value="false" />
 		<setting name="useGeneratedKeys" value="true" />
 		<setting name="defaultExecutorType" value="REUSE" />
+		<setting name="jdbcTypeForNull" value="VARCHAR" />
 	</settings>
 	
 	<typeAliases>
@@ -14,6 +15,7 @@
 		<typeAlias type="kh.pr.hobee.vo.InquiryVO" alias="inquiry"/>
 		<typeAlias type="kh.pr.hobee.vo.UsersVO" alias="users" />
 		<typeAlias type="kh.pr.hobee.vo.ReserveVO" alias="reserve" />
+		<typeAlias type="kh.pr.hobee.vo.ReviewVO" alias="review" />
 	</typeAliases>
 	
 	<mappers>
@@ -22,6 +24,8 @@
 		<mapper resource="config/mybatis/mapper/inquiry.xml" />
 		<mapper resource="config/mybatis/mapper/reserve.xml" />
 		 <mapper resource="config/mybatis/mapper/mypage.xml" />
+		<mapper resource="config/mybatis/mapper/users.xml" />
+		<mapper resource="config/mybatis/mapper/review.xml" />
 	</mappers>
 </configuration>
 

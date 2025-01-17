@@ -58,7 +58,7 @@
 	<div class="table-container">
     <div class="total-num">
         <p>
-            전체<span>&nbsp;${fn:length(apply_list)}</span>건
+            전체<span>&nbsp;${totalItems}</span>건
         </p>
     </div>
 
@@ -87,11 +87,11 @@
 			</c:if>
 
             
-            <c:forEach var="vo" items="${apply_list}" varStatus="status">
+            <c:forEach var="vo" items="${apply_list}" begin="0" end="11" varStatus="status">
                 <tr>
-	                <td width="5%" class="line">${status.index + 1}</td>
-	                <!-- <td> width="5%" class="line">${vo.hb_idx}</td> -->
-	                <td width="10%" class="line">${vo.category_num}</td>
+	               	<!-- totalItems에서 현재 반복 순서를 빼서 최신순으로 표시 -->
+        			<td width="5%" class="line">${totalItems - status.index}</td>
+	                <td width="10%" class="line">${vo.category_name}</td>
 	                <td width="25%" class="line" style="text-align: left;">
 	                	<a href="host_apply_detail.do?hb_idx=${vo.hb_idx}">${vo.hb_title}</a>
 	                </td>

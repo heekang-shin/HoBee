@@ -132,5 +132,20 @@ public class InvenController {
         }
         return "redirect:/hobee_detail.do?hbidx=" + inquiryVO.getHb_idx(); // 상세 페이지로 리다이렉트
     }	
-	
+    
+    @ResponseBody
+    @RequestMapping(value = "/checkWishlist.do", method = RequestMethod.POST)
+    public Map<String, Object> checkWishlist(@RequestBody WishlistVO vo) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        try {
+            boolean inWishlist = inven_dao.isInWishlist(vo.getUser_id(), vo.getHb_idx());
+            result.put("success", true);
+            result.put("inWishlist", inWishlist);
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("message", "찜 상태 확인 중 오류가 발생했습니다.");
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

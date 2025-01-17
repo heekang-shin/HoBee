@@ -19,22 +19,21 @@ public class MainController {
 		this.hobeedao = hobeedao;
 	}
 
-	//메인페이지
-	@RequestMapping(value= {"/","main.do"})
+	// 메인페이지
+	@RequestMapping(value = { "/", "main.do" })
 	public String select(Model model) {
-		//best 제품 조회
+		// best 제품 조회
 		List<HobeeVO> best_list = hobeedao.bestSelect();
 		model.addAttribute("best_list", best_list);
-	
 
-		//pick 제품 조회
+		// pick 제품 조회
 		List<HobeeVO> pick_list = hobeedao.pickSelect();
 		model.addAttribute("pick_list", pick_list);
-		
-		//new 제품 조회
+
+		// new 제품 조회
 		List<HobeeVO> new_list = hobeedao.pickSelect();
 		model.addAttribute("new_list", new_list);
-		
+
 		return Common.VIEW_PATH + "main/main.jsp";
 	}
 
@@ -48,14 +47,13 @@ public class MainController {
 		model.addAttribute("search_list", search_list);
 		return Common.VIEW_PATH + "search/search.jsp";
 	}
+
+	// 모임등록 페이지 이동
+	@RequestMapping("apply_list.do")
+	public String applyList() {
+		return Common.VIEW_PATH + "apply/apply_list.jsp";
+	}
+
 	
-	
-	
-	
-	//모임등록 페이지 이동
-		@RequestMapping("apply_list.do")
-		public String applyList() {
-			return Common.VIEW_PATH + "apply/apply_list.jsp";
-		}
 
 }

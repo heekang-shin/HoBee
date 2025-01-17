@@ -72,7 +72,7 @@
 
 				<!-- 공통 -->
 				<li>
-					<a href="host_list.do" class="host">호스트센터</a>
+					<a href="host_main.do" class="host">호스트센터</a>
 				</li>
 			</ul>
 			<!--snb 끝-->

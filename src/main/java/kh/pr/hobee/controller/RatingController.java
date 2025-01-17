@@ -57,9 +57,9 @@ public class RatingController {
 		review_dao.insertReview(review);
 		System.out.println("[디버그] 리뷰가 데이터베이스에 성공적으로 저장되었습니다.");
 
-		// 리뷰 목록 조회
-		List<ReviewVO> reviews = review_dao.reviewList();
-		System.out.println("[디버그] 조회된 리뷰 개수: " + reviews.size());
+		  // 특정 hb_idx에 해당하는 리뷰 목록 조회
+	    List<ReviewVO> reviews = review_dao.get_reviewList(Integer.parseInt(hbidx));
+	    System.out.println("[디버그] 조회된 리뷰 개수: " + reviews.size());
 
 		// 평균 평점 계산
 		double totalRating = 0;

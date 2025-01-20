@@ -69,6 +69,11 @@ public class UsersDAO {
 	    return userPwd;
 	}
 
-
+	// 중복체크 호스트네임
+		public String hostname_check(String hostname) {
+			System.out.println(hostname);
+			int count = sqlSession.selectOne("u.host_check", hostname); // MyBatis 매퍼 호출
+			return count > 0 ? "1" : "0"; // 중복이면 "1", 아니면 "0" 반환
+		}
 
 }

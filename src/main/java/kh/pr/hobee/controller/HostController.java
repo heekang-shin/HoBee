@@ -16,13 +16,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.pr.hobee.common.Common;
 import kh.pr.hobee.dao.HobeeDAO;
+import kh.pr.hobee.dao.HostDAO;
 import kh.pr.hobee.dao.InquiryDAO;
 import kh.pr.hobee.dao.ReserveDAO;
+import kh.pr.hobee.dao.UsersDAO;
 import kh.pr.hobee.vo.HobeeVO;
+import kh.pr.hobee.vo.HostVO;
 import kh.pr.hobee.vo.InquiryVO;
 import kh.pr.hobee.vo.ReserveVO;
 import kh.pr.hobee.vo.UsersVO;
@@ -35,7 +39,7 @@ public class HostController {
 
 	@Autowired
 	private HttpServletRequest request;
-	
+
 	@Autowired
 	HttpSession session;
 
@@ -57,7 +61,17 @@ public class HostController {
 		this.reservedao = reservedao;
 	}
 	
+	UsersDAO users_dao;
+
+	// Setter 주입
+	public void setUsers_dao(UsersDAO users_dao) {
+		this.users_dao = users_dao;
+	}
 	
+	HostDAO host_dao;
+	public void setHost_dao(HostDAO host_dao) {
+		this.host_dao = host_dao;
+	}
 
 	// 호스트 메인
 	@RequestMapping("host_main.do")
@@ -73,7 +87,7 @@ public class HostController {
 		if ("일반".equals(user.getLv())) {
 		    // 사용자가 호스트 권한이 없는 경우
 		    System.out.println("[디버그] 사용자 ID: " + user.getId() + " - 호스트 권한 없음. 호스트 신청 페이지로 이동");
-		    return Common.VIEW_PATH_HOST + "apply/host_apply.jsp";
+		    return Common.VIEW_PATH_HOST + "classApply/host_classApply.jsp";
 		}
 
 		// 다른 조건을 처리하거나 디버그 추가
@@ -110,6 +124,16 @@ public class HostController {
 		model.addAttribute("nullCount", nullCount);
 
 		return Common.VIEW_PATH_HOST + "main/host_main.jsp";
+	}
+	
+	//호스트 정보 조회, 수정
+	@RequestMapping("host_info.do")
+	public String hostInfo(HttpSession session, Model model) {
+		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+		System.out.println(user.getUser_Id());
+		HostVO vo = host_dao.selectHost(user.getUser_Id());
+		model.addAttribute("hostInfo", vo);
+		return Common.VIEW_PATH_HOST + "host_info.jsp";
 	}
 
 	// 호스트 리스트 페이지로 이동
@@ -233,6 +257,7 @@ public class HostController {
 		System.out.println(fieldName + " 파일이름: " + filename);
 	}
 
+	
 	// 기존 파일 삭제
 	private void deleteExistingFile(String savePath, String filename) {
 		if (filename != null && !filename.equals("no_file")) {
@@ -307,7 +332,108 @@ public class HostController {
 		model.addAttribute("apply_list", search_list);
 		return Common.VIEW_PATH + "host/host_list.jsp";
 	}
+	
+	//호스트 네임 중복 체크 처리
+	@ResponseBody
+	@RequestMapping("/check_host_duplicate.do")
+	public String checkDuplicate(String host_name) {
+		String duplicateCheck = users_dao.hostname_check(host_name);
+		if ("1".equals(duplicateCheck)) {
+			return "fail";
+		} else if ("0".equals(duplicateCheck)) {
+			return "true";
+		} else {
+			return "unknown";
+		}
+	}
+	
+	@RequestMapping("add_host.do")
+	@ResponseBody
+	public String hostadd(HostVO vo, Model model) {
+	    try {
+	        String webPath = "/resources/images/upload/"; // 상대경로
+	        String savePath = application.getRealPath(webPath); // 절대경로
 
+	        System.out.println("절대경로:" + savePath);
+	        System.out.println("hostfilename : " + vo.getHost_image_filename());
+
+	        // 업로드를 위한 파일 정보 처리
+	        hostImgUpload(vo.getHost_image_filename(), savePath, "host_img", vo);
+	        
+	        // DAO를 통해 데이터 삽입
+	        int res = host_dao.hostadd(vo);
+	        System.out.println("삽입 결과: " + res);
+
+	        if (res > 0) {
+	            return "success";
+	        } else {
+	            return "fail";
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "fail";
+	    }
+	}
+	
+	// 파일 업로드
+		private void hostImgUpload(MultipartFile file, String savePath, String fieldName, HostVO vo) {
+			String filename = null;
+
+			if (file != null && !file.isEmpty()) {
+				filename = file.getOriginalFilename();
+
+				// 저장 경로 디렉터리 생성
+				File directory = new File(savePath);
+				if (!directory.exists()) {
+					directory.mkdirs();
+				}
+
+				// 기존 파일 삭제
+				deleteExistingFile(savePath, vo.getHost_img());
+
+				// 중복 파일 이름 처리
+				File saveFile = new File(savePath, filename);
+				if (saveFile.exists()) {
+					long time = System.currentTimeMillis();
+					filename = String.format("%d_%s", time, filename);
+					saveFile = new File(savePath, filename);
+				}
+
+				try {
+					file.transferTo(saveFile);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				// 파일이 없을 경우 기존 파일 이름 유지
+				filename = vo.getHost_img();
+			}
+			System.out.println("필드이름:"+fieldName);
+			// VO에 파일 이름 설정
+			if ("host_img".equals(fieldName)) {
+				vo.setHost_img(filename);
+			}
+
+			System.out.println(fieldName + " 파일이름: " + vo.getHost_img());
+		}
+		
+		@RequestMapping("/host_modify.do")
+		public String hostmodify(HostVO vo) {
+			String webPath = "/resources/images/upload/"; // 상대경로
+			String savePath = application.getRealPath(webPath); // 절대경로
+
+			System.out.println("절대경로: " + savePath);
+
+			// 업로드된 파일 처리
+			hostImgUpload(vo.getHost_image_filename(), savePath, "host_image", vo);
+
+			// 데이터 수정 처리
+			int res = host_dao.modify(vo);
+				System.out.println("수정 성공");
+				// 수정 후 상세 페이지로 리다이렉트
+				return "redirect:host_list.do";
+			
+		}
 	
 
 }

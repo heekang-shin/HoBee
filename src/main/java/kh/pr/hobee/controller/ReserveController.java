@@ -33,7 +33,6 @@ public class ReserveController {
 		model.addAttribute("currentUrl", currentUrl);
 	}
 	
-
 	// 신청 내역 리스트 페이지로 이동
 	@RequestMapping("res_list.do")
 	public String resList(

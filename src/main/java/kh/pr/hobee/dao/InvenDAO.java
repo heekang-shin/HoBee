@@ -1,6 +1,8 @@
 package kh.pr.hobee.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -57,8 +59,6 @@ public class InvenDAO {
 		return res;
 	}
 	
-	
-	
 	public List<WishlistVO> allwish(int user_id){
 		List<WishlistVO> list = sqlSession.selectList("i.hobee_allwish", user_id);
 		return list;
@@ -68,4 +68,13 @@ public class InvenDAO {
 	    return sqlSession.insert("i.saveInquiry", inquiryVO);
 	}
 	
+	//찜목록에 이미 있는지 확인
+	public boolean isInWishlist(int user_id, int hb_idx) {
+	    Map<String, Object> params = new HashMap<String, Object>();
+	    params.put("user_id", user_id);
+	    params.put("hb_idx", hb_idx);
+
+	    Integer count = sqlSession.selectOne("i.checkWishlist", params);
+	    return count != null && count > 0;
+	}
 }

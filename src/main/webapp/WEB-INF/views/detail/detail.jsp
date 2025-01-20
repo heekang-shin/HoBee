@@ -5,114 +5,167 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>${hobee.hb_title}&nbsp상세페이지</title>
-
-<!-- detail css -->
-<link rel="stylesheet" href="/hobee/resources/css/detail.css">
-
-<link rel="stylesheet" href="/hobee/resources/css/footer.css">
-<!-- 파비콘 -->
-<link rel="icon" href="/hobee/resources/images/Favicon.png">
-
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	<!--토글-->
-	function openDiv1() {
-
-		if (document.getElementById('notice-details').style.display === 'none') {
-			document.getElementById('notice-details').style.display = 'block'
-			document.getElementById('arrow1').style.transform = 'rotate(45deg)'
-		} else {
-			document.getElementById('notice-details').style.display = 'none'
-			document.getElementById('arrow1').style.transform = 'rotate(-135deg)'
-		}
-	}
+	<meta charset="UTF-8">
+	<title>${hobee.hb_title}&nbsp상세페이지</title>
 	
-	function openDiv2() {
-
-		if (document.getElementById('refund-details').style.display === 'none') {
-			document.getElementById('refund-details').style.display = 'block'
-			document.getElementById('arrow2').style.transform = 'rotate(45deg)'
-		} else {
-			document.getElementById('refund-details').style.display = 'none'
-			document.getElementById('arrow2').style.transform = 'rotate(-135deg)'
-		}
-	}
-	</script>
+	<!-- detail css -->
+	<link rel="stylesheet" href="/hobee/resources/css/detail.css">
 	
+	<link rel="stylesheet" href="/hobee/resources/css/footer.css">
+	<!-- 파비콘 -->
+	<link rel="icon" href="/hobee/resources/images/Favicon.png">
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-	function open_payment(price) {
-
-	    // 새 창의 URL 설정
-	    const url = 'payment.do?price='+price+'&hbidx='+${hobee.hb_idx}+'&userid='+${sessionScope.loggedInUser.user_Id}; // 스프링 컨트롤러로 price 값 전달
-		const options = 'width=680,height=650,top=180%,left=600%';
-		window.open(url, '_blank', options);
-	}
-	function op(o) {
-	    let pp = parseInt(document.getElementById("people").value); // 문자열 값을 숫자로 변환
-	    if (isNaN(pp) || pp < 1) { // 초기값이 이상하거나 잘못된 경우를 방지
-	        pp = 1;
-	    }
-
-	    switch (o) {
-	        case "+":
-	            pp++;
-	            break;
-	        case "-":
-	            if (pp > 1) { // 인원수가 1 이하로 내려가지 않도록 제한
-	                pp--;
-	            }
-	            break;
-	    }
-
-	    document.getElementById("people").value = pp; // 업데이트된 인원수 반영
-
-	    let res = document.getElementById('res');
-	    let price = pp * ${hobee.hb_price};
-	    res.innerHTML = price + " 원"; // 총금액 계산 및 업데이트
-
-	    // 버튼에 price 값 전달하도록 업데이트
-	    const applyButton = document.getElementById("apply-btn");
-	    applyButton.onclick = function () {
-	        open_payment(price); // 함수에 price 값을 전달
-	    };
-
-	}
+		<!--토글-->
+		function openDiv1() {
 	
-	 // 새 창에서 전달된 결제 정보를 수신
-	  function receivePaymentData(data) {
-	    console.log("결제 정보:", data);
-
-	    // 결제 데이터를 처리 (예: UI 업데이트, 서버에 데이터 전송 등)
-	    alert("결제가 완료되었습니다!\n" + "주문 ID: " + data.orderId + "\n총 결제 금액: " + data.price);
-
-	  }
-	 
-	 //찜하기 버튼
-	  function toggleWishlist(hb_idx, user_id) {
-    $.ajax({
-        type: 'POST',
-        url: '/hobee/addWishlist.do',
-        data: JSON.stringify({ hb_idx: hb_idx, user_id: user_id }),
-        contentType: 'application/json; charset=UTF-8',
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                alert(response.message);
-                const btn = document.getElementById('wishlist-btn');
-                btn.value = response.action === 'added' ? '찜취소' : '찜하기';
-            } else {
-                alert('찜하기 처리 중 오류가 발생했습니다.');
-            }
-        },
-        error: function() {
-            alert('서버와 통신 중 오류가 발생했습니다.');
-        }
-    });
-}
+			if (document.getElementById('notice-details').style.display === 'none') {
+				document.getElementById('notice-details').style.display = 'block'
+				document.getElementById('arrow1').style.transform = 'rotate(45deg)'
+			} else {
+				document.getElementById('notice-details').style.display = 'none'
+				document.getElementById('arrow1').style.transform = 'rotate(-135deg)'
+			}
+		}
+		
+		function openDiv2() {
 	
-</script>
+			if (document.getElementById('refund-details').style.display === 'none') {
+				document.getElementById('refund-details').style.display = 'block'
+				document.getElementById('arrow2').style.transform = 'rotate(45deg)'
+			} else {
+				document.getElementById('refund-details').style.display = 'none'
+				document.getElementById('arrow2').style.transform = 'rotate(-135deg)'
+			}
+		}
+		</script>
+		<script>
+		/* function open_payment(price) {
+
+		    // 새 창의 URL 설정
+		    const url = 'payment.do?price='+price+'&hbidx='+${hobee.hb_idx}+'&userid='+${sessionScope.loggedInUser.user_Id}; // 스프링 컨트롤러로 price 값 전달
+			const options = 'width=680,height=650,top=180%,left=600%';
+			window.open(url, '_blank', options);
+		} */
+		function op(o) {
+		    let pp = parseInt(document.getElementById("people").value); // 문자열 값을 숫자로 변환
+		    if (isNaN(pp) || pp < 1) { // 초기값이 이상하거나 잘못된 경우를 방지
+		        pp = 1;
+		    }
+
+	
+		    switch (o) {
+		        case "+":
+		            pp++;
+		            break;
+		        case "-":
+		            if (pp > 1) { // 인원수가 1 이하로 내려가지 않도록 제한
+		                pp--;
+		            }
+		            break;
+		    }
+	
+		    document.getElementById("people").value = pp; // 업데이트된 인원수 반영
+	
+		    let res = document.getElementById('res');
+		    let price = pp * ${hobee.hb_price};
+		    res.innerHTML = price + " 원"; // 총금액 계산 및 업데이트
+	
+		    // 버튼에 price 값 전달하도록 업데이트
+		    const applyButton = document.getElementById("apply-btn");
+		    applyButton.onclick = function () {
+		        open_payment(price); // 함수에 price 값을 전달
+		    };
+	
+		}
+		
+		 // 새 창에서 전달된 결제 정보를 수신
+		  function receivePaymentData(data) {
+		    console.log("결제 정보:", data);
+	
+		    // 결제 데이터를 처리 (예: UI 업데이트, 서버에 데이터 전송 등)
+		    alert("결제가 완료되었습니다!\n" + "주문 ID: " + data.orderId + "\n총 결제 금액: " + data.price);
+	
+		  }
+		 
+		  $(document).ready(function () {
+			    const hbIdx = ${hobee.hb_idx};
+			    const userId = '${sessionScope.loggedInUser != null ? sessionScope.loggedInUser.user_Id : ""}';
+
+			    // 로그인 여부 확인 함수
+			    function checkLogin() {
+			        if (!userId) {
+			            alert("로그인 후 이용해 주세요 😊");
+			            return false;
+			        }
+			        return true;
+			    }
+			    // 초기 찜 상태 확인
+			    if (userId) {
+			        $.ajax({
+			            type: 'POST',
+			            url: '/hobee/checkWishlist.do',
+			            data: JSON.stringify({ hb_idx: hbIdx, user_id: userId }),
+			            contentType: 'application/json; charset=UTF-8',
+			            dataType: 'json',
+			            success: function (response) {
+			                if (response.inWishlist) {
+			                    $('#wishlist-btn').val('찜취소'); // 이미 찜 상태인 경우
+			                }
+			            },
+			            error: function () {
+			                console.error('찜 상태 확인 중 오류가 발생했습니다.');
+			            }
+			        });
+			    }
+
+			    // 문의 등록 버튼 클릭 이벤트
+			    $('#inquiry-form').submit(function (event) {
+			        if (!checkLogin()) {
+			            event.preventDefault(); // 폼 제출 중단
+			        }
+			    });
+
+			    // 찜하기 버튼 클릭 이벤트
+			    $('#wishlist-btn').click(function () {
+			        if (!checkLogin()) return;
+
+			        $.ajax({
+			            type: 'POST',
+			            url: '/hobee/addWishlist.do',
+			            data: JSON.stringify({ hb_idx: hbIdx, user_id: userId }),
+			            contentType: 'application/json; charset=UTF-8',
+			            dataType: 'json',
+			            success: function (response) {
+			                if (response.success) {
+			                    alert(response.message);
+			                    $('#wishlist-btn').val(response.action === 'added' ? '찜취소' : '찜하기');
+			                } else {
+			                    alert('찜하기 처리 중 오류가 발생했습니다.');
+			                }
+			            },
+			            error: function () {
+			                alert('서버와 통신 중 오류가 발생했습니다.');
+			            }
+			        });
+			    });
+
+			    // 신청하기 버튼 클릭 이벤트
+			    $('#apply-btn').click(function () {
+			        if (!checkLogin()) return;
+
+			        const price = parseInt($('#res').text().replace(/[^0-9]/g, ''));
+			        open_payment(price);
+			    });
+			});
+
+			function open_payment(price) {
+			    const url = 'payment.do?price=' + price + '&hbidx=' + ${hobee.hb_idx} + '&userid=' + '${sessionScope.loggedInUser != null ? sessionScope.loggedInUser.user_Id : ""}';
+			    const options = 'width=680,height=650,top=180,left=600';
+			    window.open(url, '_blank', options);
+			}
+	</script>
 
 
 </head>
@@ -125,10 +178,6 @@
 		<!-- 왼쪽 컨테이너 -->
 		<div class="left_container">
 			<img src="/hobee/resources/images/upload/${hobee.l_image}">
-
-
-
-
 
 			<!-- 소개 -->
 			<div class="sub-title">
@@ -213,36 +262,46 @@
 				<!-- 문의 작성 -->
 				<div class="inquiry-form">
 				    <h3>문의 작성</h3>
-				    <form action="submitInquiry.do" method="POST">
-				        <input type="hidden" name="hb_idx" value="${hobee.hb_idx}">
-				        <input type="hidden" name="writer" value="test"> <!-- 작성자 -->
-				        <textarea name="title" id="inquiry-title" placeholder="문의 제목을 입력하세요." required></textarea>
-				        <textarea name="content" placeholder="문의 내용을 입력하세요." required></textarea>
-				        <button type="submit">문의 등록</button>
-				    </form>
+				    <form action="submitInquiry.do" method="POST" id="inquiry-form">
+					    <input type="hidden" name="hb_idx" value="${hobee.hb_idx}">
+					    <input type="hidden" name="writer" value="${sessionScope.loggedInUser.id}">
+					    <textarea name="title" id="inquiry-title" placeholder="문의 제목을 입력하세요." required></textarea>
+					    <textarea name="content" placeholder="문의 내용을 입력하세요." required></textarea>
+					    <button type="submit" id="inquiry-submit">문의 등록</button>
+					</form>
 				</div>
 
 				<div class="inquiry-list">
 					<h3>문의 목록</h3>
 					<ul>
 						<c:forEach var="inquiry" items="${inquiries}">
-							<li>
-								<p><strong>${inquiry.title}</strong></p>
-								<p style="text-align:right">
-									작성자 | <strong>${inquiry.writer}</strong> (${inquiry.created_date})
-								</p>
-								<p>${inquiry.content}</p>
-								
-								<!-- 답변 표시 -->
-              					    <c:if test="${not empty inquiry.answer}">
-					                    <div class="answer">
-					                        <p><strong>답변:</strong> ${inquiry.answer}</p>
-					                        <p style="text-align:right">
-					                            답변자 | <strong>${inquiry.answer_writer}</strong> (${inquiry.answer_date})
-					                        </p>
-					                    </div>
-					                </c:if>
-							</li>
+						    <li>
+						        <c:choose>
+						            <c:when test="${inquiry.writer == sessionScope.loggedInUser.id}">
+						                <p><strong>${inquiry.title}</strong></p>
+						                <p style="text-align:right">
+						                    작성자 | <strong>${inquiry.writer}</strong> (${inquiry.created_date})
+						                </p>
+						                <p>${inquiry.content}</p>
+						
+						                <c:if test="${not empty inquiry.answer}">
+						                    <div class="answer">
+						                        <p><strong>답변:</strong> ${inquiry.answer}</p>
+						                        <p style="text-align:right">
+						                            답변자 | <strong>${inquiry.answer_writer}</strong> (${inquiry.answer_date})
+						                        </p>
+						                    </div>
+						                </c:if>
+						            </c:when>
+						            <c:otherwise>
+						            	<p><strong>${inquiry.title}</strong></p>
+						            	<p style="text-align:right">
+						                    작성자 | <strong>${inquiry.writer}</strong> (${inquiry.created_date})
+						                </p>
+						                <p>&lt;이 글은 작성자만 열람할 수 있습니다.&gt;</p>
+						            </c:otherwise>
+						        </c:choose>
+						    </li>
 						</c:forEach>
 					</ul>
 
@@ -355,8 +414,8 @@
 
 
 			<div class="btn-inner">
-				<input type="button" value="신청하기" id="apply-btn" onclick="open_payment(${hobee.hb_price})">
-				<input type="button" id="wishlist-btn" value="찜하기" onclick="toggleWishlist(${hobee.hb_idx}, ${sessionScope.loggedInUser.user_Id})">
+				<input type="button" id="apply-btn" value="신청하기">
+				<input type="button" id="wishlist-btn" value="찜하기">
 			</div>
 
 		</div>

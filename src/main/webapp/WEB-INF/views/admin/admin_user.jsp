@@ -28,7 +28,7 @@
 	        return; // 기본 동작 중단
 	    }
 	
-	    f.action = "inq_search.do"; /*수정해야함*/
+	    f.action = "admin_user_search.do"; 
 	    f.method = "get";
 	    f.submit(); 
 	}
@@ -61,8 +61,8 @@
 						<div class="select-box">
 							<select class="search-select" name="search_category">
 								<option value="all">전체</option>
-								<option value="title">최신순</option>
-								<option value="content">이름순</option>
+								<option value="title">이름</option>
+								<option value="content">아이디</option>
 							</select>
 						</div>
 
@@ -100,26 +100,28 @@
 						</thead>
 						
 						<tbody>
-						<!-- 신청한 프로그램이 없는 경우
-						<c:if test="${empty user_list and not empty search_list}">
-							<tr class="no-search">
-								<td colspan="6" class="line" style="text-align: center;">
-									등록된 회원이 존재하지 않습니다.<br> <a href="admin_user.do"
-									class="go-list">목록으로</a>
-								</td>
-							</tr>
-						</c:if> -->
+						
+						<!-- 신청한 프로그램이 없는 경우 -->
+						<c:if test="${empty user_list}">
+						    <tr class="no-search">
+						        <td colspan="7" class="line" style="text-align: center;">
+						            등록된 회원이 존재하지 않습니다.<br> 
+						            <a href="admin_user.do" class="go-list">목록으로</a>
+						        </td>
+						    </tr>
+						</c:if>
+		
+		
+						<!-- 검색된 리스트가 없는 경우 -->
+						<c:if test="${empty search_list}">
+						    <tr class="no-search">
+						        <td colspan="7" class="line" style="text-align: center;">
+						            검색된 회원이 존재하지 않습니다.<br> 
+						            <a href="admin_user.do" class="go-list">목록으로</a>
+						        </td>
+						    </tr>
+						</c:if>
 
-
-						<!-- 검색된 리스트가 없는 경우 
-						<c:if test="${empty user_list and empty search_list}">
-							<tr class="no-search">
-								<td colspan="6" class="line" style="text-align: center;">
-									검색된 회원이 존재하지 않습니다.<br> <a href="admin_user.do"
-									class="go-list">목록으로</a>
-								</td>
-							</tr>
-						</c:if>-->
 
 						<!-- 리스트 조회 -->
 						<c:forEach var="vo" items="${apply_list}" varStatus="status">

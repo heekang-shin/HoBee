@@ -22,6 +22,7 @@ public class UsersDAO {
 
 	// 아이디 생성
 	public int Create(UsersVO vo) {
+		System.out.println(vo.getUser_Id());
 		int res = sqlSession.insert("u.user_insert", vo);
 		return res;
 
@@ -87,6 +88,28 @@ public class UsersDAO {
 	public int adminUserDel(int user_Id) {
 		int res = sqlSession.delete("u.user_admin_del", user_Id);
 		return res;
+	}
+	
+	
+	// 회원 제목에 따른 검색
+	public List<UsersVO> searchByTitle(String search_text) {
+		System.out.println("search_text"+ search_text);
+		List<UsersVO> search_list = sqlSession.selectList("u.user_search_by_title", search_text);
+		return search_list;
+	}
+
+	// 회원 내용에 따른 검색
+	public List<UsersVO> searchByContent(String search_text) {
+		System.out.println("search_text"+ search_text);
+		List<UsersVO> search_list = sqlSession.selectList("u.user_search_by_content", search_text);
+		return search_list;
+	}
+
+	// 회원 전체 검색
+	public List<UsersVO> searchByAll(String search_text) {
+		System.out.println("search_text"+ search_text);
+		List<UsersVO> search_list = sqlSession.selectList("u.user_search_by_all", search_text);
+		return search_list;
 	}
 	
 }

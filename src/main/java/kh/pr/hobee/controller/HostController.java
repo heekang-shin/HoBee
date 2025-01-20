@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -120,9 +121,15 @@ public class HostController {
 	public String hostList(@RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
 			@RequestParam(defaultValue = "10") int itemsPerPage, // 페이지당 항목 수 기본값 10
 			Model model) {
+		
+		// 세션에서 사용자 정보 확인
+	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+	    System.out.println(user.getUser_Id());
+		
+		
 		// 전체 호스트 리스트 가져오기
 		List<HobeeVO> apply_list = hobeedao.applyList();
-
+		
 		// 페이징 처리 계산
 		int totalItems = apply_list.size(); // 총 항목 수
 		int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수
@@ -132,26 +139,43 @@ public class HostController {
 		int end = Math.min(start + itemsPerPage, totalItems); // 끝 인덱스
 		List<HobeeVO> paginatedList = apply_list.subList(start, end);
 
+		// 시작 idx 계산 (전체 데이터 기준으로 줄어드는 번호 계산)
+	    int startIdx = totalItems - (page - 1) * itemsPerPage;
+		
 		// Model 객체에 데이터 추가
 		model.addAttribute("apply_list", paginatedList); // 페이징 처리된 데이터
 		model.addAttribute("currentPage", page); // 현재 페이지
 		model.addAttribute("totalPages", totalPages); // 총 페이지 수
 		model.addAttribute("totalItems", totalItems); // 총 항목 수
+		model.addAttribute("startIdx", startIdx); // 시작 idx 전달
 		setCurrentUrl(model);
+		
 		// JSP로 이동
 		return Common.VIEW_PATH + "host/host_list.jsp";
 	}
 
+	
+	
 	// host_apply_form으로 이동
 	@RequestMapping("host_apply_form.do")
-	public String applyForm() {
+	public String applyForm(HttpSession session, Model model) {
+		
+		// JSP 경로 반환
 		return Common.VIEW_PATH + "host/host_apply_form.jsp";
 	}
-
+	
+	
 	// host_apply_insert.do
 	@RequestMapping("host_apply_insert.do")
-	public String hostInsert(HobeeVO vo, Model model) {
-
+	public String hostInsert(HobeeVO vo, Model model, HttpSession session) {
+		
+		// 세션에서 로그인 사용자 정보 가져오기
+		UsersVO loggedInUser = (UsersVO) session.getAttribute("loggedInUser");
+		
+		//user_id 설정
+		int user_id = loggedInUser.getUser_Id();
+		vo.setUser_id(user_id);
+		
 		String webPath = "/resources/images/upload/"; // 상대경로
 		String savePath = application.getRealPath(webPath); // 절대경로
 
@@ -177,6 +201,8 @@ public class HostController {
 		System.out.println("주소:" + vo.getExtraAddress());
 
 		System.out.println("카테고리:" + vo.getCategory_num());
+		
+		
 
 		// DAO를 통해 데이터 삽입
 		int res = hobeedao.insertFin(vo);

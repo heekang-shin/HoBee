@@ -167,8 +167,7 @@
 				<div class="dashboard">
 					<form enctype="multipart/form-data">
 						<input type="hidden" name="status" value="0">
-						<input type="hidden" name="USER_ID" value="admin">
-						<input type="hidden" name="num_of_p" value="4">
+						<input type="hidden" name="num_of_p" value="0">
 										
 						<div class="form-container">
 							<!-- 프로그램명 -->

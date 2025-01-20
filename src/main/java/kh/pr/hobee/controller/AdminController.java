@@ -154,6 +154,29 @@ public class AdminController {
 		return "redirect:admin_user.do";
 	} 
 	
+	
+	// 회원 검색
+	@RequestMapping("admin_user_search.do")
+	public String applySch(String search_text, String search_category, Model model) {
+
+		List<UsersVO> search_list = null;
+
+		// 검색 카테고리에 따라 다른 조회 메서드 호출
+		if ("title".equals(search_category)) {
+			// 타이틀 검색
+			search_list = users_dao.searchByTitle(search_text);
+		} else if ("content".equals(search_category)) {
+			// 내용 검색
+			search_list = users_dao.searchByContent(search_text);
+		} else {
+			// 전체 검색
+			search_list = users_dao.searchByAll(search_text);
+		}  
+
+		model.addAttribute("search_list", search_list);
+		 return Common.VIEW_PATH + "admin/admin_user.jsp";
+	}
+	
 	// 호스트 관리
 	@RequestMapping("admin_host.do")
 	public String adminHost(Model model) {

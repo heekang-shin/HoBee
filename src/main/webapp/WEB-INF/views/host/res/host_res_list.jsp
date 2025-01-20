@@ -100,7 +100,7 @@ function enterKey(f) {
 				<c:forEach var="vo" items="${res_list}" begin="0" end="11" varStatus="status">
 					<tr>
 						<!-- totalItems에서 현재 반복 순서를 빼서 최신순으로 표시 -->
-	        			<td width="10%" class="line">${totalItems - status.index}</td>
+	        			<td width="10%" class="line">${startIdx - status.index}</td>
 						<td width="30%" class="line">${vo.hb_title}</td>
 						<td width="15%" class="line">${vo.user_name}</td>
 						<td width="15%" class="line">${vo.user_id}</td>

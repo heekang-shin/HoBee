@@ -52,12 +52,16 @@ public class ReserveController {
 	    int start = (page - 1) * itemsPerPage; // 시작 인덱스
 	    int end = Math.min(start + itemsPerPage, totalItems); // 끝 인덱스
 	    List<ReserveVO> paginatedList = resList.subList(start, end);
-
+	    
+		// 시작 idx 계산 (전체 데이터 기준으로 줄어드는 번호 계산)
+	    int startIdx = totalItems - (page - 1) * itemsPerPage;
+	    
 	    // Model 객체에 데이터 추가
 	    model.addAttribute("res_list", paginatedList); // 페이징 처리된 데이터
 	    model.addAttribute("currentPage", page); // 현재 페이지
 	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
 	    model.addAttribute("totalItems", totalItems); // 총 페이지 수
+	    model.addAttribute("startIdx", startIdx); // 시작 idx 전달
 	    setCurrentUrl(model);
 	    // JSP로 이동
 	    return Common.VIEW_PATH_HOST + "res/host_res_main.jsp";

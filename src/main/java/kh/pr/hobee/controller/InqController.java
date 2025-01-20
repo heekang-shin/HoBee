@@ -57,11 +57,15 @@ public class InqController {
 	    int end = Math.min(start + itemsPerPage, totalItems); // 끝 인덱스
 	    List<InquiryVO> paginatedList = inqList.subList(start, end);
 
+		// 시작 idx 계산 (전체 데이터 기준으로 줄어드는 번호 계산)
+		int startIdx = totalItems - (page - 1) * itemsPerPage;
+	    
 	    // Model 객체에 데이터 추가
 	    model.addAttribute("inq_list", paginatedList); // 페이징 처리된 데이터
 	    model.addAttribute("currentPage", page); // 현재 페이지
 	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
 	    model.addAttribute("totalItems", totalItems); // 총 항목?
+	    model.addAttribute("startIdx", startIdx); // 시작 idx 전달
 	    setCurrentUrl(model);
 	    
 	    // JSP로 이동

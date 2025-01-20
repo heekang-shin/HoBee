@@ -40,8 +40,7 @@
 			<li class="menu-item"><img
 				src="/hobee/resources/images/host_main.png" alt="메인"> <a
 				href="main.do" class="menu-link">홈페이지 바로가기</a></li>
-			<li
-				class="menu-item ${currentUrl == '/hobee/admin_banner.do' ? 'active' : ''}">
+			<li class="menu-item ${currentUrl == '/hobee/admin_banner.do' ? 'active' : ''}">
 				<img src="/hobee/resources/images/banner_icon.png" alt="배너 관리">
 				<a href="/hobee/admin_banner.do" class="menu-link">배너 관리</a>
 			</li>

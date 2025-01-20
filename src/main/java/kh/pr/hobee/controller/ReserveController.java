@@ -3,6 +3,9 @@ package kh.pr.hobee.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +18,21 @@ import kh.pr.hobee.vo.ReserveVO;
 
 @Controller
 public class ReserveController {
-
+	
+	@Autowired
+	private HttpServletRequest request;
+	
 	ReserveDAO reservedao;
 	
 	public void setReservedao(ReserveDAO reservedao) {
 		this.reservedao = reservedao;
 	}
+	
+	private void setCurrentUrl(Model model) {
+		String currentUrl = request.getRequestURI().replace(request.getContextPath(), "");
+		model.addAttribute("currentUrl", currentUrl);
+	}
+	
 
 	// 신청 내역 리스트 페이지로 이동
 	@RequestMapping("res_list.do")
@@ -46,7 +58,7 @@ public class ReserveController {
 	    model.addAttribute("currentPage", page); // 현재 페이지
 	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
 	    model.addAttribute("totalItems", totalItems); // 총 페이지 수
-
+	    setCurrentUrl(model);
 	    // JSP로 이동
 	    return Common.VIEW_PATH_HOST + "res/host_res_main.jsp";
 	}

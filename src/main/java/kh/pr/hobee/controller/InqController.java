@@ -2,6 +2,9 @@ package kh.pr.hobee.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +17,10 @@ import kh.pr.hobee.vo.InquiryVO;
 
 @Controller
 public class InqController {
-
+	
+	@Autowired
+	private HttpServletRequest request;
+	
 	HobeeDAO hobeedao;
 
 	public void setHobeedao(HobeeDAO hobeedao) {
@@ -25,6 +31,11 @@ public class InqController {
 
 	public void setInqdao(InquiryDAO inqdao) {
 		this.inqdao = inqdao;
+	}
+	
+	private void setCurrentUrl(Model model) {
+		String currentUrl = request.getRequestURI().replace(request.getContextPath(), "");
+		model.addAttribute("currentUrl", currentUrl);
 	}
 
 	// inq_list 조회
@@ -51,7 +62,8 @@ public class InqController {
 	    model.addAttribute("currentPage", page); // 현재 페이지
 	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
 	    model.addAttribute("totalItems", totalItems); // 총 항목?
-
+	    setCurrentUrl(model);
+	    
 	    // JSP로 이동
 	    return Common.VIEW_PATH_HOST + "inq/host_inq_main.jsp";
 	}

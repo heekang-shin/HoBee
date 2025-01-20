@@ -57,7 +57,10 @@ public class HostController {
 		this.reservedao = reservedao;
 	}
 	
-	
+	private void setCurrentUrl(Model model) {
+		String currentUrl = request.getRequestURI().replace(request.getContextPath(), "");
+		model.addAttribute("currentUrl", currentUrl);
+	}
 
 	// 호스트 메인
 	@RequestMapping("host_main.do")
@@ -134,7 +137,7 @@ public class HostController {
 		model.addAttribute("currentPage", page); // 현재 페이지
 		model.addAttribute("totalPages", totalPages); // 총 페이지 수
 		model.addAttribute("totalItems", totalItems); // 총 항목 수
-
+		setCurrentUrl(model);
 		// JSP로 이동
 		return Common.VIEW_PATH + "host/host_list.jsp";
 	}
@@ -264,7 +267,7 @@ public class HostController {
 		handleFileUpload(vo.getS_image_filename(), savePath, "s_image", vo);
 		handleFileUpload(vo.getL_image_filename(), savePath, "l_image", vo);
 		handleFileUpload(vo.getIn_image_filename(), savePath, "in_image", vo);
-
+		
 		// 데이터 수정 처리
 		int res = hobeedao.modify(vo);
 		if (res > 0) {

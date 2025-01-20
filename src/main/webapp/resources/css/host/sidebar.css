@@ -80,14 +80,15 @@
     right: 0;
 }
 
+.sidebar .menu li,
+.sidebar .menu li a,
+.sidebar .menu li:hover,
+.sidebar .menu li.active {
+    transition: background-color 0.3s ease;
+}
 
 
 /* 활성화된 메뉴 스타일 */
 .sidebar .menu li.active {
-    background-color: #ff0; /* 배경색 노란색 */
-    color: #fff; /* 텍스트 색상 변경 */
-}
-
-.sidebar .menu li.active a {
-    color: #222222; /* 링크 텍스트도 변경 */
+     background-color: rgba(0, 0, 0, 0.3);
 }

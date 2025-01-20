@@ -317,25 +317,47 @@ public class HostController {
 
 	// 호스트 검색
 	@RequestMapping("host_search.do")
-	public String applySch(String search_text, String search_category, Model model) {
+	public String applySch(
+	        @RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
+	        @RequestParam(defaultValue = "10") int itemsPerPage, // 페이지당 항목 수 기본값 10
+	        String search_text, String search_category, Model model) {
 
-		List<HobeeVO> search_list = null;
+	    List<HobeeVO> search_list = null;
 
-		// 검색 카테고리에 따라 다른 조회 메서드 호출
-		if ("title".equals(search_category)) {
-			// 타이틀 검색
-			search_list = hobeedao.searchByTitle(search_text);
-		} else if ("content".equals(search_category)) {
-			// 내용 검색
-			search_list = hobeedao.searchByContent(search_text);
-		} else {
-			// 전체 검색
-			search_list = hobeedao.searchByAll(search_text);
-		}
+	    // 검색 카테고리에 따라 다른 조회 메서드 호출
+	    if ("title".equals(search_category)) {
+	        // 타이틀 검색
+	        search_list = hobeedao.searchByTitle(search_text);
+	    } else if ("content".equals(search_category)) {
+	        // 내용 검색
+	        search_list = hobeedao.searchByContent(search_text);
+	    } else {
+	        // 전체 검색
+	        search_list = hobeedao.searchByAll(search_text);
+	    }
 
-		model.addAttribute("apply_list", search_list);
-		return Common.VIEW_PATH + "host/host_list.jsp";
+	    // 페이징 처리 계산
+	    int totalItems = search_list.size(); // 총 항목 수
+	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수
+	    int start = (page - 1) * itemsPerPage; // 시작 인덱스
+	    int end = Math.min(start + itemsPerPage, totalItems); // 끝 인덱스
+	    List<HobeeVO> paginatedList = search_list.subList(start, end);
+
+	    // 시작 idx 계산 (전체 데이터 기준으로 줄어드는 번호 계산)
+	    int startIdx = totalItems - (page - 1) * itemsPerPage;
+
+	    // Model 객체에 데이터 추가
+	    model.addAttribute("apply_list", paginatedList); // 페이징 처리된 데이터
+	    model.addAttribute("currentPage", page); // 현재 페이지
+	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
+	    model.addAttribute("totalItems", totalItems); // 총 항목 수
+	    model.addAttribute("startIdx", startIdx); // 시작 idx 전달
+	    model.addAttribute("search_text", search_text); // 검색어 전달
+	    model.addAttribute("search_category", search_category); // 검색 카테고리 전달
+
+	    return Common.VIEW_PATH + "host/host_list.jsp";
 	}
+
 
 	
 

@@ -71,7 +71,10 @@ public class ReserveController {
 	
 	//신청 내역 검색
 	@RequestMapping("res_search.do")
-	public String applySch(String search_text, String search_category, Model model) {
+	public String applySch(String search_text, String search_category, Model model,
+			 @RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
+		        @RequestParam(defaultValue = "10") int itemsPerPage
+			) {
 		 
 		List<ReserveVO> search_list = null;
 
@@ -86,7 +89,19 @@ public class ReserveController {
 	        // 전체 검색
 	        search_list = reservedao.searchByAll(search_text);
 	    }
-
+	    
+	    // 페이징 처리 계산
+	    int totalItems = search_list.size(); // 총 항목 수
+	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수
+	    
+		// 시작 idx 계산 (전체 데이터 기준으로 줄어드는 번호 계산)
+	    int startIdx = totalItems - (page - 1) * itemsPerPage;
+	    
+	    // Model 객체에 데이터 추가
+	    model.addAttribute("currentPage", page); // 현재 페이지
+	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
+	    model.addAttribute("totalItems", totalItems); // 총 페이지 수
+	    model.addAttribute("startIdx", startIdx); // 시작 idx 전달
 	    model.addAttribute("res_list", search_list);
 	    return Common.VIEW_PATH_HOST + "res/host_res_main.jsp";
 	}

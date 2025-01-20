@@ -126,21 +126,79 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 제목으로 검색 -->
 	<select id="hobee_search_by_title" resultType="hobee" parameterType="String">
-	    SELECT * FROM hobee
-	    WHERE hb_title LIKE '%' || #{search_text} || '%'
-	</select>
+	SELECT 
+	    h.HB_IDX, 
+	    h.HB_TITLE, 
+	    h.HB_PRICE, 
+	    h.HB_DATE, 
+	    h.HB_TIME, 
+	    h.HB_WRITE_DATE, 
+	    h.STATUS, 
+	    h.USER_ID, 
+	    c.CATEGORY_NAME, 
+	    c.BIGCATEGORY
+	FROM 
+	    hobee h
+	JOIN 
+	    category c
+	ON 
+	    h.CATEGORY_NUM = c.CATEGORY_NUM
+	WHERE 
+	    h.STATUS = 0 
+	    AND h.HB_TITLE LIKE '%' || #{search_text} || '%' 
+	ORDER BY 
+	    h.HB_WRITE_DATE DESC
+		</select>
 	
 	<!-- 내용으로 검색 -->
 	<select id="hobee_search_by_content" resultType="hobee" parameterType="String">
-	    SELECT * FROM hobee
-	    WHERE hb_content LIKE '%' || #{search_text} || '%'
+    SELECT 
+        h.HB_IDX, 
+        h.HB_TITLE, 
+        h.HB_PRICE, 
+        h.HB_DATE, 
+        h.HB_TIME, 
+        h.HB_WRITE_DATE, 
+        h.STATUS, 
+        h.USER_ID, 
+        c.CATEGORY_NAME, 
+        c.BIGCATEGORY
+    FROM 
+        hobee h
+    JOIN 
+        category c
+    ON 
+        h.CATEGORY_NUM = c.CATEGORY_NUM
+    WHERE 
+        h.HB_CONTENT LIKE '%' || #{search_text} || '%'
+    ORDER BY 
+        h.HB_WRITE_DATE DESC
 	</select>
 	
 	<!-- 전체 검색 -->
 	<select id="hobee_search_by_all" resultType="hobee" parameterType="String">
-	    SELECT * FROM hobee
-	    WHERE hb_title LIKE '%' || #{search_text} || '%'
-	       OR hb_content LIKE '%' || #{search_text} || '%'
+	    SELECT 
+        h.HB_IDX, 
+        h.HB_TITLE, 
+        h.HB_PRICE, 
+        h.HB_DATE, 
+        h.HB_TIME, 
+        h.HB_WRITE_DATE, 
+        h.STATUS, 
+        h.USER_ID, 
+        c.CATEGORY_NAME, 
+        c.BIGCATEGORY
+    FROM 
+        hobee h
+    JOIN 
+        category c
+    ON 
+        h.CATEGORY_NUM = c.CATEGORY_NUM
+    WHERE 
+        h.HB_TITLE LIKE '%' || #{search_text} || '%' 
+        OR h.HB_CONTENT LIKE '%' || #{search_text} || '%'
+    ORDER BY 
+        h.HB_WRITE_DATE DESC
 	</select>
 
 

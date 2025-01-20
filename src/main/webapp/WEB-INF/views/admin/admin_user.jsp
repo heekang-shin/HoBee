@@ -101,8 +101,8 @@
 						
 						<tbody>
 						
-						<!-- 신청한 프로그램이 없는 경우 -->
-						<c:if test="${empty user_list}">
+						<!-- user_list만 비어 있는 경우 -->
+						<c:if test="${empty user_list and not empty search_list}">
 						    <tr class="no-search">
 						        <td colspan="7" class="line" style="text-align: center;">
 						            등록된 회원이 존재하지 않습니다.<br> 
@@ -110,9 +110,8 @@
 						        </td>
 						    </tr>
 						</c:if>
-		
-		
-						<!-- 검색된 리스트가 없는 경우 -->
+						
+						<!-- search_list만 비어 있는 경우 -->
 						<c:if test="${empty search_list}">
 						    <tr class="no-search">
 						        <td colspan="7" class="line" style="text-align: center;">
@@ -124,7 +123,7 @@
 
 
 						<!-- 리스트 조회 -->
-						<c:forEach var="vo" items="${apply_list}" varStatus="status">
+						<c:forEach var="vo" items="${user_list}" varStatus="status">
 							<tr>
 								<!-- idx 계산: 전체 항목에서 현재까지 노출된 항목을 뺀 값 -->
 								<td width="5%" class="line">

@@ -89,7 +89,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 제목으로 검색 -->
 	<select id="user_search_by_title" resultType="users" parameterType="String">
 	    SELECT * FROM users
-	    WHERE id LIKE '%' || #{search_text} || '%'
+	    WHERE user_name LIKE '%' || #{search_text} || '%'
 	</select>
 	
 	<!-- 내용으로 검색 -->

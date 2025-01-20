@@ -14,8 +14,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 리뷰 등록 -->
 	<insert id="review_insert" parameterType="review">
-		INSERT INTO review (review_id, user_name, content, rating, hb_idx)
-		VALUES (review_seq.NEXTVAL, #{user_name}, #{content}, #{rating}, #{hb_idx})
+		INSERT INTO review
+		(review_id, user_name, content, rating, hb_idx)
+		VALUES
+		(review_seq.NEXTVAL, #{user_name}, #{content}, #{rating}, #{hb_idx})
 	</insert>
 
 	<!-- 특정 hbidx로 리뷰 조회 -->
@@ -24,6 +26,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM review WHERE hb_idx = #{hb_idx}
 	</select>
 
+
+	<select id="recentList" parameterType="int" resultType="review">
+		
+	 <![CDATA[
+    SELECT *
+    FROM (
+        SELECT *
+        FROM review
+        WHERE hb_idx = #{hb_idx}
+        ORDER BY created_at DESC
+    )
+    WHERE rownum <= 3
+    ]]> <!-- XML 부등호 사용 <![CDATA[ ]]>   -->
+
+	</select>
 
 
 

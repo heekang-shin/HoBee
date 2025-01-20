@@ -59,7 +59,7 @@
 		<beans:constructor-arg ref="mss" />
 	</beans:bean>
 
-	<beans:bean class="kh.pr.hobee.controller.RatingController">
+	<beans:bean class="kh.pr.hobee.controller.ReviewController">
 		<beans:property name="review_dao" ref="review_daoBean" />
 	</beans:bean>
 

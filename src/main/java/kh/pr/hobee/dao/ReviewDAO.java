@@ -29,9 +29,15 @@ public class ReviewDAO {
 		return list;
 	}
 	
-	//특정 hbidx로 리뷰 조회
+	//특정 hbidx로 리뷰만 조회
 	public List<ReviewVO> get_reviewList(int hb_idx){
 		List<ReviewVO> list = sqlSession.selectList("review.selreview_list",hb_idx);
+		return list;
+	}
+	
+	//특정 hbidx로 조회한 리뷰 최신순 정렬 
+	public List<ReviewVO>recentList(int hb_idx){
+		List<ReviewVO> list = sqlSession.selectList("review.recentList",hb_idx);
 		return list;
 	}
 }

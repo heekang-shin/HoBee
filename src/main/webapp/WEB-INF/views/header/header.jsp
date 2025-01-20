@@ -56,7 +56,7 @@
 
     <!-- 로그인한 상태 -->
     <c:if test="${not empty sessionScope.loggedInUser}">
-        <!-- 총괄관리자인 경우 -->
+        <!-- 총괄관리자인 경우  -->
         <c:if test="${sessionScope.loggedInUser.lv == '총괄관리자'}">
             <li>
                 <img src="/hobee/resources/images/join_icon.png" alt="관리자 계정 생성" />
@@ -83,7 +83,7 @@
 
     <!-- 공통 -->
     <li>
-        <a href="host_main.do" class="host">호스트센터</a>
+        <a href="host_login.do" class="host">호스트센터</a>
     </li>
 </ul>
 

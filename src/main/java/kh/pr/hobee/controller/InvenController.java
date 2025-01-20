@@ -56,34 +56,41 @@ public class InvenController {
 	// 상세페이지
 	@RequestMapping("/hobee_detail.do")
 	public String detail(Model model, int hbidx) {
-		System.out.println("inven 컨트롤러[디버그] 전달받은 hbidx: " + hbidx); // 디버깅용 로그
-		HobeeVO hobee_vo = inven_dao.hobeeDetail(hbidx);
-		model.addAttribute("hobee", hobee_vo);
-		model.addAttribute("hbidx", hbidx); // hbidx도 별도로 전달
+	    System.out.println("inven 컨트롤러[디버그] 전달받은 hbidx: " + hbidx); // 디버깅용 로그
 
-		 // 특정 hb_idx에 해당하는 리뷰 목록 조회
+	    // 상세 정보 조회
+	    HobeeVO hobee_vo = inven_dao.hobeeDetail(hbidx);
+	    model.addAttribute("hobee", hobee_vo);
+	    model.addAttribute("hbidx", hbidx); // hbidx도 별도로 전달
+
+	    // 전체 리뷰 목록 조회
 	    List<ReviewVO> reviews = review_dao.get_reviewList(hbidx);
-	    System.out.println("[디버그] 조회된 리뷰 개수: " + reviews.size());
+	    System.out.println("[디버그] 조회된 전체 리뷰 개수: " + reviews.size());
 
-		// 평균 평점 계산
-		double totalRating = 0;
-		for (ReviewVO r : reviews) {
-		    totalRating += r.getRating();
-		}
-		double averageRating = (reviews.size() == 0) ? 0 : totalRating / reviews.size();
+	    // 최신 리뷰 3개 조회
+	    List<ReviewVO> recentReviews = review_dao.recentList(hbidx);
+	    System.out.println("[디버그] 조회된 최신 리뷰 개수: " + recentReviews.size());
 
-		// 평균 평점 포맷팅 (소수점 한 자리로)
-		String formattedAverageRating = String.format("%.1f", averageRating);
+	    // 평균 평점 계산
+	    double totalRating = 0;
+	    for (ReviewVO r : reviews) {
+	        totalRating += r.getRating();
+	    }
+	    double averageRating = (reviews.size() == 0) ? 0 : totalRating / reviews.size();
 
-		System.out.println("[디버그] 평균 평점: " + formattedAverageRating);
+	    // 평균 평점 포맷팅 (소수점 한 자리로)
+	    String formattedAverageRating = String.format("%.1f", averageRating);
 
-		// 모델에 저장
-		model.addAttribute("reviews", reviews);
-		model.addAttribute("formattedAverageRating", formattedAverageRating); // 포맷된 값을 전달
-		model.addAttribute("reviewCount", reviews.size());
+	    System.out.println("[디버그] 평균 평점: " + formattedAverageRating);
 
+	    // 모델에 저장
+	    model.addAttribute("reviews", reviews); // 전체 리뷰 전달
+	    model.addAttribute("recentReviews", recentReviews); // 최신 리뷰 3개 전달
+	    model.addAttribute("formattedAverageRating", formattedAverageRating); // 포맷된 평균 평점 전달
+	    model.addAttribute("reviewCount", reviews.size()); // 리뷰 개수 전달
 
-		return "/WEB-INF/views/detail/detail.jsp";
+	    return "/WEB-INF/views/detail/detail.jsp";
 	}
+
 
 }

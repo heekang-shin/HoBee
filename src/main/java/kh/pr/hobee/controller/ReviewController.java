@@ -10,13 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kh.pr.hobee.common.Common;
 import kh.pr.hobee.dao.ReviewDAO;
 import kh.pr.hobee.vo.ReviewVO;
 import kh.pr.hobee.vo.UsersVO;
 
 @Controller
-public class RatingController {
+public class ReviewController {
 
 	@Autowired
 	HttpSession session;
@@ -57,14 +56,14 @@ public class RatingController {
 		review_dao.insertReview(review);
 		System.out.println("[디버그] 리뷰가 데이터베이스에 성공적으로 저장되었습니다.");
 
-		  // 특정 hb_idx에 해당하는 리뷰 목록 조회
-	    List<ReviewVO> reviews = review_dao.get_reviewList(Integer.parseInt(hbidx));
-	    System.out.println("[디버그] 조회된 리뷰 개수: " + reviews.size());
+		// 특정 hb_idx에 해당하는 리뷰 목록 조회
+		List<ReviewVO> reviews = review_dao.get_reviewList(Integer.parseInt(hbidx));
+		System.out.println("[디버그] 조회된 리뷰 개수: " + reviews.size());
 
 		// 평균 평점 계산
 		double totalRating = 0;
 		for (ReviewVO r : reviews) {
-		    totalRating += r.getRating();
+			totalRating += r.getRating();
 		}
 		double averageRating = (reviews.size() == 0) ? 0 : totalRating / reviews.size();
 
@@ -78,8 +77,29 @@ public class RatingController {
 		model.addAttribute("formattedAverageRating", formattedAverageRating); // 포맷된 값을 전달
 		model.addAttribute("reviewCount", reviews.size());
 
+		// 특정 게시글 조회라서 hbidx값을 같이 갖고 넘겨야함
+		return "redirect:/hobee_detail.do?hbidx=" + hbidx;
 
-		return Common.VIEW_PATH + "detail/detail.jsp";
 	}
+
+	@RequestMapping("review_detail.do")
+	public String reviewDetail(int hbidx, Model model) {
+	    // 디버깅용 hbidx 값 출력
+	    System.out.println("[디버그] 전달받은 hbidx 값: " + hbidx);
+
+	    // 특정 hbidx의 리뷰만 가져오기
+	    List<ReviewVO> reviews = review_dao.get_reviewList(hbidx);
+
+	    // 리뷰 데이터 디버깅 출력
+	    System.out.println("[디버깅] 특정 hbidx의 리뷰 개수: " + reviews.size());
+
+	    // 모델에 데이터 저장
+	    model.addAttribute("reviews", reviews);
+	    model.addAttribute("hbidx", hbidx);
+
+	    // 단순 화면 전환
+	    return kh.pr.hobee.common.Common.VIEW_PATH + "detail/review_detail.jsp";
+	}
+
 
 }

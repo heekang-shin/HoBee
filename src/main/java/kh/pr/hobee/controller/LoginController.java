@@ -110,6 +110,9 @@ public class LoginController {
 	    String encryptedPassword = pwdUtil.encryption(user.getUser_pwd()); // 입력된 비밀번호 암호화
 	    user.setUser_pwd(encryptedPassword); // 암호화된 비밀번호를 VO에 설정
 
+	    if (user.getLv() == null || user.getLv().isEmpty()) {
+	    	user.setLv("일반");
+	    }
 	    // DAO 호출 및 사용자 정보 저장
 	    int result = users_dao.Create(user);
 

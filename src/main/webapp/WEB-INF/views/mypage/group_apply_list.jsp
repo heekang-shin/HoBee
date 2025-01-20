@@ -42,75 +42,61 @@
 
 
 	<!--신청 게시판   -->
-	<table>
-		<colgroup>
-			<col width="10%" />
-			<col width="1%" />
+<c:choose>
+    <c:when test="${not empty apply_finish}">
+        <table>
+            <colgroup>
+                <col width="10%" />
+                <col width="1%" />
+                <col width="" />
+                <col width="1%" />
+                <col width="15%" />
+                <col width="1%" />
+                <col width="15%" />
+                <col width="1%" />
+                <col width="5%" />
+                <col width="1%" />
+                <col width="10%" />
+            </colgroup>
 
-			<col width="" />
-			<col width="1%" />
+            <thead>
+                <tr>
+                    <th class="sin" colspan="11">신청 내역</th>
+                </tr>
+                <tr>
+                    <th>카테고리</th>
+                    <th><img src="/hobee/resources/images/sin.png"></th>
+                    <th>프로그램명</th>
+                    <th><img src="/hobee/resources/images/sin.png"></th>
+                    <th>일시</th>
+                    <th><img src="/hobee/resources/images/sin.png"></th>
+                    <th>신청일시</th>
+                    <th><img src="/hobee/resources/images/sin.png"></th>
+                    <th>가격</th>
+                    <th><img src="/hobee/resources/images/sin.png"></th>
+                    <th>참가취소</th>
+                </tr>
+            </thead>
 
-			<col width="15%" />
-			<col width="1%" />
-
-			<col width="15%" />
-			<col width="1%" />
-
-			<col width="5%" />
-			<col width="1%" />
-
-			<col width="10%" />
-		</colgroup>
-
-
-
-		<thead>
-
-			<tr>
-				<th class="sin" colspan="11">신청내역</th>
-
-			</tr>
-
-			<tr>
-				<th>카테고리</th>
-				<th><img src="/hobee/resources/images/sin.png"></th>
-
-				<th>프로그램명</th>
-				<th><img src="/hobee/resources/images/sin.png"></th>
-
-				<th>일시</th>
-				<th><img src="/hobee/resources/images/sin.png"></th>
-
-				<th>신청일시</th>
-				<th><img src="/hobee/resources/images/sin.png"></th>
-
-				<th>가격</th>
-				<th><img src="/hobee/resources/images/sin.png"></th>
-
-				<th>참가취소</th>
-			</tr>
-		</thead>
-
-		<tbody>
-			 	<c:forEach var="vo" items="${apply_finish}">
-
-				<tr>
-					<td colspan="2">${vo.category_name}</td>
-					<td colspan="2">${vo.hb_title}</td>
-					<td colspan="2">${vo.hb_date}</td>
-					 <td colspan="2">${vo.reserve_date}</td> 
-					 <td colspan="2">${vo.price}</td>
-					<td colspan="2"><input type="button" value="취소하기"
-						onclick="apply_cancel('${vo.reserve_id}')"></td>
-				</tr>
-
-
-			</c:forEach> 
-			
-
-		</tbody>
-
-	</table>
+            <tbody>
+                <c:forEach var="vo" items="${apply_finish}">
+                    <tr>
+                        <td colspan="2" class="pointer" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">${vo.category_name}</td>
+                        <td colspan="2" class="pointer" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">${vo.hb_title}</td>
+                        <td colspan="2" class="pointer" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">${vo.hb_date}</td>
+                        <td colspan="2" class="pointer" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">${vo.reserve_date}</td>
+                        <td colspan="2" class="pointer" onclick="location.href='hobee_detail.do?hbidx=${vo.hb_idx}'">${vo.price}</td>
+                        <td colspan="2"><input type="button" value="취소하기" onclick="apply_cancel('${vo.reserve_id}')"></td>
+                   
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </c:when>
+    <c:otherwise>
+        <p class="no-data-message">${message}</p>
+    </c:otherwise>
+</c:choose>
 	
 <!-- 페이징 버튼 -->
 <div class="pagination">

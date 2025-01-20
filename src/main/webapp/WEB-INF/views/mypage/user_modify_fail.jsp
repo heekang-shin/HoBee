@@ -12,11 +12,17 @@
 <!-- 공통 스타일 시트 -->
 <link rel="stylesheet" href="/hobee/resources/css/main.css">
 
-<!-- 탈퇴완료  스타일시트  -->
+<!-- 수정실패 스타일시트  -->
 <link rel="stylesheet"
- href="/hobee/resources/css/mypage/finish_form.css">
+ href="/hobee/resources/css/mypage/fail_form.css">
 
-<title>탈퇴완료</title>
+<title>수정 실패</title>
+
+<script>
+
+
+
+</script>
 
 
 
@@ -27,17 +33,19 @@
 
 	<!-- 메인 컨텐츠 -->
 	<main class="main-content">
-		<h1 class="title">탈퇴완료</h1>
+		<h1 class="title">수정실패</h1>
 		<div class="content-box">
 			<div class="icon-wrapper">
 				<div class="icon-circle">
-					<img src="/hobee/resources/images/fin_icon.png/" alt="완료 아이콘"
+					<img src="/hobee/resources/images/xxx_icon.PNG/" alt="실패 아이콘"
 						class="icon">
 				</div>
 			</div>
-			<h2 class="top_message">탈퇴완료</h2>
-			<p class="message">회원정보 탈퇴가 완료되었습니다.</p>
-			<a href="logout.do"  class="main-button">메인페이지로 가기</a>
+			<h2 class="top_message">수정실패</h2>
+			<p class="message">회원정보 수정이 실패되었습니다.<br>입력하신 비밀번호를 확인하세요.</br></p>
+			
+				
+			<a href="user_update_form.do?user_Id=${sessionScope.loggedInUser.user_Id}"  class="main-button">다시 입력하러 가기</a>
 		</div>
 	</main>
 

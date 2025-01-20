@@ -7,11 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 찜리스트 조회 -->
 	<select id="heart_list" parameterType="int" resultType="int">
 
-
 		select
 		HB_IDX from wishlist
 		where user_Id=#{user_Id}
-
 
 	</select>
 
@@ -22,11 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from hobee
 		where hb_idx=#{hb_idx}
 
-
-
 	</select>
-
-
 
 	<!--신청내역 조회 1 -->
 	<select id="apply_list" resultType="int" parameterType="int">
@@ -44,9 +38,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		select * from hobee
 		where hb_idx=#{hb_idx}
+		
 	</select>
 
-
+	<!-- 신청내역 조회3 -->
 	<select id="reserve_info" resultType="reserve"
 		parameterType="int">
 		SELECT *
@@ -58,14 +53,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--신청내역에서 카테고리네임 불러오기 -->
 	<select id="category_select" resultType="string"
 		parameterType="int">
+
 		select CATEGORY_NAME From category
-		where CATEGORY_NUM =#{CATEGORY_NUM}
+		where CATEGORY_NUM
+		=#{CATEGORY_NUM}
 
 	</select>
 
 
 	<!--신청내역 삭제 -->
 	<delete id="apply_delete" parameterType="int">
+
 		delete from reserve
 		where reserve_id=#{reserve_id}
 
@@ -77,10 +75,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="user_update_view" resultType="users"
 		parameterType="int">
 
-
 		select * from users
 		where user_Id=#{user_Id}
-
 
 	</select>
 
@@ -94,7 +90,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		user_name = #{user_name},
 		user_pwd = #{pwd_change},
 		user_email =
-		#{user_email}
+		#{user_email},
+		phone = #{phone}
 		where user_Id = #{user_Id}
 	</update>
 
@@ -102,11 +99,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="user_delete_view" resultType="users"
 		parameterType="int">
 
-
 		select * from users
 		where user_Id=#{user_Id}
-
-
 
 	</select>
 
@@ -117,8 +111,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from users
 		where user_Id=#{user_Id}
 		and user_pwd=#{user_pwd}
-
-
 
 	</delete>
 

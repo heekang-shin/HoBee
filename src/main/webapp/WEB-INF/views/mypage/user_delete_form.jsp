@@ -30,12 +30,7 @@
 				return;
 			}
 			
-			/* if(user_pwd != pwd_c){
-				alert("비밀번호 불일치")
-			}
-			 */
-			
-			
+		
 			 f.action="mypage_user_delete.do";
 		     f.method='get';  
 		     f.submit();

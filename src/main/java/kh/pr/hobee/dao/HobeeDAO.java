@@ -70,8 +70,6 @@ public class HobeeDAO {
 		return res;
 	}
 	
-	
-	
 	//host 제목에 따른 검색
 	public List<HobeeVO> searchByTitle(String search_text) {
 		List<HobeeVO> search_list = sqlSession.selectList("h.hobee_search_by_title", search_text);
@@ -90,6 +88,11 @@ public class HobeeDAO {
 		return search_list;
 	}
 	
+	// host post 게시하기
+	public int hostPost(int status) {
+		int res = sqlSession.update("h.hobee_post", status);
+		return res;
+	}
 	
 
 	

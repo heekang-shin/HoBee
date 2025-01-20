@@ -144,6 +144,7 @@ public class AdminController {
 	@RequestMapping("user_admin_update.do")
 	public String updateFin(UsersVO vo) {
 		int res = users_dao.updateFin(vo);
+		
 		return "redirect:admin_user.do";
 	}
 	
@@ -196,7 +197,7 @@ public class AdminController {
 	    model.addAttribute("startIdx", startIdx); // 시작 idx 전달
 	    model.addAttribute("search_text", search_text); // 검색어 전달
 	    model.addAttribute("search_category", search_category); // 검색 카테고리 전달
-
+	    
 	    return Common.VIEW_PATH + "admin/admin_user.jsp";
 	}
 	
@@ -209,11 +210,58 @@ public class AdminController {
 
 	// 프로그램 관리
 	@RequestMapping("admin_program.do")
-	public String adminProgram(Model model) {
+	public String adminProgram(Model model, 
+			@RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
+			@RequestParam(defaultValue = "10") int itemsPerPage) {
+
+		// 전체 유저 리스트 가져오기
+		List<HobeeVO> hobee_list = hobeedao.applyList();
+		model.addAttribute("hobee_list", hobee_list);
+
+		// 페이징 처리 계산
+	    int totalItems = hobee_list.size(); // 총 항목 수
+	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수
+
+	    // 현재 페이지에 맞는 데이터 가져오기
+	    int start = (page - 1) * itemsPerPage; // 시작 인덱스
+	    int end = Math.min(start + itemsPerPage, totalItems); // 끝 인덱스
+	    List<HobeeVO> paginatedList = hobee_list.subList(start, end);
+
+	    // 시작 idx 계산 (전체 데이터 기준으로 줄어드는 번호 계산)
+	    int startIdx = totalItems - (page - 1) * itemsPerPage;
+
+	    // Model 객체에 데이터 추가
+	    model.addAttribute("hobee_list", paginatedList); // 페이징 처리된 데이터
+	    model.addAttribute("currentPage", page); // 현재 페이지
+	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
+	    model.addAttribute("totalItems", totalItems); // 총 항목 수
+	    model.addAttribute("startIdx", startIdx); // 시작 idx 전달
+		
 		setCurrentUrl(model);
 		return Common.VIEW_PATH + "admin/admin_program.jsp";
 	}
 
+	// 프로그램 상세 페이지
+	@RequestMapping("admin_host_detail.do")
+	public String adminHost(int hb_idx,int status, String category_name, Model model) {
+		HobeeVO vo = hobeedao.applyOne(hb_idx);
+		model.addAttribute("vo", vo);
+		model.addAttribute("category_name", category_name);
+		model.addAttribute("status", status);
+		return Common.VIEW_PATH + "admin/admin_program_detail.jsp";
+	}
+	
+	
+	//프로그램 게시
+	@RequestMapping("admin_host_post.do")
+	public String hostPost(HobeeVO vo) {
+		int res = hobeedao.insertFin(vo);
+		System.out.println("삽입 결과: " + res);
+		return "redirect:admin_program.do";
+	}
+	
+	
+	
 	// 결제 관리
 	@RequestMapping("admin_pay.do")
 	public String adminPay(Model model) {

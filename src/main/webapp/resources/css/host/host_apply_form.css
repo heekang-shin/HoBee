@@ -298,7 +298,25 @@
 }
 
 
+/*img-box*/
+.img-box {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: flex-start; /* 내용물을 왼쪽 정렬 */
+    width: 100%;
+}
 
+.img-box label {
+    width: 200px; /* 고정된 레이블 너비 */
+    font-weight: 500;
+    text-align: left; /* 레이블 텍스트 왼쪽 정렬 */
+}
 
-
+.img-box img {
+    width: auto; /* 자동 너비 */
+    max-width: calc(100% - 200px); /* 레이블을 제외한 공간을 차지 */
+    max-height: auto; /* 최대 높이 제한 */
+    object-fit: cover; /* 비율 유지하며 박스를 채움 */
+    display: block; /* 기본 여백 제거 */
+}
 

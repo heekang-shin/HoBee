@@ -201,7 +201,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         h.HB_WRITE_DATE DESC
 	</select>
 
-
+<!-- host 게시-->
+	<update id="hobee_post" parameterType="hobee">
+		UPDATE hobee SET
+		status = #{status}
+		WHERE hb_idx = #{hb_idx}
+	</update>	
 	
 	
 	

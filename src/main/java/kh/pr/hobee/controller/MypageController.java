@@ -40,15 +40,13 @@ public class MypageController {
 	@SuppressWarnings("null")
 	@RequestMapping("/mypage_heart_form.do")
 	public String heart(@RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
-			@RequestParam(defaultValue = "8") int itemsPerPage, // 페이지당 항목 수 기본값 5
+			@RequestParam(defaultValue = "8") int itemsPerPage, // 페이지당 항목 수 기본값 8
 			Model model, HttpSession session) {
 
 		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
 
 		int user_Id = user.getUser_Id();
 
-		// 한 페이지에 보여줄 아이템 수
-		/* int itemsPerPage = 4; */
 
 		// 전체 찜목록 가져오기
 		List<Integer> heart_list = mypage_dao.selectheart(user_Id);

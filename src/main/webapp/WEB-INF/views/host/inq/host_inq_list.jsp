@@ -23,7 +23,7 @@ function enterKey(f) {
         return; // 기본 동작 중단
     }
 
-    f.action = "inq_search.do";
+    f.action = "user_search.do";
     f.method = "get";
     f.submit(); 
 }

@@ -73,7 +73,7 @@ public class HostController {
 			return "redirect:/login_form.do";
 		} 
 		
-		if ("일반".equals(user.getLv())) {
+		if (!"호스트".equals(user.getLv())) {
 		    // 사용자가 호스트 권한이 없는 경우
 		    System.out.println("[디버그] 사용자 ID: " + user.getId() + " - 호스트 권한 없음. 호스트 신청 페이지로 이동");
 		    return Common.VIEW_PATH_HOST + "apply/host_apply.jsp";

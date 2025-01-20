@@ -24,7 +24,7 @@
 			<!-- user menu 시작-->
 			<div class="user">
 				<div class="user-info">
-					반갑습니다.<b class="user-name">${sessionScope.loggedInUser.user_name}</b>님
+					반갑습니다.&nbsp;${sessionScope.loggedInUser.user_name}님
 				</div>
 			
 				<input type="button" value="로그아웃" onclick="location.href='logout.do'">

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import kh.pr.hobee.vo.HobeeVO;
 import kh.pr.hobee.vo.UsersVO;
 
 public class UsersDAO {
@@ -70,5 +71,22 @@ public class UsersDAO {
 	}
 
 
+	// 회원 정보 조회
+	public UsersVO adminOne(int user_Id) {
+		UsersVO vo = sqlSession.selectOne("u.user_detail", user_Id);
+		return vo;
+	}
+	
+	//회원 정보 수정
+	public int updateFin(UsersVO vo) {
+		int res = sqlSession.update("u.user_admin_update", vo);
+		return res;
+	}
 
+	//회원 삭제
+	public int adminUserDel(int user_Id) {
+		int res = sqlSession.delete("u.user_admin_del", user_Id);
+		return res;
+	}
+	
 }

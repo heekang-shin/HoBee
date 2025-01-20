@@ -425,13 +425,13 @@ public class HostController {
 			System.out.println("절대경로: " + savePath);
 
 			// 업로드된 파일 처리
-			hostImgUpload(vo.getHost_image_filename(), savePath, "host_image", vo);
-
+			hostImgUpload(vo.getHost_image_filename(), savePath, "host_img", vo);
+			
 			// 데이터 수정 처리
 			int res = host_dao.modify(vo);
 				System.out.println("수정 성공");
 				// 수정 후 상세 페이지로 리다이렉트
-				return "redirect:host_list.do";
+				return "redirect:host_main.do";
 			
 		}
 	

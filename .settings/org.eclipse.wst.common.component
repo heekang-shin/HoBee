@@ -84,7 +84,11 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+<<<<<<< HEAD
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+=======
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+>>>>>>> branch 'main2' of https://github.com/heekang-shin/HoBee.git
                                                                                                                                 		
         
         

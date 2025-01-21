@@ -80,7 +80,7 @@ function send(f) {
 
 						<div class="form-box edit-box">
 							<label>작성자 <b class="req">*</b></label>
-							<input type="text" name="answer_writer">
+							<input type="text" name="answer_writer" value="${sessionScope.loggedInUser.user_name}">
 						</div>
 					
 						

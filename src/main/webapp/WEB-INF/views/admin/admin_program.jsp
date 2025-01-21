@@ -16,8 +16,7 @@
 <!-- 공통 스타일 -->
 <link rel="stylesheet" href="/hobee/resources/css/admin/admin_main.css">
 <link rel="stylesheet" href="/hobee/resources/css/host/common.css">
-<link rel="stylesheet"
-	href="/hobee/resources/css/host/host_apply_list.css">
+<link rel="stylesheet" href="/hobee/resources/css/host/host_apply_list.css">
 
 <!-- 헤더 스크롤 이펙트-->
 <script src="/hobee/resources/js/hostFunction.js"></script>
@@ -116,21 +115,21 @@
 									<td width="10%" class="line">${vo.hb_time}</td>
 									<td width="20%" class="line">${vo.hb_write_date}</td>
 
-									<td width="10%" class="line post-btn">
-									<c:choose>
-											<c:when test="${vo.status == 0}">
-										            심사 대기
+									<td width="10%" class="line post-box">
+											  <c:choose>
+										        <c:when test="${vo.status == 0}">
+										           <span class="fin-btn">심사대기</span>
 										        </c:when>
-											<c:when test="${vo.status == 1}">
-										            게시 중
+										        <c:when test="${vo.status == 1}">
+										            <span class="post-btn">게시중</span>
 										        </c:when>
 										        <c:when test="${vo.status == 2}">
-										            게시 불가
+										            <span class="post-reject">게시불가</span>
 										        </c:when>
-											<c:otherwise>
-										            상태 없음
+										        <c:otherwise>
+										            <span class="post-no">확인 불가</span>
 										        </c:otherwise>
-										</c:choose>
+										    </c:choose>
 									</td>
 
 								</tr>

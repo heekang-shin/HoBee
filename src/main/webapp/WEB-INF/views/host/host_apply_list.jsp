@@ -57,13 +57,13 @@
 
 	<!-- 리스트 시작 -->
 	<div class="table-container">
-    <div class="total-num">
-        <p>
-            전체<span>&nbsp;${totalItems}</span>건
-        </p>
-    </div>
+		<div class="total-num">
+			<p>
+				전체<span>&nbsp;${totalItems}</span>건
+			</p>
+		</div>
 
-    <table>
+		<table>
         <thead>
             <tr>
                 <th width="5%" class="line">번호</th>
@@ -78,9 +78,6 @@
         </thead>
 
         <tbody>
-        <!-- 로그인된 id만 동일한 경우만 list 노출  -->
-		
-
             <!-- 신청한 프로그램이 없는 경우 -->
             <c:if test="${empty apply_list && empty search_list}">
 			    <tr class="no-search">
@@ -90,8 +87,11 @@
 			    </tr>
 			</c:if>
 
-
+				
             <c:forEach var="vo" items="${apply_list}" varStatus="status">
+            <!--user_id가 동일한 경우에만 노출 -->
+            <c:if test="${user_id == vo.user_id}">
+
                 <tr>
 	               	<!-- totalItems에서 현재 반복 순서를 빼서 최신순으로 표시 -->
         			<td width="5%" class="line">${startIdx - status.index}</td>
@@ -103,6 +103,7 @@
 	                <td width="10%" class="line">${vo.hb_date}</td>
 	                <td width="10%" class="line">${vo.hb_time}</td>
 	                <td width="20%" class="line">${vo.hb_write_date}</td>
+	               
 	                 
 	                 <td width="10%" class="line post-box">
 					    <c:choose>
@@ -120,8 +121,8 @@
 					        </c:otherwise>
 					    </c:choose>
 					</td>
-				
                 </tr>
+                </c:if>
             </c:forEach>
         </tbody>
 	    </table>

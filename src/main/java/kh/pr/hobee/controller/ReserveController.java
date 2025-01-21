@@ -4,6 +4,7 @@ package kh.pr.hobee.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kh.pr.hobee.common.Common;
 import kh.pr.hobee.dao.ReserveDAO;
 import kh.pr.hobee.vo.ReserveVO;
+import kh.pr.hobee.vo.UsersVO;
 
 
 @Controller
@@ -21,6 +23,9 @@ public class ReserveController {
 	
 	@Autowired
 	private HttpServletRequest request;
+	
+	@Autowired
+	HttpSession session;
 	
 	ReserveDAO reservedao;
 	
@@ -40,8 +45,12 @@ public class ReserveController {
 	        @RequestParam(defaultValue = "10") int itemsPerPage, // 페이지당 항목 수 기본값 10
 	        Model model
 	) {
+		// 세션에서 사용자 정보 확인
+	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+		int user_id = user.getUser_Id();
+		
 	    // 전체 신청 내역 리스트 가져오기
-	    List<ReserveVO> resList = reservedao.resList();
+	    List<ReserveVO> resList = reservedao.resListUser(user_id);
 
 	    // 페이징 처리 계산
 	    int totalItems = resList.size(); // 총 항목 수
@@ -61,6 +70,7 @@ public class ReserveController {
 	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
 	    model.addAttribute("totalItems", totalItems); // 총 페이지 수
 	    model.addAttribute("startIdx", startIdx); // 시작 idx 전달
+	    model.addAttribute("user_id", user_id); // user_id
 	    setCurrentUrl(model);
 	    // JSP로 이동
 	    return Common.VIEW_PATH_HOST + "res/host_res_main.jsp";

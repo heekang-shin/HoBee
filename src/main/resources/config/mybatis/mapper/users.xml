@@ -39,6 +39,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="int">
 		SELECT COUNT(*) FROM Users WHERE ID = #{id}
 	</select>
+	
+	<select id="host_check" parameterType="String"
+		resultType="int">
+		SELECT COUNT(*) FROM host WHERE host_name = #{hostname}
+	</select>
 
 <select id="select_id" parameterType="String" resultType="users">
     SELECT *

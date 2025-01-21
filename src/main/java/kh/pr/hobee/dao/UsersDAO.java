@@ -83,7 +83,12 @@ public class UsersDAO {
 		int res = sqlSession.update("u.user_admin_update", vo);
 		return res;
 	}
-
+	// 중복체크 호스트네임
+		public String hostname_check(String hostname) {
+			System.out.println(hostname);
+			int count = sqlSession.selectOne("u.host_check", hostname); // MyBatis 매퍼 호출
+			return count > 0 ? "1" : "0"; // 중복이면 "1", 아니면 "0" 반환
+		}
 	//회원 삭제
 	public int adminUserDel(int user_Id) {
 		int res = sqlSession.delete("u.user_admin_del", user_Id);

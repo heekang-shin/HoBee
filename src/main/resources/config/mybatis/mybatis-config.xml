@@ -16,6 +16,7 @@
 		<typeAlias type="kh.pr.hobee.vo.UsersVO" alias="users" />
 		<typeAlias type="kh.pr.hobee.vo.ReserveVO" alias="reserve" />
 		<typeAlias type="kh.pr.hobee.vo.ReviewVO" alias="review" />
+		<typeAlias type="kh.pr.hobee.vo.HostVO" alias="ho" />
 	</typeAliases>
 	
 	<mappers>
@@ -26,6 +27,7 @@
 		 <mapper resource="config/mybatis/mapper/mypage.xml" />
 		<mapper resource="config/mybatis/mapper/users.xml" />
 		<mapper resource="config/mybatis/mapper/review.xml" />
+		<mapper resource="config/mybatis/mapper/host.xml" />
 	</mappers>
 </configuration>
 

@@ -35,30 +35,29 @@
             </div>
             <div class="info-name">[호스트]&nbsp;${sessionScope.loggedInUser.user_name}</div>
         </div>
-        
-      <ul class="menu">
-	    <li class="menu-item ${currentUrl == '/hobee/host_main.do' ? 'active' : ''}">
-	        <img src="/hobee/resources/images/host_main.png" alt="메인">
-	        <a href="/hobee/host_main.do" class="menu-link">호스트센터 바로가기</a>
-	    </li>
-	    <li class="menu-item ${currentUrl == '/hobee/host_info.do' ? 'active' : ''}">
-	        <img src="/hobee/resources/images/host_p.png" alt="호스트 정보">
-	        <a href="/hobee/host_info.do" class="menu-link">호스트 정보</a>
-	    </li>
-	    <li class="menu-item ${currentUrl == '/hobee/host_list.do' ? 'active' : ''}">
-	        <img src="/hobee/resources/images/host_list.png" alt="프로그램 신청">
-	        <a href="/hobee/host_list.do" class="menu-link">프로그램 신청</a>
-	    </li>
-	    <li class="menu-item ${currentUrl == '/hobee/res_list.do' ? 'active' : ''}">
-	        <img src="/hobee/resources/images/host_shop.png" alt="신청자 관리">
-	        <a href="/hobee/res_list.do" class="menu-link">신청자 관리</a>
-	    </li>
-	    <li class="menu-item ${currentUrl == '/hobee/inq_list.do' ? 'active' : ''}">
-	        <img src="/hobee/resources/images/host_inquiry.png" alt="문의 관리">
-	        <a href="/hobee/inq_list.do" class="menu-link">문의 관리</a>
-	    </li>
-	</ul>
 
+       <ul class="menu">
+		    <li class="menu-item">
+		        <img src="/hobee/resources/images/host_main.png" alt="메인">
+		        <a href="host_main.do" class="menu-link">호스트센터 바로가기</a>
+		    </li>
+		    <li class="menu-item">
+		        <img src="/hobee/resources/images/host_p.png" alt="호스트 정보">
+		        <a href="host_info.do?user_Id=${sessionScope.loggedInUser.user_Id}" class="menu-link">호스트 정보</a>
+		    </li>
+		    <li class="menu-item">
+		        <img src="/hobee/resources/images/host_list.png" alt="프로그램 신청">
+		        <a href="host_list.do" class="menu-link">프로그램 신청</a>
+		    </li>
+		    <li class="menu-item">
+		        <img src="/hobee/resources/images/host_shop.png" alt="신청자 관리">
+		        <a href="res_list.do" class="menu-link">신청자 관리</a>
+		    </li>
+		    <li class="menu-item">
+		        <img src="/hobee/resources/images/host_inquiry.png" alt="문의 관리">
+		        <a href="inq_list.do" class="menu-link">문의 관리</a>
+		    </li>
+		</ul>
 
     </div>
 	</body>

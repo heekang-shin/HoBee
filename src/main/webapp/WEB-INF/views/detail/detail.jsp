@@ -166,7 +166,50 @@
 			    window.open(url, '_blank', options);
 			}
 	</script>
-
+	
+	<script>
+	    // 클립보드에 텍스트를 복사하는 함수
+	    function copyToClipboard(text) {
+	        if (navigator.clipboard && window.isSecureContext) {
+	            // 현대적인 클립보드 API 사용
+	            return navigator.clipboard.writeText(text);
+	        } else {
+	            // 구형 브라우저를 위한 대체 방법
+	            let textArea = document.createElement("textarea");
+	            textArea.value = text;
+	            // 텍스트 영역을 화면 밖으로 이동
+	            textArea.style.position = "fixed";
+	            textArea.style.left = "-999999px";
+	            textArea.style.top = "-999999px";
+	            document.body.appendChild(textArea);
+	            textArea.focus();
+	            textArea.select();
+	            return new Promise((resolve, reject) => {
+	                // 복사 명령 실행
+	                document.execCommand('copy') ? resolve() : reject();
+	                textArea.remove();
+	            });
+	        }
+	    }
+	
+	    $(document).ready(function() {
+	        // 'copyable-text' 클래스를 가진 요소에 클릭 이벤트 리스너 추가
+	        $('.copyable-text').click(function() {
+	            const textToCopy = $(this).data('text');
+	            copyToClipboard(textToCopy).then(() => {
+	                // 툴팁 표시
+	                $(this).addClass('show');
+	                // 2초 후 툴팁 숨김
+	                setTimeout(() => {
+	                    $(this).removeClass('show');
+	                }, 2000);
+	            }).catch(() => {
+	                alert('텍스트 복사에 실패했습니다.');
+	            });
+	        });
+	    });
+	</script>
+		
 
 </head>
 <body>
@@ -196,7 +239,12 @@
 
 			<div id="map"
 				style="width: 910px; height: 350px; margin-top: 20px; border-radius: 8px;"></div>
-
+				<br>
+			<br>
+				<span class="copyable-text tooltip" id="address-text" data-text="${hobee.hb_address}">
+				    ${hobee.hb_address}
+				    <span class="tooltiptext">복사 완료!</span>
+				</span>
 			<script type="text/javascript"
 				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4ee71940750a5e126bdb0304ed63c08&libraries=services"></script>
 			<script>

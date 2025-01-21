@@ -375,3 +375,49 @@
     font-size: 12px; /* 작은 글씨 */
     color: #666666; /* 연한 회색 */
 }
+
+/* 복사 가능한 텍스트 스타일 */
+.copyable-text {
+    cursor: pointer;
+    color: #333333;
+    text-decoration: underline;
+    position: relative; /* 툴팁을 위한 위치 설정 */
+}
+
+.copyable-text:hover {
+    color: darkblue;
+}
+
+/* 툴팁 스타일 */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #FFE14D;
+    color: #222;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* 텍스트 위에 위치 */
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* 툴팁 아래에 삼각형 */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #FFE14D transparent transparent transparent;
+}
+
+.tooltip.show .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}

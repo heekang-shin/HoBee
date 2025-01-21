@@ -7,17 +7,14 @@
     font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
-
-
-
 /* 콘텐츠 시작 */
 .heart-wrapper {
     width: 1400px;
-    height:auto;
+    height:500px;
     margin: 0 auto;
-    margin-bottom: 300px;
+    margin-bottom: 150px;
    	margin-top:40px;
-   	background-color:#ff0;
+   	background-color:#fff;
 }
 
 .heart_box{

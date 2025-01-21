@@ -37,51 +37,69 @@ td {
 	padding: 15px 77px 15px 40px;
 }
 
+.pointer {
+	cursor: pointer;
+}
+
 th, tr {
 	border-bottom: 1px solid #999;
 }
 
 /* 참가취소 버튼 스타일 */
 input[type="button"] {
-	margin-left:30px;
-	background-color:gray;
+	margin-left: 30px;
+	background-color: #222222;
 	color: white;
-	border: none; 
-	width : 70px;
+	border: none;
+	width: 70px;
+	height: 30px;
 	font-size: 16px;
 	cursor: pointer;
-	border-radius: 0;
-	
-	
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 5px;
 }
 
 /* 버튼 호버 효과 */
 input[type="button"]:hover {
-    background-color: #222222; /* 호버 시 배경색 */
+	background-color: gray; /* 호버 시 배경색 */
+}
+
+/* 신청내역에 데이터가 없을때 나오는 글자  */
+.no-data-message {
+	text-align: center;
+	width: 1400px;
+	height: auto;
+	margin: 60px auto 450px;
+	font-size: 20px;
+	color: #888;
+	background-color: white; 
+	border: none;
 }
 
 /* 페이징처리 스타일 시트 */
 .pagination {
-    text-align: center;
-    margin-top: 20px;
+	text-align: center;
+	margin-top: 70px;
+	margin-bottom: 50px;
 }
 
 .pagination a, .pagination span {
-    display: inline-block;
-    margin: 0 5px;
-    padding: 10px 15px;
-    text-decoration: none;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    color: #333;
+	display: inline-block;
+	margin: 0 5px;
+	padding: 10px 15px;
+	text-decoration: none;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	color: #333;
 }
 
 .pagination a:hover {
-    background-color: #f0f0f0;
+	background-color: #f0f0f0;
 }
 
 .pagination .current-page {
-    background-color: #333;
-    color: #fff;
-    border-color: #333;
+	background-color: #333;
+	color: #fff;
+	border-color: #333;
 }

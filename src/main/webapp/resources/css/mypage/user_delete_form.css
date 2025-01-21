@@ -14,7 +14,8 @@
 table {
 	border-collapse: collapse;
 	width: 1400px;
-	margin: 10px auto;
+	margin: 10px auto ;
+		
 }
 
 .pwd_check {
@@ -47,14 +48,14 @@ td {
 /* 확인 버튼 스타일 */
 .check input[type="button"] {
     background-color: #222222;
-    margin-top:70px;
+    margin-top:70px;  
     color: white;
     border: none;
     padding: 10px 20px;
     width:150px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 0; /* 네모 모양 */
+    border-radius: 5px; /* 네모 모양 */
    
 }
 

@@ -25,23 +25,18 @@ public class MypageDAO {
 
 	// 찜목록 로그인한 사람이 찜한내역 가져오기 --2
 	public HobeeVO selectggim(int hb_idx) {
-		System.out.println("dao : " + hb_idx);
 		HobeeVO vo = sqlSession.selectOne("m.ggim_list", hb_idx);
-		System.out.println("dao 다녀옴 : " + hb_idx);
 		return vo;
 	}
 
 	// 신청내역 목록 가지고오기
 	public List<Integer> select_apply(int user_Id) {
-		System.out.println(user_Id);
 		List<Integer> apply_list = sqlSession.selectList("m.apply_list", user_Id);
-		System.out.println("kkk: " + apply_list.size());
 		return apply_list;
 	}
 
 	public HobeeVO select_apply_two(int hb_idx) {
 		HobeeVO vo = sqlSession.selectOne("m.finish_apply", hb_idx);
-		System.out.println("신청내역dao 다녀옴 : " + hb_idx);
 		return vo;
 	}
 
@@ -71,7 +66,6 @@ public class MypageDAO {
 
 	// 유저정보수정
 	public int updateFin(UsersVO vo) {
-		System.out.println("dao");
 		int res = sqlSession.update("m.user_update", vo);
 		return res;
 
@@ -85,7 +79,6 @@ public class MypageDAO {
 
 	// 유저삭제
 	public int mypage_user_delete(UsersVO vo) {
-		System.out.println("dao");
 		int res = sqlSession.delete("m.user_delete_finish", vo);
 		return res;
 	}

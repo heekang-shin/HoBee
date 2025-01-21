@@ -44,6 +44,7 @@ table {
 			padding: 15px;
 			text-align: center;
 			border-bottom: none;
+			
 		}
 		
 		
@@ -58,7 +59,7 @@ table {
      width:150px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 0; /* 네모 모양 */
+    border-radius: 5px; /* 네모 모양 */
    
 }
 
@@ -66,7 +67,7 @@ table {
     background-color: gray;
 }
 
-input[type="text"], input[type="password"], input[type="email"] {
+input[type="text"], input[type="password"], input[type="email"],input[type="phone"] {
     width: 50%; /* 입력 칸이 테이블 셀 전체를 차지 */
     padding: 10px; /* 내부 여백 */
     margin: 5px 0; /* 위아래 여백 */

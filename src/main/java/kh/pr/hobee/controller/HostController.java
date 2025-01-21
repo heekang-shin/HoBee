@@ -99,23 +99,22 @@ public class HostController {
 
 		// 다른 조건을 처리하거나 디버그 추가
 		System.out.println("[디버그] 사용자 ID: " + user.getId() + " - 권한 확인 완료");
-		
+		int user_id = user.getUser_Id();
 		
 		// 전체 프로그램 신청 리스트 가져오기
-		List<HobeeVO> apply_list = hobeedao.applyList();
+		List<HobeeVO> apply_list = hobeedao.applyListUser(user_id);
 		int totalItems = apply_list.size();
 
 		// 질문 프로그램 신청 리스트 가져오기
-		List<InquiryVO> inqList = inqdao.selectInq();
-
+		List<InquiryVO> inqList = inqdao.selectInqUser(user_id);
 		// 전체 항목 수 계산
 		int inqtotalItems = inqList.size();
 
-		// nullCount 계산
-		int nullCount = inqdao.selectNull();
+		// 질문 미답변 계산
+		int nullCount = inqdao.selectNull(user_id); 
 
 		// 전체 신청 내역 리스트 가져오기
-		List<ReserveVO> resList = reservedao.resList();
+		List<ReserveVO> resList = reservedao.resListUser(user_id);
 		int restotalItems = resList.size();
 
 		// 날짜 가져오기
@@ -151,13 +150,12 @@ public class HostController {
 		
 		// 세션에서 사용자 정보 확인
 	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
-	    System.out.println(user.getUser_Id());
-		
+		int user_id = user.getUser_Id();
 		
 		// 전체 호스트 리스트 가져오기
-		List<HobeeVO> apply_list = hobeedao.applyList();
-		
-		// 페이징 처리 계산
+		List<HobeeVO> apply_list = hobeedao.applyListUser(user_id);
+	    
+		// 페이징 처리  계산
 		int totalItems = apply_list.size(); // 총 항목 수
 		int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수
 
@@ -175,6 +173,7 @@ public class HostController {
 		model.addAttribute("totalPages", totalPages); // 총 페이지 수
 		model.addAttribute("totalItems", totalItems); // 총 항목 수
 		model.addAttribute("startIdx", startIdx); // 시작 idx 전달
+		model.addAttribute("user_id", user_id); // 로그인user_id 전달
 		setCurrentUrl(model);
 		
 		// JSP로 이동

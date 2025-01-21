@@ -59,11 +59,7 @@
 				<img src="/hobee/resources/images/host_list.png" alt="프로그램 관리">
 				<a href="/hobee/admin_program.do" class="menu-link">프로그램 관리</a>
 			</li>
-			<li
-				class="menu-item ${currentUrl == '/hobee/admin_pay.do' ? 'active' : ''}">
-				<img src="/hobee/resources/images/host_shop.png" alt="결제 관리">
-				<a href="/hobee/admin_pay.do" class="menu-link">결제 관리</a>
-			</li>
+			
 		</ul>
 
     </div>

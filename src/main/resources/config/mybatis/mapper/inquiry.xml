@@ -21,6 +21,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		i.hb_idx = h.hb_idx
 	</select>
 	
+	<!-- inq 리스트 조회 특정 id-->
+<select id="inq_list_user" resultType="inquiry" parameterType="int">
+    SELECT
+        i.id,
+        h.hb_title,
+        i.title,
+        i.writer,
+        i.created_date,
+        i.answer
+    FROM
+        inquiries i
+    JOIN
+        hobee h
+    ON
+        i.hb_idx = h.hb_idx
+    WHERE
+        h.USER_ID = #{user_id}  <!-- 특정 호스트 ID로 필터링 -->
+</select>
+
+	
+	
 	<!-- inq 한개 조회 -->
 	<select id="inq_one" parameterType="int" resultType="inquiry">
 		select * from inquiries
@@ -114,12 +135,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- null 계산 -->
-	 <select id="inq_null" resultType="int">
-        SELECT COUNT(*) 
-        FROM inquiries
-        WHERE answer IS NULL
-    </select>
-	
+	<select id="inq_null" resultType="int" parameterType="int">
+	    SELECT COUNT(*) 
+	    FROM inquiries i
+	    JOIN hobee h
+	    ON i.hb_idx = h.hb_idx
+	    WHERE i.answer IS NULL 
+	    AND h.USER_ID = #{user_id}  <!-- 특정 호스트 ID로 필터링 -->
+	</select>
+
 	
 </mapper>
 

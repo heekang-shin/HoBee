@@ -24,6 +24,13 @@ public class InquiryDAO {
 		List<InquiryVO> inq_list = sqlSession.selectList("i.inq_list");
 		return inq_list;
 	}
+	
+	// 리스트 조회
+		public List<InquiryVO> selectInqUser(int user_id) {
+			List<InquiryVO> inq_list = sqlSession.selectList("i.inq_list_user", user_id);
+			return inq_list;
+		}
+	
 
 	// inq 답변 상세 보기
 	public InquiryVO inqOne(int id) {
@@ -70,9 +77,9 @@ public class InquiryDAO {
 		return search_list;
 	}
 	
-	//null계산
-	public int selectNull() {
-		int res = sqlSession.selectOne("i.inq_null");
+	// 질문 미답변 조회
+	public int selectNull(int user_id) {
+		int res = sqlSession.selectOne("i.inq_null",user_id);
 		return res;
 	}
 	

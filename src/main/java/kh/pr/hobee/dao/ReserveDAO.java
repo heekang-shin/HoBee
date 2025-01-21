@@ -15,12 +15,19 @@ public class ReserveDAO {
 		this.sqlSession = sqlSession;
 	}
 
+	// 신청내역 리스트 조회_특정id
+	public List<ReserveVO> resListUser(int user_id) {
+		List<ReserveVO> res_list = sqlSession.selectList("r.res_list_user", user_id);
+		return res_list;
+	}
+	
 	// 신청내역 리스트 조회
 	public List<ReserveVO> resList() {
 		List<ReserveVO> res_list = sqlSession.selectList("r.res_list");
 		return res_list;
 	}
-
+	
+	
 	// inq 제목에 따른 검색
 	public List<ReserveVO> searchByTitle(String search_text) {
 		System.out.println("검색어" + search_text);

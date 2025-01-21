@@ -19,67 +19,72 @@
 	
 	<!-- 헤더 스크롤 이펙트-->
 	<script src="/hobee/resources/js/hostFunction.js"></script>
+
+	<script>
+		function modify(form) {
+			// 폼 데이터 가져오기
+			let id = form.id.value;
+			let user_name = form.user_name.value;
+			let phone = form.phone.value;
+			let user_email = form.user_email.value;
+			let lv = form.lv.value;
+	
+			//유효성 검사
+			if (!id) {
+				alert("아이디를 입력해 주세요.");
+				document.getElementsByName("id")[0].focus();
+				return;
+			}
+	
+			if (!user_name) {
+				alert("이름을 입력해 주세요.");
+				document.getElementsByName("user_name")[0].focus();
+				return;
+			}
+	
+			if (!phone) {
+				alert("연락처를 입력해 주세요.");
+				document.getElementsByName("phone")[0].focus();
+				return;
+			}
+	
+			if (!user_email) {
+				alert("이메일을 입력해 주세요.");
+				document.getElementsByName("user_email")[0].focus();
+				return;
+			}
+	
+			if (!lv) {
+				alert("회원 레벨을 입력해 주세요.");
+				document.getElementsByName("lv")[0].focus();
+				return;
+			}
+			
+			if (!confirm("정말 수정 하시겠어요?")) {
+				return;
+			}
+	
+			form.method = 'post';
+			form.action = 'user_admin_update.do';
+			form.submit();
+	
+		}
+	</script>
 	
 	<script>
-	function modify(form) {
-		 // 폼 데이터 가져오기
-	    let id = form.id.value;
-	    let user_name = form.user_name.value;
-	    let phone = form.phone.value;
-	    let user_email = form.user_email.value;
-	    let lv = form.lv.value;
-	    
-	    //유효성 검사
-	    if (!id) {
-	        alert("아이디를 입력해 주세요.");
-	        document.getElementsByName("id")[0].focus();
-	        return;
-	    }
-	    
-	    if (!user_name) {
-	        alert("이름을 입력해 주세요.");
-	        document.getElementsByName("user_name")[0].focus();
-	        return;
-	    }
-	    
-	    if (!phone) {
-	        alert("연락처를 입력해 주세요.");
-	        document.getElementsByName("phone")[0].focus();
-	        return;
-	    }
-	    
-	    if (!user_email) {
-	        alert("이메일을 입력해 주세요.");
-	        document.getElementsByName("user_email")[0].focus();
-	        return;
-	    }
-	    
-	    if (!lv) {
-	        alert("회원 레벨을 입력해 주세요.");
-	        document.getElementsByName("lv")[0].focus();
-	        return;
-	    }
-		 
-	    form.method = 'post';
-	    form.action = 'user_admin_update.do';
-	    form.submit();
-	    
-	}
+		function del(f) {
+	
+			if (!confirm("정말 삭제 하시겠어요?")) {
+				return;
+			}
+	
+			f.method = 'post';
+			f.action = 'user_admin_del.do';
+			f.submit();
+	
+		}
 	</script>
-	 <script>
-	    	function del(f){
-	    		
-				if (!confirm("정말 삭제 하시겠어요?")) {
-					 return;
-				}
-				
-				f.method = 'post';
-			    f.action = 'user_admin_del.do';
-			    f.submit();
-	    		
-	    	}
-	    </script>
-	</head>
+</head>
 	
 	<body>
 	<div id="wrapper">
@@ -98,51 +103,50 @@
 
 			<!--대시보드 영역 -->
 			<div class="dashboard">
-				
+
 				<div class="form-container">
-				<form>
-				<input type="hidden" name="user_Id" value="${vo.user_Id}">
-										
-				<!-- 아이디 -->
-				<div class="form-box">
-					<label>아이디 <b class="req">*</b></label>
-					<input type="text" name="id" value="${vo.id}" readonly>
-				</div>
-				
-				<!-- 회원 이름 -->
-				<div class="form-box">
-					<label>이름 <b class="req">*</b></label>
-					<input type="text" name="user_name" value="${vo.user_name}">
-				</div>
-				
-				<!-- 연락처 -->
-				<div class="form-box">
-					<label>연락처 <b class="req">*</b></label>
-					<input type="text" name="phone" value="${vo.phone}">
-				</div>
-				
-				<!-- 이메일 -->
-				<div class="form-box">
-					<label>이메일 <b class="req">*</b></label>
-					<input type="text" name="user_email" value="${vo.user_email}">
-				</div>
-				
-				<!-- 등급 -->
-				<div class="form-box">
-					<label>등급 <b class="req">*</b></label>
-					<input type="text" name="lv" value="${vo.lv}" placeholder="등급을 입력해 주세요.">
+					<form>
+						<input type="hidden" name="user_Id" value="${vo.user_Id}">
+
+						<!-- 아이디 -->
+						<div class="form-box">
+							<label>아이디 <b class="req">*</b></label> <input type="text"
+								name="id" value="${vo.id}" readonly>
+						</div>
+
+						<!-- 회원 이름 -->
+						<div class="form-box">
+							<label>이름 <b class="req">*</b></label> <input type="text"
+								name="user_name" value="${vo.user_name}">
+						</div>
+
+						<!-- 연락처 -->
+						<div class="form-box">
+							<label>연락처 <b class="req">*</b></label> <input type="text"
+								name="phone" value="${vo.phone}">
+						</div>
+
+						<!-- 이메일 -->
+						<div class="form-box">
+							<label>이메일 <b class="req">*</b></label> <input type="text"
+								name="user_email" value="${vo.user_email}">
+						</div>
+
+						<!-- 등급 -->
+						<div class="form-box">
+							<label>등급 <b class="req">*</b></label> <input type="text"
+								name="lv" value="${vo.lv}" placeholder="등급을 입력해 주세요.">
+						</div>
+						<!-- 버튼 -->
+						<div class="btn-box">
+							<input type="button" value="취소하기" onclick="history.back();">
+							<input type="button" value="수정하기" onclick="modify(this.form);">
+							<input type="button" value="강제탈퇴" onclick="del(this.form);">
+						</div>
+					</form>
 				</div>
 
-				<!-- 버튼 -->
-				<div class="btn-box">
-					<input type="button" value="취소하기" onclick="history.back();">
-					<input type="button" value="수정하기" onclick="modify(this.form);">
-					<input type="button" value="강제탈퇴" onclick="del(this.form);">
-				</div>
-				</form>
 			</div>
-			</div>
-				
 		</div>
 	</div>
 </body>

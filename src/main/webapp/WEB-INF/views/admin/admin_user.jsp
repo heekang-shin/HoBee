@@ -112,7 +112,7 @@
 						</c:if>
 						
 						<!-- search_list만 비어 있는 경우 -->
-						<c:if test="${empty search_list}">
+						<c:if test="${empty search_list and empty user_list}">
 						    <tr class="no-search">
 						        <td colspan="7" class="line" style="text-align: center;">
 						            검색된 회원이 존재하지 않습니다.<br> 

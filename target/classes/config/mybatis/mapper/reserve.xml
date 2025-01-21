@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="r">
 
 	<!-- 신청자 조회 -->
-	<select id="res_list" resultType="reserve">
+	<select id="res_list" resultType="reserve" >
 		SELECT
 			r.reserve_id,
 			h.hb_title,
@@ -26,6 +26,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY
 			r.reserve_date DESC
 	</select>
+	
+	<!-- 신청자 조회 (특정 호스트의 데이터만 조회) -->
+	<select id="res_list_user" resultType="reserve" parameterType="int">
+	    SELECT
+	        r.reserve_id,
+	        h.hb_title,
+	        u.user_name,
+	        r.user_id,
+	        r.reserve_date,
+	        r.price
+	    FROM
+	        reserve r
+	    JOIN
+	        hobee h
+	    ON
+	        r.hb_idx = h.hb_idx
+	    JOIN
+	        users u
+	    ON
+	        r.user_id = u.user_id
+	    WHERE
+	       h.USER_ID = #{user_id}  <!-- 특정 호스트 ID로 필터링 -->
+	    ORDER BY
+	        r.reserve_date DESC
+	</select>
+
 
 	<!-- 제목으로 검색 -->
 	<select id="inq_search_by_title" resultType="reserve" parameterType="String">

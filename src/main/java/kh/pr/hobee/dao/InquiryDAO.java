@@ -70,5 +70,11 @@ public class InquiryDAO {
 		return search_list;
 	}
 	
+	//null계산
+	public int selectNull() {
+		int res = sqlSession.selectOne("i.inq_null");
+		return res;
+	}
+	
 
 }

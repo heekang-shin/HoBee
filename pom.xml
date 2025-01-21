@@ -235,15 +235,21 @@
 			<version>1.3.2</version>
 		</dependency>
 
-<!-- Spring Security Crypto 라이브러리 -->
-<!-- 비밀번호 암호화 및 비교를 위한 BCryptPasswordEncoder를 제공 -->
-<dependency>
-    <groupId>org.springframework.security</groupId>
-    <artifactId>spring-security-crypto</artifactId>
-    <version>4.0.0.RELEASE</version>
-</dependency>
-
-
+		<!-- Spring Security Crypto 라이브러리 -->
+		<!-- 비밀번호 암호화 및 비교를 위한 BCryptPasswordEncoder를 제공 -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-crypto</artifactId>
+		    <version>4.0.0.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>5.3.29</version> <!-- Spring 버전에 맞게 수정 -->
+		</dependency>
+		
+		
 	</dependencies>
 	<build>
 		<plugins>

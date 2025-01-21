@@ -113,6 +113,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        OR i.content LIKE '%' || #{search_text} || '%'
 	</select>
 	
+	<!-- null 계산 -->
+	 <select id="inq_null" resultType="int">
+        SELECT COUNT(*) 
+        FROM inquiries
+        WHERE answer IS NULL
+    </select>
+	
 	
 </mapper>
 

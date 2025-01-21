@@ -30,7 +30,7 @@
 		<div class="content">
 			<div class="title-box">
 				<img src="/hobee/resources/images/title_icon.png">
-				<h3>프로그램 목록</h3>
+				<h3>프로그램 관리</h3>
 			</div>
 
 			<!--대시보드 영역 -->

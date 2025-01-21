@@ -40,43 +40,51 @@
 							 <img src="/hobee/resources/images/search_icon.png" class="search-icon" >
                 </div>
             </form>
-            
-          <!--snb 시작-->
+
+			<!--snb 시작-->
 			<ul class="snb">
 				<!-- 로그인하지 않은 상태 -->
 				<c:if test="${empty sessionScope.loggedInUser}">
-					
-					<li>
-						<img src="/hobee/resources/images/join_icon.png" alt="회원가입" />
-						<a href="CreateAccount_form.do">회원가입</a>
-					</li>
-					<li>
-						<img src="/hobee/resources/images/login_form.png" alt="로그인" />
-						<a href="login_form.do">로그인</a>
-					</li>
+					<li><img src="/hobee/resources/images/join_icon.png"
+						alt="회원가입" /> <a href="CreateAccount_form.do">회원가입</a></li>
+					<li><img src="/hobee/resources/images/login_form.png"
+						alt="로그인" /> <a href="login_form.do">로그인</a></li>
 				</c:if>
 
 				<!-- 로그인한 상태 -->
 				<c:if test="${not empty sessionScope.loggedInUser}">
-					<li>
-					<img src="/hobee/resources/images/join_icon.png" alt="마이페이지" />
-						<a href="mypage_heart_form.do?user_id=${sessionScope.loggedInUser.user_Id}">마이페이지</a>
-					</li>
-					<li>
-						<span>환영합니다 ${sessionScope.loggedInUser.user_name} 님!</span>
-					</li>
-					<li>
-						<a href="logout.do">로그아웃</a>
-					</li>
+					<!-- 총괄관리자인 경우  -->
+					<c:if test="${sessionScope.loggedInUser.lv == '총괄관리자'}">
+						<li><img src="/hobee/resources/images/join_icon.png"
+							alt="관리자 계정 생성" /> <a href="create_admin_account.do">관리자 생성</a></li>
+					</c:if>
+
+					<!-- 일반 사용자일 경우 -->
+					<c:if test="${sessionScope.loggedInUser.lv != '총괄관리자'}">
+						<li><img src="/hobee/resources/images/join_icon.png"
+							alt="마이페이지" /> <a
+							href="mypage_heart_form.do?user_id=${sessionScope.loggedInUser.user_Id}">마이페이지</a>
+						</li>
+					</c:if>
+
+					<li><a class="hello">환영합니다.
+							${sessionScope.loggedInUser.user_name}님</a></li>
+					<li><img src="/hobee/resources/images/loginout.png" alt="로그아웃" />
+						<a href="logout.do" class="logout-btn">로그아웃</a></li>
 				</c:if>
 
-				<!-- 공통 -->
-				<li>
-					<a href="host_list.do" class="host">호스트센터</a>
-				</li>
+				<!-- 관리자일 경우 -->
+				<c:if test="${sessionScope.loggedInUser.lv == '관리자'}">
+				    <li><a href="admin_main.do" class="host">관리자센터</a></li>
+				</c:if>
+				
+				<!-- 관리자 아니면 호스트센터로 보이도록 -->
+				<c:if test="${sessionScope.loggedInUser.lv != '관리자'}">
+				    <li><a href="host_main.do" class="host">호스트센터</a></li>
+				</c:if>
 			</ul>
 			<!--snb 끝-->
-        </div>
+		</div>
     </div>
     <!--헤더 끝-->
 

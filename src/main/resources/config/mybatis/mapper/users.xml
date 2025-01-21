@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="u">
 	<select id="user_list" resultType="users">
 		select * from users
+		order by join_date desc
 	</select>
 	
 	
@@ -61,6 +62,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE id = #{id}
       AND user_email = #{user_email}
 </select>
+
+	<!-- 관리자 회원 한개 조회 -->
+	<select id="user_detail" parameterType="int"
+		resultType="users">
+		select * from Users
+		where user_Id=#{user_Id}
+	</select>
+
+	<!-- 관리자 회원 삭제 -->
+	<delete id="user_admin_del" parameterType="users">
+		delete from users
+		where user_Id=#{user_Id}
+	</delete>
+
+	<update id="user_admin_update" parameterType="users">
+	update users set
+		id = #{id},
+		user_name = #{user_name},
+		phone = #{phone},
+		user_email = #{user_email},
+		lv = #{lv}
+		where user_Id = #{user_Id}
+	</update>
+
+<!-- 제목으로 검색 -->
+	<select id="user_search_by_title" resultType="users" parameterType="String">
+	    SELECT * FROM users
+	    WHERE user_name LIKE '%' || #{search_text} || '%'
+	</select>
+	
+	<!-- 내용으로 검색 -->
+	<select id="user_search_by_content" resultType="users" parameterType="String">
+	    SELECT * FROM users
+	    WHERE id LIKE '%' || #{search_text} || '%'
+	</select>
+	
+	<!-- 전체 검색 -->
+	<select id="user_search_by_all" resultType="users" parameterType="String">
+	    SELECT * FROM users
+	    WHERE user_name LIKE '%' || #{search_text} || '%'
+	       OR id LIKE '%' || #{search_text} || '%'
+	</select>
 
 </mapper>
 

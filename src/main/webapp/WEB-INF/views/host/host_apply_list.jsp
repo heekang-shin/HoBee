@@ -1,3 +1,4 @@
+<%@page import="kh.pr.hobee.vo.UsersVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -58,7 +59,7 @@
 	<div class="table-container">
     <div class="total-num">
         <p>
-            전체<span>&nbsp;${fn:length(apply_list)}</span>건
+            전체<span>&nbsp;${totalItems}</span>건
         </p>
     </div>
 
@@ -77,6 +78,9 @@
         </thead>
 
         <tbody>
+        <!-- 로그인된 id만 동일한 경우만 list 노출  -->
+		
+
             <!-- 신청한 프로그램이 없는 경우 -->
             <c:if test="${empty apply_list && empty search_list}">
 			    <tr class="no-search">
@@ -86,12 +90,12 @@
 			    </tr>
 			</c:if>
 
-            
+
             <c:forEach var="vo" items="${apply_list}" varStatus="status">
                 <tr>
-	                <td width="5%" class="line">${status.index + 1}</td>
-	                <!-- <td> width="5%" class="line">${vo.hb_idx}</td> -->
-	                <td width="10%" class="line">${vo.category_num}</td>
+	               	<!-- totalItems에서 현재 반복 순서를 빼서 최신순으로 표시 -->
+        			<td width="5%" class="line">${startIdx - status.index}</td>
+	                <td width="10%" class="line">${vo.category_name}</td>
 	                <td width="25%" class="line" style="text-align: left;">
 	                	<a href="host_apply_detail.do?hb_idx=${vo.hb_idx}">${vo.hb_title}</a>
 	                </td>

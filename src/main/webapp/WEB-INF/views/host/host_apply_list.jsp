@@ -104,16 +104,19 @@
 	                <td width="10%" class="line">${vo.hb_time}</td>
 	                <td width="20%" class="line">${vo.hb_write_date}</td>
 	                 
-	                 <td width="10%" class="line">
+	                 <td width="10%" class="line post-box">
 					    <c:choose>
 					        <c:when test="${vo.status == 0}">
-					            신청완료
+					           <span class="fin-btn">신청완료</span>
 					        </c:when>
 					        <c:when test="${vo.status == 1}">
-					            게시중
+					            <span class="post-btn">게시중</span>
+					        </c:when>
+					        <c:when test="${vo.status == 2}">
+					            <span class="post-reject">게시불가</span>
 					        </c:when>
 					        <c:otherwise>
-					            상태 없음
+					            <span class="post-no">확인 불가</span>
 					        </c:otherwise>
 					    </c:choose>
 					</td>

@@ -89,8 +89,9 @@ public class HobeeDAO {
 	}
 	
 	// host post 게시하기
-	public int hostPost(int status) {
-		int res = sqlSession.update("h.hobee_post", status);
+	public int hostPost(HobeeVO vo) {
+		System.out.println("게시상태:"+ vo.getStatus());
+		int res = sqlSession.update("h.hobee_post", vo);
 		return res;
 	}
 	

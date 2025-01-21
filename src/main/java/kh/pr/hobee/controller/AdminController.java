@@ -1,22 +1,20 @@
 package kh.pr.hobee.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.pr.hobee.common.Common;
 import kh.pr.hobee.dao.HobeeDAO;
@@ -24,8 +22,6 @@ import kh.pr.hobee.dao.InquiryDAO;
 import kh.pr.hobee.dao.ReserveDAO;
 import kh.pr.hobee.dao.UsersDAO;
 import kh.pr.hobee.vo.HobeeVO;
-import kh.pr.hobee.vo.InquiryVO;
-import kh.pr.hobee.vo.ReserveVO;
 import kh.pr.hobee.vo.UsersVO;
 
 @Controller
@@ -144,7 +140,6 @@ public class AdminController {
 	@RequestMapping("user_admin_update.do")
 	public String updateFin(UsersVO vo) {
 		int res = users_dao.updateFin(vo);
-		
 		return "redirect:admin_user.do";
 	}
 	
@@ -247,26 +242,29 @@ public class AdminController {
 		HobeeVO vo = hobeedao.applyOne(hb_idx);
 		model.addAttribute("vo", vo);
 		model.addAttribute("category_name", category_name);
-		model.addAttribute("status", status);
 		return Common.VIEW_PATH + "admin/admin_program_detail.jsp";
 	}
 	
 	
 	//프로그램 게시
-	@RequestMapping("admin_host_post.do")
-	public String hostPost(HobeeVO vo) {
-		int res = hobeedao.insertFin(vo);
-		System.out.println("삽입 결과: " + res);
-		return "redirect:admin_program.do";
+	@RequestMapping(value="admin_host_post.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String delte(HobeeVO vo) {
+		int res = hobeedao.hostPost(vo);
+		
+		String str = "no";
+		
+		if( res != 0) {
+			str = "yes";
+		}
+		
+		String resultStr = String.format("[{'res':'%s'}]", str);
+		
+		return resultStr;
 	}
 	
 	
 	
-	// 결제 관리
-	@RequestMapping("admin_pay.do")
-	public String adminPay(Model model) {
-	    setCurrentUrl(model);
-	    return Common.VIEW_PATH + "admin/admin_pay.jsp";
-	}
+	
 
 }

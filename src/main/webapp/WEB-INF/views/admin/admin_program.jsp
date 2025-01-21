@@ -102,7 +102,7 @@
 							</c:if>
 
 
-							<c:forEach var="vo" items="${hobee_list}" varStatus="status">
+							<c:forEach var="vo" items="${hobee_list}">
 								<tr>
 									<!-- totalItems에서 현재 반복 순서를 빼서 최신순으로 표시 -->
 									<td width="5%" class="line">${startIdx - status.index}</td>
@@ -116,13 +116,13 @@
 									<td width="10%" class="line">${vo.hb_time}</td>
 									<td width="20%" class="line">${vo.hb_write_date}</td>
 
-									<td width="10%" class="line btn">
+									<td width="10%" class="line post-btn">
 									<c:choose>
 											<c:when test="${vo.status == 0}">
 										            심사 대기
 										        </c:when>
 											<c:when test="${vo.status == 1}">
-										            게시 완료
+										            게시 중
 										        </c:when>
 										        <c:when test="${vo.status == 2}">
 										            게시 불가

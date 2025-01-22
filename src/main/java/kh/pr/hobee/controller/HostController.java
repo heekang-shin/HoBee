@@ -320,7 +320,6 @@ public class HostController {
 		handleFileUpload(vo.getS_image_filename(), savePath, "s_image", vo);
 		handleFileUpload(vo.getL_image_filename(), savePath, "l_image", vo);
 		handleFileUpload(vo.getIn_image_filename(), savePath, "in_image", vo);
-		
 		// 데이터 수정 처리
 		int res = hobeedao.modify(vo);
 		if (res > 0) {

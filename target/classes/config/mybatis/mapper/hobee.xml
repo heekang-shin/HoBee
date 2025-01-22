@@ -138,7 +138,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{hb_date},
 		hb_tot_num = #{hb_tot_num},
 		category_num = #{category_num},
-		status = #{status},
+		status = 0,
 		hb_notice = #{hb_notice},
 		hb_time = #{hb_time},
 		hb_address = #{hb_address},

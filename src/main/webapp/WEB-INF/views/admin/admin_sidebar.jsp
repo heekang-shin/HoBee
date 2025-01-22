@@ -59,6 +59,11 @@
 				<img src="/hobee/resources/images/host_list.png" alt="프로그램 관리">
 				<a href="/hobee/admin_program.do" class="menu-link">프로그램 관리</a>
 			</li>
+			<li
+				class="menu-item ${currentUrl == '/hobee/admin_reivew.do' ? 'active' : ''}">
+				<img src="/hobee/resources/images/review_icon.png" alt="리뷰 관리">
+				<a href="/hobee/admin_review.do" class="menu-link">리뷰 관리</a>
+			</li>
 			
 		</ul>
 

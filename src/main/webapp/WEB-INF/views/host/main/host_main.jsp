@@ -59,7 +59,7 @@
 					</div>
 
 					<div class="tot-box">
-						<h3>신정차 현황</h3>
+						<h3>신청자 현황</h3>
 						<h2>${restotalItems}<span>&nbsp;건</span>
 						</h2>
 					</div>

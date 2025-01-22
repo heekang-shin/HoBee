@@ -41,130 +41,123 @@
 		}
 		</script>
 		<script>
-		/* function open_payment(price) {
-
-		    // 새 창의 URL 설정
-		    const url = 'payment.do?price='+price+'&hbidx='+${hobee.hb_idx}+'&userid='+${sessionScope.loggedInUser.user_Id}; // 스프링 컨트롤러로 price 값 전달
-			const options = 'width=680,height=650,top=180%,left=600%';
-			window.open(url, '_blank', options);
-		} */
-		function op(o) {
-		    let pp = parseInt(document.getElementById("people").value); // 문자열 값을 숫자로 변환
-		    if (isNaN(pp) || pp < 1) { // 초기값이 이상하거나 잘못된 경우를 방지
-		        pp = 1;
-		    }
-
+			function op(o) {
+			    let pp = parseInt(document.getElementById("people").value); // 문자열 값을 숫자로 변환
+			    if (isNaN(pp) || pp < 1) { // 초기값이 이상하거나 잘못된 경우를 방지
+			        pp = 1;
+			    }
 	
-		    switch (o) {
-		        case "+":
-		            pp++;
-		            break;
-		        case "-":
-		            if (pp > 1) { // 인원수가 1 이하로 내려가지 않도록 제한
-		                pp--;
-		            }
-		            break;
-		    }
-	
-		    document.getElementById("people").value = pp; // 업데이트된 인원수 반영
-	
-		    let res = document.getElementById('res');
-		    let price = pp * ${hobee.hb_price};
-		    res.innerHTML = price + " 원"; // 총금액 계산 및 업데이트
-	
-		    // 버튼에 price 값 전달하도록 업데이트
-		    const applyButton = document.getElementById("apply-btn");
-		    applyButton.onclick = function () {
-		        open_payment(price); // 함수에 price 값을 전달
-		    };
-	
-		}
 		
-		 // 새 창에서 전달된 결제 정보를 수신
-		  function receivePaymentData(data) {
-		    console.log("결제 정보:", data);
-	
-		    // 결제 데이터를 처리 (예: UI 업데이트, 서버에 데이터 전송 등)
-		    alert("결제가 완료되었습니다!\n" + "주문 ID: " + data.orderId + "\n총 결제 금액: " + data.price);
-	
-		  }
-		 
-		  $(document).ready(function () {
-			    const hbIdx = ${hobee.hb_idx};
-			    const userId = '${sessionScope.loggedInUser != null ? sessionScope.loggedInUser.user_Id : ""}';
-
-			    // 로그인 여부 확인 함수
-			    function checkLogin() {
-			        if (!userId) {
-			            alert("로그인 후 이용해 주세요 😊");
-			            return false;
-			        }
-			        return true;
-			    }
-			    // 초기 찜 상태 확인
-			    if (userId) {
-			        $.ajax({
-			            type: 'POST',
-			            url: '/hobee/checkWishlist.do',
-			            data: JSON.stringify({ hb_idx: hbIdx, user_id: userId }),
-			            contentType: 'application/json; charset=UTF-8',
-			            dataType: 'json',
-			            success: function (response) {
-			                if (response.inWishlist) {
-			                    $('#wishlist-btn').val('찜취소'); // 이미 찜 상태인 경우
-			                }
-			            },
-			            error: function () {
-			                console.error('찜 상태 확인 중 오류가 발생했습니다.');
+			    switch (o) {
+			        case "+":
+			            pp++;
+			            break;
+			        case "-":
+			            if (pp > 1) { // 인원수가 1 이하로 내려가지 않도록 제한
+			                pp--;
 			            }
-			        });
+			            break;
 			    }
-
-			    // 문의 등록 버튼 클릭 이벤트
-			    $('#inquiry-form').submit(function (event) {
-			        if (!checkLogin()) {
-			            event.preventDefault(); // 폼 제출 중단
-			        }
-			    });
-
-			    // 찜하기 버튼 클릭 이벤트
-			    $('#wishlist-btn').click(function () {
-			        if (!checkLogin()) return;
-
-			        $.ajax({
-			            type: 'POST',
-			            url: '/hobee/addWishlist.do',
-			            data: JSON.stringify({ hb_idx: hbIdx, user_id: userId }),
-			            contentType: 'application/json; charset=UTF-8',
-			            dataType: 'json',
-			            success: function (response) {
-			                if (response.success) {
-			                    alert(response.message);
-			                    $('#wishlist-btn').val(response.action === 'added' ? '찜취소' : '찜하기');
-			                } else {
-			                    alert('찜하기 처리 중 오류가 발생했습니다.');
-			                }
-			            },
-			            error: function () {
-			                alert('서버와 통신 중 오류가 발생했습니다.');
-			            }
-			        });
-			    });
-
-			    // 신청하기 버튼 클릭 이벤트
-			    $('#apply-btn').click(function () {
-			        if (!checkLogin()) return;
-
-			        const price = parseInt($('#res').text().replace(/[^0-9]/g, ''));
-			        open_payment(price);
-			    });
-			});
-
-			function open_payment(price) {
-			    const url = 'payment.do?price=' + price + '&hbidx=' + ${hobee.hb_idx} + '&userid=' + '${sessionScope.loggedInUser != null ? sessionScope.loggedInUser.user_Id : ""}';
-			    const options = 'width=680,height=650,top=180,left=600';
-			    window.open(url, '_blank', options);
+		
+			    document.getElementById("people").value = pp; // 업데이트된 인원수 반영
+		
+			    let res = document.getElementById('res');
+			    let price = pp * ${hobee.hb_price};
+			    res.innerHTML = price + " 원"; // 총금액 계산 및 업데이트
+		
+			    // 버튼에 price 값 전달하도록 업데이트
+			    const applyButton = document.getElementById("apply-btn");
+			    applyButton.onclick = function () {
+			        open_payment(price); // 함수에 price 값을 전달
+			    };
+		
 			}
+			
+			 // 새 창에서 전달된 결제 정보를 수신
+			  function receivePaymentData(data) {
+			    console.log("결제 정보:", data);
+		
+			    // 결제 데이터를 처리 (예: UI 업데이트, 서버에 데이터 전송 등)
+			    alert("결제가 완료되었습니다!\n" + "주문 ID: " + data.orderId + "\n총 결제 금액: " + data.price);
+		
+			  }
+			 
+			  $(document).ready(function () {
+				    const hbIdx = ${hobee.hb_idx};
+				    const userId = '${sessionScope.loggedInUser != null ? sessionScope.loggedInUser.user_Id : ""}';
+	
+				    // 로그인 여부 확인 함수
+				    function checkLogin() {
+				        if (!userId) {
+				            alert("로그인 후 이용해 주세요 😊");
+				            return false;
+				        }
+				        return true;
+				    }
+				    // 초기 찜 상태 확인
+				    if (userId) {
+				        $.ajax({
+				            type: 'POST',
+				            url: '/hobee/checkWishlist.do',
+				            data: JSON.stringify({ hb_idx: hbIdx, user_id: userId }),
+				            contentType: 'application/json; charset=UTF-8',
+				            dataType: 'json',
+				            success: function (response) {
+				                if (response.inWishlist) {
+				                    $('#wishlist-btn').val('찜취소'); // 이미 찜 상태인 경우
+				                }
+				            },
+				            error: function () {
+				                console.error('찜 상태 확인 중 오류가 발생했습니다.');
+				            }
+				        });
+				    }
+	
+				    // 문의 등록 버튼 클릭 이벤트
+				    $('#inquiry-form').submit(function (event) {
+				        if (!checkLogin()) {
+				            event.preventDefault(); // 폼 제출 중단
+				        }
+				    });
+	
+				    // 찜하기 버튼 클릭 이벤트
+				    $('#wishlist-btn').click(function () {
+				        if (!checkLogin()) return;
+	
+				        $.ajax({
+				            type: 'POST',
+				            url: '/hobee/addWishlist.do',
+				            data: JSON.stringify({ hb_idx: hbIdx, user_id: userId }),
+				            contentType: 'application/json; charset=UTF-8',
+				            dataType: 'json',
+				            success: function (response) {
+				                if (response.success) {
+				                    alert(response.message);
+				                    $('#wishlist-btn').val(response.action === 'added' ? '찜취소' : '찜하기');
+				                } else {
+				                    alert('찜하기 처리 중 오류가 발생했습니다.');
+				                }
+				            },
+				            error: function () {
+				                alert('서버와 통신 중 오류가 발생했습니다.');
+				            }
+				        });
+				    });
+	
+				    // 신청하기 버튼 클릭 이벤트
+				    $('#apply-btn').click(function () {
+				        if (!checkLogin()) return;
+	
+				        const price = parseInt($('#res').text().replace(/[^0-9]/g, ''));
+				        open_payment(price);
+				    });
+				});
+	
+				function open_payment(price) {
+				    const url = 'payment.do?price=' + price + '&hbidx=' + ${hobee.hb_idx} + '&userid=' + '${sessionScope.loggedInUser != null ? sessionScope.loggedInUser.user_Id : ""}';
+				    const options = 'width=680,height=650,top=180,left=600';
+				    window.open(url, '_blank', options);
+				}
 	</script>
 	
 	<script>
@@ -237,14 +230,15 @@
 				<h2>모임장소</h2>
 			</div>
 
-			<div id="map"
-				style="width: 910px; height: 350px; margin-top: 20px; border-radius: 8px;"></div>
-				<br>
 			<br>
 				<span class="copyable-text tooltip" id="address-text" data-text="${hobee.hb_address}">
 				    ${hobee.hb_address}
 				    <span class="tooltiptext">복사 완료!</span>
 				</span>
+			<br>
+			<div id="map"
+				style="width: 910px; height: 350px; margin-top: 20px; border-radius: 8px;"></div>
+				<br>
 			<script type="text/javascript"
 				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4ee71940750a5e126bdb0304ed63c08&libraries=services"></script>
 			<script>
@@ -459,7 +453,6 @@
 				</h2>
 			</div>
 				
-
 
 			<div class="btn-inner">
 				<input type="button" id="apply-btn" value="신청하기">

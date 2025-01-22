@@ -29,6 +29,7 @@
    /*      const coupon = document.getElementById("coupon-box"); */
         // ------  결제위젯 초기화 ------
         const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+	//	int headcount = price/${hobee.hb_price};
         const tossPayments = TossPayments(clientKey);
         // 회원 결제
         const customerKey = "YYtGHbNlZnfHfetaxlHrO";
@@ -76,7 +77,7 @@
           await widgets.requestPayment({
             orderId: "asdfsadffffffffff",
             orderName: "${hobee.hb_title}",
-            successUrl: window.location.origin + "/hobee/success.do?hbidx=${hobee.hb_idx}&userid=${user_id}",
+            successUrl: window.location.origin + "/hobee/success.do?hbidx=${hobee.hb_idx}&userid=${user_id}&headCount=headcount",
             failUrl: window.location.origin + "/fail.html",
             customerEmail: "customer123@gmail.com",
             customerName: "김토스",

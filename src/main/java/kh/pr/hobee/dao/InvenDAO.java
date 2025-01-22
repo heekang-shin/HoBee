@@ -10,6 +10,7 @@ import kh.pr.hobee.vo.CategoryVO;
 import kh.pr.hobee.vo.HobeeVO;
 import kh.pr.hobee.vo.InquiryVO;
 import kh.pr.hobee.vo.ReserveVO;
+import kh.pr.hobee.vo.UsersVO;
 import kh.pr.hobee.vo.WishlistVO;
 
 public class InvenDAO {
@@ -76,5 +77,22 @@ public class InvenDAO {
 
 	    Integer count = sqlSession.selectOne("i.checkWishlist", params);
 	    return count != null && count > 0;
+	}
+	
+	//hobee의 가격 가져오기
+	public int hobPrice(int hbidx) {
+		int res = sqlSession.selectOne("i.hobeePrice", hbidx);
+		return res;
+	}
+	
+	//hobee에 인원수 더하기
+	public int plusHead(Map<String, Object> params) {
+		int res = sqlSession.update("i.headPlus", params);
+		return res;
+	}
+	
+	public UsersVO selectUser(int userid) {
+		UsersVO vo = sqlSession.selectOne("i.userselect", userid);
+		return vo;
 	}
 }

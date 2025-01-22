@@ -9,7 +9,7 @@
     window.onload = function () {
       // 결제 성공 데이터를 부모 창에 전달
       const paymentData = {
-        orderId: "${orderId}", // 결제 정보 예시
+        orderId: "${user.id}", // 결제 정보 예시
         orderName: "${hobee.hb_title}",
         price: "${price}",
       };

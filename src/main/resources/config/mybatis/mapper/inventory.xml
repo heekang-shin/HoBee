@@ -101,5 +101,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="checkWishlist" parameterType="map" resultType="int">
         SELECT COUNT(*) FROM wishlist WHERE user_id = #{user_id} AND hb_idx = #{hb_idx}
     </select>
+    
+    <select id="hobeePrice" parameterType="int" resultType="int">
+    	SELECT hb_price from hobee where hb_idx=#{hbidx}
+    </select>
+    
+    <update id="headPlus" parameterType="java.util.Map">
+    	UPDATE hobee
+		SET num_of_p = num_of_p + #{headCount}
+		where hb_idx = #{hbidx}
+    </update>
+    
+    <select id ="userselect" parameterType="int" resultType="users">
+    	select * from users
+    	where user_id = #{userid}
+    
+    </select>
 </mapper>
 

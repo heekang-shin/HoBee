@@ -103,21 +103,35 @@ public class ReviewController {
 	}
 
 	@RequestMapping("deleteReview.do")
-	public String deleteReview(int review_id, RedirectAttributes redirectAttributes, int hbidx) {
-	    System.out.println("[디버그] 전달받은 review_id: " + review_id);
+	public String deleteReview(int[] review_id, int hbidx, RedirectAttributes redirectAttributes) {
+	    // 디버깅 로그
+	    System.out.println("[디버그] 전달받은 review_id 리스트: " + java.util.Arrays.toString(review_id));
 	    System.out.println("[디버그] 전달받은 hbidx: " + hbidx);
-	    
-	    int res = review_dao.delete(review_id);
-	    
-	    // 처리 결과에 따른 메시지 설정
-	    if (res > 0) {
-	        redirectAttributes.addFlashAttribute("message", "리뷰가 성공적으로 삭제되었습니다.");
+
+	    if (review_id == null || review_id.length == 0) {
+	        redirectAttributes.addFlashAttribute("message", "리뷰 삭제에 필요한 데이터가 없습니다.");
+	        return "redirect:/review_detail.do?hbidx=" + hbidx;
+	    }
+
+	    // 리뷰 삭제 처리
+	    int deletedCount = 0;
+	    for (int id : review_id) {
+	        int res = review_dao.delete(id);
+	        if (res > 0) {
+	            deletedCount++;
+	        }
+	    }
+
+	    // 결과 메시지 설정
+	    if (deletedCount > 0) {
+	        redirectAttributes.addFlashAttribute("message", "선택된 리뷰가 성공적으로 삭제되었습니다.");
 	    } else {
 	        redirectAttributes.addFlashAttribute("message", "리뷰 삭제에 실패했습니다.");
 	    }
-	    
-	    // 리다이렉트 시 hbidx 값을 포함
+
+	    // 삭제 후 리다이렉트
 	    return "redirect:/review_detail.do?hbidx=" + hbidx;
 	}
+
 
 }

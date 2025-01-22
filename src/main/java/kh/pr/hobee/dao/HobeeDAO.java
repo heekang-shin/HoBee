@@ -45,12 +45,19 @@ public class HobeeDAO {
 		return res;
 	}
 
+
 	// host 프로그램 조회
 	public List<HobeeVO> applyList() {
 		List<HobeeVO> apply_list = sqlSession.selectList("h.hobee_apply_list");
 		return apply_list;
 	}
-	
+
+	// host 프로그램 조회
+	public List<HobeeVO> applyListUser(int user_id) {
+		List<HobeeVO> apply_list = sqlSession.selectList("h.hobee_apply_list_user", user_id);
+		return apply_list;
+	}
+
 	//host apply 한개 조회
 	public HobeeVO applyOne(int hb_idx) {
 		HobeeVO vo = sqlSession.selectOne("h.hobee_apply_one", hb_idx);
@@ -87,5 +94,13 @@ public class HobeeDAO {
 		return search_list;
 	}
 	
-		
+
+	// host post 게시하기
+	public int hostPost(HobeeVO vo) {
+		System.out.println("게시상태:"+ vo.getStatus());
+		int res = sqlSession.update("h.hobee_post", vo);
+		return res;
+	}
+	
+
 }

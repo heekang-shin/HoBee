@@ -3,6 +3,7 @@ package kh.pr.hobee.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +15,16 @@ import kh.pr.hobee.common.Common;
 import kh.pr.hobee.dao.HobeeDAO;
 import kh.pr.hobee.dao.InquiryDAO;
 import kh.pr.hobee.vo.InquiryVO;
+import kh.pr.hobee.vo.UsersVO;
 
 @Controller
 public class InqController {
 	
 	@Autowired
 	private HttpServletRequest request;
+	
+	@Autowired
+	HttpSession session;
 	
 	HobeeDAO hobeedao;
 
@@ -45,8 +50,13 @@ public class InqController {
 	        @RequestParam(defaultValue = "10") int itemsPerPage, // 페이지당 항목 수 기본값 10
 	        Model model
 	) {
-	    // 전체 문의 리스트 가져오기
-	    List<InquiryVO> inqList = inqdao.selectInq();
+		
+		// 세션에서 사용자 정보 확인
+	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+		int user_id = user.getUser_Id();
+		
+	    // 전체 문의 리스트 가져오기 (특정 user_id 리스트만 출력)
+	    List<InquiryVO> inqList = inqdao.selectInqUser(user_id);
 
 	    // 페이징 처리 계산
 	    int totalItems = inqList.size(); // 총 항목 수
@@ -66,6 +76,7 @@ public class InqController {
 	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
 	    model.addAttribute("totalItems", totalItems); // 총 항목?
 	    model.addAttribute("startIdx", startIdx); // 시작 idx 전달
+	    model.addAttribute("user_id", user_id); // user_id
 	    setCurrentUrl(model);
 	    
 	    // JSP로 이동

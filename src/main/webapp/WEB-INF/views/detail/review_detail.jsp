@@ -16,6 +16,41 @@
 <script src="/hobee/resources/js/hostFunction.js"></script>
 </head>
 
+<script>
+function toggleCheckboxes(selectAllCheckbox) {
+    // 클래스가 'rowCheckbox'인 모든 하위 체크박스를 선택
+    const checkboxes = document.querySelectorAll('.rowCheckbox');
+    // 상단 체크박스의 상태에 따라 하위 체크박스 체크/해제
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = selectAllCheckbox.checked;
+    });
+}
+
+function submitForm() {
+    // 폼 객체 가져오기
+    const form = document.getElementById('reviewForm');
+
+    // 체크된 체크박스들 가져오기
+    const checkboxes = document.querySelectorAll('.rowCheckbox:checked');
+
+    // 체크된 체크박스에서 값 수집
+    const selectedIds = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+    // 체크박스 값 확인
+    if (selectedIds.length === 0) {
+        alert("삭제할 항목을 선택하세요.");
+        return;
+    }
+
+    // 확인 메시지 표시
+    if (confirm("선택한 리뷰를 삭제하시겠습니까?")) {
+        form.submit(); // 폼 제출
+    }
+}
+
+
+</script>
+
 <body>
 	<div id="wrapper">
 		<!-- 헤더 -->
@@ -62,78 +97,57 @@
 				<div class="table-container">
 					<div class="total-num">
 						<p>
-							전체<span>&nbsp;1건</span>
+							전체<span>${reviewCount}건</span>
 						</p>
 					</div>
 
-					<table>
-
-						<thead>
-							<tr>
-								<th class="line"><input type="checkbox"></th>
-								<!-- 선택 체크박스 -->
-								<th width="5%" class="line">번호</th>
-								<!-- review_id -->
-								<!-- 리뷰 번호 -->
-								<th width="15%" class="line">작성자</th>
-								<!-- user_name -->
-								<!-- 작성자 이름 -->
-								<th width="10%" class="line">별점</th>
-								<!-- rating -->
-								<!-- 평점 -->
-								<th class="line">리뷰 내용</th>
-								<!-- content  -->
-								<!-- 리뷰 내용 -->
-								<th width="15%" class="line">작성일</th>
-								<!-- created_at  -->
-								<!-- 작성일 -->
-								<th width="10%" class="line">게시 상태</th>
-								<!-- 게시 상태 -->
-								<th width="10%" class="line">삭제</th>
-								<!-- 삭제 버튼 -->
-							</tr>
-						</thead>
-
-
-					<tbody>
-    <c:forEach var="review" items="${reviews}">
-        <tr>
-            <td class="line"><input type="checkbox"></td>
-            <td width="5%" class="line">${review.review_id}</td>
-            <td width="10%" class="line">${review.user_name}</td>
-            <td class="line">${review.content}</td>
-            <td width="10%" class="line">${review.rating}점</td>
-            <td width="10%" class="line">${review.created_at}</td>
-            <td width="10%" class="line">게시 중</td>
-            <td width="10%" class="line">
-                <button onclick="deleteReview(${review.review_id})">삭제</button>
-            </td>
-        </tr>
-    </c:forEach>
-</tbody>
+					<form id="reviewForm" action="deleteReview.do" method="post">
+						<table>
+							<thead>
+								<tr>
+									<th><input type="checkbox" id="selall"
+										onchange="toggleCheckboxes(this)"></th>
+									<th>번호</th>
+									<th>작성자</th>
+									<th>평점</th>
+									<th>리뷰 내용</th>
+									<th>작성일</th>
+									<th>게시 상태</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="review" items="${reviews}">
+									<tr>
+										<td><input type="checkbox" name="review_id"
+											value="${review.review_id}" class="rowCheckbox"></td>
+										<td>${review.review_id}</td>
+										<td>${review.user_name}</td>
+										<td>${review.rating}점</td>
+										<td>${review.content}</td>
+										<td>${review.created_at}</td>
+										<td>게시 중</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<div class="applybtn-box">
+						   <input type="hidden" name="hbidx" value="${hbidx}">
+							<input type="button" value="삭제하기" onclick="submitForm();">
+						</div>
+					</form>
 
 
-					</table>
+
+					<!--페이징 시작-->
+					<div class="pagination">
+						<a href="#" class="first-page">«</a> <a href="#" class="prev-page">‹</a>
+						<a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
+						<a href="#">4</a> <a href="#">5</a> <a href="#" class="next-page">›</a>
+						<a href="#" class="last-page">»</a>
+					</div>
+					<!-- 페이징 끝 -->
+
 				</div>
-				<!-- 리스트 끝 -->
-
-				<!--페이징 시작-->
-				<div class="pagination">
-					<a href="#" class="first-page">«</a> <a href="#" class="prev-page">‹</a>
-					<a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
-					<a href="#">4</a> <a href="#">5</a> <a href="#" class="next-page">›</a>
-					<a href="#" class="last-page">»</a>
-				</div>
-				<!-- 페이징 끝 -->
-
-				<!-- 신청 버튼 시작-->
-				<div class="applybtn-box">
-					<input type="button" value="삭제하기"> <input type="button"
-						value="신청하기" onclick="location.href='apply_form.do'">
-				</div>
-				<!-- 신청 버튼 끝 -->
-
-
 			</div>
 		</div>
 	</div>

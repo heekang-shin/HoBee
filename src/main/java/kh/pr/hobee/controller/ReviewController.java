@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kh.pr.hobee.dao.ReviewDAO;
 import kh.pr.hobee.vo.ReviewVO;
@@ -84,22 +86,38 @@ public class ReviewController {
 
 	@RequestMapping("review_detail.do")
 	public String reviewDetail(int hbidx, Model model) {
-	    // 디버깅용 hbidx 값 출력
-	    System.out.println("[디버그] 전달받은 hbidx 값: " + hbidx);
+		// 디버깅용 hbidx 값 출력
+		System.out.println("[디버그] 전달받은 hbidx 값: " + hbidx);
 
-	    // 특정 hbidx의 리뷰만 가져오기
-	    List<ReviewVO> reviews = review_dao.get_reviewList(hbidx);
+		// 특정 hbidx의 리뷰만 가져오기
+		List<ReviewVO> reviews = review_dao.get_reviewList(hbidx);
+		// 디버깅
+		System.out.println("토탈 리뷰 갯수 : " + reviews.size());
 
-	    // 리뷰 데이터 디버깅 출력
-	    System.out.println("[디버깅] 특정 hbidx의 리뷰 개수: " + reviews.size());
-
-	    // 모델에 데이터 저장
-	    model.addAttribute("reviews", reviews);
-	    model.addAttribute("hbidx", hbidx);
-
-	    // 단순 화면 전환
-	    return kh.pr.hobee.common.Common.VIEW_PATH + "detail/review_detail.jsp";
+		// 모델에 데이터 저장
+		model.addAttribute("reviews", reviews);
+		model.addAttribute("hbidx", hbidx);
+		model.addAttribute("reviewCount", reviews.size());
+		// 단순 화면 전환
+		return kh.pr.hobee.common.Common.VIEW_PATH + "detail/review_detail.jsp";
 	}
 
+	@RequestMapping("deleteReview.do")
+	public String deleteReview(int review_id, RedirectAttributes redirectAttributes, int hbidx) {
+	    System.out.println("[디버그] 전달받은 review_id: " + review_id);
+	    System.out.println("[디버그] 전달받은 hbidx: " + hbidx);
+	    
+	    int res = review_dao.delete(review_id);
+	    
+	    // 처리 결과에 따른 메시지 설정
+	    if (res > 0) {
+	        redirectAttributes.addFlashAttribute("message", "리뷰가 성공적으로 삭제되었습니다.");
+	    } else {
+	        redirectAttributes.addFlashAttribute("message", "리뷰 삭제에 실패했습니다.");
+	    }
+	    
+	    // 리다이렉트 시 hbidx 값을 포함
+	    return "redirect:/review_detail.do?hbidx=" + hbidx;
+	}
 
 }

@@ -40,4 +40,9 @@ public class ReviewDAO {
 		List<ReviewVO> list = sqlSession.selectList("review.recentList",hb_idx);
 		return list;
 	}
+	//review_id로 조회된 게시글 삭제
+	public int delete(int review_id) {
+		int res = sqlSession.delete("review.review_del",review_id);
+		return res;
+	}
 }

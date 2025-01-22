@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="/hobee/resources/css/host/header.css">
 	<link rel="stylesheet" href="/hobee/resources/css/host/common.css">
 	
+	
 	</head>
 	<body>
 		<div id="header">
@@ -23,10 +24,10 @@
 			<!-- user menu 시작-->
 			<div class="user">
 				<div class="user-info">
-					반갑습니다 <b class="user-name">홍길동</b>님
+					반갑습니다.&nbsp;${sessionScope.loggedInUser.user_name}님
 				</div>
 			
-				<input type="button" value="로그아웃">
+				<input type="button" value="로그아웃" onclick="location.href='logout.do'">
 			</div>
 			<!-- user menu 끝 -->
 		</div>

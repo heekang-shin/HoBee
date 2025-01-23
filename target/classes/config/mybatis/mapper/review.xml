@@ -38,16 +38,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ORDER BY created_at DESC
     )
     WHERE rownum <= 3
-    ]]> <!-- XML 부등호 사용 <![CDATA[ ]]>   -->
+    ]]> <!-- XML 부등호 사용 <![CDATA[ ]]> -->
 
 	</select>
 
-<!--review_id로 조회된 리뷰 삭제  -->
-<delete id="review_del" parameterType="int">
-    DELETE FROM review
-    WHERE review_id = #{review_id}
-</delete>
+	<!--review_id로 조회된 리뷰 삭제 -->
+	<delete id="review_del" parameterType="int">
+		DELETE FROM review
+		WHERE
+		review_id = #{review_id}
+	</delete>
 
+	<select id="getReviewById" resultType="review">
+		SELECT *
+		FROM review
+		WHERE review_id = #{review_id}
+	</select>
 
 </mapper>
 

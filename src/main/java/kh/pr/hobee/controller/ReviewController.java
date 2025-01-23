@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kh.pr.hobee.dao.ReviewDAO;
@@ -104,34 +103,63 @@ public class ReviewController {
 
 	@RequestMapping("deleteReview.do")
 	public String deleteReview(int[] review_id, int hbidx, RedirectAttributes redirectAttributes) {
-	    // 디버깅 로그
-	    System.out.println("[디버그] 전달받은 review_id 리스트: " + java.util.Arrays.toString(review_id));
-	    System.out.println("[디버그] 전달받은 hbidx: " + hbidx);
+		// 세션에서 사용자 정보 확인
+		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+		if (user == null) {
+			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
+			return "redirect:/login_form.do";
+		}
 
-	    if (review_id == null || review_id.length == 0) {
-	        redirectAttributes.addFlashAttribute("message", "리뷰 삭제에 필요한 데이터가 없습니다.");
-	        return "redirect:/review_detail.do?hbidx=" + hbidx;
-	    }
+		// 사용자 레벨 확인
+		String userLevel = user.getLv(); // "일반", "호스트", "관리자", "총괄관리자"
+		String userId = user.getId(); // 현재 로그인한 사용자 ID
+		System.out.println("[디버그] 사용자 레벨: " + userLevel);
+		System.out.println("[디버그] 사용자 ID: " + userId);
 
-	    // 리뷰 삭제 처리
-	    int deletedCount = 0;
-	    for (int id : review_id) {
-	        int res = review_dao.delete(id);
-	        if (res > 0) {
-	            deletedCount++;
-	        }
-	    }
+		if (review_id == null || review_id.length == 0) {
+			redirectAttributes.addFlashAttribute("message", "삭제할 리뷰를 선택하세요.");
+			return "redirect:/review_detail.do?hbidx=" + hbidx;
+		}
 
-	    // 결과 메시지 설정
-	    if (deletedCount > 0) {
-	        redirectAttributes.addFlashAttribute("message", "선택된 리뷰가 성공적으로 삭제되었습니다.");
-	    } else {
-	        redirectAttributes.addFlashAttribute("message", "리뷰 삭제에 실패했습니다.");
-	    }
+		int deletedCount = 0;
+		for (int id : review_id) {
+			if ("일반".equals(userLevel)) {
+				ReviewVO review = review_dao.getReviewById(id); // 특정 리뷰 조회
+				if (review != null && review.getUser_id() != null && review.getUser_id().equals(userId)) {
+					int res = review_dao.delete(id);
+					if (res > 0) {
+						deletedCount++;
+						System.out.println("[디버그] 본인 리뷰 삭제 성공: review_id = " + id);
+					} else {
+						System.out.println("[디버그] 본인 리뷰 삭제 실패: review_id = " + id);
+					}
+				} else {
+					System.out.println("[디버그] 본인이 작성하지 않은 리뷰입니다: review_id = " + id);
+					redirectAttributes.addFlashAttribute("errorMessage", "본인이 작성한 리뷰만 삭제할 수 있습니다.");
+					return "redirect:/review_detail.do?hbidx=" + hbidx;
+				}
+			} else if ("호스트".equals(userLevel)) {
+				System.out.println("[디버그] 호스트는 삭제 요청만 가능합니다: review_id = " + id);
+			} else if ("관리자".equals(userLevel) || "총괄관리자".equals(userLevel)) {
+				int res = review_dao.delete(id);
+				if (res > 0) {
+					deletedCount++;
+					System.out.println("[디버그] 관리자/총괄관리자 리뷰 삭제 성공: review_id = " + id);
+				} else {
+					System.out.println("[디버그] 관리자/총괄관리자 리뷰 삭제 실패: review_id = " + id);
+				}
+			}
+		}
 
-	    // 삭제 후 리다이렉트
-	    return "redirect:/review_detail.do?hbidx=" + hbidx;
+		if (deletedCount > 0) {
+			redirectAttributes.addFlashAttribute("message", "선택된 리뷰가 성공적으로 삭제되었습니다.");
+		} else if ("호스트".equals(userLevel)) {
+			redirectAttributes.addFlashAttribute("message", "리뷰 삭제 요청이 접수되었습니다.");
+		} else {
+			redirectAttributes.addFlashAttribute("message", "리뷰 삭제에 실패했습니다.");
+		}
+
+		return "redirect:/review_detail.do?hbidx=" + hbidx;
 	}
-
 
 }

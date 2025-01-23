@@ -2,7 +2,15 @@ package kh.pr.hobee.vo;
 
 public class ReviewVO {
 	private int rating, review_id, hb_idx;
-	private String content, created_at, user_name;
+	private String content, created_at, user_name, user_id;
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 
 	public int getHb_idx() {
 		return hb_idx;

@@ -93,7 +93,6 @@ public class HobeeDAO {
 		List<HobeeVO> search_list = sqlSession.selectList("h.hobee_search_by_all", search_text);
 		return search_list;
 	}
-	
 
 	// host post 게시하기
 	public int hostPost(HobeeVO vo) {
@@ -101,6 +100,8 @@ public class HobeeDAO {
 		int res = sqlSession.update("h.hobee_post", vo);
 		return res;
 	}
+	
+
 	
 
 }

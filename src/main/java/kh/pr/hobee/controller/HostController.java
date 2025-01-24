@@ -237,7 +237,7 @@ public class HostController {
 		List<HobeeVO> apply_list = hobeedao.applyList();
 		model.addAttribute("apply_list", apply_list);
 
-		return Common.VIEW_PATH + "host/host_list.jsp";
+		return "redirect:host_list.do";
 	}
 
 	// 파일 업로드

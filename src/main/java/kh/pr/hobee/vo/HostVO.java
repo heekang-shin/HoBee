@@ -3,9 +3,22 @@ package kh.pr.hobee.vo;
 import org.springframework.web.multipart.MultipartFile;
 
 public class HostVO {
-	private String host_name, host_info, host_img;
+	private String host_name, host_info, host_img, id, phone, user_email, user_name, lv;
 	private int user_id, approval;
 	
+	
+	public String getLv() {
+		return lv;
+	}
+	public void setLv(String lv) {
+		this.lv = lv;
+	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 	private MultipartFile host_image_filename;
 
 	
@@ -16,6 +29,24 @@ public class HostVO {
 		this.host_image_filename = host_image_filename;
 	}
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getUser_email() {
+		return user_email;
+	}
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
+	}
 	public String getHost_name() {
 		return host_name;
 	}

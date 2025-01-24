@@ -320,3 +320,36 @@
     display: block; /* 기본 여백 제거 */
 }
 
+/*host-info-box*/
+.host-info-box{
+	width: 100%;
+	height: auto;
+	border-bottom: 1px solid var(--border-color-gray);
+	padding: 10px 0;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+}
+
+.host-info-box label{
+	display: inline-block;
+	width: 200px;
+	height: auto;
+	text-align: left;
+	padding-right: 20px;
+	box-sizing: border-box;
+	font-weight: 500;
+	padding-left: 10px;
+}
+
+.host-info-box textarea {
+    width: calc(100% - 380px); /* 너비 설정 */
+    min-height: 200px; /* 최소 높이 설정 */
+    max-height: 500px; /* 최대 높이 제한 (선택 사항) */
+    background-color: var(--color-light-gray);
+    padding: 10px;
+    box-sizing: border-box;
+    border: none;
+    resize: none; /* 사용자가 크기 조정 불가 */
+    overflow-y: auto; /* 내용이 많아질 경우 세로 스크롤 추가 */
+}

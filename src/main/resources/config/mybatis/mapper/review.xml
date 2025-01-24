@@ -4,51 +4,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="review">
 
-	<insert id="review_insert" parameterType="review">
-		INSERT INTO review (
-		REVIEW_ID,
-		USER_NAME,
-		RATING,
-		CONTENT,
-		CREATED_AT
-		)
-		VALUES (
-		review_seq.NEXTVAL,
-		#{user_name}, <!-- 시퀀스를 사용해 REVIEW_ID 자동 생성 -->
-		#{rating},
-		#{content},
-		SYSDATE
-		)
-	</insert>
 
+	<!-- 리뷰 전체조회 -->
 	<select id="review_list" resultType="review">
-		SELECT * FROM review ORDER BY created_at DESC
+		SELECT * FROM review ORDER
+		BY created_at DESC
 	</select>
 
 
+	<!-- 리뷰 등록 -->
+	<insert id="review_insert" parameterType="review">
+		INSERT INTO review
+		(review_id, user_name, content, rating, hb_idx)
+		VALUES
+		(review_seq.NEXTVAL, #{user_name}, #{content}, #{rating}, #{hb_idx})
+	</insert>
+
+	<!-- 특정 hbidx로 리뷰 조회 -->
+	<select id="selreview_list" resultType="review"
+		parameterType="int">
+		SELECT * FROM review WHERE hb_idx = #{hb_idx}
+	</select>
+
+
+	<select id="recentList" parameterType="int" resultType="review">
+		
+	 <![CDATA[
+    SELECT *
+    FROM (
+        SELECT *
+        FROM review
+        WHERE hb_idx = #{hb_idx}
+        ORDER BY created_at DESC
+    )
+    WHERE rownum <= 3
+    ]]> <!-- XML 부등호 사용 <![CDATA[ ]]>   -->
+
+	</select>
+
+<!--review_id로 조회된 리뷰 삭제  -->
+<delete id="review_del" parameterType="int">
+    DELETE FROM review
+    WHERE review_id = #{review_id}
+</delete>
 
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

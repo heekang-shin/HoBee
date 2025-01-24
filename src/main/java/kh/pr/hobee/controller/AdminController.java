@@ -1,22 +1,13 @@
 package kh.pr.hobee.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.AbstractListModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.pr.hobee.common.Common;
 import kh.pr.hobee.dao.HobeeDAO;
+import kh.pr.hobee.dao.HostDAO;
 import kh.pr.hobee.dao.InquiryDAO;
 import kh.pr.hobee.dao.ReserveDAO;
 import kh.pr.hobee.dao.UsersDAO;
 import kh.pr.hobee.vo.HobeeVO;
+import kh.pr.hobee.vo.HostVO;
 import kh.pr.hobee.vo.UsersVO;
 
 @Controller
@@ -67,6 +60,11 @@ public class AdminController {
 		this.users_dao = users_dao;
 	}
 	
+	HostDAO host_dao;
+	
+	public void setHost_dao(HostDAO host_dao) {
+		this.host_dao = host_dao;
+	}
 
 	private void setCurrentUrl(Model model) {
 		String currentUrl = request.getRequestURI().replace(request.getContextPath(), "");
@@ -208,14 +206,57 @@ public class AdminController {
 	
 	// 호스트 관리
 	@RequestMapping("admin_host.do")
-	public String adminHost(Model model) {
-		setCurrentUrl(model);
+	public String adminHost(Model model,
+			@RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
+			@RequestParam(defaultValue = "10") int itemsPerPage) {
+
+		// 전체 유저 리스트 가져오기
+		List<HostVO> host_list = host_dao.selectHostList();
+		
+		// 페이징 처리 계산
+	    int totalItems = host_list.size(); // 총 항목 수
+	    int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수
+
+	    // 현재 페이지에 맞는 데이터 가져오기
+	    int start = (page - 1) * itemsPerPage; // 시작 인덱스
+	    int end = Math.min(start + itemsPerPage, totalItems); // 끝 인덱스
+	    List<HostVO> paginatedList = host_list.subList(start, end);
+
+	    // 시작 idx 계산 (전체 데이터 기준으로 줄어드는 번호 계산)
+	    int startIdx = totalItems - (page - 1) * itemsPerPage;
+
+	    //현재 url
+	    setCurrentUrl(model);
+		
+	    // Model 객체에 데이터 추가
+	    model.addAttribute("all_host_list", paginatedList); // 페이징 처리된 데이터
+	    model.addAttribute("currentPage", page); // 현재 페이지
+	    model.addAttribute("totalPages", totalPages); // 총 페이지 수
+	    model.addAttribute("totalItems", totalItems); // 총 항목 수
+	    model.addAttribute("startIdx", startIdx); // 시작 idx 전달
+	    
 		return Common.VIEW_PATH + "admin/admin_host.jsp";
 	}
 	
-	
-	
+	//호스트 정보 
+	@RequestMapping("hostInfo_detail.do")
+	public String adminHostInfo(int user_id, Model model) {
+	    HostVO vo = host_dao.selectHostOne(user_id);
+	    model.addAttribute("vo", vo);
+	    System.out.println("유저:" + user_id);
+	    return Common.VIEW_PATH + "admin/admin_Info_detail.jsp";
+	}
 
+	
+	//호스트 탈퇴
+	@RequestMapping("admin_host_del.do")
+	public String adminHostDel(int user_id) {
+	    int res = host_dao.hostDel(user_id);
+	    return "redirect:admin_host.do";
+	}
+
+	
+	
 	// 프로그램 관리
 	@RequestMapping("admin_program.do")
 	public String adminProgram(Model model, 
@@ -249,6 +290,10 @@ public class AdminController {
 		return Common.VIEW_PATH + "admin/admin_program.jsp";
 	}
 
+	
+	
+	
+	
 	// 프로그램 상세 페이지
 	@RequestMapping("admin_host_detail.do")
 	public String adminHost(int hb_idx,int status, String category_name, Model model) {
@@ -257,7 +302,6 @@ public class AdminController {
 		model.addAttribute("category_name", category_name);
 		return Common.VIEW_PATH + "admin/admin_program_detail.jsp";
 	}
-	
 	
 	//프로그램 게시
 	@RequestMapping(value="admin_host_post.do", produces = "application/json;charset=utf-8")
@@ -275,7 +319,6 @@ public class AdminController {
 		
 		return resultStr;
 	}
-	
 	
 	
 	

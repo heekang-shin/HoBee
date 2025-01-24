@@ -29,8 +29,8 @@
 	
 	<!-- ajax -->
 	<script type="/hobee/resources/js/httpRequest.js"></script>
-	
-	<script>
+
+<script>
 	
 	function send(form) {
 	    // 폼 데이터 가져오기
@@ -146,7 +146,7 @@
 		}
 	
 	    </script>
-	</head>
+</head>
 	
 	<body>
 		<div id="wrapper">

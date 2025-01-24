@@ -1,15 +1,15 @@
 package kh.pr.hobee.vo;
 
 public class ReviewVO {
-	private int rating, review_id, hbidx;
+	private int rating, review_id, hb_idx;
 	private String content, created_at, user_name;
 
-	public int getHbidx() {
-		return hbidx;
+	public int getHb_idx() {
+		return hb_idx;
 	}
 
-	public void setHbidx(int hbidx) {
-		this.hbidx = hbidx;
+	public void setHb_idx(int hb_idx) {
+		this.hb_idx = hb_idx;
 	}
 
 	public String getUser_name() {

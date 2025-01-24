@@ -92,12 +92,12 @@
 						<thead>
 							<tr>
 								<th width="5%" class="line">번호</th>
-								<th width="15%" class="line">아이디</th>
-								<th width="15%" class="line">유저이름</th>
-								<th width="15%" class="line">호스트이름</th>
+								<th width="15%" class="line">호스트 이름</th>
+								<th width="15%" class="line">유저 번호</th>
+								<th width="15%" class="line">유저 이름</th>
 								<th width="15%" class="line">연락처</th>
 								<th width="20%" class="line">이메일</th>
-								<th width="15%" class="line">인포</th>
+								<th width="15%" class="line">등급</th>
 								
 							</tr>
 						</thead>
@@ -105,7 +105,7 @@
 						<tbody>
 						
 						<!-- user_list만 비어 있는 경우 -->
-						<c:if test="${empty user_list and not empty search_list}">
+						<c:if test="${empty all_host_list and not empty search_list}">
 						    <tr class="no-search">
 						        <td colspan="7" class="line" style="text-align: center;">
 						            등록된 호스트가 존재하지 않습니다.<br> 
@@ -115,7 +115,7 @@
 						</c:if>
 						
 						<!-- search_list만 비어 있는 경우 -->
-						<c:if test="${empty search_list}">
+						<c:if test="${empty all_host_list && empty search_list}">
 						    <tr class="no-search">
 						        <td colspan="7" class="line" style="text-align: center;">
 						            검색된 호스트가 존재하지 않습니다.<br> 
@@ -126,29 +126,40 @@
 
 
 						<!-- 리스트 조회 -->
-						<c:forEach var="vo" items="${ad_host_list}" varStatus="status">
+						<c:forEach var="vo" items="${all_host_list}" varStatus="status">
 							<tr>
 								<!-- idx 계산: 전체 항목에서 현재까지 노출된 항목을 뺀 값 -->
 								<td width="5%" class="line">
 									${startIdx - status.index}
 								</td>
 								<td width="15%" class="line">
-									<a href="user_detail.do?user_Id=${vo.user_Id}">${vo.user_name}</a>
+									<a href="hostInfo_detail.do?user_id=${vo.user_id}">${vo.user_id}</a>
 								</td>
 								<td width="15%" class="line">
-									<a href="user_detail.do?user_Id=${vo.user_Id}">${vo.id}</a>
+									<a href="hostInfo_detail.do?user_id=${vo.user_id}">${vo.host_name}</a>
 								</td>
 								<td width="15%" class="line">
-									<a href="user_detail.do?user_Id=${vo.user_Id}">${vo.phone}</a>
-								</td>
-								<td width="20%" class="line">
-									<a href="user_detail.do?user_Id=${vo.user_Id}">${vo.user_email}</a>
+									<a href="hostInfo_detail.do?user_id=${vo.user_id}">${vo.user_name}</a>
 								</td>
 								<td width="15%" class="line">
-									<a href="user_detail.do?user_Id=${vo.user_Id}">${vo.user_name}</a>
+									<a href="hostInfo_detail.do?user_id=${vo.user_id}">${vo.phone}</a>
 								</td>
 								<td width="15%" class="line">
-									<a href="user_detail.do?user_Id=${vo.user_Id}">${vo.id}</a>
+									<a href="hostInfo_detail.do?user_id=${vo.user_id}">${vo.user_email}</a>
+								</td>
+								
+								<td width="10%" class="line post-box">
+									<c:choose>
+									<c:when test="${vo.lv.toString() == '호스트'}">
+										<span class="fin-btn">호스트</span>
+									</c:when>
+									<c:when test="${vo.lv ne '호스트'}">
+										<span class="post-btn">심사대기</span>
+									</c:when>
+									<c:otherwise>
+										<span class="post-no">확인 불가</span>
+									</c:otherwise>
+									</c:choose>
 								</td>
 							</tr>
 						</c:forEach>

@@ -101,6 +101,7 @@
 		<beans:property name="inqdao" ref="inq_dao_bean" />
 		<beans:property name="reservedao" ref="res_dao_bean" />
 		<beans:property name="users_dao" ref="users_daoBean" />
+		<beans:property name="admin_dao" ref="admin_daoBean"/>
 	</beans:bean>	
 	
 </beans:beans>

@@ -49,7 +49,7 @@
 
 
 		.menu>li {
-			width: 348px;
+			width: 275px;
 			height: 50px;
 			float: left;
 
@@ -109,6 +109,11 @@
 		<li>
 		<a onclick="location.href='user_delete_form.do?user_Id=${sessionScope.loggedInUser.user_Id}'">회원탈퇴</a>
 		</li>
+		<li>
+		<a href="MyReviews.do?hbidx=${hbidx}">작성한 리뷰</a>
+		</li>
+	
+		
 	</ul>
           
 </body>

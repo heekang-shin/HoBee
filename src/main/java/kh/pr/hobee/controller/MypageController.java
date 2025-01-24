@@ -85,7 +85,7 @@ public class MypageController {
 	// 신청내역 조회하기
 	@RequestMapping("/mypage_apply_form.do")
 	public String apply(@RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
-			@RequestParam(defaultValue = "1") int itemsPerPage, // 페이지당 항목 수 기본값 5
+			@RequestParam(defaultValue = "10") int itemsPerPage, // 페이지당 항목 수 기본값 5
 			Model model, HttpSession session) {
 		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
 		int user_Id = user.getUser_Id();

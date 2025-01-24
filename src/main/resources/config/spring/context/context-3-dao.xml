@@ -44,6 +44,12 @@
    <bean id="host_daoBean" class="kh.pr.hobee.dao.HostDAO">
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
+	
+	<!-- AdminDAO -->
+	<bean id="admin_daoBean" class="kh.pr.hobee.dao.AdminDAO">
+	<property name="sqlSession" ref="sqlSessionBean"/>
+	
+	</bean>
 </beans>
 
 

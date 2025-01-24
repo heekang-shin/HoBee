@@ -33,12 +33,13 @@ public class ReviewController {
 
 	// 리뷰
 	@RequestMapping("Review.do")
-	public String insertReview(String rating, String reviewContent, String hbidx, Model model, HttpSession httpSession) {
+	public String insertReview(String rating, String reviewContent, String hbidx, Model model,
+			HttpSession httpSession) {
 		// 로그 추가: 입력 값 확인
 		System.out.println("[디버그] 전달받은 별점 값: " + rating);
 		System.out.println("[디버그] 전달받은 리뷰 내용: " + reviewContent);
 		System.out.println("[디버그] 전달받은 게시글 ID: " + hbidx);
-		//세션에 hbidx 값 저장
+		// 세션에 hbidx 값 저장
 		session.setAttribute("hbidx", hbidx);
 		// 세션에서 사용자 정보 확인
 		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
@@ -119,8 +120,8 @@ public class ReviewController {
 		// 사용자 레벨 확인
 		String userLevel = user.getLv(); // "일반", "호스트", "관리자", "총괄관리자"
 		String userId = user.getId(); // 현재 로그인한 사용자 ID
-		System.out.println("[디버그] 사용자 레벨: " + userLevel);
-		System.out.println("[디버그] 사용자 ID: " + userId);
+		System.out.println("[디버그] 로그인한 사용자 레벨: " + userLevel);
+		System.out.println("[디버그] 로그인한 사용자 ID: " + userId);
 
 		if (review_id == null || review_id.length == 0) {
 			redirectAttributes.addFlashAttribute("message", "삭제할 리뷰를 선택하세요.");
@@ -145,7 +146,9 @@ public class ReviewController {
 					return "redirect:/review_detail.do?hbidx=" + hbidx;
 				}
 			} else if ("호스트".equals(userLevel)) {
-				System.out.println("[디버그] 호스트는 삭제 요청만 가능합니다: review_id = " + id);
+				// 호스트일 경우 삭제 요청 메시지를 추가
+				redirectAttributes.addFlashAttribute("infoMessage", "리뷰 삭제를 요청하겠습니까?");
+				return "redirect:/review_detail.do?hbidx=" + hbidx; // 적절한 경로로 리다이렉트
 			} else if ("관리자".equals(userLevel) || "총괄관리자".equals(userLevel)) {
 				int res = review_dao.delete(id);
 				if (res > 0) {
@@ -169,7 +172,7 @@ public class ReviewController {
 	}
 
 	@RequestMapping("MyReviews.do")
-	public String myReviewsAndDelete(int[] review_id, Model model,int hbidx) {
+	public String myReviewsAndDelete(int[] review_id, Model model, int hbidx) {
 		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
 		if (user == null) {
 			model.addAttribute("errorMessage", "로그인이 필요합니다.");
@@ -191,34 +194,34 @@ public class ReviewController {
 
 	@RequestMapping("delmyReview.do")
 	public String delmyReview(int[] review_id, int hbidx, Model model) {
-	    System.out.println("[디버그] 전달받은 hbidx: " + hbidx);
-	    System.out.println("[디버그] 전달받은 review_id: " + Arrays.toString(review_id));
-	    
-	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
-	    if (user == null) {
-	        model.addAttribute("errorMessage", "로그인이 필요합니다.");
-	        return "redirect:/login_form.do";
-	    }
+		System.out.println("[디버그] 전달받은 hbidx: " + hbidx);
+		System.out.println("[디버그] 전달받은 review_id: " + Arrays.toString(review_id));
 
-	    String userId = user.getId();
-	    int deletedCount = 0;
+		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+		if (user == null) {
+			model.addAttribute("errorMessage", "로그인이 필요합니다.");
+			return "redirect:/login_form.do";
+		}
 
-	    if (review_id != null && review_id.length > 0) {
-	        for (int id : review_id) {
-	            ReviewVO review = review_dao.getReviewById(id);
-	            if (review != null && review.getUser_id().equals(userId)) {
-	                deletedCount += review_dao.delete(id);
-	            }
-	        }
-	    }
+		String userId = user.getId();
+		int deletedCount = 0;
 
-	    if (deletedCount > 0) {
-	        model.addAttribute("successMessage", "선택한 리뷰가 성공적으로 삭제되었습니다.");
-	    } else {
-	        model.addAttribute("errorMessage", "삭제할 리뷰를 선택하거나 권한이 없습니다.");
-	    }
+		if (review_id != null && review_id.length > 0) {
+			for (int id : review_id) {
+				ReviewVO review = review_dao.getReviewById(id);
+				if (review != null && review.getUser_id().equals(userId)) {
+					deletedCount += review_dao.delete(id);
+				}
+			}
+		}
 
-	    return "redirect:/MyReviews.do?hbidx=" + hbidx;
+		if (deletedCount > 0) {
+			model.addAttribute("successMessage", "선택한 리뷰가 성공적으로 삭제되었습니다.");
+		} else {
+			model.addAttribute("errorMessage", "삭제할 리뷰를 선택하거나 권한이 없습니다.");
+		}
+
+		return "redirect:/MyReviews.do?hbidx=" + hbidx;
 	}
 
 }

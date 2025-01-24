@@ -54,13 +54,6 @@ function submitForm() {
 <c:if test="${not empty errorMessage}">
     alert('${errorMessage}');
 </c:if>
-//컨트롤러에서 전달된 infoMessage 확인
-<c:if test="${not empty infoMessage}">
-if (confirm('${infoMessage}')) {
-	 let userLevel = "${userLevel}";
-    document.getElementById('reviewForm').submit();
-}
-</c:if>
 </script>
 
 <body>
@@ -117,6 +110,7 @@ if (confirm('${infoMessage}')) {
 								<tr>
 									<th><input type="checkbox" id="selall"
 										onchange="toggleCheckboxes(this)"></th>
+									<th>번호</th>
 									<th>작성자</th>
 									<th>평점</th>
 									<th>리뷰 내용</th>
@@ -129,6 +123,7 @@ if (confirm('${infoMessage}')) {
 									<tr>
 										<td><input type="checkbox" name="review_id"
 											value="${review.review_id}" class="rowCheckbox"></td>
+										<td>${review.review_id}</td>
 										<td>${review.user_name}</td>
 										<td>${review.rating}점</td>
 										<td>${review.content}</td>

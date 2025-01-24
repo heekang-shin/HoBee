@@ -60,6 +60,7 @@ public class LoginController {
 
 	        if (isValid) {
 	            session.setAttribute("loggedInUser", user); // 세션에 사용자 정보 저장
+	            session.setAttribute("userLevel", user.getLv()); // 사용자 레벨을 세션에 저장
 	            return "success";
 	        }
 	    }

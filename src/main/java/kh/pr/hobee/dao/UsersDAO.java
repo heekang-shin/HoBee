@@ -75,7 +75,50 @@ public class UsersDAO {
 	    return count > 0; // 중복 여부 반환
 	}
 
+	// 회원 정보 조회
+		public UsersVO adminOne(int user_Id) {
+			UsersVO vo = sqlSession.selectOne("u.user_detail", user_Id);
+			return vo;
+		}
+		
+		//회원 정보 수정
+		public int updateFin(UsersVO vo) {
+			int res = sqlSession.update("u.user_admin_update", vo);
+			return res;
+		}
+		// 중복체크 호스트네임
+			public String hostname_check(String hostname) {
+				System.out.println(hostname);
+				int count = sqlSession.selectOne("u.host_check", hostname); // MyBatis 매퍼 호출
+				return count > 0 ? "1" : "0"; // 중복이면 "1", 아니면 "0" 반환
+			}
+		//회원 삭제
+		public int adminUserDel(int user_Id) {
+			int res = sqlSession.delete("u.user_admin_del", user_Id);
+			return res;
+		}
+		
+		
+		// 회원 제목에 따른 검색
+		public List<UsersVO> searchByTitle(String search_text) {
+			System.out.println("search_text"+ search_text);
+			List<UsersVO> search_list = sqlSession.selectList("u.user_search_by_title", search_text);
+			return search_list;
+		}
 
+		// 회원 내용에 따른 검색
+		public List<UsersVO> searchByContent(String search_text) {
+			System.out.println("search_text"+ search_text);
+			List<UsersVO> search_list = sqlSession.selectList("u.user_search_by_content", search_text);
+			return search_list;
+		}
+
+		// 회원 전체 검색
+		public List<UsersVO> searchByAll(String search_text) {
+			System.out.println("search_text"+ search_text);
+			List<UsersVO> search_list = sqlSession.selectList("u.user_search_by_all", search_text);
+			return search_list;
+		}
 
 
 }

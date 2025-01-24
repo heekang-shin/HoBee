@@ -96,8 +96,6 @@ function submitForm() {
 					</form>
 				</div>
 
-
-
 				<!-- 리스트 시작 -->
 				<div class="table-container">
 					<div class="total-num">

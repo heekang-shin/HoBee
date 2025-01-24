@@ -1,5 +1,6 @@
 package kh.pr.hobee.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,13 +31,15 @@ public class ReviewController {
 		this.review_dao = review_dao;
 	}
 
+	// 리뷰
 	@RequestMapping("Review.do")
-	public String insertReview(String rating, String reviewContent, String hbidx, Model model) {
+	public String insertReview(String rating, String reviewContent, String hbidx, Model model, HttpSession httpSession) {
 		// 로그 추가: 입력 값 확인
 		System.out.println("[디버그] 전달받은 별점 값: " + rating);
 		System.out.println("[디버그] 전달받은 리뷰 내용: " + reviewContent);
 		System.out.println("[디버그] 전달받은 게시글 ID: " + hbidx);
-
+		//세션에 hbidx 값 저장
+		session.setAttribute("hbidx", hbidx);
 		// 세션에서 사용자 정보 확인
 		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
 		if (user == null) {
@@ -45,6 +48,7 @@ public class ReviewController {
 		}
 
 		String username = user.getUser_name();
+		String userId = user.getId();
 		System.out.println("[디버그] 로그인된 사용자 이름: " + username);
 
 		// 리뷰 객체 생성 및 저장
@@ -53,6 +57,7 @@ public class ReviewController {
 		review.setRating(Integer.parseInt(rating));
 		review.setContent(reviewContent);
 		review.setHb_idx(Integer.parseInt(hbidx));
+		review.setUser_id(userId);
 
 		review_dao.insertReview(review);
 		System.out.println("[디버그] 리뷰가 데이터베이스에 성공적으로 저장되었습니다.");
@@ -83,6 +88,7 @@ public class ReviewController {
 
 	}
 
+	// 리뷰 전체 보기 페이지
 	@RequestMapping("review_detail.do")
 	public String reviewDetail(int hbidx, Model model) {
 		// 디버깅용 hbidx 값 출력
@@ -160,6 +166,59 @@ public class ReviewController {
 		}
 
 		return "redirect:/review_detail.do?hbidx=" + hbidx;
+	}
+
+	@RequestMapping("MyReviews.do")
+	public String myReviewsAndDelete(int[] review_id, Model model,int hbidx) {
+		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+		if (user == null) {
+			model.addAttribute("errorMessage", "로그인이 필요합니다.");
+			return kh.pr.hobee.common.Common.VIEW_PATH + "login/login_form.jsp"; // 로그인 페이지로 리다이렉트
+		}
+
+		String userId = user.getId();
+		List<ReviewVO> myReviews = review_dao.getReviewsByUserId(userId); // 본인 리뷰 조회
+
+		if (myReviews != null && !myReviews.isEmpty()) {
+			model.addAttribute("reviews", myReviews);
+			model.addAttribute("reviewCount", myReviews.size());
+		} else {
+			model.addAttribute("errorMessage", "작성한 리뷰가 없습니다.");
+		}
+		model.addAttribute("hbidx", hbidx);
+		return kh.pr.hobee.common.Common.VIEW_PATH + "detail/my_review.jsp"; // my_review.jsp로 이동
+	}
+
+	@RequestMapping("delmyReview.do")
+	public String delmyReview(int[] review_id, int hbidx, Model model) {
+	    System.out.println("[디버그] 전달받은 hbidx: " + hbidx);
+	    System.out.println("[디버그] 전달받은 review_id: " + Arrays.toString(review_id));
+	    
+	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+	    if (user == null) {
+	        model.addAttribute("errorMessage", "로그인이 필요합니다.");
+	        return "redirect:/login_form.do";
+	    }
+
+	    String userId = user.getId();
+	    int deletedCount = 0;
+
+	    if (review_id != null && review_id.length > 0) {
+	        for (int id : review_id) {
+	            ReviewVO review = review_dao.getReviewById(id);
+	            if (review != null && review.getUser_id().equals(userId)) {
+	                deletedCount += review_dao.delete(id);
+	            }
+	        }
+	    }
+
+	    if (deletedCount > 0) {
+	        model.addAttribute("successMessage", "선택한 리뷰가 성공적으로 삭제되었습니다.");
+	    } else {
+	        model.addAttribute("errorMessage", "삭제할 리뷰를 선택하거나 권한이 없습니다.");
+	    }
+
+	    return "redirect:/MyReviews.do?hbidx=" + hbidx;
 	}
 
 }

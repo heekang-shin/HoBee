@@ -28,7 +28,7 @@
             </li>
             <li>
                 <img src="/hobee/resources/images/host_list.png" alt="리뷰 삭제">
-                <a href="#">내가 쓴 리뷰</a>
+                <a href="MyReviews.do?hbidx=${hbidx}">내가 쓴 리뷰</a>
             </li>
             <li>
                 <img src="/hobee/resources/images/host_shop.png" alt="리뷰 관리">

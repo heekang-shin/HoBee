@@ -50,5 +50,9 @@ public class ReviewDAO {
 	public ReviewVO getReviewById(int review_id) {
 	    return sqlSession.selectOne("review.getReviewById", review_id);
 	}
+	//userId로 조회되는 리뷰 조회 
+	public List<ReviewVO> getReviewsByUserId(String userId) {
+	    return sqlSession.selectList("review.getReviewsByUserId", userId);
+	}
 
 }

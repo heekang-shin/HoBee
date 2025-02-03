@@ -21,53 +21,6 @@
 <!-- 헤더 스크롤 이펙트-->
 <script src="/hobee/resources/js/hostFunction.js"></script>
 
-<!-- <script>
-	function modify(form) {
-		 // 폼 데이터 가져오기
-	    let id = form.id.value;
-	    let user_name = form.user_name.value;
-	    let phone = form.phone.value;
-	    let user_email = form.user_email.value;
-	    let lv = form.lv.value;
-	    
-	    //유효성 검사
-	    if (!id) {
-	        alert("아이디를 입력해 주세요.");
-	        document.getElementsByName("id")[0].focus();
-	        return;
-	    }
-	    
-	    if (!user_name) {
-	        alert("이름을 입력해 주세요.");
-	        document.getElementsByName("user_name")[0].focus();
-	        return;
-	    }
-	    
-	    if (!phone) {
-	        alert("연락처를 입력해 주세요.");
-	        document.getElementsByName("phone")[0].focus();
-	        return;
-	    }
-	    
-	    if (!user_email) {
-	        alert("이메일을 입력해 주세요.");
-	        document.getElementsByName("user_email")[0].focus();
-	        return;
-	    }
-	    
-	    if (!lv) {
-	        alert("회원 레벨을 입력해 주세요.");
-	        document.getElementsByName("lv")[0].focus();
-	        return;
-	    }
-		 
-	    form.method = 'post';
-	    form.action = 'user_admin_update.do';
-	    form.submit();
-	    
-	}
-	</script> -->
-
 
 <script>
 	function host_apply(f) {

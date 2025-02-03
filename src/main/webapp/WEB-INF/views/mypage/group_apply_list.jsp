@@ -46,7 +46,7 @@
     <c:when test="${not empty apply_finish}">
         <table>
             <colgroup>
-                <col width="10%" />
+                <col width="13%" />
                 <col width="1%" />
                 <col width="" />
                 <col width="1%" />

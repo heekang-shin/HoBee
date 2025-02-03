@@ -214,7 +214,7 @@ public class AdminController {
 	
 	
 	
-	// 호스트 관리-호스트인 애들 목록으로 전체 보여주기
+	// 호스트 관리-호스트들 목록으로 전체 보여주기
 	@RequestMapping("admin_host.do")
 	public String adminHost(
 	        @RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
@@ -222,7 +222,7 @@ public class AdminController {
 	        Model model) {
 
 	    // approval = 0인 호스트 리스트 가져오기
-	    List<HostVO> hostList = adminDAO.ad_host_select();
+	    List<HostVO> hostList = admin_dao.ad_host_select();
 
 	    // 페이징 처리 계산
 	    int totalItems = hostList.size(); // 총 항목 수
@@ -238,7 +238,7 @@ public class AdminController {
 
 	    // 각 호스트 데이터에 대해 유저 데이터 병합
 	    for (HostVO host : paginatedHostList) {
-	        UsersVO user = adminDAO.ad_user_select_by_id(host.getUser_id());
+	        UsersVO user = admin_dao.ad_user_select_by_id(host.getUser_id());
 	        Map<String, Object> combinedData = new HashMap<String, Object>();
 	        combinedData.put("user_name", user.getUser_name());
 	        combinedData.put("host_name", host.getHost_name());
@@ -284,6 +284,7 @@ public class AdminController {
 		int ress= admin_dao.ad_hostapply_user(user_id);
 		return "redirect:admin_host.do";
 	}
+	
 	
 	//detail-부분-호스트의 신청을 거절하기 =HOST테이블에서 해당 호스트 삭제 
 	@RequestMapping("admin_host_refuse.do")

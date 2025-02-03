@@ -16,10 +16,11 @@
 	<bean id="category_dao_bean" class="kh.pr.hobee.dao.CategoryDAO">
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
-	
-		<bean id="review_daoBean" class="kh.pr.hobee.dao.ReviewDAO">
-    <property name="sqlSession" ref="sqlSessionBean" />
-</bean>
+
+	<!-- review -->
+	<bean id="review_daoBean" class="kh.pr.hobee.dao.ReviewDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
 		
 		
 	<!-- inqDAO -->
@@ -44,6 +45,10 @@
    <bean id="host_daoBean" class="kh.pr.hobee.dao.HostDAO">
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
+	
+	
+	
+    
 </beans>
 
 

@@ -31,8 +31,7 @@
 	<div class="sidebar">
         <div class="host-info">
             <div class="info-photo">
-                <img src="/hobee/resources/images/upload/${sessionScope.loggedInUser.host_img}" alt="프로필 이미지">
-
+                <img src="/hobee/resources/images/admin_icon.png" alt="프로필 이미지">
             </div>
             <div class="info-name">[관리자]&nbsp;${sessionScope.loggedInUser.user_name}</div>
         </div>

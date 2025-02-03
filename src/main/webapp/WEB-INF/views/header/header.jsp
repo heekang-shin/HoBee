@@ -55,7 +55,7 @@
 				<c:if test="${not empty sessionScope.loggedInUser}">
 					<!-- 총괄관리자인 경우  -->
 					<c:if test="${sessionScope.loggedInUser.lv == '총괄관리자'}">
-						<li><img src="/hobee/resources/images/join_icon.png"
+						<li><img src="/hobee/res	ources/images/join_icon.png"
 							alt="관리자 계정 생성" /> <a href="create_admin_account.do">관리자 생성</a></li>
 					</c:if>
 
@@ -63,14 +63,15 @@
 					<c:if test="${sessionScope.loggedInUser.lv != '총괄관리자'}">
 						<li><img src="/hobee/resources/images/join_icon.png"
 							alt="마이페이지" /> <a
-							href="mypage_heart_form.do?user_id=${sessionScope.loggedInUser.user_Id}">마이페이지</a>
+							href="mypage_heart_form.do?user_id=${sessionScope.loggedInUser.user_Id}">${sessionScope.loggedInUser.user_name}님&nbsp;마이페이지</a>
 						</li>
 					</c:if>
 
-					<li><a class="hello">환영합니다.
-							${sessionScope.loggedInUser.user_name}님</a></li>
-					<li><img src="/hobee/resources/images/loginout.png" alt="로그아웃" />
-						<a href="logout.do" class="logout-btn">로그아웃</a></li>
+
+					<li>
+						<img src="/hobee/resources/images/loginout.png" alt="로그아웃" />
+						<a href="logout.do" class="logout-btn">로그아웃</a>
+					</li>
 				</c:if>
 
 				<!-- 관리자일 경우 -->

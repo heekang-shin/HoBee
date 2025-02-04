@@ -68,11 +68,6 @@
 		<beans:constructor-arg ref="mss" />
 	</beans:bean>
 
-	<!-- CategoryController -->
-	<beans:bean class="kh.pr.hobee.controller.CategoryController">
-		<beans:property name="categoryDAO" ref="category_dao_bean" />
-	</beans:bean>
-
 	<!-- inqController -->
 	<beans:bean class="kh.pr.hobee.controller.InqController">
 		<beans:property name="hobeedao" ref="hobee_dao_bean" />

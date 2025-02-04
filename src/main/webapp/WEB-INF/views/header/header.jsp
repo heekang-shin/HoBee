@@ -74,13 +74,13 @@
 					</li>
 				</c:if>
 
-				<!-- 관리자일 경우 -->
-				<c:if test="${sessionScope.loggedInUser.lv == '관리자'}">
+				<!-- 관리자, 총괄관리자일 경우 -->
+				<c:if test="${sessionScope.loggedInUser.lv == '관리자' or sessionScope.loggedInUser.lv == '총괄관리자'}">
 				    <li><a href="admin_main.do" class="host">관리자센터</a></li>
 				</c:if>
 				
-				<!-- 관리자 아니면 호스트센터로 보이도록 -->
-				<c:if test="${sessionScope.loggedInUser.lv != '관리자'}">
+				<!-- 호스트일 경우 호스트센터로 보이도록 -->
+				<c:if test="${sessionScope.loggedInUser.lv == '호스트'}">
 				    <li><a href="host_main.do" class="host">호스트센터</a></li>
 				</c:if>
 			</ul>

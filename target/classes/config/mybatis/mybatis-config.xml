@@ -28,6 +28,8 @@
 		<mapper resource="config/mybatis/mapper/users.xml" />
 		<mapper resource="config/mybatis/mapper/review.xml" />
 		<mapper resource="config/mybatis/mapper/host.xml" />
+		<mapper resource="config/mybatis/mapper/admin.xml" />
+		
 	</mappers>
 </configuration>
 

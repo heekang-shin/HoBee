@@ -85,7 +85,7 @@ public class MypageController {
 	// 신청내역 조회하기
 	@RequestMapping("/mypage_apply_form.do")
 	public String apply(@RequestParam(defaultValue = "1") int page, // 현재 페이지 기본값 1
-			@RequestParam(defaultValue = "1") int itemsPerPage, // 페이지당 항목 수 기본값 5
+			@RequestParam(defaultValue = "10") int itemsPerPage, // 페이지당 항목 수 기본값 5
 			Model model, HttpSession session) {
 		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
 		int user_Id = user.getUser_Id();
@@ -204,6 +204,8 @@ public class MypageController {
 			// 비밀번호가 일치하면 사용자 삭제 수행
 			int res = mypage_dao.mypage_user_delete(vo);
 
+			
+			
 			// 삭제 성공 시 성공 페이지로 이동
 			return Common.User.VIEW_PATH + "user_delete_finish.jsp";
 		} else {

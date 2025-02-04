@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			resultType="hobee"
 			parameterType="int">
 			select * from hobee
-			where category_num like #{category}||'%'
+			where category_num like #{category}||'%' and status = 1
 			order by hb_write_date
 	</select>
 	
@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			resultType="hobee"
 			parameterType="int">
 			select * from hobee
-			where category_num like #{category}||'%'
+			where category_num like #{category}||'%' and status = 1
 			order by num_of_p desc
 	</select>
 	

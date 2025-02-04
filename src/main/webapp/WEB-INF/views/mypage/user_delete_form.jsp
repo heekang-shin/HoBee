@@ -30,6 +30,9 @@
 				return;
 			}
 			
+			if (!confirm("정말 탈퇴 하시겠어요?")) {
+				return;
+			}
 		
 			 f.action="mypage_user_delete.do";
 		     f.method='get';  

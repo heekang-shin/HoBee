@@ -204,6 +204,7 @@ public class MypageController {
 			// 비밀번호가 일치하면 사용자 삭제 수행
 			int res = mypage_dao.mypage_user_delete(vo);
 
+			
 			// 삭제 성공 시 성공 페이지로 이동
 			return Common.User.VIEW_PATH + "user_delete_finish.jsp";
 		} else {

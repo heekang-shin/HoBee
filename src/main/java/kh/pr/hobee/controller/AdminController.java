@@ -285,7 +285,6 @@ public class AdminController {
 		return "redirect:admin_host.do";
 	}
 	
-	
 	//detail-부분-호스트의 신청을 거절하기 =HOST테이블에서 해당 호스트 삭제 
 	@RequestMapping("admin_host_refuse.do")
 	public String ad_host_refuse(HostVO vo) {

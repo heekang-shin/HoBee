@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		select * from hobee
 		where hb_idx=#{hb_idx}
-		
+
 	</select>
 
 	<!-- 신청내역 조회3 -->
@@ -104,6 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</select>
 
+
 	<!-- 회원삭제를 해보자 -->
 	<delete id="user_delete_finish" parameterType="users">
 
@@ -113,7 +114,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and user_pwd=#{user_pwd}
 
 	</delete>
-
 
 </mapper>
 

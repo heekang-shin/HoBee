@@ -114,7 +114,7 @@
 					</div>
 
 					<div class="content_container">
-						<p>${vo.hb_content}</p>
+						<p><pre>${vo.hb_content}</pre></p>
 						<img src="/hobee/resources/images/upload/${vo.in_image}">
 					</div>
 

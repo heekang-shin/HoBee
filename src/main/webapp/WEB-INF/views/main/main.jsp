@@ -111,7 +111,7 @@
 						새로운 사람들과 함께 즐기는 겨울 스포츠! <br>초보자도 환영, 친구들과 멋진 시간을 보내며 겨울을 만끽해
 						보세요.
 					</p>
-					<a href="#" class="inner aos-item" data-aos="fade-up">더 알아보기</a>
+					<a href="select_list.do?category=1" class="inner aos-item" data-aos="fade-up">더 알아보기</a>
 				</div>
 			</div>
 	
@@ -123,7 +123,7 @@
 					<p class="inner aos-item" data-aos="fade-up">
 						함께하는 순간이 특별해지는 와인 파티!<br>다양한 와인을 경험하며 소소한 즐거움을 나눠보세요.
 					</p>
-					<a href="#" class="inner aos-item" data-aos="fade-up">더 알아보기</a>
+					<a href="select_list.do?category=6" class="inner aos-item" data-aos="fade-up">더 알아보기</a>
 				</div>
 			</div>
 	
@@ -137,7 +137,7 @@
 					<p class="inner aos-item" data-aos="fade-up">
 						전략, 협력, 그리고 웃음이 가득한 시간.<br>게임을 사랑하는 사람들과 함께라면 매 순간이 즐겁습니다.
 					</p>
-					<a href="#" class="inner aos-item" data-aos="fade-up">더 알아보기</a>
+					<a href="select_list.do?category=5" class="inner aos-item" data-aos="fade-up">더 알아보기</a>
 				</div>
 	
 			</div>
@@ -195,7 +195,7 @@
 	
 			<div class="con_header">
 				<h1>주간 인기 BEST</h1>
-				<a href="#">전체보기</a>
+				<a href="select_list.do?category=1">전체보기</a>
 			</div>
 	
 			<!-- 베스트 제품이 없는 경우-->
@@ -228,7 +228,7 @@
 	
 			<div class="con_header">
 				<h1>HOBEE들의 픽</h1>
-				<a href="#">전체보기</a>
+				<a href="select_list.do?category=1">전체보기</a>
 			</div>
 	
 			<!-- pick 제품이 없는 경우-->
@@ -275,7 +275,7 @@
 	
 			<div class="con_header">
 				<h1>신규 HOBEE</h1>
-				<a href="#">전체보기</a>
+				<a href="select_list.do?category=1">전체보기</a>
 			</div>
 	
 			<!--new 제품이 없는 경우-->

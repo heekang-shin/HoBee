@@ -1,21 +1,21 @@
 document.addEventListener('DOMContentLoaded', function () {
     const categories = {
         "1": [
-            { id: 11, name: "런닝" },
+            { id: 11, name: "런닝/등산" },
             { id: 12, name: "자전거" },
-            { id: 13, name: "등산" },
-            { id: 14, name: "배드민턴" }
+            { id: 13, name: "요가/헬스" },
+            { id: 14, name: "구기종목" }
         ],
         "2": [
             { id: 21, name: "노래/보컬" },
             { id: 22, name: "밴드/합주" },
-            { id: 23, name: "피아노" },
-            { id: 24, name: "현악기" }
+            { id: 23, name: "클래식" },
+            { id: 24, name: "랩/힙합" }
         ],
         "3": [
-            { id: 31, name: "미술/그림" },
+            { id: 31, name: "제과/제빵" },
             { id: 32, name: "캔들/디퓨저/석고" },
-            { id: 33, name: "소품 공예" },
+            { id: 33, name: "미술/그림" },
             { id: 34, name: "자수/뜨개질" }
         ],
         "4": [
@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', function () {
             { id: 54, name: "방탈출" }
         ],
         "6": [
-            { id: 61, name: "나이" },
-            { id: 62, name: "지역" },
+            { id: 61, name: "반려동물" },
+            { id: 62, name: "맛집/지역" },
             { id: 63, name: "와인/커피" },
-            { id: 64, name: "맛집" }
+            { id: 64, name: "나이" }
         ]
     };
 

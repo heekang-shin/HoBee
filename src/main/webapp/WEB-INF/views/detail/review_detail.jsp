@@ -132,8 +132,9 @@
 										<th>리뷰 내용</th>
 										<th>작성일</th>
 
-										<!-- ✅ '일반' 사용자 또는 로그인하지 않은 경우 '게시 상태' 열을 숨김 -->
-										<c:if test="${not empty userLevel and userLevel != '일반'}">
+										<!-- ✅ 로그인했으며 일반 사용자가 아닌 경우만 "게시 상태" 컬럼 표시 -->
+										<c:if
+											test="${not empty sessionScope.loggedInUser and sessionScope.loggedInUser.lv != '일반'}">
 											<th>게시 상태</th>
 										</c:if>
 
@@ -149,15 +150,16 @@
 											<td>${review.content}</td>
 											<td>${review.created_at}</td>
 
-											<!-- ✅ '일반' 사용자는 '게시 상태' 컬럼 없음 -->
-											<c:if test="${userLevel != '일반'}">
+											<!-- ✅ 로그인했으며 일반 사용자가 아닌 경우만 "게시 상태" 값 표시 -->
+											<c:if
+												test="${not empty sessionScope.loggedInUser and sessionScope.loggedInUser.lv != '일반'}">
 												<td><c:choose>
 														<c:when test="${review.request_status == '대기'}">
 															<span style="color: red;">삭제 요청됨</span>
 														</c:when>
 														<c:otherwise>
-                                        게시 중
-                                    </c:otherwise>
+                        게시 중
+                    </c:otherwise>
 													</c:choose></td>
 											</c:if>
 										</tr>

@@ -75,7 +75,7 @@
 				</c:if>
 
 				<!-- 관리자, 총괄관리자일 경우 -->
-				<c:if test="${sessionScope.loggedInUser.lv == '관리자' || sessionScope.loggedInUser.lv == '총괄관리자'}">
+				<c:if test="${sessionScope.loggedInUser.lv == '관리자' or sessionScope.loggedInUser.lv == '총괄관리자'}">
 				    <li><a href="admin_main.do" class="host">관리자센터</a></li>
 				</c:if>
 				

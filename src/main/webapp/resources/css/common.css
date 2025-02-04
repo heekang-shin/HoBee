@@ -314,11 +314,7 @@ ul li {
     margin-right: 18.5px;
     position: relative;
     overflow: hidden;
-<<<<<<< HEAD
-   text-overflow: ellipsis;
-=======
 	text-overflow: ellipsis;
->>>>>>> branch 'main2' of https://heekang-shin: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@github.com/heekang-shin/HoBee.git
 }
 
 .con_box:last-child {
@@ -326,20 +322,12 @@ ul li {
 }
 
 .con_box h2  {
-<<<<<<< HEAD
-   font-size: 22px;
-   color: var(--content-title-color);
-   margin-top: 16px;
-  overflow: hidden;
-   text-overflow: ellipsis;
-   white-space: nowrap;
-=======
+
 	font-size: 22px;
 	color: var(- -content-title-color);
 	margin-top: 16px;
 	overflow: hidden;
 	text-overflow: ellipsis;
->>>>>>> branch 'main2' of https://heekang-shin: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@github.com/heekang-shin/HoBee.git
 }
 
 .con_box p {

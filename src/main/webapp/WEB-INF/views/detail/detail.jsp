@@ -524,7 +524,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			</div>
 
 			<div id="notice-details" style="display: none">
-				<p>${hobee.hb_notice}</p>
+				<p><pre>${hobee.hb_notice}</pre></p>
 			</div>
 
 			<!-- 환불정책 -->

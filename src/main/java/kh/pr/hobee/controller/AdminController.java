@@ -204,18 +204,7 @@ public class AdminController {
 	}
 	
 	
-
 	
-	// 호스트 관리
-	@RequestMapping("admin_host.do")
-	public String adminHost(Model model) {
-		setCurrentUrl(model);
-		return Common.VIEW_PATH + "admin/admin_host.jsp";
-	}
-	
-	
-	
-
 	// 프로그램 관리
 	@RequestMapping("admin_program.do")
 	public String adminProgram(Model model, 
@@ -250,7 +239,7 @@ public class AdminController {
 	}
 
 	// 프로그램 상세 페이지
-	@RequestMapping("admin_host_detail.do")
+	@RequestMapping("admin_program_detail.do")
 	public String adminHost(int hb_idx,int status, String category_name, Model model) {
 		HobeeVO vo = hobeedao.applyOne(hb_idx);
 		model.addAttribute("vo", vo);

@@ -4,91 +4,105 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="review">
 
-
-	<!-- 리뷰 전체조회 -->
+	<!-- 리뷰 전체 조회 -->
 	<select id="review_list" resultType="review">
 		SELECT * FROM review ORDER
 		BY created_at DESC
 	</select>
-
 
 	<!-- 리뷰 등록 -->
 	<insert id="review_insert" parameterType="review">
 		INSERT INTO review
 		(review_id, user_name, content, rating, hb_idx, user_id)
 		VALUES
-		(review_seq.NEXTVAL, #{user_name}, #{content}, #{rating}, #{hb_idx}, #{user_id})
+		(review_seq.NEXTVAL, #{user_name}, #{content}, #{rating}, #{hb_idx},
+		#{user_id})
 	</insert>
 
+
 	<!-- 특정 hbidx로 리뷰 조회 -->
-	<select id="selreview_list" resultType="review"
-		parameterType="int">
-		SELECT * FROM review WHERE hb_idx = #{hb_idx}
+	<select id="selreview_list" parameterType="int"
+		resultType="review">
+		SELECT r.*,
+		COALESCE(rd.request_status, '게시 중') AS request_status
+		FROM review r
+		LEFT JOIN review_delete_requests rd
+		ON r.review_id = rd.review_id
+		AND rd.request_status = '대기'
+		WHERE r.hb_idx = #{hb_idx}
+		ORDER BY r.created_at DESC
 	</select>
 
 
+
+	<!-- 최신 리뷰 3개 조회 -->
 	<select id="recentList" parameterType="int" resultType="review">
-		
-	 <![CDATA[
-    SELECT *
-    FROM (
-        SELECT *
-        FROM review
-        WHERE hb_idx = #{hb_idx}
-        ORDER BY created_at DESC
-    )
-    WHERE rownum <= 3
-    ]]> <!-- XML 부등호 사용 <![CDATA[ ]]> -->
-
+        <![CDATA[
+        SELECT * FROM (
+            SELECT * FROM review WHERE hb_idx = #{hb_idx} ORDER BY created_at DESC
+        ) WHERE rownum <= 3
+        ]]>
 	</select>
 
-	<!--review_id로 조회된 리뷰 삭제 -->
+	<!-- 특정 review_id로 리뷰 삭제 -->
 	<delete id="review_del" parameterType="int">
-		DELETE FROM review
-		WHERE
+		DELETE FROM review WHERE
 		review_id = #{review_id}
 	</delete>
-	<!--review_id로 조회된 리뷰 -->
-	<select id="getReviewById" resultType="review">
-		SELECT *
-		FROM review
-		WHERE
-		review_id = #{review_id}
+
+	<!-- 특정 review_id로 리뷰 조회 -->
+	<select id="getReviewById" parameterType="int"
+		resultType="review">
+		SELECT * FROM review WHERE review_id = #{review_id}
 	</select>
 
-	<!-- userId로 조회되는 리뷰 조회 -->
+	<!-- 특정 user_id로 리뷰 조회 -->
 	<select id="getReviewsByUserId" parameterType="String"
 		resultType="review">
-		SELECT *
-		FROM review
-		WHERE user_id = #{userId}
-		ORDER BY
+		SELECT * FROM review WHERE user_id = #{userId} ORDER BY
 		created_at DESC
 	</select>
 
+	<!-- 삭제 요청을 DB에 저장 -->
+	<insert id="insertDeleteRequest" parameterType="review">
+		INSERT INTO
+		review_delete_requests (review_id, requested_by, hb_idx,
+		request_status)
+		VALUES (#{review_id}, #{requested_by}, #{hb_idx},
+		#{request_status})
+	</insert>
 
+	<!-- '대기' 상태의 삭제 요청 목록 조회 -->
+	<select id="getPendingDeleteRequests" resultType="review">
+		SELECT r.*,
+		d.requested_by, d.request_status
+		FROM review_delete_requests d
+		JOIN
+		review r ON d.review_id = r.review_id
+		WHERE d.request_status = '대기'
+	</select>
+
+	<!-- 삭제 요청 승인/거절 업데이트 -->
+	<update id="updateDeleteRequestStatus" parameterType="review">
+		UPDATE
+		review_delete_requests
+		SET request_status = #{request_status}
+		WHERE
+		review_id = #{review_id}
+	</update>
+
+	<!-- 특정 리뷰 ID에 대한 삭제 요청 존재 여부 확인 -->
+	<select id="countDeleteRequest" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*) FROM review_delete_requests
+		WHERE review_id
+		= #{review_id} AND request_status = '대기'
+	</select>
+
+	<!-- 특정 요청 삭제 (관리자가 승인/거절 시) -->
+	<delete id="deleteDeleteRequest" parameterType="int">
+		DELETE FROM
+		review_delete_requests WHERE review_id = #{review_id}
+	</delete>
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

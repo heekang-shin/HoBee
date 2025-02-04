@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,51 +16,51 @@
 <script src="/hobee/resources/js/hostFunction.js"></script>
 </head>
 
-
 <script>
-function toggleCheckboxes(selectAllCheckbox) {
-    // 클래스가 'rowCheckbox'인 모든 하위 체크박스를 선택
-    const checkboxes = document.querySelectorAll('.rowCheckbox');
-    // 상단 체크박스의 상태에 따라 하위 체크박스 체크/해제
-    checkboxes.forEach(function(checkbox) {
-        checkbox.checked = selectAllCheckbox.checked;
-    });
-}
 
-function submitForm() {
-    // 폼 객체 가져오기
-    const form = document.getElementById('reviewForm');
-
-    // 체크된 체크박스들 가져오기
-    const checkboxes = document.querySelectorAll('.rowCheckbox:checked');
-
-    // 체크된 체크박스에서 값 수집
-    const selectedIds = Array.from(checkboxes).map(checkbox => checkbox.value);
-
-    // 체크박스 값 확인
-    if (selectedIds.length === 0) {
-        alert("삭제할 항목을 선택하세요.");
-        return;
+    // 모든 rowCheckbox 체크박스 선택/해제
+    function toggleCheckboxes(selectAllCheckbox) {
+        const checkboxes = document.querySelectorAll('.rowCheckbox');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
     }
 
-    // 확인 메시지 표시
-    if (confirm("선택한 리뷰를 삭제하시겠습니까?")) {
-        form.submit(); // 폼 제출
+    function submitForm(userLevel) {
+        let form = document.getElementById('reviewForm');
+
+        // 기본 이벤트 중지 (중복 호출 방지)
+        event.preventDefault();
+
+        // 체크된 체크박스들 가져오기
+        const checkboxes = document.querySelectorAll('.rowCheckbox:checked');
+        const selectedIds = Array.from(checkboxes).map(checkbox => checkbox.value).join(',');
+
+        if (selectedIds.length === 0) {
+            alert("삭제할 항목을 선택하세요.");
+            return;
+        }
+
+        // ✅ 삭제 메시지 동적 설정
+        let message = "";
+        if (userLevel === "호스트") {
+            message = "선택한 리뷰를 삭제 요청하시겠습니까?";
+        } else if (userLevel === "일반") {
+            message = "선택한 리뷰를 삭제하시겠습니까?";
+        } else if (userLevel === "관리자" || userLevel === "총괄관리자") {
+            message = "선택한 리뷰를 즉시 삭제하시겠습니까?";
+        }
+
+        // ✅ confirm 실행 후 확인 버튼을 누르면 form을 제출
+        if (!window.confirm(message)) {
+            return; // 사용자가 취소하면 form 제출하지 않음
+        }
+
+        // ✅ action 설정 및 form 제출
+        form.action = "deleteReview.do";
+        form.submit();
     }
-}
 
-
-// 컨트롤러에서 전달된 errorMessage 확인
-<c:if test="${not empty errorMessage}">
-    alert('${errorMessage}');
-</c:if>
-//컨트롤러에서 전달된 infoMessage 확인
-<c:if test="${not empty infoMessage}">
-if (confirm('${infoMessage}')) {
-	 let userLevel = "${userLevel}";
-    document.getElementById('reviewForm').submit();
-}
-</c:if>
 </script>
 
 <body>
@@ -77,10 +77,10 @@ if (confirm('${infoMessage}')) {
 				<h3>프로그램 목록</h3>
 			</div>
 
-			<!--대시보드 영역 -->
+			<!-- 대시보드 영역 -->
 			<div class="dashboard">
 
-				<!-- 검색창 시작-->
+				<!-- 검색창 시작 -->
 				<div class="search-container">
 					<form>
 						<!-- 드롭다운 메뉴 -->
@@ -95,11 +95,10 @@ if (confirm('${infoMessage}')) {
 						<!-- 검색 입력 필드 -->
 						<input id="search" type="search" placeholder="검색어를 입력해 주세요."
 							name="search_text" class="search-input"
-							onkeypress="if( event.keyCode == 13 ){enterKey(this.form)}" />
+							onkeypress="if(event.keyCode == 13){enterKey(this.form)}" />
 
 						<!-- 검색 버튼 -->
 						<input type="button" class="search-button" onclick="">
-
 					</form>
 				</div>
 
@@ -107,46 +106,76 @@ if (confirm('${infoMessage}')) {
 				<div class="table-container">
 					<div class="total-num">
 						<p>
-							전체<span>${reviewCount}건</span>
+							전체 <span>${reviewCount}건</span>
 						</p>
 					</div>
 
+					<!-- 사용자 레벨에 따라 action URL 결정 -->
+					<c:choose>
+						<c:when test="${userLevel == '호스트'}">
+							<c:set var="actionUrl" value="delmyReview.do" />
+						</c:when>
+						<c:otherwise>
+							<c:set var="actionUrl" value="deleteReview.do" />
+						</c:otherwise>
+					</c:choose>
+
 					<form id="reviewForm" action="deleteReview.do" method="post">
-						<table>
-							<thead>
-								<tr>
-									<th><input type="checkbox" id="selall"
-										onchange="toggleCheckboxes(this)"></th>
-									<th>작성자</th>
-									<th>평점</th>
-									<th>리뷰 내용</th>
-									<th>작성일</th>
-									<th>게시 상태</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="review" items="${reviews}">
+						<c:if test="${not empty reviews}">
+							<table>
+								<thead>
 									<tr>
-										<td><input type="checkbox" name="review_id"
-											value="${review.review_id}" class="rowCheckbox"></td>
-										<td>${review.user_name}</td>
-										<td>${review.rating}점</td>
-										<td>${review.content}</td>
-										<td>${review.created_at}</td>
-										<td>게시 중</td>
+										<th><input type="checkbox" id="selall"
+											onchange="toggleCheckboxes(this)"></th>
+										<th>작성자</th>
+										<th>평점</th>
+										<th>리뷰 내용</th>
+										<th>작성일</th>
+
+										<!-- ✅ '일반' 사용자 또는 로그인하지 않은 경우 '게시 상태' 열을 숨김 -->
+										<c:if test="${not empty userLevel and userLevel != '일반'}">
+											<th>게시 상태</th>
+										</c:if>
+
 									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									<c:forEach var="review" items="${reviews}">
+										<tr>
+											<td><input type="checkbox" name="review_id"
+												value="${review.review_id}" class="rowCheckbox"></td>
+											<td>${review.user_name}</td>
+											<td>${review.rating}점</td>
+											<td>${review.content}</td>
+											<td>${review.created_at}</td>
+
+											<!-- ✅ '일반' 사용자는 '게시 상태' 컬럼 없음 -->
+											<c:if test="${userLevel != '일반'}">
+												<td><c:choose>
+														<c:when test="${review.request_status == '대기'}">
+															<span style="color: red;">삭제 요청됨</span>
+														</c:when>
+														<c:otherwise>
+                                        게시 중
+                                    </c:otherwise>
+													</c:choose></td>
+											</c:if>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</c:if>
+
+						<!-- ✅ 삭제하기 버튼 유지 -->
 						<div class="applybtn-box">
 							<input type="hidden" name="hbidx" value="${hbidx}"> <input
-								type="button" value="삭제하기" onclick="submitForm();">
+								type="button" value="삭제하기" onclick="submitForm('${userLevel}');">
+
 						</div>
 					</form>
 
 
-
-					<!--페이징 시작-->
+					<!-- 페이징 시작 -->
 					<div class="pagination">
 						<a href="#" class="first-page">«</a> <a href="#" class="prev-page">‹</a>
 						<a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>

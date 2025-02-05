@@ -99,7 +99,7 @@ function submitEditForm() {
 								<th width="5%"class="line">
 									<input type="checkbox" id="selall" onchange="toggleCheckboxes(this)">
 								</th>
-								<th width="15%" class="line">작성자</th>
+								<th width="15%" class="line">모임명</th>
 								<th width="5%" class="line">평점</th>
 								<th width="25%" class="line">리뷰 내용</th>
 								<th width="10%" class="line">작성일</th>
@@ -136,7 +136,6 @@ function submitEditForm() {
 					<div class="applybtn-box">
 						<input type="hidden" name="hbidx" value="${hbidx}"> <input
 							type="button" value="삭제하기" onclick="submitDeleteForm();">
-						<input type="button" value="수정하기" onclick="submitEditForm();">
 					</div>
 					
 				</form>

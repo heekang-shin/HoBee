@@ -19,8 +19,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			resultType="hobee"
 			parameterType="int">
 			select * from hobee
-			where category_num like #{category}||'%'
-			order by hb_write_date
+			where category_num like #{category}||'%' and status = 1
+			order by hb_write_date desc
 	</select>
 	
 
@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			resultType="hobee"
 			parameterType="int">
 			select * from hobee
-			where category_num like #{category}||'%'
+			where category_num like #{category}||'%' and status = 1
 			order by num_of_p desc
 	</select>
 	
@@ -116,6 +116,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	select * from users
     	where user_id = #{userid}
     
+    </select>
+    
+    <!-- 상세페이지 프로필에 호스트정보 가져오기 -->
+    <select id ="hostinfo" parameterType="int" resultType="ho">
+    	select * from host
+    	where user_id = #{hostnum}
     </select>
 </mapper>
 

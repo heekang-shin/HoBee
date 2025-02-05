@@ -134,7 +134,8 @@ h2 {
     float: left;
     position: relative;
     padding:18.5px;
-    
+    overflow: hidden;
+   text-overflow: ellipsis;
 }
 
 .con_box:last-child {
@@ -142,9 +143,13 @@ h2 {
 }
 
 .con_box h2 {
+	width:336px;
     font-size: 22px;
     color: #222222;
     margin-top: 16px;
+    overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
 }
 
 .con_box p {

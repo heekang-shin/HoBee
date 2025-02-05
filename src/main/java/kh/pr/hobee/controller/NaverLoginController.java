@@ -79,7 +79,7 @@ public class NaverLoginController {
             user.setUser_name(userInfo.optString("name", "네이버 사용자"));
             user.setUser_email(userInfo.optString("email", ""));
             user.setPhone(userInfo.optString("mobile", ""));
-
+            user.setLv("일반"); // 🔹 lv 값을 "일반"으로 설정
             // 세션에 사용자 정보 저장
             session.setAttribute("loggedInUser", user);
 

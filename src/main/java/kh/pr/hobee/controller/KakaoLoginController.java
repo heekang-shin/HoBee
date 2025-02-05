@@ -102,7 +102,7 @@ public class KakaoLoginController {
             user.setSocial_Id(userInfo.optString("id"));
             user.setUser_name(userInfo.getJSONObject("kakao_account").getJSONObject("profile").optString("nickname", "카카오 사용자"));
             user.setUser_email(userInfo.getJSONObject("kakao_account").optString("email", ""));
-
+            user.setLv("일반"); // 🔹 lv 값을 "일반"으로 설정
             // 세션에 사용자 정보 저장
             session.setAttribute("loggedInUser", user);
             logger.info("사용자 정보 저장 완료. 사용자 이름: {}", user.getUser_name());

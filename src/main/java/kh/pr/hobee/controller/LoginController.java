@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -61,6 +60,7 @@ public class LoginController {
 
 	        if (isValid) {
 	            session.setAttribute("loggedInUser", user); // 세션에 사용자 정보 저장
+	            session.setAttribute("userLevel", user.getLv()); // 사용자 레벨을 세션에 저장
 	            return "success";
 	        }
 	    }
@@ -113,6 +113,9 @@ public class LoginController {
 	    String encryptedPassword = pwdUtil.encryption(user.getUser_pwd()); // 입력된 비밀번호 암호화
 	    user.setUser_pwd(encryptedPassword); // 암호화된 비밀번호를 VO에 설정
 
+	    if (user.getLv() == null || user.getLv().isEmpty()) {
+	    	user.setLv("일반");
+	    }
 	    // DAO 호출 및 사용자 정보 저장
 	    int result = users_dao.Create(user);
 

@@ -119,6 +119,10 @@ public class HostController {
 
 		// 날짜 가져오기
 		model.addAttribute("now", new Date());
+		
+		//호스트 정보
+		HostVO host_vo = host_dao.selectHost(user_id);
+		model.addAttribute("host",host_vo);
 
 		model.addAttribute("apply_list", apply_list);
 		model.addAttribute("inqList", inqList);

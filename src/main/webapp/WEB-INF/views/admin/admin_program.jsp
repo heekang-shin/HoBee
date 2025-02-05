@@ -107,7 +107,7 @@
 									<td width="5%" class="line">${startIdx - status.index}</td>
 									<td width="10%" class="line">${vo.category_name}</td>
 									<td width="25%" class="line" style="text-align: left;">
-									<a href="admin_host_detail.do?hb_idx=${vo.hb_idx}&category_name=${vo.category_name}&status=${vo.status}">${vo.hb_title}</a>
+									<a href="admin_program_detail.do?hb_idx=${vo.hb_idx}&category_name=${vo.category_name}&status=${vo.status}">${vo.hb_title}</a>
 									</td>
 									<td width="10%" class="line"><fmt:formatNumber
 											value="${vo.hb_price}" /> 원</td>

@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -202,7 +204,78 @@
 	        });
 	    });
 	</script>
-		
+
+<!--리뷰 -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const stars = document.querySelectorAll('.star-rating input[type="button"]');
+
+    // 각 별 클릭 이벤트 등록
+    stars.forEach((star, index) => {
+        star.addEventListener("click", function () {
+            // 모든 별의 active 클래스 제거
+            stars.forEach(star => star.classList.remove("active"));
+
+            // 클릭한 별 이하의 모든 별에 active 클래스 추가
+            for (let i = 0; i <= index; i++) {
+                stars[i].classList.add("active");
+            }
+
+            // 선택한 별점을 hidden 필드에 저장
+            document.getElementById("rating").value = index + 1;
+            console.log("선택된 별점: ", index + 1);
+        });
+    });
+});
+</script>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		let reviewGroup = document.getElementById("review-group");
+		let ratingInput = document.getElementById("rating"); // 추가된 hidden 필드 가져오기
+
+		// 별점 클릭 시 rating 값을 설정
+		window.rateStar = function(starNumber) {
+			document.getElementById("rating").value = starNumber; // 값 설정
+			console.log("[디버그] rateStar 호출 - 설정된 rating 값: "
+					+ document.getElementById("rating").value);
+			reviewGroup.style.display = "block";
+			console.log(starNumber + "점을 선택했습니다.");
+		};
+
+	});
+	
+	// 등록 버튼 클릭 처리
+	function registration(f) {
+		let reviewContent = f.reviewContent.value; // name="reviewContent"
+		console.log("[디버그] 리뷰 내용: " + reviewContent); // 디버깅용
+
+		let rating = f.rating.value; // name="rating"
+		console.log("[디버그] 별점 값: " + rating); // 디버깅용
+
+		let hbidx = f.hbidx.value; // name="hbidx"
+		console.log("[디버그] 게시글 ID (hbidx): " + hbidx); // 디버깅용
+
+		if (!reviewContent.trim()) {
+			alert("내용을 입력하세요");
+			return;
+		}
+		if (!rating) { // rating 값이 없는 경우 처리
+			alert("별점을 선택하세요");
+			return;
+		}
+		if (!hbidx) { // hbidx 값이 없는 경우 처리
+			alert("게시글 정보가 없습니다. 새로고침 후 다시 시도하세요.");
+			return;
+		}
+
+		f.method = "post";
+		f.action = "Review.do";
+		f.submit();
+	}
+</script>
+
+
 
 </head>
 <body>
@@ -215,13 +288,25 @@
 		<div class="left_container">
 			<img src="/hobee/resources/images/upload/${hobee.l_image}">
 
+			<!-- 호스트 소개 -->
+			<div class="sub-title">
+			    <h2>호스트정보</h2>
+			</div>
+			<div class="host-info">
+			    <img src="/hobee/resources/images/upload/${host.host_img}" alt="호스트 이미지">
+			    <div class="host-details">
+			        <div class="host-name">${host.host_name}</div>
+			        <div class="host-description"><pre>${host.host_info}</pre></div>
+			    </div>
+			</div>
+
 			<!-- 소개 -->
 			<div class="sub-title">
-				<h2>소개</h2>
+				<h2>모임 소개</h2>
 			</div>
 
 			<div class="content_container">
-				<p>${hobee.hb_content}</p>
+				<p><pre>${hobee.hb_content}</pre></p>
 				 <img src="/hobee/resources/images/upload/${hobee.in_image}">
 			</div>
 
@@ -294,6 +379,81 @@
 									}
 								});
 			</script>
+			
+			<!-- 리뷰 -->
+			<div class="sub-title">
+				<h2>리뷰 (${reviewCount == null ? 0 : reviewCount})</h2>
+			</div>
+
+			<!-- 평균 별점 및 누적 리뷰 -->
+			<div class="rating-info">
+				<p>경험한 유저 ${empty reviewCount ? 0 : reviewCount}명이 ${empty formattedAverageRating ? 0 : formattedAverageRating}점을
+					줬어요!</p>
+				<span>${empty formattedAverageRating ? 0 : formattedAverageRating}/5&nbsp;(${empty reviewCount ? 0 : reviewCount})</span>
+			</div>
+
+			<form id="reviewForm">
+				<!-- 별점 버튼 -->
+				<div class="star-rating">
+					<h3>리뷰 작성</h3>
+					<input type="hidden" id="hbidx" name="hbidx" value="${hbidx}">
+					<input type="hidden" id="rating" name="rating">
+					<input type="button" value="★" id="star1" onclick="rateStar(1);">
+					<input type="button" value="★" id="star2" onclick="rateStar(2);">
+					<input type="button" value="★" id="star3" onclick="rateStar(3);">
+					<input type="button" value="★" id="star4" onclick="rateStar(4);">
+					<input type="button" value="★" id="star5" onclick="rateStar(5);">
+				</div>
+
+
+
+				<!-- 리뷰 입력란 -->
+				<div id="review-group" class="hidden">
+					<textarea name="reviewContent" id="reviewContent"
+						placeholder="리뷰 내용을 입력해 주세요." required></textarea>
+					<input type="button" value="등록하기" onclick="registration(this.form)">
+				</div>
+			</form>
+
+
+			<!-- 최신 리뷰 3개 표시 -->
+			<div class="recent-review-list">
+				<h3>최신 리뷰</h3>
+
+				<!-- 리뷰가 비어 있는 경우 -->
+				<c:if test="${empty recentReviews}">
+					<div class="no-review">등록된 리뷰가 존재하지 않습니다.</div>
+				</c:if>
+
+				<!-- 리뷰가 존재하는 경우 -->
+				<c:if test="${not empty recentReviews}">
+					<c:forEach var="review" items="${recentReviews}">
+						<div class="recent-review-item">
+							<div class="review-info">
+								<p>
+									<span>작성자</span>&nbsp;${review.user_name}
+								</p>
+								<p>
+									<span>등록일</span>&nbsp;${fn:substring(review.created_at, 0, 10)}
+								</p>
+								<p>
+									<span>별점</span>&nbsp;${review.rating}점
+								</p>
+							</div>
+
+							<h4>${review.content}</h4>
+
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
+
+			<!-- 전체 리뷰 -->
+			<div class="review-list-container">
+				<!-- 더보기 버튼 -->
+				<button onclick="location.href='review_detail.do?hbidx=${hbidx}'">더보기</button>
+			</div>
+			
 
 			<!-- 1:1 문의 게시판 -->
 			<div class="sub-title">
@@ -376,7 +536,7 @@
 			</div>
 
 			<div id="notice-details" style="display: none">
-				<p>${hobee.hb_notice}</p>
+				<p><pre>${hobee.hb_notice}</pre></p>
 			</div>
 
 			<!-- 환불정책 -->

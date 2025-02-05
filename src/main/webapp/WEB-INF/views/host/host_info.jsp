@@ -95,7 +95,7 @@
 							
 							<!-- 호스트 소개 -->
 							<div class="form-box edit-box">
-								<label>프로그램 내용 <b class="req">*</b></label>
+								<label>호스트 소개 <b class="req">*</b></label>
 								<textarea name="host_info" placeholder="호스트님의 소개를 해 주세요.">${hostInfo.host_info}</textarea>
 							</div>
 	

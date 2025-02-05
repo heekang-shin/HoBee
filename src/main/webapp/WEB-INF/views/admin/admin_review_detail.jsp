@@ -70,8 +70,8 @@
 								<td>${review.requested_by}</td>
 								<td>${review.created_at}</td>
 								<td>
-									<button onclick="approveDelete(${review.review_id})">승인</button>
-									<button onclick="rejectDelete(${review.review_id})">거부</button>
+									<button class="ok" onclick="approveDelete(${review.review_id})">승인</button>
+									<button class="no" onclick="rejectDelete(${review.review_id})">거부</button>
 								</td>
 							</tr>
 						</c:forEach>

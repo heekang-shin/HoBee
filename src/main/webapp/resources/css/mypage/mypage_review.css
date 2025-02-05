@@ -102,28 +102,14 @@ tbody td a{
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease; 
-}
-
-.applybtn-box input[type="button"]:nth-child(1) {
-	border:1px solid var(--color-red);
+    border:1px solid var(--color-red);
 	color:var(--color-red);
 	background-color:var(--color-white);
 }
 
-.applybtn-box input[type="button"]:nth-child(2) {
-	border:1px solid var(--color-black);
-	color:var(--color-black);
-	background-color:var(--color-white);
-}
-
-.applybtn-box input[type="button"]:nth-child(1):hover {
+.applybtn-box input[type="button"]:hover {
 	color:var(--color-white);
 	background-color:var(--color-red);
-}
-
-.applybtn-box input[type="button"]:nth-child(2):hover {
-	color:var(--color-white);
-	background-color:var(--color-black);
 }
 
 

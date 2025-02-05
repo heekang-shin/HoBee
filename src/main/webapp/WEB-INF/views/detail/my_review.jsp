@@ -12,8 +12,11 @@
 <link rel="stylesheet" href="/hobee/resources/css/host/pagination.css">
 
 <!-- 신청내역 스타일 시트  -->
-<link rel="stylesheet"
-	href="/hobee/resources/css/mypage/mypage_review.css">
+<link rel="stylesheet" href="/hobee/resources/css/mypage/mypage_review.css">
+<link rel="stylesheet" href="/hobee/resources/css/common.css">
+
+<!-- 파비콘 -->
+<link rel="icon" href="/hobee/resources/images/Favicon.png">
 
 <script src="/hobee/resources/js/hostFunction.js"></script>
 
@@ -110,6 +113,6 @@
 		</div>
 		</div>
 	
-		
+		<jsp:include page="/WEB-INF/views/footer/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -1,27 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-		
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+      
 
-	<bean id="inven_daoBean" class="kh.pr.hobee.dao.InvenDAO">
+   <bean id="inven_daoBean" class="kh.pr.hobee.dao.InvenDAO">
+      <property name="sqlSession" ref="sqlSessionBean"/>
+   </bean>
+
+	<bean id="hobee_dao_bean" class="kh.pr.hobee.dao.HobeeDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<!-- CategoryDAO -->
+	<bean id="category_dao_bean" class="kh.pr.hobee.dao.CategoryDAO">
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
 
-
-		<bean id="hobee_dao_bean" class="kh.pr.hobee.dao.HobeeDAO">
-			<property name="sqlSession" ref="sqlSessionBean"/>
-		</bean>
-		
-			<bean id="users_daoBean" class="kh.pr.hobee.dao.UsersDAO">
+	<!-- review -->
+	<bean id="review_daoBean" class="kh.pr.hobee.dao.ReviewDAO">
 		<property name="sqlSession" ref="sqlSessionBean" />
 	</bean>
+		
+		
+	<!-- inqDAO -->
+	<bean id="inq_dao_bean" class="kh.pr.hobee.dao.InquiryDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>	
 	
-		<bean id="review_daoBean" class="kh.pr.hobee.dao.ReviewDAO">
-    <property name="sqlSession" ref="sqlSessionBean" />
-</bean>
-		
-		
+	<!-- resDAO -->
+	<bean id="res_dao_bean" class="kh.pr.hobee.dao.ReserveDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>	 
+	
+	<bean id="mypage_daoBean" class="kh.pr.hobee.dao.MypageDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+
+	<bean id="users_daoBean" class="kh.pr.hobee.dao.UsersDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
+   
+   <!-- 호스트정보 dao -->
+   <bean id="host_daoBean" class="kh.pr.hobee.dao.HostDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+
+	<!-- AdminDAO -->
+	<bean id="admin_daoBean" class="kh.pr.hobee.dao.AdminDAO">
+		<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
+
 </beans>
 
 

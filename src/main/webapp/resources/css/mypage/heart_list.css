@@ -1,0 +1,109 @@
+@charset "UTF-8";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+/* 콘텐츠 시작 */
+.heart-wrapper {
+    width: 1400px;
+    height:500px;
+    margin: 0 auto;
+    margin-bottom: 150px;
+   	margin-top:40px;
+   	background-color:#fff;
+}
+
+.heart_box{
+	float:left;
+	margin-right:14px;
+    position: relative; 
+    margin-bottom: 50px;
+    
+}
+
+
+.heart_box:last-child {
+    margin-right: 0;
+}
+
+.heart_box h2 {
+    font-size: 20px;
+    color: #222222;
+    margin-top: 16px;
+}
+
+.heart_box p {
+    font-size: 20px;
+    color: #474747;
+    margin: 8px 0;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.heart_box span {
+    display: inline-block;
+    width: 46px;
+    line-height: 24px;
+    background-color: #f6f6f6;
+    color: #A8A8A8;
+    margin-left: 4px;
+    text-align: center;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.heart_box img {
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.heart_box img:hover {
+    transform: translateY(-10px);
+}
+
+
+/*찜목록에  데이터가 없을시에 나오는 글자   */
+.no-data-message {
+    text-align: center;
+    font-size: 20px;
+    color: #888;
+    margin-top: 60px;
+   height: auto;
+    background-color: white; /* 배경색 제거 */
+    
+}
+
+
+/* 페이징 버튼 스타일 */
+
+.pagination {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    padding-top:100px;
+}
+
+.pagination a, .pagination span {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 10px 15px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #333;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .current-page {
+    background-color: #333;
+    color: #fff;
+    border-color: #333;
+}
+

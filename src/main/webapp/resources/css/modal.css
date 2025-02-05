@@ -16,9 +16,8 @@
 /* 모달 콘텐츠 */
 .modal-content {
     background: white;
-    padding: 20px 30px;
-    border-radius: 10px;
-    width: 400px;
+   padding: 50px 40px;
+    width: 500px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -48,7 +47,6 @@
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
     font-size: 14px;
     box-sizing: border-box;
 }
@@ -58,15 +56,14 @@
     width: 100%;
     padding: 10px;
     margin-top: 10px;
-    background-color: #000;
+    background-color: var(--color-black);
     color: white;
     border: none;
-    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .modal-content button:hover {
-    background-color: #444;
+   background-color: #444444;
 }

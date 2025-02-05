@@ -35,23 +35,33 @@
 		<beans:property name="inven_dao" ref="inven_daoBean" />
 		<beans:property name="review_dao" ref="review_daoBean" />
 	</beans:bean>
-	
-	<beans:bean class="kh.pr.hobee.controller.PayController"></beans:bean>
+
+
+	<beans:bean class="kh.pr.hobee.controller.PayController">
+		<beans:property name="inven_dao" ref="inven_daoBean" />
+	</beans:bean>
+
+
+	<!-- 메인 컨트롤러 -->
 	<beans:bean class="kh.pr.hobee.controller.MainController">
 		<beans:property name="hobeedao" ref="hobee_dao_bean" />
 	</beans:bean>
 
+	<!-- HostController -->
+	<beans:bean class="kh.pr.hobee.controller.HostController">
+		<beans:property name="hobeedao" ref="hobee_dao_bean" />
+		<beans:property name="inqdao" ref="inq_dao_bean" />
+		<beans:property name="reservedao" ref="res_dao_bean" />
+		<beans:property name="users_dao" ref="users_daoBean" />
+		<beans:property name="host_dao" ref="host_daoBean" />
+	</beans:bean>	
 
+	<!-- LoginController -->
 	<beans:bean class="kh.pr.hobee.controller.LoginController">
 		<beans:property name="users_dao" ref="users_daoBean" />
 	</beans:bean>
-	
-	<beans:bean class="kh.pr.hobee.controller.AdminController">
-		<beans:property name="users_dao" ref="users_daoBean" />
-	</beans:bean>
-
 	<beans:bean
-		class="kh.pr.hobee.controller.NaverLoginController" />
+		class="kh.pr.hobee.controller.NaverLoginController" />		
 	<beans:bean
 		class="kh.pr.hobee.controller.KakaoLoginController" />
 		
@@ -59,34 +69,37 @@
 		<beans:constructor-arg ref="mss" />
 	</beans:bean>
 
+	<!-- inqController -->
+	<beans:bean class="kh.pr.hobee.controller.InqController">
+		<beans:property name="hobeedao" ref="hobee_dao_bean" />
+		<beans:property name="inqdao" ref="inq_dao_bean" />
+	</beans:bean>
+	
+	<!-- resController -->
+	<beans:bean class="kh.pr.hobee.controller.ReserveController">
+		<beans:property name="reservedao" ref="res_dao_bean" />
+	</beans:bean>
+	
+ 	<beans:bean class="kh.pr.hobee.controller.MypageController">
+	 
+	 <beans:property name="mypage_dao"  ref="mypage_daoBean"/>
+	 <!-- <beans:property name="bcp"  ref="bcp_bean"/> -->
+	 </beans:bean>
+	 
+
+	<!-- AdminController -->
+	<beans:bean class="kh.pr.hobee.controller.AdminController">
+		<beans:property name="hobeedao" ref="hobee_dao_bean" />
+		<beans:property name="inqdao" ref="inq_dao_bean" />
+		<beans:property name="reservedao" ref="res_dao_bean" />
+		<beans:property name="users_dao" ref="users_daoBean" />
+		<beans:property name="admin_dao" ref="admin_daoBean"/>
+	</beans:bean>	
+
+	<!-- ReviewController -->
 	<beans:bean class="kh.pr.hobee.controller.ReviewController">
 		<beans:property name="review_dao" ref="review_daoBean" />
 	</beans:bean>
 
-
-	<beans:bean class="kh.pr.hobee.controller.ApplyController"></beans:bean>
-	<beans:bean class="kh.pr.hobee.controller.HostController"></beans:bean>
-
-
-
+	
 </beans:beans>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -11,7 +11,8 @@
 <!-- 파비콘 -->
 <link rel="icon" href="/hobee/resources/images/Favicon.png">
 <link rel="stylesheet" href="/hobee/resources/css/host/common.css">
-
+<link rel="stylesheet" href="/hobee/resources/css/host/host_apply_list.css">
+<link rel="stylesheet" href="/hobee/resources/css/host/pagination.css">
 <!-- 헤더 -->
 <script src="/hobee/resources/js/hostFunction.js"></script>
 </head>

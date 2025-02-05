@@ -14,21 +14,23 @@
 	margin: 120px auto;
 	text-align: center;
 	background-color: #F8F8F8;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: relative;
 }
 
 .container {
 	width: max-content;
 	height: max-content;
-	position: absolute;
-	top:36%;
-	left:32%;
+	text-align: center;
 }
 
 .container h1 {
 	font-size: 36px;
 	font-weight: 400;
 	margin-bottom: 24px;
+	text-align: center;
 }
 
 .container span {

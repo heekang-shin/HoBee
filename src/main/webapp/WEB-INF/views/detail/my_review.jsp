@@ -9,6 +9,9 @@
 <title>리뷰 상세보기</title>
 <link rel="icon" href="/hobee/resources/images/Favicon.png">
 <link rel="stylesheet" href="/hobee/resources/css/host/common.css">
+<link rel="stylesheet" href="/hobee/resources/css/host/host_apply_list.css">
+<link rel="stylesheet" href="/hobee/resources/css/host/pagination.css">
+
 <script src="/hobee/resources/js/hostFunction.js"></script>
 
 <script>
@@ -30,7 +33,7 @@ function submitDeleteForm() {
     }
 
     if (confirm("선택한 리뷰를 삭제하시겠습니까?")) {
-        form.action = "delmyReview.do"; // 삭제 경로 설정
+        form.action = "delmyReview.do";
         form.method = "post";
         form.submit();
     }
@@ -51,11 +54,10 @@ function submitEditForm() {
         return;
     }
 
-    form.action = "editmyReview.do"; // 수정 경로 설정
+    form.action = "editmyReview.do";
     form.method = "post";
     form.submit();
 }
-
 </script>
 </head>
 
@@ -66,7 +68,7 @@ function submitEditForm() {
 
 		<div class="content">
 			<div class="title-box">
-				<h3>프로그램 목록</h3>
+				<h3>작성한 리뷰</h3>
 			</div>
 
 			<div class="dashboard">
@@ -81,8 +83,8 @@ function submitEditForm() {
 						</div>
 						<input id="search" type="search" placeholder="검색어를 입력해 주세요."
 							name="search_text" class="search-input"
-							onkeypress="if( event.keyCode == 13 ){enterKey(this.form)}" /> <input
-							type="button" class="search-button" onclick="">
+							onkeypress="if( event.keyCode == 13 ){enterKey(this.form)}" /> 
+						<input type="button" class="search-button" onclick="">
 					</form>
 				</div>
 
@@ -99,7 +101,6 @@ function submitEditForm() {
 								<tr>
 									<th><input type="checkbox" id="selall"
 										onchange="toggleCheckboxes(this)"></th>
-									<th>번호</th>
 									<th>작성자</th>
 									<th>평점</th>
 									<th>리뷰 내용</th>
@@ -113,8 +114,7 @@ function submitEditForm() {
 										<c:forEach var="review" items="${reviews}">
 											<tr>
 												<td><input type="checkbox" name="review_id"
-													value="${review.review_id}" class="rowCheckbox"></td>
-												<td>${review.review_id}</td>
+													value="${review.user_name}" class="rowCheckbox"></td>
 												<td>${review.user_name}</td>
 												<td>${review.rating}점</td>
 												<td>${review.content}</td>
@@ -125,23 +125,28 @@ function submitEditForm() {
 									</c:when>
 									<c:otherwise>
 										<tr>
-											<td colspan="7">작성된 리뷰가 없습니다.</td>
+											<td colspan="6">작성된 리뷰가 없습니다.</td>
 										</tr>
 									</c:otherwise>
 								</c:choose>
 							</tbody>
 						</table>
 						<div class="applybtn-box">
-							<input type="hidden" name="hbidx" value="${hbidx}"> <input
-								type="button" value="삭제하기" onclick="submitDeleteForm();">
+							<input type="hidden" name="hbidx" value="${hbidx}"> 
+							<input type="button" value="삭제하기" onclick="submitDeleteForm();">
 							<input type="button" value="수정하기" onclick="submitEditForm();">
 						</div>
 					</form>
 
 					<div class="pagination">
-						<a href="#" class="first-page">«</a> <a href="#" class="prev-page">‹</a>
-						<a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
-						<a href="#">4</a> <a href="#">5</a> <a href="#" class="next-page">›</a>
+						<a href="#" class="first-page">«</a> 
+						<a href="#" class="prev-page">‹</a>
+						<a href="#" class="active">1</a> 
+						<a href="#">2</a> 
+						<a href="#">3</a>
+						<a href="#">4</a> 
+						<a href="#">5</a> 
+						<a href="#" class="next-page">›</a>
 						<a href="#" class="last-page">»</a>
 					</div>
 				</div>

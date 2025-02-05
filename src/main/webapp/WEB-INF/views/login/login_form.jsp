@@ -4,9 +4,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-  <title>로그인 페이지</title>
+  	<title>로그인 페이지</title>
+	<link rel="stylesheet" href="/hobee/resources/css/common.css">
     <link rel="stylesheet" href="resources/css/loginform.css">
-    <link rel="stylesheet" href="resources/css/main.css">
     <script src="${ pageContext.request.contextPath }/resources/js/httpRequest.js"></script>
     
     <script>
@@ -70,15 +70,25 @@
             <input type="button" class="login-button" value="로그인" onclick="login();">
         </form>
         <div class="links">
-            <a href="find.do">아이디/비밀번호 찾기</a> | <a href="CreateAccount_form.do">회원가입</a>
+            <a href="find.do" class="find">아이디/비밀번호 찾기</a><a href="CreateAccount_form.do">회원가입</a>
         </div>
-        <div class="social-login">
-            <a href="naver_login.do"><img src="resources/images/naver.png" alt="네이버 로그인" class="social-icon"></a>
-           <a href="${pageContext.request.contextPath}/kakao/kakao_login.do">
-    <img src="${pageContext.request.contextPath}/resources/images/kakao.png" alt="카카오톡 로그인" class="social-icon"></a>
-
-        </div>
+        
 		 </div>
+		 
+		 <!-- 소셜 -->
+		 <div class="social-box">
+	        <div class="social-login">
+	            <a href="naver_login.do">
+	           	 <img src="resources/images/naver.png" alt="네이버 로그인" class="social-icon">
+	            </a>
+	            
+	           	<a href="${pageContext.request.contextPath}/kakao/kakao_login.do">
+	    		<img src="${pageContext.request.contextPath}/resources/images/kakao.png" alt="카카오톡 로그인" class="social-icon">
+	    		</a>
+	        </div>
+        </div>
+        
+        <!-- 푸터 -->
     <jsp:include page="/WEB-INF/views/footer/footer.jsp"></jsp:include>
     
 </body>

@@ -7,55 +7,243 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- best 제품 조회 -->
 	<select id="hobee_best_list" resultType="hobee">
 		SELECT * FROM hobee
+		where STATUS = 1
 		ORDER BY num_of_p DESC
 	</select>
 
 	<!-- pick 제품 조회 -->
 	<select id="hobee_pick_list" resultType="hobee">
 		select * from hobee
+		where STATUS = 1
 		ORDER BY hb_price DESC
 	</select>
 
 	<!-- 신규 제품 조회 -->
 	<select id="hobee_new_list" resultType="hobee">
 		SELECT * FROM hobee
-		WHERE hb_write_date >= SYSDATE - 30
+		WHERE STATUS = 1
+		AND hb_write_date >= SYSDATE - 30
 		ORDER BY hb_write_date DESC
 	</select>
+
 
 	<!-- 헤더, 검색된 제품 조회 -->
 	<select id="hobee_search_list" resultType="hobee"
 		parameterType="String">
 		SELECT * FROM hobee
-		WHERE hb_title LIKE '%' || #{search_text} || '%'
+		WHERE hb_title LIKE '%' ||
+		#{search_text} || '%'
+	</select>
+
+	<!-- host 프로그램 추가 -->
+	<insert id="hobee_insert" parameterType="hobee">
+		insert into hobee
+		values(
+		SEQ_HB_IDX.nextVal,
+		#{hb_title},
+		#{s_image},
+		#{l_image},
+		#{in_image},
+		#{hb_content},
+		#{hb_price},
+		#{num_of_p},
+		#{user_id},
+		#{hb_date},
+		#{hb_tot_num},
+		SYSDATE,
+		#{category_num},
+		#{status},
+		#{hb_notice},
+		#{hb_time},
+		#{hb_address},
+		#{postcode},
+		#{address},
+		#{detailAddress},
+		#{extraAddress}
+		)
+	</insert>
+
+	<!--host apply 리스트 조회 -->
+	<select id="hobee_apply_list" resultType="hobee">
+		SELECT
+			h.HB_IDX,
+			h.HB_TITLE,
+			h.HB_PRICE,
+			h.HB_DATE,
+			h.HB_TIME,
+			h.HB_WRITE_DATE,
+			h.STATUS,
+			h.USER_ID,
+			c.CATEGORY_NAME,
+			c.BIGCATEGORY
+		FROM
+			hobee h
+		JOIN
+			category c
+		ON
+			h.CATEGORY_NUM = c.CATEGORY_NUM
+		ORDER BY
+			h.HB_WRITE_DATE DESC
+	</select>
+	
+	
+	<!--host apply 리스트 조회 (특정 user_id 기준)-->
+	<select id="hobee_apply_list_user" parameterType="int" resultType="hobee">
+	    SELECT
+	        h.HB_IDX,
+	        h.HB_TITLE,
+	        h.HB_PRICE,
+	        h.HB_DATE,
+	        h.HB_TIME,
+	        h.HB_WRITE_DATE,
+	        h.STATUS,
+	        h.USER_ID,
+	        c.CATEGORY_NAME,
+	        c.BIGCATEGORY
+	    FROM
+	        hobee h
+	    JOIN
+	        category c
+	    ON
+	        h.CATEGORY_NUM = c.CATEGORY_NUM
+	    WHERE
+	        h.USER_ID = #{user_id}
+	    ORDER BY
+	        h.HB_WRITE_DATE DESC
+	</select>
+		
+		
+
+	<!-- host 한개 조회 -->
+	<select id="hobee_apply_one" parameterType="int"
+		resultType="hobee">
+		select * from hobee
+		where hb_idx=#{hb_idx}
 	</select>
 
 
-	<!-- hobee 테이블에 데이터 삽입 -->
-	
+	<!-- host apply 수정 -->
+	<update id="hobee_apply_update" parameterType="hobee">
+		UPDATE hobee SET
+		hb_title = #{hb_title},
+		s_image = #{s_image},
+		l_image = #{l_image},
+		in_image = #{in_image},
+		hb_content = #{hb_content},
+		hb_price =
+		#{hb_price},
+		num_of_p = #{num_of_p},
+		user_id = #{user_id},
+		hb_date =
+		#{hb_date},
+		hb_tot_num = #{hb_tot_num},
+		category_num = #{category_num},
+		status = 0,
+		hb_notice = #{hb_notice},
+		hb_time = #{hb_time},
+		hb_address = #{hb_address},
+		postcode = #{postcode},
+		address =
+		#{address},
+		detailAddress = #{detailAddress},
+		extraAddress =
+		#{extraAddress}
+		WHERE hb_idx = #{hb_idx}
+	</update>
+
+	<!-- host apply 삭제 -->
+	<delete id="hobee_apply_del" parameterType="int">
+		delete from hobee
+		where hb_idx=#{hb_idx}
+	</delete>
+
+	<!-- 제목으로 검색 -->
+	<select id="hobee_search_by_title" resultType="hobee"
+		parameterType="String">
+		SELECT
+		h.HB_IDX,
+		h.HB_TITLE,
+		h.HB_PRICE,
+		h.HB_DATE,
+		h.HB_TIME,
+		h.HB_WRITE_DATE,
+		h.STATUS,
+		h.USER_ID,
+		c.CATEGORY_NAME,
+		c.BIGCATEGORY
+		FROM
+		hobee h
+		JOIN
+		category c
+		ON
+		h.CATEGORY_NUM = c.CATEGORY_NUM
+		WHERE
+		AND h.HB_TITLE LIKE '%' || #{search_text} || '%'
+		ORDER BY
+		h.HB_WRITE_DATE DESC
+	</select>
+
+	<!-- 내용으로 검색 -->
+	<select id="hobee_search_by_content" resultType="hobee"
+		parameterType="String">
+		SELECT
+		h.HB_IDX,
+		h.HB_TITLE,
+		h.HB_PRICE,
+		h.HB_DATE,
+		h.HB_TIME,
+		h.HB_WRITE_DATE,
+		h.STATUS,
+		h.USER_ID,
+		c.CATEGORY_NAME,
+		c.BIGCATEGORY
+		FROM
+		hobee h
+		JOIN
+		category c
+		ON
+		h.CATEGORY_NUM = c.CATEGORY_NUM
+		WHERE
+		h.HB_CONTENT LIKE '%' || #{search_text} || '%'
+		ORDER BY
+		h.HB_WRITE_DATE DESC
+	</select>
+
+	<!-- 전체 검색 -->
+	<select id="hobee_search_by_all" resultType="hobee"
+		parameterType="String">
+		SELECT
+		h.HB_IDX,
+		h.HB_TITLE,
+		h.HB_PRICE,
+		h.HB_DATE,
+		h.HB_TIME,
+		h.HB_WRITE_DATE,
+		h.STATUS,
+		h.USER_ID,
+		c.CATEGORY_NAME,
+		c.BIGCATEGORY
+		FROM
+		hobee h
+		JOIN
+		category c
+		ON
+		h.CATEGORY_NUM = c.CATEGORY_NUM
+		WHERE
+		h.HB_TITLE LIKE '%' || #{search_text} || '%'
+		OR h.HB_CONTENT LIKE '%' || #{search_text} || '%'
+		ORDER BY
+		h.HB_WRITE_DATE DESC
+	</select>
+
+	<!-- host 게시 -->
+	<update id="hobee_post" parameterType="hobee">
+		UPDATE hobee
+		SET status =
+		#{status}
+		WHERE hb_idx = #{hb_idx}
+	</update>
+
 
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

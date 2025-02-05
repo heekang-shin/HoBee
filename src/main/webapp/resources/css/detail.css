@@ -1,269 +1,637 @@
 @charset "UTF-8";
 
-/* 공통 스타일 초기화 */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    color: #222222;
+	margin: 0;
+	padding: 0;
+	color: #222222;
+	font-size:16px;
 }
 
-/* 전체 컨테이너 */
 .detail_container {
-    width: 1400px;
-    margin: 80px auto;
-    position: relative;
-    display: flex;
-    gap: 20px;
-    padding-bottom: 50px;
+	width: 1400px;
+	margin: 80px auto;
+	position: relative;
+	display: flex; /* 플렉스 레이아웃으로 변경 */
+	gap: 20px; /* 왼쪽과 오른쪽 컨테이너 간격 추가 */
+	padding-bottom: 50px; /* footer와의 간격 확보 */
+	box-sizing: border-box;
 }
 
-/* 왼쪽 컨테이너 */
+/*왼쪽 컨테이너*/
 .left_container {
-    width: 910px;
+	width: 910px; /* 가로 비율 설정 */
+	box-sizing: border-box;
 }
 
 .left_container img {
-    width: 100%;
+	width: 100%;
 }
 
-/* 콘텐츠 컨테이너 */
-.content_container {
-    padding-top: 30px;
+.content_container p{
+	margin-top: 20px;
 }
 
 .content_container img {
-    margin-top: 30px;
+	margin-top: 30px;
 }
 
-/* 서브 타이틀 */
+/*서브 타이틀(소개, 모임장소, 모임문의, 유의사항, 환불정책- 공통 )*/
 .sub-title {
-    width: 100%;
-    border-bottom: 1.5px solid #222222;
-    margin-bottom: 20px;
+	width: 100%;
+	height: 50px;
+	border-bottom: 1.5px solid #222222;
+	position: relative;
 }
 
-.refund:hover {
-    cursor: pointer;
+/*유의사항*/
+#arrow1 {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 12px;
+	height: 12px;
+	border-top: 1.5px solid #222222;
+	border-left: 1.5px solid #222222;
+	transform: rotate(-135deg);
 }
 
-/* 오른쪽 컨테이너 */
+#notice-details{
+	margin-top: 20px;
+	line-height: 26px;
+	transition: 0.5s ease, opacity 0.5s ease;
+}
+
+#notice {
+	position: relative;
+	cursor: pointer;
+}
+
+/*환불정책*/
+#arrow2 {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 12px;
+	height: 12px;
+	border-top: 1.5px solid #222222;
+	border-left: 1.5px solid #222222;
+	transform: rotate(-135deg);
+}
+
+
+#refund {
+	position: relative;
+	cursor: pointer;
+}
+
+#refund-details{
+	margin-top: 20px;
+	line-height: 26px;
+	color:#222222;
+	transition: 0.5s ease, opacity 0.5s ease;
+}
+
+
+
+
+
+
+
+/*오른쪽 컨테이너*/
 .right_container {
-    width: 420px;
-    height: 730px;
-    background-color: #ffffff;
-    border: 1px solid #dcdcdc;
-    border-radius: 10px;
-    padding: 20px;
+	width: 420px;
+	height: 730px;
+	top: 0;
+	right: 0;
+	background-color: #ffffff;
+	border: 1px solid #dcdcdc;
+	border-radius: 10px;
 }
 
-/* 프로그램 제목 */
+.left_container h2 {
+	margin: 70px 0 10px;
+	font-size: 28px;
+}
+
+/*프로그램 제목*/
+.right_title {
+	width: 100%;
+	height: auto;
+	padding: 30px 0 30px 30px;
+	box-sizing: border-box;
+}
+
 .right_title h3 {
-    font-size: 28px;
-    margin-bottom: 12px;
+	width: 100%;
+	font-size: 28px;
+	margin-bottom: 12px;
 }
 
 .right_title p {
-    color: #a8a8a8;
-    font-size: 18px;
+	color: #a8a8a8;
+	font-size: 18px;
 }
 
-/* 날짜, 시간, 인원수 */
+/*날짜, 시간, 인원수*/
 .option_container {
-    background: #f8f8f8;
-    padding: 30px;
-    border-radius: 8px;
+	width: 100%;
+	height: auto;
+	background: #f8f8f8;
+	padding: 30px;
+	box-sizing: border-box;
 }
 
 .option_inner {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .option_inner input[type="text"] {
-    width: 100%;
-    height: 50px;
-    padding: 10px;
-    border: 1px solid #dcdcdc;
-    border-radius: 4px;
-    font-size: 16px;
+	width: 100%;
+	height: 50px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #dcdcdc;
+	border-radius: 4px;
+	font-size: 16px;
 }
 
 .option_inner h3 {
-    font-size: 18px;
-    margin-bottom: 8px;
+	font-size: 18px;
+	margin-bottom: 8px;
 }
 
-/* 인원수 */
-.people_num input[type="text"] {
-    width: 77%;
+/*인원수*/
+.people_num {
+	margin-bottom: 0;
 }
 
-.people_num input[type="button"] {
-    width: 10%;
+.people_num  input[type="text"] {
+	width: 77%;
+	height: 50px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #dcdcdc;
+	border-radius: 4px;
+	font-size: 16px;
 }
 
-/* 총 금액 */
+.people_num  input[type="button"] {
+	width: 10%;
+	height: 50px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #dcdcdc;
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+/*총금액*/
+.total_container {
+	width: 100%;
+	height: auto;
+}
+
 .total_container p {
-    font-size: 20px;
-    padding: 30px 0 20px;
-    color: #a8a8a8;
+	line-height: 30px;
+	width: auto;
+	font-size: 20px;
+	display: inline-block;
+	padding: 30px 0 20px 30px;
+	box-sizing: border-box;
+	color: #a8a8a8;
 }
 
 .total_container h2 {
-    font-size: 24px;
-    padding: 30px 30px 20px 0;
-    float: right;
+	line-height: 30px;
+	width: auto;
+	font-size: 24px;
+	display: inline-block;
+	padding: 30px 30px 20px 0;
+	box-sizing: border-box;
+	float: right;
 }
 
-/* 버튼 */
+.total_container span{
+	font-size: 24px;
+}
+
+/*버튼*/
+.btn-inner {
+	width: 100%;
+	height: auto;
+	box-sizing: border-box;
+	padding: 30px;
+}
+
 .btn-inner input[type="button"] {
-    width: 100%;
-    height: 52px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    font-weight: 700;
-    border-radius: 8px;
+	width: 100%;
+	height: 52px;
+	margin-bottom: 20px;
+	border: none;
+	font-size: 16px;
+	font-weight: 700;
+	border-radius: 8px;
 }
 
 .btn-inner input[type="button"]:first-child {
-    background-color: #FFE14D;
+	background-color: #FFE14D;
 }
 
 .btn-inner input[type="button"]:first-child:hover {
-    background-color: #222222;
-    color: #ffffff;
+	background-color: #222222;
+	color: #ffffff;
 }
 
 .btn-inner input[type="button"]:last-child {
-    border: 1px solid #222222;
+	border: 1px solid #222222;
+	background-color: #ffffff;
 }
 
 .btn-inner input[type="button"]:last-child:hover {
+	background-color: #222222;
+	color: #ffffff;
+}
+
+
+/* 1:1문의 */
+.inquiry-board {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+}
+
+.inquiry-form {
+    margin-bottom: 20px;
+}
+
+.inquiry-form h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.inquiry-form textarea {
+    width: 97%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    resize: none;
+}
+
+.inquiry-form #inquiry-title {
+    height: 30px;
+}
+
+.inquiry-form button {
+    display: block;
+    width: 100px;
+    padding: 10px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #222222;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.inquiry-form button:hover {
+    background-color: #FFE14D;
+    color: #222222;
+}
+
+.inquiry-list h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.inquiry-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.inquiry-list li {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+/*문의목록 페이징처리*/
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #222222;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+.pagination a.active {
+    font-weight: bold;
+    background-color: #FFE14D;
+    color: #222222;
+}
+
+.pagination a:hover {
     background-color: #222222;
     color: #ffffff;
 }
 
-/* 환불 정책 */
-.refund-details {
-    display: none;
-    margin-top: 10px;
+/* 답변 영역 스타일 */
+.answer {
+    margin-top: 15px; /* 상단 여백 */
+    padding: 15px; /* 내부 여백 */
+    background-color: #fffff7; /* 연한 하늘색 배경 */
+    border: 1px solid #a8a8a8; /* 연한 회색 테두리 */
+    border-left: 4px solid #FFE14D; /* 왼쪽에 강조선 */
+    border-radius: 4px; /* 둥근 모서리 */
+    font-size: 14px; /* 글자 크기 */
+    line-height: 1.5; /* 줄 간격 */
+    color: #333333; /* 텍스트 색상 */
 }
 
-.refund-details p {
-    font-size: 16px;
-    line-height: 26px;
-    color: #222222;
+/* 답변 제목 */
+.answer p strong {
+    font-weight: bold; /* 강조된 글자 */
+    color: #444444; /* 녹색 텍스트 */
 }
 
-/* 화살표 */
-.arrow {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
-    background-image: url("/hobee/resources/images/down_arrow.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    transition: transform 0.3s ease;
+/* 답변 작성자 및 날짜 */
+.answer p:last-child {
+    text-align: right; /* 오른쪽 정렬 */
+    font-size: 12px; /* 작은 글씨 */
+    color: #666666; /* 연한 회색 */
 }
 
-.arrow-up {
-    background-image: url("/hobee/resources/images/up_arrow.png");
+/* 복사 가능한 텍스트 스타일 */
+.copyable-text {
+    cursor: pointer;
+    color: #333333;
+    text-decoration: underline;
+    position: relative; /* 툴팁을 위한 위치 설정 */
+}
+
+.copyable-text:hover {
+    color: darkblue;
+}
+
+/* 툴팁 스타일 */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #FFE14D;
+    color: #222;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* 텍스트 위에 위치 */
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* 툴팁 아래에 삼각형 */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #FFE14D transparent transparent transparent;
+}
+
+.tooltip.show .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/*리뷰*/
+#reviewForm{
+	width:100%;
+ 	height: auto;
+ 	background-color:#f8f8f8;
+ 	margin-top:20px;
+ 	padding: 20px;
+ 	box-sizing: border-box;
+ 	border-radius:8px;
+ 	border:1px solid #dcdcdc;
+ 	margin-top:20px;
 }
 
 
-/* ⭐ 리뷰 섹션 스타일 */
-.review-section {
-    margin-bottom: 30px;
-    padding: 20px;
-    border-radius: 8px;
+/*누적 리뷰*/
+.rating-info{
+	width:100%;
+	height: 30px;
+	line-height:30px;
+	margin-top:20px;
+	position: relative;
 }
 
-.review-section h2 {
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: bold;
+.rating-info p{
+	font-size: 20px;
+	font-weight: 600;
+	position: absolute;
+	top:0;
+	left:0;
 }
 
-/* ⭐ 별점 선택 영역 스타일 */
-.star-rating {
-    display: flex;
-    align-items: center;  /* 별과 텍스트 수직 정렬 */
-    gap: 5px;
-    margin-bottom: 15px;
+.rating-info span{
+	position: absolute;
+	top:0;
+	right:0;
+	line-height: 30px;
+	color:#a8a8a8;
+	font-size: 16px;
 }
 
-/* ⭐ 리뷰 입력란과 버튼 그룹 스타일 */
-#review-group {
-    display: none;
-    flex-direction: column;
-    gap: 10px;
+/*별점*/
+.star-rating{
+	width:100%;
+	height: auto;
 }
 
-#review-group.visible {
-    display: flex;
+.star-rating h3{
+	font-size:20px;
+	margin-bottom: 8px;
+}
+
+/* 기본 별 색상 */
+.star-rating input[type="button"] {
+    border: none;
+    font-size: 20px; /* 별 크기 조정 */
+    background-color: transparent;
+    color: #a8a8a8; /* 기본 회색 */
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+/* 마우스 오버 시 별 색상 변경 */
+.star-rating input[type="button"]:hover {
+    color: var(--color-main);
+}
+
+/* 선택한 별과 그 이전 별까지 색상 변경 */
+.star-rating input[type="button"].active {
+   color: var(--color-main);
+}
+
+
+/*리뷰 입력*/
+#review-group{
+	width:100%;
+ 	height: auto;
 }
 
 #review-group textarea {
-    width: 100%;
-    height: 80px;
-    margin-bottom: 10px;
-    padding: 10px;
+	width:100%;
+	height:80px;
+	padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+	border: 1px solid #dcdcdc;
+	box-sizing: border-box;
+	border-radius: 4px;
+    resize: none;
+    margin-top: 10px;
 }
 
-#review-group input[type="button"] {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+#review-group input[type="button"]{
+	width:120px;
+ 	height: 40px;
+ 	line-height: 40px;
+ 	font-weight: 600;
+ 	border:1px solid #222222;
+ 	background-color:#fff;
+ 	border-radius: 4px;
+ 	margin-top:6px;
 }
 
-#review-group input[type="button"]:hover {
-    background-color: #0056b3;
+#review-group input[type="button"]:hover{
+	background-color:var(--color-black);
+	color:var(--color-white);
 }
 
-/* ⭐ 별점 버튼 기본 스타일 */
-.star-rating input[type="button"] {
-    font-size: 32px;
-    color: #ccc;
-    background: none;
-    border: none;
-    cursor: pointer;
+/*최신 리뷰*/
+ .recent-review-list{
+ 	width:100%;
+ 	height: auto;
+ 	background-color:#f8f8f8;
+ 	margin-top:20px;
+ 	padding: 20px;
+ 	box-sizing: border-box;
+ 	border-radius:8px;
+ 	border:1px solid #dcdcdc;
+ }
+
+.recent-review-list h3 {
+	font-size: 20px;
 }
 
-/* ⭐ 선택된 별점 버튼 스타일 */
-.star-rating input[type="button"].selected {
-    color: #FFD700;  /* 금색 */
+.recent-review-item {
+	width: 100%;
+	height: auto;
+	background-color: #fff;
+	margin-top: 20px;
+	padding: 12px;
+	box-sizing: border-box;
+	border-radius: 4px;
+	border: 1px solid #dcdcdc;
 }
 
-/* ⭐ 평균 점수와 리뷰 개수 스타일 */
-.average-score,
-.review-count {
-    font-size: 16px;        /* 별 크기와 동일하게 설정 */
-    color: #333;            /* 텍스트 색상 */
-    margin-left: 10px;      /* 별과 숫자 사이 간격 */
-    line-height: 1;         /* 텍스트와 별 높이 맞춤 */
+.recent-review-item h4 {
+	margin-top: 10px;
+	font-size: 16px;
 }
 
-/* 📱 반응형 디자인 - 모바일에서 별 크기 조정 */
-@media screen and (max-width: 768px) {
-    .star-rating input[type="button"],
-    .average-score,
-    .review-count {
-        font-size: 28px;    /* 모바일에서는 별과 숫자 크기 조금 작게 조정 */
-    }
+.review-info {
+	width: 100%;
+	height: 20px;
+	line-height:20px;
+	font-size:15px;
+	color:#a8a8a8;
+	border-bottom: 1px dashed #dcdcdc;
+	padding-bottom: 10px;
 }
 
-/* 📱 반응형 디자인 - 더 작은 화면에서 */
-@media screen and (max-width: 480px) {
-    .star-rating input[type="button"],
-    .average-score,
-    .review-count {
-        font-size: 24px;    /* 더 작은 화면에서는 크기 더 줄임 */
-    }
+.review-info p {
+	float: left;
+	font-size:15px;
+	color:#a2a2a2;
 }
+
+.review-info p span {
+	color:#757575;
+	font-weight: 500;
+}
+
+.review-info p:after {
+	content: '';
+	display:inline-block;
+	height: 12px; 
+	border : 1px solid #dcdcdc;
+	margin: 0 10px;
+	 margin: 0 10px;
+  vertical-align: middle; 
+ }
+
+.review-info p:last-child:after{
+	border:none;
+}
+
+/*리뷰 존재하지 않을 때*/
+.no-review{
+	 width:100%;
+	height: 50px;
+	line-height:50px;
+	background-color:#fff;
+	border:1px solid #dcdcdc;
+	border-radius:4px;
+	text-align: center;
+	margin-top: 10px;
+	color:#757575;
+}
+
+/*더보기 버튼*/
+.review-list-container{
+ 	width:100%;
+ 	height: auto;
+ 	text-align: center;
+ 	margin-top:40px;
+ 	font-size:16px;
+ }
+ 
+ .review-list-container button{
+ 	width:120px;
+ 	height: 40px;
+ 	line-height: 40px;
+ 	font-weight: 600;
+ 	border:1px solid var(--color-black);
+ 	background-color:var(--color-whtie);
+ 	border-radius: 4px;
+ }
+ 
+ .review-list-container button:hover{
+ 	background-color:var(--color-main);
+ }
+ 
+ .recent-review-list span{
+ 	color:#333;
+ 	font-size:16px;
+ }

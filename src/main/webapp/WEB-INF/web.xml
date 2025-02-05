@@ -47,13 +47,6 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-
-<!-- 세션 설정 -->
-	<session-config>
-		<!-- 세션 타임아웃 설정 (초 단위, 1800초 = 30분) -->
-		<session-timeout>1800</session-timeout>
-	</session-config>
-
 </web-app>
 
 

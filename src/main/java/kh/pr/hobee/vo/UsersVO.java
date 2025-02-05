@@ -1,6 +1,13 @@
 package kh.pr.hobee.vo;
 
+import org.springframework.stereotype.Component;
+
+import lombok.Data;
+
+@Data
+@Component
 public class UsersVO {
+
 	// int 타입 필드 (NUMBER 데이터 타입에 해당)
 	private int user_Id;
 
@@ -20,6 +27,15 @@ public class UsersVO {
 	private String id_lock;
 	private String homecheck;
 	private String nick_name;
+	private String pwd_change;//염지연
+
+	public String getPwd_change() {
+		return pwd_change;
+	}
+
+	public void setPwd_change(String pwd_change) {
+		this.pwd_change = pwd_change;
+	}
 
 	public String getSocial_Id() {
 		return social_Id;

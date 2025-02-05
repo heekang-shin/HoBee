@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hos">
+	
+	<insert id="host_insert" parameterType="ho">
+		INSERT INTO host (
+		host_name,
+		HOST_INFO,
+		USER_ID,
+		host_img,
+		APPROVAL
+		)
+		VALUES (
+		#{host_name}, 
+		#{host_info},
+		#{user_id},
+		#{host_img},
+		#{approval}
+		)
+	</insert>
+	
+	<select id="host_info" parameterType="int"
+			resultType="ho">
+			select * from host
+			where user_id = #{user_id}
+	</select>
+	
+	<!-- host apply 수정 -->
+	<update id="host_modify" parameterType="ho">
+		UPDATE host SET
+		host_name = #{host_name},
+		host_info = #{host_info},
+		host_img = #{host_img}
+		where user_id = #{user_id}
+		
+	</update>
+</mapper>

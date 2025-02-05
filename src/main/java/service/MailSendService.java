@@ -5,7 +5,6 @@ import java.util.Random;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 public class MailSendService {
@@ -56,16 +55,3 @@ public class MailSendService {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

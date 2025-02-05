@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+
+	<!-- 호스트 정보 조회 -->
+
+	<!-- approval이 0인 호스트 정보 조회 -->
+	<select id="ad_host_select" resultType="ho">
+		SELECT *
+		FROM host
+		WHERE
+		approval = 0
+	</select>
+
+	<!-- 유저 정보 조회 -->
+	<select id="ad_user_select_by_id" parameterType="int"
+		resultType="users">
+		SELECT *
+		FROM users
+		WHERE user_Id = #{user_Id}
+	</select>
+
+	<!--호스트한명 조회 -->
+	<select id="adHostOne" parameterType="int" resultType="ho">
+		SELECT *
+		FROM host
+		WHERE user_id = #{user_id}
+
+
+
+	</select>
+
+	<!-- host승인시 approval을 1로 바꾸도록 -->
+	<update id="ad_hostapply_yes" parameterType="ho">
+
+		update host set
+		approval=1
+		Where user_id=#{user_id}
+
+
+	</update>
+
+	<!--UsersVO불러오기->users에 '호스트'lv을 주기 위해서 -->
+	<update id="ad_hostapply_user" parameterType="int">
+		update users set
+		lv='호스트'
+		where user_id=#{user_Id}
+
+	</update>
+
+
+	<!--호스트의 신청을 거절하기 =HOST테이블에서 해당 호스트 삭제 -->
+	<delete id="ad_host_refuse" parameterType="ho">
+
+		delete from host
+		where user_id=#{user_id}
+
+
+
+	</delete>
+
+	<!-- 호스트 이름으로 검색 -->
+	<select id="searchHostByHostName" parameterType="string" resultType="ho">
+		SELECT *
+		FROM host
+		WHERE host_name LIKE '%' || #{searchText} || '%'
+	</select>
+
+	<!-- 사용자 ID로 검색 -->
+	<select id="searchHostByUserId" parameterType="string" resultType="ho">
+		SELECT h.*
+		FROM host h
+		JOIN users u ON h.user_id = u.user_id
+		WHERE u.id LIKE '%' || #{searchText} || '%'
+	</select>
+
+	
+	<!-- 전체 검색 -->
+	<select id="searchHostByAll" parameterType="string" resultType="ho">
+		SELECT h.*
+		FROM host h
+		JOIN users u ON h.user_id = u.user_id
+		WHERE h.host_name LIKE '%' || #{searchText} || '%'
+		   OR u.id LIKE '%' || #{searchText} || '%'
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

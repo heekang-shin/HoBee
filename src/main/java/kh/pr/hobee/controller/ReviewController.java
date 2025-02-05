@@ -111,132 +111,149 @@ public class ReviewController {
 	// ✅ 리뷰 삭제 처리 (일반 사용자 & 관리자 & 호스트)
 	@RequestMapping("deleteReview.do")
 	public String deleteReview(int[] review_id, int hbidx, RedirectAttributes redirectAttributes) {
-	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
 
-	    if (user == null) {
-	        redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
-	        return "redirect:/login_form.do";
-	    }
+		if (user == null) {
+			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
+			return "redirect:/login_form.do";
+		}
 
-	    String userLevel = user.getLv();
-	    String userId = user.getId();
+		String userLevel = user.getLv();
+		String userId = user.getId();
 
-	    // 🚀 ArrayList를 사용한 중복 제거
-	    List<Integer> uniqueReviewIds = new ArrayList<Integer>();
-	    for (int id : review_id) {
-	        if (!uniqueReviewIds.contains(id)) {
-	            uniqueReviewIds.add(id);
-	        }
-	    }
+		// 🚀 ArrayList를 사용한 중복 제거
+		List<Integer> uniqueReviewIds = new ArrayList<Integer>();
+		for (int id : review_id) {
+			if (!uniqueReviewIds.contains(id)) {
+				uniqueReviewIds.add(id);
+			}
+		}
 
-	    System.out.println("[디버그] 중복 제거 후 삭제 요청된 리뷰 ID 목록: " + uniqueReviewIds);
+		System.out.println("[디버그] 중복 제거 후 삭제 요청된 리뷰 ID 목록: " + uniqueReviewIds);
 
-	    int deletedCount = 0;
+		int deletedCount = 0;
 
-	    for (int id : uniqueReviewIds) {
-	        if ("일반".equals(userLevel)) {
-	            ReviewVO review = review_dao.getReviewById(id);
-	            if (review != null && review.getUser_id().equals(userId)) {
-	                deletedCount += review_dao.delete(id);
-	            } else {
-	                redirectAttributes.addFlashAttribute("errorMessage", "본인이 작성한 리뷰만 삭제할 수 있습니다.");
-	                return "redirect:/review_detail.do?hbidx=" + hbidx;
-	            }
-	        } 
-	        // ✅ 관리자 즉시 삭제
-	        else if ("관리자".equals(userLevel) || "총괄관리자".equals(userLevel)) {
-	            System.out.println("[디버그] 관리자 리뷰 즉시 삭제: review_id = " + id);
-	            deletedCount += review_dao.delete(id);
-	            continue;  // 관리자는 삭제 요청을 생성하지 않음
-	        }
-	        // ✅ 호스트인 경우 삭제 요청을 생성 (DB에 '대기' 상태로 저장)
-	        else if ("호스트".equals(userLevel)) {
-	            if (review_dao.isDeleteRequestExists(id)) {
-	                System.out.println("[디버그] 호스트 이미 삭제 요청이 존재하는 리뷰: review_id = " + id);
-	                continue;
-	            }
+		for (int id : uniqueReviewIds) {
+			if ("일반".equals(userLevel)) {
+				ReviewVO review = review_dao.getReviewById(id);
+				if (review != null && review.getUser_id().equals(userId)) {
+					deletedCount += review_dao.delete(id);
+				} else {
+					redirectAttributes.addFlashAttribute("errorMessage", "본인이 작성한 리뷰만 삭제할 수 있습니다.");
+					return "redirect:/review_detail.do?hbidx=" + hbidx;
+				}
+			}
+			// ✅ 관리자 즉시 삭제
+			else if ("관리자".equals(userLevel) || "총괄관리자".equals(userLevel)) {
+				System.out.println("[디버그] 관리자 리뷰 즉시 삭제: review_id = " + id);
+				deletedCount += review_dao.delete(id);
+				continue; // 관리자는 삭제 요청을 생성하지 않음
+			}
+			// ✅ 호스트인 경우 삭제 요청을 생성 (DB에 '대기' 상태로 저장)
+			else if ("호스트".equals(userLevel)) {
+				if (review_dao.isDeleteRequestExists(id)) {
+					System.out.println("[디버그] 호스트 이미 삭제 요청이 존재하는 리뷰: review_id = " + id);
+					continue;
+				}
 
-	            ReviewVO review = new ReviewVO();
-	            review.setReview_id(id);
-	            review.setRequested_by(userId);
-	            review.setHb_idx(hbidx);
-	            review.setRequest_status("대기");
+				ReviewVO review = new ReviewVO();
+				review.setReview_id(id);
+				review.setRequested_by(userId);
+				review.setHb_idx(hbidx);
+				review.setRequest_status("대기");
 
-	            review_dao.insertDeleteRequest(review);
-	        }
-	    }
+				review_dao.insertDeleteRequest(review);
+			}
+		}
 
-	    if (deletedCount > 0) {
-	        redirectAttributes.addFlashAttribute("message", "선택된 리뷰가 성공적으로 삭제되었습니다.");
-	    } else {
-	        redirectAttributes.addFlashAttribute("message", "리뷰 삭제에 실패했습니다.");
-	    }
+		if (deletedCount > 0) {
+			redirectAttributes.addFlashAttribute("message", "선택된 리뷰가 성공적으로 삭제되었습니다.");
+		} else {
+			redirectAttributes.addFlashAttribute("message", "리뷰 삭제에 실패했습니다.");
+		}
 
-	    return "redirect:/review_detail.do?hbidx=" + hbidx;
+		return "redirect:/review_detail.do?hbidx=" + hbidx;
 	}
-
 
 	// 관리자 리뷰 삭제 요청 목록 보기
 	@RequestMapping("/admin_review_detail.do")
 	public String adminReviewDetail(Model model) {
 
-	    // '대기' 상태의 삭제 요청 목록 조회
-	    List<ReviewVO> pendingReviews = review_dao.getPendingDeleteRequests();
+		// '대기' 상태의 삭제 요청 목록 조회
+		List<ReviewVO> pendingReviews = review_dao.getPendingDeleteRequests();
 
-	    // 디버깅 로그
-	    System.out.println("[디버그] 삭제 요청된 리뷰 개수: " + pendingReviews.size());
+		// 디버깅 로그
+		System.out.println("[디버그] 삭제 요청된 리뷰 개수: " + pendingReviews.size());
 
-	    // 모델에 데이터 추가
-	    model.addAttribute("deleteRequests", pendingReviews);
+		// 모델에 데이터 추가
+		model.addAttribute("deleteRequests", pendingReviews);
 
-	    return kh.pr.hobee.common.Common.VIEW_PATH + "detail/admin_review_detail.jsp"; // JSP 페이지로 이동
+		return kh.pr.hobee.common.Common.VIEW_PATH + "detail/admin_review_detail.jsp"; // JSP 페이지로 이동
 	}
+
 	// ✅ 삭제 요청 승인 (관리자)
 	@RequestMapping("approveDeleteRequest.do")
 	public String approveDeleteRequest(int review_id, RedirectAttributes redirectAttributes) {
-	    if (!checkAdminAccess()) {
-	        return "redirect:/admin_review_detail.do";
-	    }
+		if (!checkAdminAccess()) {
+			return "redirect:/admin_review_detail.do";
+		}
 
-	    // 1️⃣ 리뷰 테이블에서 삭제
-	    int res = review_dao.delete(review_id);
-	    
-	    if (res > 0) {
-	        // 2️⃣ 삭제 요청 테이블에서 해당 요청 제거
-	        review_dao.deleteDeleteRequest(review_id);
-	        
-	        redirectAttributes.addFlashAttribute("message", "리뷰 삭제가 승인되었습니다.");
-	    } else {
-	        redirectAttributes.addFlashAttribute("errorMessage", "리뷰 삭제 승인에 실패하였습니다.");
-	    }
+		// 1️⃣ 리뷰 테이블에서 삭제
+		int res = review_dao.delete(review_id);
 
-	    return "redirect:/admin_review_detail.do"; // ✅ 수정된 리다이렉트 경로
+		if (res > 0) {
+			// 2️⃣ 삭제 요청 테이블에서 해당 요청 제거
+			review_dao.deleteDeleteRequest(review_id);
+
+			redirectAttributes.addFlashAttribute("message", "리뷰 삭제가 승인되었습니다.");
+		} else {
+			redirectAttributes.addFlashAttribute("errorMessage", "리뷰 삭제 승인에 실패하였습니다.");
+		}
+
+		return "redirect:/admin_review_detail.do"; // ✅ 수정된 리다이렉트 경로
 	}
-
 
 	// ✅ 삭제 요청 거절 (관리자)
 	@RequestMapping("rejectDeleteRequest.do")
 	public String rejectDeleteRequest(int review_id, RedirectAttributes redirectAttributes) {
-	    if (!checkAdminAccess()) {
-	        return "redirect:/adminReviewRequests.do";
-	    }
+		if (!checkAdminAccess()) {
+			return "redirect:/adminReviewRequests.do";
+		}
 
-	    review_dao.updateDeleteRequestStatus(review_id, "거절");
-	    redirectAttributes.addFlashAttribute("message", "리뷰 삭제 요청이 거절되었습니다.");
+		review_dao.updateDeleteRequestStatus(review_id, "거절");
+		redirectAttributes.addFlashAttribute("message", "리뷰 삭제 요청이 거절되었습니다.");
 
-	    return "redirect:/admin_review_detail.do"; // ✅ 수정된 리다이렉트 경로
+		return "redirect:/admin_review_detail.do"; // ✅ 수정된 리다이렉트 경로
 	}
-	//중복체크 관리자 권한
+
+	// 중복체크 관리자 권한
 	private boolean checkAdminAccess() {
-	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
 
-	    if (user == null) {
-	        return false;
-	    }
+		if (user == null) {
+			return false;
+		}
 
-	    String userLevel = user.getLv();
-	    return "관리자".equals(userLevel) || "총괄관리자".equals(userLevel);
+		String userLevel = user.getLv();
+		return "관리자".equals(userLevel) || "총괄관리자".equals(userLevel);
 	}
-
-
+	// 작성한 리뷰
+	@RequestMapping("MyReviews.do")
+	public String myReviewsAndDelete(int[] review_id, Model model, int hbidx) {
+		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+		if (user == null) {
+			model.addAttribute("errorMessage", "로그인이 필요합니다.");
+			return kh.pr.hobee.common.Common.VIEW_PATH + "login/login_form.jsp"; // 로그인 페이지로 리다이렉트
+		}
+		String userId = user.getId();
+		List<ReviewVO> myReviews = review_dao.getReviewsByUserId(userId); // 본인 리뷰 조회
+		if (myReviews != null && !myReviews.isEmpty()) {
+			model.addAttribute("reviews", myReviews);
+			model.addAttribute("reviewCount", myReviews.size());
+		} else {
+			model.addAttribute("errorMessage", "작성한 리뷰가 없습니다.");
+		}
+		model.addAttribute("hbidx", hbidx);
+		return kh.pr.hobee.common.Common.VIEW_PATH + "detail/my_review.jsp"; // my_review.jsp로 이동
+	}
 }

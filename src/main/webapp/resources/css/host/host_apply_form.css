@@ -1,0 +1,322 @@
+@charset "UTF-8";
+
+*{
+	 font-size: var(--font-size-base);
+}
+
+.page-title h1 {
+	width: 100%;
+	height: auto;
+	margin: 80px auto;
+	text-align: center;
+	font-size: var(--font-size-large);
+	font-weight: 700;
+}
+
+/*폼 시작*/
+.form-container {
+	width: 100%;
+	max-width: 820px;
+	height: auto;
+	margin: 60px auto;
+	border-top: 2px solid var(--color-black);
+}
+
+.form-box {
+	width: 100%;
+	height: auto;
+	border-bottom: 1px solid var(--border-color-gray);
+	padding: 10px 0;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+}
+
+.form-box label {
+	display: inline-block;
+	width: 200px;
+	height: auto;
+	text-align: left;
+	padding-right: 20px;
+	box-sizing: border-box;
+	font-weight: 500;
+	padding-left: 10px;
+}
+
+.form-box input[type="text"] {
+	width: calc(100% - 380px);
+	height: 46px;
+	background-color: var(--color-light-gray);
+	padding-left: 10px;
+	box-sizing: border-box;
+	border: none;
+}
+
+.form-box select {
+	width: calc(100% - 605px);
+	height: 42px;
+	border-radius: var(--border-radius);
+	border: 1px solid var(--border-color-gray);
+	color: var(--color-black);
+	appearance: none; /* 기본 화살표 제거 */
+	-webkit-appearance: none; /* Safari 및 Chrome */
+	-moz-appearance: none; /* Firefox */
+	background: url("/hobee/resources/images/select_arrow.png") no-repeat right center;
+	background-size: 40px;
+	cursor: pointer;
+	background-color: var(--color-white);
+	box-sizing: border-box;
+	padding:0 10px;
+	margin-right: 10px;
+}
+
+.form-box select:last-child{
+	margin-right:0;
+}
+
+#date-container {
+	width: calc(100% - 320px);
+	height: auto;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-right:10px;
+}
+
+/* 인원, 날짜, 시간 */
+.form-box input[type="date"],
+.form-box input[type="time"],
+.form-box input[type="number"]{
+   width: 215px;
+    height: 42px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color-gray);
+    box-sizing: border-box;
+    padding: 0 10px;
+    margin-right: 10px;
+    float: left;
+}
+
+/*모임장소*/
+.addr-box{
+	width: calc(100% - 380px);
+	height: auto;
+	position: relative;
+	margin-right:10px;
+	
+}
+
+.addr-container{
+	position: relative;
+}
+
+.addr-box input[type="text"]{
+	width:100%;
+	margin-bottom:10px;
+}
+
+.addr-box input[type="text"]:last-child{
+	margin-bottom: 0;
+}
+
+.addr-container input[type="button"] {
+	width:110px;
+    height: 42px;
+    position:absolute;
+    top:12px;
+    left:79.5%;
+    border: 1px solid var(--color-black);
+    background-color:var(--color-white);
+    color: var(--color-black);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition-duration) ease;
+}
+
+
+/*프로그램 상세*/
+.edit-box textarea {
+	width: calc(100% - 200px);
+	height:250px;
+	 border: 1px solid var(--border-color-gray);
+	 border-radius: var(--border-radius);
+    resize: none; /* 크기 조절을 막음 */
+    overflow: auto; /* 스크롤이 필요한 경우 자동으로 추가 */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* 이미지 업로드 */
+.upload-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.image-preview {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border:1px solid var(--border-color-gray);
+    border-radius:8px;
+}
+
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+
+.upload-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.upload-inner span {
+    color: var(--color-gray);
+    margin: 0;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.delete-btn {
+	width:80px;
+	height:42px;
+    background-color: var(--color-white);
+    color: var(--color-red);
+    border: 1px solid var(--color-red);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease;
+}
+
+.delete-btn:hover {
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+
+.upload-inner input[type="file"] {
+	width:100%;
+    height: 42px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.upload-inner input[type="file"]::-webkit-file-upload-button {
+    background-color: var(--color-white); 
+    color:var(--color-black); 
+    border: 1px solid var(--color-black);
+    border-radius: var(--border-radius); 
+    padding: 8px 10px; 
+    cursor: pointer;
+    transition: background-color var(--transition-duration) ease; 
+}
+
+
+/*폼 끝*/
+
+
+
+
+
+
+/*폼 제출 버튼 시작*/
+.btn-box {
+ width: 100%;
+    height: 42px;
+    margin: 40px auto;
+    display: flex; /* 버튼을 가로로 정렬 */
+    justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+    gap: 10px; /* 버튼 사이 간격 */
+    font-weight: 600;
+}
+
+.btn-box input[type="button"] {
+ display: inline-block;
+    width: 100px;
+    height: 42px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 600; 
+}
+
+.btn-box input[type="button"]:nth-child(1) {
+	background-color: var(--color-white);
+	color: var(--color-black);
+	border: 1px solid var(--color-black);
+	transition: background-color 0.3s ease;
+}
+
+.btn-box input[type="button"]:nth-child(2) {
+	background-color: #F1F9FF;
+	color: #0074C9;
+	border: 1px solid #0074C9;
+	transition: background-color 0.3s ease;
+}
+
+.btn-box input[type="button"]:nth-child(3) {
+	background-color: #FCEEEE;
+	color: var(--color-red);
+	border: 1px solid var(--color-red);
+	transition: background-color 0.3s ease;
+}
+
+.btn-box input[type="button"]:nth-child(1):hover {
+	background-color: var(--color-black);
+	color:var(--color-white);
+}
+
+.btn-box input[type="button"]:nth-child(2):hover {
+	background-color: #0074C9;
+	color: var(--color-white);
+	transition: background-color 0.3s ease;
+}
+
+.btn-box input[type="button"]:nth-child(3):hover {
+	background-color: var(--color-red);
+	color: var(--color-white);
+}
+
+
+/*폼 제출 버튼 끝*/
+
+/*필수*/
+.req{
+	color:var(--color-main);
+}
+
+
+/*img-box*/
+.img-box {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: flex-start; /* 내용물을 왼쪽 정렬 */
+    width: 100%;
+}
+
+.img-box label {
+    width: 200px; /* 고정된 레이블 너비 */
+    font-weight: 500;
+    text-align: left; /* 레이블 텍스트 왼쪽 정렬 */
+}
+
+.img-box img {
+    width: auto; /* 자동 너비 */
+    max-width: calc(100% - 200px); /* 레이블을 제외한 공간을 차지 */
+    max-height: auto; /* 최대 높이 제한 */
+    object-fit: cover; /* 비율 유지하며 박스를 채움 */
+    display: block; /* 기본 여백 제거 */
+}
+

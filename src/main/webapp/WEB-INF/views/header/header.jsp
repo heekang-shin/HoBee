@@ -61,11 +61,11 @@
 							alt="관리자 계정 생성" /> <a href="create_admin_account.do">관리자 생성</a></li>
 					</c:if>
 
-					<!-- ✅ 일반 사용자 또는 호스트인 경우 마이페이지 표시 -->
+				
 					<c:if
 						test="${empty sessionScope.loggedInUser.lv or 
             sessionScope.loggedInUser.lv == '일반' or 
-            sessionScope.loggedInUser.lv == '호스트'}">
+            sessionScope.loggedInUser.lv == '호스트' or sessionScope.loggedInUser.lv == '관리자' or sessionScope.loggedInUser.lv == '총괄관리자'}">
 						<li><img src="/hobee/resources/images/join_icon.png"
 							alt="마이페이지" /> <a
 							href="mypage_heart_form.do?user_id=${sessionScope.loggedInUser.user_Id}">마이페이지</a>

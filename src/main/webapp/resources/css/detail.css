@@ -635,3 +635,36 @@
  	color:#333;
  	font-size:16px;
  }
+ 
+ /* 호스트 정보 섹션 스타일 */
+.host-info {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.host-info img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%; /* 둥근 이미지로 표현하고 싶을 경우 */
+    margin-right: 15px;
+}
+
+.host-info .host-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.host-info .host-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #222222;
+    margin-bottom: 5px;
+}
+
+.host-info .host-description {
+    font-size: 16px;
+    color: #555555;
+}
+ 

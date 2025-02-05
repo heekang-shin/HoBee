@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import kh.pr.hobee.vo.CategoryVO;
 import kh.pr.hobee.vo.HobeeVO;
+import kh.pr.hobee.vo.HostVO;
 import kh.pr.hobee.vo.InquiryVO;
 import kh.pr.hobee.vo.ReserveVO;
 import kh.pr.hobee.vo.UsersVO;
@@ -93,6 +94,11 @@ public class InvenDAO {
 	
 	public UsersVO selectUser(int userid) {
 		UsersVO vo = sqlSession.selectOne("i.userselect", userid);
+		return vo;
+	}
+	
+	public HostVO hostinfo(int hostnum) {
+		HostVO vo = sqlSession.selectOne("i.hostinfo", hostnum);
 		return vo;
 	}
 }

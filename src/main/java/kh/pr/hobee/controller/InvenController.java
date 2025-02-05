@@ -15,6 +15,7 @@ import kh.pr.hobee.dao.InvenDAO;
 import kh.pr.hobee.dao.ReviewDAO;
 import kh.pr.hobee.vo.CategoryVO;
 import kh.pr.hobee.vo.HobeeVO;
+import kh.pr.hobee.vo.HostVO;
 import kh.pr.hobee.vo.InquiryVO;
 import kh.pr.hobee.vo.ReviewVO;
 import kh.pr.hobee.vo.WishlistVO;
@@ -72,10 +73,16 @@ public class InvenController {
 		
 		int inquiriesPerPage = 3;
 		
+		
 		// 상세 정보 조회
 		HobeeVO hobee_vo = inven_dao.hobeeDetail(hbidx);
 		model.addAttribute("hobee", hobee_vo);
 		model.addAttribute("hbidx", hbidx); // hbidx도 별도로 전달
+		
+		//호스트 정보
+		int hostNum = hobee_vo.getUser_id();
+		HostVO host_vo = inven_dao.hostinfo(hostNum);
+		model.addAttribute("host",host_vo);
 		
 		 // 전체 리뷰 목록 조회
 	    List<ReviewVO> reviews = review_dao.get_reviewList(hbidx);

@@ -31,7 +31,7 @@
 	<div class="sidebar">
         <div class="host-info">
             <div class="info-photo">
-                <img src="/hobee/resources/images/host_img.png" alt="프로필 이미지">
+                <img src="/hobee/resources/images/upload/${host.host_img}" alt="프로필 이미지">
             </div>
             <div class="info-name">[호스트]&nbsp;${sessionScope.loggedInUser.user_name}</div>
         </div>

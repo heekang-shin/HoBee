@@ -7,14 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰 상세보기</title>
-<link rel="stylesheet" href="/hobee/resources/css/host/review_list.css">
+
+<!-- 리스트 -->
 <link rel="stylesheet" href="/hobee/resources/css/host/pagination.css">
+
+<!-- 신청내역 스타일 시트  -->
+<link rel="stylesheet" href="/hobee/resources/css/mypage/mypage_review.css">
 
 <script src="/hobee/resources/js/hostFunction.js"></script>
 
-<jsp:include page="/WEB-INF/views/header/header.jsp"></jsp:include>
-<!--메뉴 인클루드  -->
-<jsp:include page="/WEB-INF/views/mypage/mypage_index.jsp" />
+
 
 
 <script>
@@ -66,6 +68,12 @@ function submitEditForm() {
 </head>
 
 <body>
+<!-- 헤더 -->
+<jsp:include page="/WEB-INF/views/header/header.jsp"></jsp:include>
+
+<!--메뉴 인클루드  -->
+<jsp:include page="/WEB-INF/views/mypage/mypage_index.jsp" />
+
 	<div id="wrapper">
 
 		<div class="content">
@@ -73,32 +81,40 @@ function submitEditForm() {
 
 
 			<div class="table-container">
+			
+			<h2>
+				작성한 리뷰
+			</h2>
+			<!-- 
 				<div class="total-num">
 					<p>
 						전체<span>${reviewCount}건</span>
 					</p>
-				</div>
+				</div> -->
 
 				<form id="reviewForm">
 					<table>
 						<thead>
 							<tr>
-								<th><input type="checkbox" id="selall"
-									onchange="toggleCheckboxes(this)"></th>
-								<th>작성자</th>
-								<th>평점</th>
-								<th>리뷰 내용</th>
-								<th>작성일</th>
-								<th>게시 상태</th>
+								<th width="5%"class="line">
+									<input type="checkbox" id="selall" onchange="toggleCheckboxes(this)">
+								</th>
+								<th width="15%" class="line">작성자</th>
+								<th width="5%" class="line">평점</th>
+								<th width="25%" class="line">리뷰 내용</th>
+								<th width="10%" class="line">작성일</th>
+								<th width="10%" class="line">게시 상태</th>
 							</tr>
 						</thead>
+						
 						<tbody>
 							<c:choose>
 								<c:when test="${not empty reviews}">
 									<c:forEach var="review" items="${reviews}">
 										<tr>
-											<td><input type="checkbox" name="review_id"
-												value="${review.user_name}" class="rowCheckbox"></td>
+											<td>
+												<input type="checkbox" name="review_id" value="${review.user_name}" class="rowCheckbox">
+											</td>
 											<td>${review.user_name}</td>
 											<td>${review.rating}점</td>
 											<td>${review.content}</td>
@@ -114,23 +130,33 @@ function submitEditForm() {
 								</c:otherwise>
 							</c:choose>
 						</tbody>
+						
 					</table>
+					
 					<div class="applybtn-box">
 						<input type="hidden" name="hbidx" value="${hbidx}"> <input
 							type="button" value="삭제하기" onclick="submitDeleteForm();">
 						<input type="button" value="수정하기" onclick="submitEditForm();">
 					</div>
+					
 				</form>
 
+				<!-- 
 				<div class="pagination">
 					<a href="#" class="first-page">«</a> <a href="#" class="prev-page">‹</a>
 					<a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
 					<a href="#">4</a> <a href="#">5</a> <a href="#" class="next-page">›</a>
 					<a href="#" class="last-page">»</a>
-				</div>
+				</div> -->
+				
+				
 			</div>
+
+		
+
 		</div>
 	</div>
-	</div>
+		<!--푸터  -->
+			<jsp:include page="/WEB-INF/views/footer/footer.jsp"></jsp:include>
 </body>
 </html>

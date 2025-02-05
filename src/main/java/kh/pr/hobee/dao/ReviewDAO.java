@@ -1,6 +1,8 @@
 package kh.pr.hobee.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -93,6 +95,14 @@ public class ReviewDAO {
         return sqlSession.selectOne("review.getHostUserIdByHbidx", hbidx);
     }
 
+ // 여러 개 삭제
+    public int deleteReviews(List<Integer> reviewList) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("reviewList", reviewList);
+        return sqlSession.delete("review.review_dels", paramMap);
+    }
+
+    
     
 }
 

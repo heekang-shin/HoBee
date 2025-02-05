@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kh.pr.hobee.dao.ReviewDAO;
@@ -113,21 +114,22 @@ public class ReviewController {
 	public String deleteReview(int[] review_id, int hbidx, RedirectAttributes redirectAttributes) {
 	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
 
+	    // ✅ 1️ 로그인 체크
 	    if (user == null) {
-	        redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
-	        return "redirect:/login_form.do";
+	        redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요합니다.");
+	        return "redirect:/review_detail.do?hbidx=" + hbidx;
 	    }
 
-	    String userLevel = user.getLv();
-	    String userId = user.getId();
+	    String userLevel = user.getLv(); // 사용자의 권한 (일반, 호스트, 관리자 등)
+	    String userId = user.getId(); // 현재 로그인한 사용자 ID
 
-	    // ✅ 1️⃣ 해당 모임을 생성한 호스트의 user_id 조회
+	    // ✅ 2️ 해당 모임을 생성한 호스트의 user_id 조회
 	    String hostUserId = review_dao.getHostUserIdByHbidx(hbidx);
 	    System.out.println("[디버그] 모임 작성자 ID: " + hostUserId);
 	    System.out.println("[디버그] 현재 로그인한 사용자 ID: " + userId);
 
-	    // 🚀 중복 제거
-	    List<Integer> uniqueReviewIds = new ArrayList<>();
+	    // ✅ 3️ 중복된 리뷰 ID 제거 (리스트에서 중복 제거)
+	    List<Integer> uniqueReviewIds = new ArrayList<Integer>();
 	    for (int id : review_id) {
 	        if (!uniqueReviewIds.contains(id)) {
 	            uniqueReviewIds.add(id);
@@ -136,45 +138,53 @@ public class ReviewController {
 
 	    System.out.println("[디버그] 중복 제거 후 삭제 요청된 리뷰 ID 목록: " + uniqueReviewIds);
 
-	    int deletedCount = 0;
+	    int deletedCount = 0; // 실제 삭제된 리뷰 개수 확인을 위한 변수
 
+	    // ✅ 4️ 리뷰 삭제 또는 삭제 요청 로직 수행
 	    for (int id : uniqueReviewIds) {
 	        ReviewVO review = review_dao.getReviewById(id);
 
+	        // ✅ 4-1️ 리뷰 ID가 DB에 존재하는지 확인
 	        if (review == null) {
+	            System.out.println("[디버그] 리뷰 ID: " + id + " -> DB에 존재하지 않음");
 	            continue;
 	        }
 
-	        // ✅ 일반 사용자는 본인 리뷰만 삭제 가능
+	        System.out.println("[디버그] 현재 리뷰 ID: " + id + ", 작성자: " + review.getUser_id());
+
+	        // ✅ 4-2️ 일반 사용자는 본인 리뷰만 삭제 가능
 	        if ("일반".equals(userLevel)) {
 	            if (review.getUser_id().equals(userId)) {
-	                deletedCount += review_dao.delete(id);
+	                int result = review_dao.delete(id);
+	                System.out.println("[디버그] 일반 유저 리뷰 삭제 결과: " + result);
+	                deletedCount += result;
 	            } else {
 	                redirectAttributes.addFlashAttribute("errorMessage", "본인이 작성한 리뷰만 삭제할 수 있습니다.");
 	                return "redirect:/review_detail.do?hbidx=" + hbidx;
 	            }
 	        }
-	        // ✅ 3️ 관리자 즉시 삭제
+	        // ✅ 4-3️ 관리자 및 총괄관리자는 언제든 즉시 삭제 가능
 	        else if ("관리자".equals(userLevel) || "총괄관리자".equals(userLevel)) {
-	            System.out.println("[디버그] 관리자 리뷰 즉시 삭제: review_id = " + id);
-	            deletedCount += review_dao.delete(id);
-	            continue;
+	            int result = review_dao.delete(id);
+	            System.out.println("[디버그] 관리자 리뷰 삭제 결과: " + result);
+	            deletedCount += result;
 	        }
-	        // ✅ 4️ 호스트인 경우, 본인이 작성한 리뷰라면 즉시 삭제 가능
+	        // ✅ 4-4️ 호스트의 경우 처리 (삭제 요청 vs 즉시 삭제)
 	        else if ("호스트".equals(userLevel)) {
+	            // ✅ 4-4-1️ 호스트 본인이 작성한 리뷰는 즉시 삭제 가능
 	            if (review.getUser_id().equals(userId)) { 
-	                // 자신이 작성한 리뷰라면 즉시 삭제
-	                System.out.println("[디버그] 호스트가 본인이 작성한 리뷰 삭제: review_id = " + id);
-	                deletedCount += review_dao.delete(id);
+	                int result = review_dao.delete(id);
+	                System.out.println("[디버그] 호스트 본인 리뷰 삭제 결과: " + result);
+	                deletedCount += result;
 	            } 
+	            // ✅ 4-4-2️ 다른 호스트의 모임이면 삭제 요청 불가능
 	            else if (!userId.equals(hostUserId)) { 
-	                // 다른 호스트의 모임이면 삭제 불가
 	                System.out.println("[디버그] 삭제 요청 불가 - 모임 작성자가 아님: review_id = " + id);
 	                redirectAttributes.addFlashAttribute("errorMessage", "해당 모임을 작성한 호스트만 리뷰 삭제 요청을 할 수 있습니다.");
 	                return "redirect:/review_detail.do?hbidx=" + hbidx;
 	            } 
+	            // ✅ 4-4-3️ 모임 개설자는 삭제 요청 가능 (이미 요청된 경우 중복 방지)
 	            else { 
-	                // 모임을 개설한 호스트라면 삭제 요청
 	                if (review_dao.isDeleteRequestExists(id)) {
 	                    System.out.println("[디버그] 호스트 이미 삭제 요청이 존재하는 리뷰: review_id = " + id);
 	                    continue;
@@ -192,6 +202,7 @@ public class ReviewController {
 	        }
 	    }
 
+	    // ✅ 5️ 삭제 성공 여부 메시지 설정
 	    if (deletedCount > 0) {
 	        redirectAttributes.addFlashAttribute("message", "선택된 리뷰가 성공적으로 삭제되었습니다.");
 	    } else {
@@ -226,11 +237,11 @@ public class ReviewController {
 			return "redirect:/admin_review_detail.do";
 		}
 
-		// 1️⃣ 리뷰 테이블에서 삭제
+		// 1️ 리뷰 테이블에서 삭제
 		int res = review_dao.delete(review_id);
 
 		if (res > 0) {
-			// 2️⃣ 삭제 요청 테이블에서 해당 요청 제거
+			// 2️ 삭제 요청 테이블에서 해당 요청 제거
 			review_dao.deleteDeleteRequest(review_id);
 
 			redirectAttributes.addFlashAttribute("message", "리뷰 삭제가 승인되었습니다.");
@@ -288,5 +299,29 @@ public class ReviewController {
 
 	    return kh.pr.hobee.common.Common.VIEW_PATH + "detail/my_review.jsp"; // my_review.jsp로 이동
 	}
+
+	  @RequestMapping("delmyReview.do")
+	    public String deleteMyReviews(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+	        UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+
+	        // ✅ 로그인 체크
+	        if (user == null) {
+	            return "redirect:/login_form.do";
+	        }
+
+	        // ✅ 삭제할 리뷰 ID 가져오기
+	        String[] reviewIdArray = request.getParameterValues("review_id");
+	        if (reviewIdArray == null || reviewIdArray.length == 0) {
+	            return "redirect:/MyReviews.do";
+	        }
+
+	        // ✅ ReviewDAO의 delete() 메서드 사용하여 삭제
+	        for (String id : reviewIdArray) {
+	            review_dao.delete(Integer.parseInt(id));
+	        }
+
+	        return "redirect:/MyReviews.do";
+	    }
+
 
 }

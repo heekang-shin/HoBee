@@ -12,7 +12,8 @@
 <link rel="stylesheet" href="/hobee/resources/css/host/pagination.css">
 
 <!-- 신청내역 스타일 시트  -->
-<link rel="stylesheet" href="/hobee/resources/css/mypage/mypage_review.css">
+<link rel="stylesheet"
+	href="/hobee/resources/css/mypage/mypage_review.css">
 
 <script src="/hobee/resources/js/hostFunction.js"></script>
 
@@ -20,59 +21,38 @@
 
 
 <script>
-function toggleCheckboxes(selectAllCheckbox) {
-    const checkboxes = document.querySelectorAll('.rowCheckbox');
-    checkboxes.forEach(function(checkbox) {
-        checkbox.checked = selectAllCheckbox.checked;
-    });
-}
+	function toggleCheckboxes(selectAllCheckbox) {
+		const checkboxes = document.querySelectorAll('.rowCheckbox');
+		checkboxes.forEach(function(checkbox) {
+			checkbox.checked = selectAllCheckbox.checked;
+		});
+	}
 
-function submitDeleteForm() {
-    const form = document.getElementById('reviewForm');
-    const checkboxes = document.querySelectorAll('.rowCheckbox:checked');
-    const selectedIds = Array.from(checkboxes).map(checkbox => checkbox.value);
+	function submitDeleteForm() {
+	    const form = document.getElementById('reviewForm');
+	    const checkboxes = document.querySelectorAll('.rowCheckbox:checked');
 
-    if (selectedIds.length === 0) {
-        alert("삭제할 항목을 선택하세요.");
-        return;
-    }
+	    if (checkboxes.length === 0) {
+	        alert("삭제할 항목을 선택하세요.");
+	        return;
+	    }
 
-    if (confirm("선택한 리뷰를 삭제하시겠습니까?")) {
-        form.action = "delmyReview.do";
-        form.method = "post";
-        form.submit();
-    }
-}
-
-function submitEditForm() {
-    const form = document.getElementById('reviewForm');
-    const checkboxes = document.querySelectorAll('.rowCheckbox:checked');
-    const selectedIds = Array.from(checkboxes).map(checkbox => checkbox.value);
-
-    if (selectedIds.length === 0) {
-        alert("수정할 항목을 선택하세요.");
-        return;
-    }
-
-    if (selectedIds.length > 1) {
-        alert("한 번에 하나의 리뷰만 수정할 수 있습니다.");
-        return;
-    }
-
-    form.action = "editmyReview.do";
-    form.method = "post";
-    form.submit();
-}
+	    if (confirm("선택한 리뷰를 삭제하시겠습니까?")) {
+	        form.action = "delmyReview.do";
+	        form.method = "post";
+	        form.submit();
+	    }
+	}
 </script>
 
 </head>
 
 <body>
-<!-- 헤더 -->
-<jsp:include page="/WEB-INF/views/header/header.jsp"></jsp:include>
+	<!-- 헤더 -->
+	<jsp:include page="/WEB-INF/views/header/header.jsp"></jsp:include>
 
-<!--메뉴 인클루드  -->
-<jsp:include page="/WEB-INF/views/mypage/mypage_index.jsp" />
+	<!--메뉴 인클루드  -->
+	<jsp:include page="/WEB-INF/views/mypage/mypage_index.jsp" />
 
 	<div id="wrapper">
 
@@ -81,24 +61,14 @@ function submitEditForm() {
 
 
 			<div class="table-container">
-			
-			<h2>
-				작성한 리뷰
-			</h2>
-			<!-- 
-				<div class="total-num">
-					<p>
-						전체<span>${reviewCount}건</span>
-					</p>
-				</div> -->
 
-				<form id="reviewForm">
+				<h2>작성한 리뷰</h2>
+				<form id="reviewForm" method="post">
 					<table>
 						<thead>
 							<tr>
-								<th width="5%"class="line">
-									<input type="checkbox" id="selall" onchange="toggleCheckboxes(this)">
-								</th>
+								<th width="5%" class="line"><input type="checkbox"
+									id="selall" onchange="toggleCheckboxes(this)"></th>
 								<th width="15%" class="line">모임명</th>
 								<th width="5%" class="line">평점</th>
 								<th width="25%" class="line">리뷰 내용</th>
@@ -106,16 +76,15 @@ function submitEditForm() {
 								<th width="10%" class="line">게시 상태</th>
 							</tr>
 						</thead>
-						
+
 						<tbody>
 							<c:choose>
 								<c:when test="${not empty reviews}">
 									<c:forEach var="review" items="${reviews}">
 										<tr>
-											<td>
-												<input type="checkbox" name="review_id" value="${review.user_name}" class="rowCheckbox">
-											</td>
-											<td>${review.user_name}</td>
+											<td><input type="checkbox" name="review_id"
+												value="${review.review_id}" class="rowCheckbox"></td>
+											<td>${review.hb_title}</td>
 											<td>${review.rating}점</td>
 											<td>${review.content}</td>
 											<td>${review.created_at}</td>
@@ -130,32 +99,16 @@ function submitEditForm() {
 								</c:otherwise>
 							</c:choose>
 						</tbody>
-						
 					</table>
-					
+
 					<div class="applybtn-box">
-						<input type="hidden" name="hbidx" value="${hbidx}"> <input
-							type="button" value="삭제하기" onclick="submitDeleteForm();">
+						<input type="button" value="삭제하기" onclick="submitDeleteForm();">
 					</div>
-					
 				</form>
 
-				<!-- 
-				<div class="pagination">
-					<a href="#" class="first-page">«</a> <a href="#" class="prev-page">‹</a>
-					<a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
-					<a href="#">4</a> <a href="#">5</a> <a href="#" class="next-page">›</a>
-					<a href="#" class="last-page">»</a>
-				</div> -->
-				
-				
 			</div>
-
-		
-
 		</div>
-	</div>
 		<!--푸터  -->
-			<jsp:include page="/WEB-INF/views/footer/footer.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/footer/footer.jsp"></jsp:include>
 </body>
 </html>

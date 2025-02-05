@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kh.pr.hobee.dao.ReviewDAO;
@@ -177,12 +176,13 @@ public class ReviewController {
 	                System.out.println("[디버그] 호스트 본인 리뷰 삭제 결과: " + result);
 	                deletedCount += result;
 	            } 
-	            // ✅ 4-4-2️ 다른 호스트의 모임이면 삭제 요청 불가능
-	            else if (!userId.equals(hostUserId)) { 
-	                System.out.println("[디버그] 삭제 요청 불가 - 모임 작성자가 아님: review_id = " + id);
+	         // ✅ 4-4-2️ 다른 호스트의 모임이면 삭제 요청 불가능
+	            else if (Integer.parseInt(hostUserId) != user.getUser_Id()) { 
+	                System.out.println("[디버그] 삭제 요청 불가 - 모임 작성자가 아님: 로그인한 ID = " + userId + ", 모임 개설자 ID = " + hostUserId);
 	                redirectAttributes.addFlashAttribute("errorMessage", "해당 모임을 작성한 호스트만 리뷰 삭제 요청을 할 수 있습니다.");
 	                return "redirect:/review_detail.do?hbidx=" + hbidx;
-	            } 
+	            }
+
 	            // ✅ 4-4-3️ 모임 개설자는 삭제 요청 가능 (이미 요청된 경우 중복 방지)
 	            else { 
 	                if (review_dao.isDeleteRequestExists(id)) {
@@ -199,6 +199,7 @@ public class ReviewController {
 
 	                review_dao.insertDeleteRequest(deleteRequest);
 	            }
+
 	        }
 	    }
 

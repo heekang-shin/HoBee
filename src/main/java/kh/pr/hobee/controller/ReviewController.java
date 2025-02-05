@@ -127,7 +127,7 @@ public class ReviewController {
 	    System.out.println("[디버그] 현재 로그인한 사용자 ID: " + userId);
 
 	    // 🚀 중복 제거
-	    List<Integer> uniqueReviewIds = new ArrayList<>();
+	    List<Integer> uniqueReviewIds = new ArrayList<Integer>();
 	    for (int id : review_id) {
 	        if (!uniqueReviewIds.contains(id)) {
 	            uniqueReviewIds.add(id);

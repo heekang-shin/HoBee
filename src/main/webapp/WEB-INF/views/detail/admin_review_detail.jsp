@@ -10,6 +10,7 @@
 
 <!-- 스타일 및 스크립트 -->
 <link rel="stylesheet" href="/hobee/resources/css/host/common.css">
+  <link rel="stylesheet" href="/hobee/resources/css/host/host_apply_list.css">
 <script src="/hobee/resources/js/hostFunction.js"></script>
 <!-- 헤더 -->
 <jsp:include page="/WEB-INF/views/admin/admin_header.jsp"></jsp:include>

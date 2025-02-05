@@ -322,12 +322,12 @@ ul li {
 }
 
 .con_box h2  {
-
-	font-size: 22px;
-	color: var(- -content-title-color);
-	margin-top: 16px;
-	overflow: hidden;
-	text-overflow: ellipsis;
+   font-size: 22px;
+   color: var(--content-title-color);
+   margin-top: 16px;
+  overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
 }
 
 .con_box p {

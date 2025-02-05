@@ -6,11 +6,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 리뷰 삭제 요청 목록</title>
+<title>Hobee:관리자 페이지</title>
+<!-- 파비콘 -->
+<link rel="icon" href="/hobee/resources/images/Favicon.png">
 
 <!-- 스타일 및 스크립트 -->
 <link rel="stylesheet" href="/hobee/resources/css/host/common.css">
-  <link rel="stylesheet" href="/hobee/resources/css/host/host_apply_list.css">
+<link rel="stylesheet" href="/hobee/resources/css/host/host_apply_list.css">
+
 <script src="/hobee/resources/js/hostFunction.js"></script>
 <!-- 헤더 -->
 <jsp:include page="/WEB-INF/views/admin/admin_header.jsp"></jsp:include>
@@ -33,24 +36,29 @@
 </head>
 <body>
 	<div id="wrapper">
+	<!-- 헤더 -->
+		<jsp:include page="/WEB-INF/views/admin/admin_header.jsp"></jsp:include>
+	
 		<!-- 관리자 사이드바 -->
 		<jsp:include page="/WEB-INF/views/admin/admin_sidebar.jsp"></jsp:include>
 
 		<!-- 컨텐츠 영역 -->
 		<div class="content">
 			<div class="title-box">
-				<h3>삭제 요청된 리뷰 관리</h3>
+			<img src="/hobee/resources/images/admin_title_icon.png">
+				<h3>리뷰 관리</h3>
 			</div>
-
+	<!--대시보드 영역 -->
+			<div class="dashboard">
 				<table>
 					<thead>
 						<tr>
-							<th>작성자</th>
-							<th>평점</th>
-							<th>리뷰 내용</th>
-							<th>삭제 요청한 호스트</th>
-							<th>작성일</th>
-							<th>관리</th>
+							<th class="line">작성자</th>
+							<th class="line">평점</th>
+							<th class="line">리뷰 내용</th>
+							<th class="line">삭제 요청한 호스트</th>
+							<th class="line">작성일</th>
+							<th class="line">관리</th>
 						</tr>
 					</thead>
 					<tbody>

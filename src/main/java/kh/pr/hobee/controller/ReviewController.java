@@ -228,7 +228,7 @@ public class ReviewController {
 		// 모델에 데이터 추가
 		model.addAttribute("deleteRequests", pendingReviews);
 
-		return kh.pr.hobee.common.Common.VIEW_PATH + "detail/admin_review_detail.jsp"; // JSP 페이지로 이동
+		return kh.pr.hobee.common.Common.VIEW_PATH + "admin/admin_review_detail.jsp"; // JSP 페이지로 이동
 	}
 
 	// ✅ 삭제 요청 승인 (관리자)

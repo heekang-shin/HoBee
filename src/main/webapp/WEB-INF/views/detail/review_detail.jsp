@@ -1,21 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>리뷰 상세보기</title>
+<meta charset="UTF-8">
+<title>리뷰 상세보기</title>
 
-    <!-- 스타일시트 -->
-    <link rel="icon" href="/hobee/resources/images/Favicon.png">
-    <link rel="stylesheet" href="/hobee/resources/css/host/common.css">
-    <link rel="stylesheet" href="/hobee/resources/css/host/host_apply_list.css">
-    <link rel="stylesheet" href="/hobee/resources/css/host/pagination.css">
+<!-- 공통 css -->
+<link rel="stylesheet" href="/hobee/resources/css/common.css">
 
-    <!-- 스크립트 -->
-    <script src="/hobee/resources/js/hostFunction.js"></script>
-    <script>
+<!-- 파비콘 -->
+<link rel="icon" href="/hobee/resources/images/Favicon.png">
+
+<!-- review detail css -->
+<link rel="stylesheet" href="/hobee/resources/css/detail_review.css">
+
+<!-- 스크립트 -->
+<script src="/hobee/resources/js/hostFunction.js"></script>
+
+<script>
         // 모든 rowCheckbox 체크박스 선택/해제
         function toggleCheckboxes(selectAllCheckbox) {
             const checkboxes = document.querySelectorAll('.rowCheckbox');
@@ -59,115 +64,101 @@
 </head>
 
 <body>
-    <div id="wrapper">
-        <!-- 헤더 -->
-        <jsp:include page="/WEB-INF/views/header/header.jsp"></jsp:include>
+	
+		<!-- 헤더 -->
+		<jsp:include page="/WEB-INF/views/header/header.jsp"></jsp:include>
 
-        <!-- 사이드바 -->
-        <jsp:include page="/WEB-INF/views/detail/review_sidebar.jsp"></jsp:include>
+		<!-- 사이드바 
+        <jsp:include page="/WEB-INF/views/detail/review_sidebar.jsp"></jsp:include>-->
 
-        <!-- 컨텐츠 영역 -->
-        <div class="content">
-            <div class="title-box">
-                <h3>프로그램 목록</h3>
-            </div>
+		<!-- 컨텐츠 영역 -->
+		<div class="content">
+			<div class="title-box">
+				<h3>리뷰</h3>
+			</div>
 
-            <!-- 대시보드 영역 -->
-            <div class="dashboard">
-                <!-- 검색창 시작 -->
-                <div class="search-container">
-                    <form>
-                        <div class="select-box">
-                            <select class="search-select" name="search_category">
-                                <option value="all">전체</option>
-                                <option value="title">제목</option>
-                                <option value="content">내용</option>
-                            </select>
-                        </div>
-                        <input id="search" type="search" placeholder="검색어를 입력해 주세요."
-                               name="search_text" class="search-input"
-                               onkeypress="if(event.keyCode == 13){enterKey(this.form)}" />
-                        <input type="button" class="search-button" onclick="">
-                    </form>
-                </div>
+			<!-- 대시보드 영역 -->
+			<div class="dashboard">
+				<!-- 리스트 시작 -->
+				<div class="table-container">
+					<div class="total-num">
+						<p>
+							리뷰&nbsp;<span>${reviewCount}건</span>
+						</p>
+					</div>
 
-                <!-- 리스트 시작 -->
-                <div class="table-container">
-                    <div class="total-num">
-                        <p>전체 <span>${reviewCount}건</span></p>
-                    </div>
+					<form id="reviewForm" action="deleteReview.do" method="post">
+						<c:if test="${not empty reviews}">
+							<table>
+								<thead>
+									<tr>
+										<th width="5%" class="line"><input type="checkbox"
+											id="selall" onchange="toggleCheckboxes(this)"></th>
+										<th width="15%" class="line">작성자</th>
+										<th width="10%" class="line">평점</th>
+										<th width="40%" class="line">리뷰 내용</th>
+										<th width="15%" class="line">작성일</th>
 
-                    <form id="reviewForm" action="deleteReview.do" method="post">
-                        <c:if test="${not empty reviews}">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th><input type="checkbox" id="selall" onchange="toggleCheckboxes(this)"></th>
-                                        <th>작성자</th>
-                                        <th>평점</th>
-                                        <th>리뷰 내용</th>
-                                        <th>작성일</th>
-
-                                        <!-- ✅ 게시 상태 표시 조건 -->
-                                        <c:if test="${not empty sessionScope.loggedInUser 
+										<!-- ✅ 게시 상태 표시 조건 -->
+										<c:if
+											test="${not empty sessionScope.loggedInUser 
                                                      and (sessionScope.loggedInUser.lv != '일반' 
                                                      or sessionScope.loggedInUser.id == hostUserId)}">
-                                            <th>게시 상태</th>
-                                        </c:if>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="review" items="${reviews}">
-                                        <tr>
-                                            <td><input type="checkbox" name="review_id" value="${review.review_id}" class="rowCheckbox"></td>
-                                            <td>${review.user_name}</td>
-                                            <td>${review.rating}점</td>
-                                            <td>${review.content}</td>
-                                            <td>${review.created_at}</td>
+											<th width="15%">게시 상태</th>
+										</c:if>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="review" items="${reviews}">
+										<tr>
+											<td width="5%"><input type="checkbox" name="review_id"
+												value="${review.review_id}" class="rowCheckbox"></td>
+											<td width="15%">${review.user_name}</td>
+											<td width="10%">${review.rating}점</td>
+											<td width="40%" style="text-align: left;">${review.content}</td>
+											<td width="15%">${review.created_at}</td>
 
-                                            <!-- ✅ 게시 상태 표시 -->
-                                            <c:if test="${not empty sessionScope.loggedInUser 
+											<!-- ✅ 게시 상태 표시 -->
+											<c:if
+												test="${not empty sessionScope.loggedInUser 
                                                          and (sessionScope.loggedInUser.lv != '일반' 
                                                          or sessionScope.loggedInUser.id == hostUserId)}">
-                                                <td>
-                                                    <c:choose>
-                                                        <c:when test="${not empty review.request_status and review.request_status == '대기'}">
-                                                            <span style="color: red;">삭제 요청됨</span>
-                                                        </c:when>
-                                                        <c:otherwise>
+												<td width="15%"><c:choose>
+														<c:when
+															test="${not empty review.request_status and review.request_status == '대기'}">
+															<span style="color: red;">삭제 요청됨</span>
+														</c:when>
+														<c:otherwise>
                                                             게시 중
                                                         </c:otherwise>
-                                                    </c:choose>
-                                                </td>
-                                            </c:if>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </c:if>
+													</c:choose></td>
+											</c:if>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</c:if>
 
-                        <!-- ✅ 삭제 버튼 -->
-                        <div class="applybtn-box">
-                            <input type="hidden" name="hbidx" value="${hbidx}">
-                            <input type="button" value="삭제하기" onclick="submitForm('${userLevel}', '${hostUserId}');">
-                        </div>
-                    </form>
+						<!-- ✅ 삭제 버튼 -->
+						<div class="applybtn-box">
+							<input type="hidden" name="hbidx" value="${hbidx}"> <input
+								type="button" value="삭제하기"
+								onclick="submitForm('${userLevel}', '${hostUserId}');">
+						</div>
+					</form>
 
-                    <!-- 페이징 -->
-                    <div class="pagination">
-                        <a href="#" class="first-page">«</a>
-                        <a href="#" class="prev-page">‹</a>
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#" class="next-page">›</a>
-                        <a href="#" class="last-page">»</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+				</div>
+
+
+
+			</div>
+		</div>
+
+	
+ <!-- 푸터 -->
+        <jsp:include page="/WEB-INF/views/footer/footer.jsp"></jsp:include>
+
+	
 </body>
 </html>

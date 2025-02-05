@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+	color: #222222;
+	font-size:16px;
+}
+
+.content{
+	width:1400px;
+	height: auto;
+	margin: 120px auto;
+}
+
+.title-box h3{
+	text-align: center;
+	font-size:45px;
+}
+
+.total-num{
+	width:100%;
+	height: auto;
+	margin-top:20px;
+	border-bottom: 2px solid #222222;
+}
+
+.total-num p, span{
+	font-size: 16px;
+	margin-bottom: 8px;
+	font-weight: 800;
+}
+
+/* 테이블 스타일 */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+	font-size: 16px;
+}
+
+thead {
+	font-weight: bold;
+	height: 60px;
+}
+
+th, td {
+	height: 60px;
+	border-bottom: 1px solid #dcdcdc;
+}
+
+th {
+	font-weight: 700;
+	color: var(--color-black);
+	position: relative;
+}
+
+th.line::after {
+    content: '';
+    position: absolute;
+    top: 38%;
+    right: 0;
+    width: 1px;
+    height: 16px;
+    background-color: var(--border-color-gray); 
+}
+
+th.line:last-child{
+	background-color:none;
+}
+
+tbody td{
+	font-weight: 300;
+}
+
+tbody td a{
+	color:var(--color-black);
+}
+
+.title{
+	text-align: left;
+	padding-left:30px;
+}
+
+
+.line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background-color: var(--border-color-gray); 
+}
+
+.line:last-child::after{
+	background-color:var(--color-white);
+}
+
+/* 신청 , 삭제 버튼 */
+.applybtn-box {
+   width:1390px;
+    height: 42px;
+    margin: 40px auto;
+    display: flex; /* 버튼을 가로로 정렬 */
+    justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+    gap: 10px; /* 버튼 사이 간격 */
+}
+
+.applybtn-box input[type="button"] {
+    display: inline-block;
+    width: 100px;
+    height: 42px;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border:1px solid var(--color-red);
+	color:var(--color-red);
+	background-color:var(--color-white);
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.applybtn-box input[type="button"]:hover {
+	color:var(--color-white);
+	background-color:var(--color-red);
+}

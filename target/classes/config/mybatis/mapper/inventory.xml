@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			parameterType="int">
 			select * from hobee
 			where category_num like #{category}||'%' and status = 1
-			order by hb_write_date
+			order by hb_write_date desc
 	</select>
 	
 

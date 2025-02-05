@@ -11,7 +11,8 @@
 <!-- 파비콘 -->
 <link rel="icon" href="/hobee/resources/images/Favicon.png">
 <link rel="stylesheet" href="/hobee/resources/css/host/common.css">
-<link rel="stylesheet" href="/hobee/resources/css/host/host_apply_list.css">
+<link rel="stylesheet"
+	href="/hobee/resources/css/host/host_apply_list.css">
 <link rel="stylesheet" href="/hobee/resources/css/host/pagination.css">
 <!-- 헤더 -->
 <script src="/hobee/resources/js/hostFunction.js"></script>
@@ -134,12 +135,13 @@
 										<th>리뷰 내용</th>
 										<th>작성일</th>
 
-										<!-- ✅ 로그인했으며 일반 사용자가 아닌 경우만 "게시 상태" 컬럼 표시 -->
+										<!-- ✅ 일반 사용자가 아니고, 호스트일 경우 본인이 개설한 모임인지 체크 -->
 										<c:if
-											test="${not empty sessionScope.loggedInUser and sessionScope.loggedInUser.lv != '일반'}">
+											test="${not empty sessionScope.loggedInUser 
+                                and (sessionScope.loggedInUser.lv != '일반') 
+                                and (sessionScope.loggedInUser.lv != '호스트' or sessionScope.loggedInUser.id == hostUserId)}">
 											<th>게시 상태</th>
 										</c:if>
-
 									</tr>
 								</thead>
 								<tbody>
@@ -152,16 +154,18 @@
 											<td>${review.content}</td>
 											<td>${review.created_at}</td>
 
-											<!-- ✅ 로그인했으며 일반 사용자가 아닌 경우만 "게시 상태" 값 표시 -->
+											<!-- ✅ 일반 사용자가 아니고, 호스트일 경우 본인이 개설한 모임인지 체크 -->
 											<c:if
-												test="${not empty sessionScope.loggedInUser and sessionScope.loggedInUser.lv != '일반'}">
+												test="${not empty sessionScope.loggedInUser 
+                                    and (sessionScope.loggedInUser.lv != '일반') 
+                                    and (sessionScope.loggedInUser.lv != '호스트' or sessionScope.loggedInUser.id == hostUserId)}">
 												<td><c:choose>
 														<c:when test="${review.request_status == '대기'}">
 															<span style="color: red;">삭제 요청됨</span>
 														</c:when>
 														<c:otherwise>
-                        게시 중
-                    </c:otherwise>
+                                        게시 중
+                                    </c:otherwise>
 													</c:choose></td>
 											</c:if>
 										</tr>
@@ -170,13 +174,14 @@
 							</table>
 						</c:if>
 
-						<!-- ✅ 삭제하기 버튼 유지 -->
+						<!-- ✅ 삭제하기 버튼 -->
 						<div class="applybtn-box">
 							<input type="hidden" name="hbidx" value="${hbidx}"> <input
-								type="button" value="삭제하기" onclick="submitForm('${userLevel}');">
-
+								type="button" value="삭제하기"
+								onclick="submitForm('${userLevel}', '${hostUserId}');">
 						</div>
 					</form>
+
 
 
 					<!-- 페이징 시작 -->

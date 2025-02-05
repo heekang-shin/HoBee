@@ -88,6 +88,12 @@ public class ReviewDAO {
     }
 
     
+ // ✅ 특정 모임(hbidx)을 생성한 호스트의 user_id 조회
+    public String getHostUserIdByHbidx(int hbidx) {
+        return sqlSession.selectOne("review.getHostUserIdByHbidx", hbidx);
+    }
+
+    
 }
 
 

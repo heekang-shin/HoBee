@@ -24,12 +24,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selreview_list" parameterType="int"
 		resultType="review">
 		SELECT r.*,
-		COALESCE(rd.request_status, '게시 중') AS request_status
+		COALESCE(rd.request_status, '게시 중') AS
+		request_status
 		FROM review r
 		LEFT JOIN review_delete_requests rd
-		ON r.review_id = rd.review_id
+		ON
+		r.review_id = rd.review_id
 		AND rd.request_status = '대기'
-		WHERE r.hb_idx = #{hb_idx}
+		WHERE r.hb_idx =
+		#{hb_idx}
 		ORDER BY r.created_at DESC
 	</select>
 
@@ -56,25 +59,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM review WHERE review_id = #{review_id}
 	</select>
 
-	<!-- 
-    특정 user_id에 해당하는 리뷰 목록을 가져오는 쿼리.
-    기존 쿼리에서는 review 테이블만 조회했지만, 
-    hobee 테이블과 JOIN하여 hb_title(모임명)도 함께 가져오도록 개선.
--->
-<select id="getReviewsWithHobee" parameterType="String" resultType="review">
-    SELECT 
-        r.review_id,  
-        r.user_id,    
-        r.hb_idx,    
-        r.rating,     
-        r.content,    
-        r.created_at, 
-        h.hb_title   
-    FROM review r
-    JOIN hobee h ON r.hb_idx = h.hb_idx  
-    WHERE r.user_id = #{userId}         
-    ORDER BY r.created_at DESC           
-</select>
+	<!-- 특정 user_id에 해당하는 리뷰 목록을 가져오는 쿼리. 기존 쿼리에서는 review 테이블만 조회했지만, hobee 
+		테이블과 JOIN하여 hb_title(모임명)도 함께 가져오도록 개선. -->
+	<select id="getReviewsWithHobee" parameterType="String"
+		resultType="review">
+		SELECT
+		r.review_id,
+		r.user_id,
+		r.hb_idx,
+		r.rating,
+		r.content,
+		r.created_at,
+		h.hb_title
+		FROM review r
+		JOIN hobee h ON r.hb_idx = h.hb_idx
+		WHERE r.user_id = #{userId}
+		ORDER BY r.created_at DESC
+	</select>
 
 
 	<!-- 삭제 요청을 DB에 저장 -->
@@ -118,5 +119,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM
 		review_delete_requests WHERE review_id = #{review_id}
 	</delete>
+
+	<!-- 특정 hbidx의 모임을 만든 호스트의 user_id 조회 -->
+	<select id="getHostUserIdByHbidx" parameterType="int"
+		resultType="String">
+		SELECT user_id FROM hobee WHERE hb_idx = #{hbidx}
+	</select>
+
+
 
 </mapper>

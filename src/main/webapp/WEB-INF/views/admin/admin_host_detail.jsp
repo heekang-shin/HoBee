@@ -91,7 +91,7 @@
 						<!-- 호스트 이름 -->
 						<div class="form-box">
 							<label>호스트이름 <b class="req">*</b></label>
-							<div name="host_name">${vo.host_name}</div>
+							<div class="host_name">${vo.host_name}></div>
 
 
 						</div>
@@ -99,7 +99,7 @@
 						<!--호스트 소개-->
 						<div class="form-box">
 							<label>호스트소개 <b class="req">*</b></label>
-							<div name="host_info">${vo.host_info}</div>
+							<div class="host_info">${vo.host_info}></div>
 
 						</div>
 

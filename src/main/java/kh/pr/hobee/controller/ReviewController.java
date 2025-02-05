@@ -239,21 +239,26 @@ public class ReviewController {
 	}
 	// 작성한 리뷰
 	@RequestMapping("MyReviews.do")
-	public String myReviewsAndDelete(int[] review_id, Model model, int hbidx) {
-		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
-		if (user == null) {
-			model.addAttribute("errorMessage", "로그인이 필요합니다.");
-			return kh.pr.hobee.common.Common.VIEW_PATH + "login/login_form.jsp"; // 로그인 페이지로 리다이렉트
-		}
-		String userId = user.getId();
-		List<ReviewVO> myReviews = review_dao.getReviewsByUserId(userId); // 본인 리뷰 조회
-		if (myReviews != null && !myReviews.isEmpty()) {
-			model.addAttribute("reviews", myReviews);
-			model.addAttribute("reviewCount", myReviews.size());
-		} else {
-			model.addAttribute("errorMessage", "작성한 리뷰가 없습니다.");
-		}
-		model.addAttribute("hbidx", hbidx);
-		return kh.pr.hobee.common.Common.VIEW_PATH + "detail/my_review.jsp"; // my_review.jsp로 이동
+	public String myReviewsAndDelete(Model model) {
+	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+	    if (user == null) {
+	        model.addAttribute("errorMessage", "로그인이 필요합니다.");
+	        return kh.pr.hobee.common.Common.VIEW_PATH + "login/login_form.jsp"; // 로그인 페이지로 리다이렉트
+	    }
+
+	    String userId = user.getId();
+	    
+	    // 리뷰 목록 조회 (모임명 포함)
+	    List<ReviewVO> myReviews = review_dao.getReviewsByUserId(userId); 
+	    
+	    if (myReviews != null && !myReviews.isEmpty()) {
+	        model.addAttribute("reviews", myReviews);
+	        model.addAttribute("reviewCount", myReviews.size());
+	    } else {
+	        model.addAttribute("errorMessage", "작성한 리뷰가 없습니다.");
+	    }
+
+	    return kh.pr.hobee.common.Common.VIEW_PATH + "detail/my_review.jsp"; // my_review.jsp로 이동
 	}
+
 }

@@ -50,10 +50,12 @@ public class ReviewDAO {
 	public ReviewVO getReviewById(int review_id) {
 	    return sqlSession.selectOne("review.getReviewById", review_id);
 	}
-	//userId로 조회되는 리뷰 조회 
+	
+	// userId로 리뷰를 조회하면서 hb_title도 함께 가져오도록 수정
 	public List<ReviewVO> getReviewsByUserId(String userId) {
-	    return sqlSession.selectList("review.getReviewsByUserId", userId);
+	    return sqlSession.selectList("review.getReviewsWithHobee", userId);
 	}
+
 	
 	 //[신규 추가] 호스트가 삭제 요청을 DB에 저장하는 메서드
     public int insertDeleteRequest(ReviewVO vo) {

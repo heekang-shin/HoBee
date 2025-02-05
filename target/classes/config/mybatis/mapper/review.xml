@@ -56,12 +56,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM review WHERE review_id = #{review_id}
 	</select>
 
-	<!-- 특정 user_id로 리뷰 조회 -->
-	<select id="getReviewsByUserId" parameterType="String"
-		resultType="review">
-		SELECT * FROM review WHERE user_id = #{userId} ORDER BY
-		created_at DESC
-	</select>
+	<!-- 
+    특정 user_id에 해당하는 리뷰 목록을 가져오는 쿼리.
+    기존 쿼리에서는 review 테이블만 조회했지만, 
+    hobee 테이블과 JOIN하여 hb_title(모임명)도 함께 가져오도록 개선.
+-->
+<select id="getReviewsWithHobee" parameterType="String" resultType="review">
+    SELECT 
+        r.review_id,  
+        r.user_id,    
+        r.hb_idx,    
+        r.rating,     
+        r.content,    
+        r.created_at, 
+        h.hb_title   
+    FROM review r
+    JOIN hobee h ON r.hb_idx = h.hb_idx  
+    WHERE r.user_id = #{userId}         
+    ORDER BY r.created_at DESC           
+</select>
+
 
 	<!-- 삭제 요청을 DB에 저장 -->
 	<insert id="insertDeleteRequest" parameterType="review">

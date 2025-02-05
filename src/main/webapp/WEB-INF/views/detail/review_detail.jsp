@@ -67,7 +67,8 @@
 <body>
 	<div id="wrapper">
 		<!-- 헤더 -->
-		<jsp:include page="/WEB-INF/views/host/host_header.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/header/header.jsp"></jsp:include>
+
 
 		<!-- 사이드바 -->
 		<jsp:include page="/WEB-INF/views/detail/review_sidebar.jsp"></jsp:include>

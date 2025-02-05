@@ -2,7 +2,15 @@ package kh.pr.hobee.vo;
 
 public class ReviewVO {
 	private int rating, review_id, hb_idx;
-	private String content, created_at, user_name, user_id, requested_by, request_status;
+	private String content, created_at, user_name, user_id, requested_by, request_status, hb_title;
+
+	public String getHb_title() {
+		return hb_title;
+	}
+
+	public void setHb_title(String hb_title) {
+		this.hb_title = hb_title;
+	}
 
 	public String getRequested_by() {
 		return requested_by;

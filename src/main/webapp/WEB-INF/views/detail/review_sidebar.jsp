@@ -26,10 +26,10 @@
                 <img src="/hobee/resources/images/host_p.png" alt="게시글 보기">
                 <a href="hobee_detail.do?hbidx=${hbidx}">모임 정보</a>
             </li>
-            <li>
-                <img src="/hobee/resources/images/host_list.png" alt="리뷰 삭제">
-                <a href="MyReviews.do?hbidx=${hbidx}">작성 한 리뷰</a> <!-- 마이페이지로 뺄 예정  -->
-            </li>
+            <%-- <li>
+                <img src="/hobee/resources/images/host_list.png" >
+                <a href="MyReviews.do?hbidx=${hbidx}">작성 한 리뷰</a>
+            </li> --%>
         </ul>
     </div>
 	</body>

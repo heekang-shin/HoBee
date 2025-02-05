@@ -1,10 +1,10 @@
+
 package kh.pr.hobee.dao;
 
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import kh.pr.hobee.vo.InquiryVO;
 import kh.pr.hobee.vo.ReserveVO;
 
 public class ReserveDAO {

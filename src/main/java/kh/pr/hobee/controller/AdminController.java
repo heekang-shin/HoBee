@@ -1,12 +1,6 @@
 package kh.pr.hobee.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +24,8 @@ import kh.pr.hobee.dao.ReserveDAO;
 import kh.pr.hobee.dao.UsersDAO;
 import kh.pr.hobee.vo.HobeeVO;
 import kh.pr.hobee.vo.HostVO;
-import kh.pr.hobee.vo.InquiryVO;
-import kh.pr.hobee.vo.ReserveVO;
 import kh.pr.hobee.vo.UsersVO;
+import util.BCryptPwd;
 
 @Controller
 public class AdminController {
@@ -422,7 +414,47 @@ public class AdminController {
 	}
 	
 	
-	
-	
+	// 회원가입 폼 페이지
+		@RequestMapping("/create_admin_account.do")
+		public String create_admin_account() {
+			return kh.pr.hobee.common.Common.VIEW_PATH + "admin/create_admin.jsp";
+		}
+		// 회원가입 처리
+		@ResponseBody
+		@RequestMapping("/admin_account.do")
+		public String processCreateAccount(UsersVO user) {
+			// 비밀번호 암호화
+			BCryptPwd pwdUtil = new BCryptPwd();
+			String encryptedPassword = pwdUtil.encryption(user.getUser_pwd()); // 입력된 비밀번호 암호화
+			user.setUser_pwd(encryptedPassword); // 암호화된 비밀번호를 VO에 설정
+
+			// LV 기본값 설정
+			if (user.getLv() == null || user.getLv().isEmpty()) {
+				user.setLv("관리자"); // LV 기본값을 "일반"으로 설정
+			}
+
+			// DAO 호출 및 사용자 정보 저장
+			int result = users_dao.Create(user);
+
+			if (result > 0) {
+				return "success";
+			} else {
+				return "error";
+			}
+		}
+
+		// 중복 체크 처리
+		@ResponseBody
+		@RequestMapping("/admin_check_duplicate.do")
+		public String checkDuplicate(String id) {
+			boolean isDuplicate = users_dao.admin_Duplicate_check(id);
+
+			if (isDuplicate) {
+				return "fail"; // 중복된 경우
+			} else {
+				return "true"; // 중복되지 않은 경우
+			}
+		}
+		
 
 }

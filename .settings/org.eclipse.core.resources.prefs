@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/views/detail/my_review.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/host/host_sidebar.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/main/main.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/pay/success.jsp=UTF-8

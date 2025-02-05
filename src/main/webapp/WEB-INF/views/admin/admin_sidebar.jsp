@@ -57,9 +57,9 @@
 				<a href="/hobee/admin_program.do" class="menu-link">프로그램 관리</a>
 			</li>
 			<li
-				class="menu-item ${currentUrl == '/hobee/#' ? 'active' : ''}">
-				<img src="/hobee/resources/images/host_inquiry.png"  alt="리뷰 관리">
-				<a href="#" class="menu-link">리뷰 관리</a>
+				class="menu-item ${currentUrl == '/hobee/admin_review_detail.do' ? 'active' : ''}">
+				<img src="/hobee/resources/images/host_list.png" alt="리뷰 관리">
+				<a href="/hobee/admin_review_detail.do" class="menu-link">리뷰 관리</a>
 			</li>
 		</ul>
 

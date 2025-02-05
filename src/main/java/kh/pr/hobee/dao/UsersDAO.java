@@ -1,120 +1,101 @@
 package kh.pr.hobee.dao;
 
 import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
-
-import kh.pr.hobee.vo.HobeeVO;
 import kh.pr.hobee.vo.UsersVO;
 
 public class UsersDAO {
-	SqlSession sqlSession;
+    SqlSession sqlSession;
 
-	public void setSqlSession(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-	}
+    public void setSqlSession(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+    }
 
-	// 전체 조회
-	public List<UsersVO> selectList() {
-		List<UsersVO> list = sqlSession.selectList("u.user_list");
-		return list;
-	}
+    // 전체 조회
+    public List<UsersVO> selectList() {
+        return sqlSession.selectList("u.user_list");
+    }
 
-	// 아이디 생성
-	public int Create(UsersVO vo) {
-		System.out.println(vo.getUser_Id());
-		int res = sqlSession.insert("u.user_insert", vo);
-		return res;
+    // 아이디 생성
+    public int Create(UsersVO vo) {
+        System.out.println(vo.getUser_Id());
+        return sqlSession.insert("u.user_insert", vo);
+    }
 
-	}
+    // 중복체크 ID
+    public String Duplicate_check(String id) {
+        int count = sqlSession.selectOne("u.Duplicate_check", id);
+        return count > 0 ? "1" : "0"; 
+    }
 
-	// 중복체크 ID
-	public String Duplicate_check(String id) {
-		int count = sqlSession.selectOne("u.Duplicate_check", id); // MyBatis 매퍼 호출
-		return count > 0 ? "1" : "0"; // 중복이면 "1", 아니면 "0" 반환
-	}
+    // 로그인 ID 조회
+    public UsersVO select_id(String id) {
+        return sqlSession.selectOne("u.select_id", id);
+    }
 
+    // 이름과 이메일을 통한 ID 조회
+    public String findUserId(UsersVO vo) {
+        System.out.println("DAO로 전달된 이름: " + vo.getUser_name());
+        System.out.println("DAO로 전달된 이메일: " + vo.getUser_email());
 
-//로그인을 위한 ID 조회
-	public UsersVO select_id(String id) {
-		return sqlSession.selectOne("u.select_id", id);
-	}
-	
-	// 이름과 이메일을 통한 ID 조회
-	public String findUserId(UsersVO vo) {
-	    System.out.println("DAO로 전달된 이름: " + vo.getUser_name());
-	    System.out.println("DAO로 전달된 이메일: " + vo.getUser_email());
-	    
-	    // 쿼리 실행
-	    String result = sqlSession.selectOne("u.findUserId", vo);
-	    
-	    // 디버깅: 쿼리 실행 결과 확인
-	    if (result != null) {
-	        System.out.println("쿼리 실행 결과 ID: " + result);
-	    } else {
-	        System.out.println("쿼리 실행 결과 없음");
-	    }
-	    
-	    return result;
-	}
+        String result = sqlSession.selectOne("u.findUserId", vo);
+        System.out.println("쿼리 실행 결과 ID: " + (result != null ? result : "없음"));
+        return result;
+    }
 
+    // ID, 이메일을 통한 비밀번호 조회
+    public String findUserpwd(UsersVO vo) {
+        System.out.println("DAO로 전달된 ID: " + vo.getId());
+        System.out.println("DAO로 전달된 EMAIL: " + vo.getUser_email());
 
-	// id, 이메일을 통한 pwd 조회
-	public String findUserpwd(UsersVO vo) {
-	    System.out.println("DAO로 전달된 ID: " + vo.getId());
-	    System.out.println("DAO로 전달된 EMAIL: " + vo.getUser_email());
-	    
-	    // 쿼리 실행
-	    String userPwd = sqlSession.selectOne("u.findUserpwd", vo);
-	    
-	    System.out.println("쿼리 실행 결과: " + (userPwd != null ? userPwd : "null"));
-	    return userPwd;
-	}
+        String userPwd = sqlSession.selectOne("u.findUserpwd", vo);
+        System.out.println("쿼리 실행 결과: " + (userPwd != null ? userPwd : "null"));
+        return userPwd;
+    }
 
+    // 관리자 계정 중복 체크
+    public boolean admin_Duplicate_check(String id) {
+        int count = sqlSession.selectOne("u.Duplicate_check", id);
+        return count > 0;
+    }
 
-	// 회원 정보 조회
-	public UsersVO adminOne(int user_Id) {
-		UsersVO vo = sqlSession.selectOne("u.user_detail", user_Id);
-		return vo;
-	}
-	
-	//회원 정보 수정
-	public int updateFin(UsersVO vo) {
-		int res = sqlSession.update("u.user_admin_update", vo);
-		return res;
-	}
-	// 중복체크 호스트네임
-		public String hostname_check(String hostname) {
-			System.out.println(hostname);
-			int count = sqlSession.selectOne("u.host_check", hostname); // MyBatis 매퍼 호출
-			return count > 0 ? "1" : "0"; // 중복이면 "1", 아니면 "0" 반환
-		}
-	//회원 삭제
-	public int adminUserDel(int user_Id) {
-		int res = sqlSession.delete("u.user_admin_del", user_Id);
-		return res;
-	}
-	
-	
-	// 회원 제목에 따른 검색
-	public List<UsersVO> searchByTitle(String search_text) {
-		System.out.println("search_text"+ search_text);
-		List<UsersVO> search_list = sqlSession.selectList("u.user_search_by_title", search_text);
-		return search_list;
-	}
+    // 회원 정보 조회
+    public UsersVO adminOne(int user_Id) {
+        return sqlSession.selectOne("u.user_detail", user_Id);
+    }
 
-	// 회원 내용에 따른 검색
-	public List<UsersVO> searchByContent(String search_text) {
-		System.out.println("search_text"+ search_text);
-		List<UsersVO> search_list = sqlSession.selectList("u.user_search_by_content", search_text);
-		return search_list;
-	}
+    // 회원 정보 수정
+    public int updateFin(UsersVO vo) {
+        return sqlSession.update("u.user_admin_update", vo);
+    }
 
-	// 회원 전체 검색
-	public List<UsersVO> searchByAll(String search_text) {
-		System.out.println("search_text"+ search_text);
-		List<UsersVO> search_list = sqlSession.selectList("u.user_search_by_all", search_text);
-		return search_list;
-	}
-	
+    // 중복체크 호스트네임
+    public String hostname_check(String hostname) {
+        System.out.println(hostname);
+        int count = sqlSession.selectOne("u.host_check", hostname);
+        return count > 0 ? "1" : "0";
+    }
+
+    // 회원 삭제
+    public int adminUserDel(int user_Id) {
+        return sqlSession.delete("u.user_admin_del", user_Id);
+    }
+
+    // 회원 제목에 따른 검색
+    public List<UsersVO> searchByTitle(String search_text) {
+        System.out.println("search_text: " + search_text);
+        return sqlSession.selectList("u.user_search_by_title", search_text);
+    }
+
+    // 회원 내용에 따른 검색
+    public List<UsersVO> searchByContent(String search_text) {
+        System.out.println("search_text: " + search_text);
+        return sqlSession.selectList("u.user_search_by_content", search_text);
+    }
+
+    // 회원 전체 검색
+    public List<UsersVO> searchByAll(String search_text) {
+        System.out.println("search_text: " + search_text);
+        return sqlSession.selectList("u.user_search_by_all", search_text);
+    }
 }

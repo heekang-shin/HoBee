@@ -111,69 +111,81 @@ public class ReviewController {
 	// ✅ 리뷰 삭제 처리 (일반 사용자 & 관리자 & 호스트)
 	@RequestMapping("deleteReview.do")
 	public String deleteReview(int[] review_id, int hbidx, RedirectAttributes redirectAttributes) {
-		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
 
-		if (user == null) {
-			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
-			return "redirect:/login_form.do";
-		}
+	    if (user == null) {
+	        redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
+	        return "redirect:/login_form.do";
+	    }
 
-		String userLevel = user.getLv();
-		String userId = user.getId();
+	    String userLevel = user.getLv();
+	    String userId = user.getId();
 
-		// 🚀 ArrayList를 사용한 중복 제거
-		List<Integer> uniqueReviewIds = new ArrayList<Integer>();
-		for (int id : review_id) {
-			if (!uniqueReviewIds.contains(id)) {
-				uniqueReviewIds.add(id);
-			}
-		}
+	    // ✅ 1️⃣ 해당 모임을 생성한 호스트의 user_id 조회
+	    String hostUserId = review_dao.getHostUserIdByHbidx(hbidx);
+	    System.out.println("[디버그] 모임 작성자 ID: " + hostUserId);
+	    System.out.println("[디버그] 현재 로그인한 사용자 ID: " + userId);
 
-		System.out.println("[디버그] 중복 제거 후 삭제 요청된 리뷰 ID 목록: " + uniqueReviewIds);
+	    // 🚀 ArrayList를 사용한 중복 제거
+	    List<Integer> uniqueReviewIds = new ArrayList<Integer>();
+	    for (int id : review_id) {
+	        if (!uniqueReviewIds.contains(id)) {
+	            uniqueReviewIds.add(id);
+	        }
+	    }
 
-		int deletedCount = 0;
+	    System.out.println("[디버그] 중복 제거 후 삭제 요청된 리뷰 ID 목록: " + uniqueReviewIds);
 
-		for (int id : uniqueReviewIds) {
-			if ("일반".equals(userLevel)) {
-				ReviewVO review = review_dao.getReviewById(id);
-				if (review != null && review.getUser_id().equals(userId)) {
-					deletedCount += review_dao.delete(id);
-				} else {
-					redirectAttributes.addFlashAttribute("errorMessage", "본인이 작성한 리뷰만 삭제할 수 있습니다.");
-					return "redirect:/review_detail.do?hbidx=" + hbidx;
-				}
-			}
-			// ✅ 관리자 즉시 삭제
-			else if ("관리자".equals(userLevel) || "총괄관리자".equals(userLevel)) {
-				System.out.println("[디버그] 관리자 리뷰 즉시 삭제: review_id = " + id);
-				deletedCount += review_dao.delete(id);
-				continue; // 관리자는 삭제 요청을 생성하지 않음
-			}
-			// ✅ 호스트인 경우 삭제 요청을 생성 (DB에 '대기' 상태로 저장)
-			else if ("호스트".equals(userLevel)) {
-				if (review_dao.isDeleteRequestExists(id)) {
-					System.out.println("[디버그] 호스트 이미 삭제 요청이 존재하는 리뷰: review_id = " + id);
-					continue;
-				}
+	    int deletedCount = 0;
 
-				ReviewVO review = new ReviewVO();
-				review.setReview_id(id);
-				review.setRequested_by(userId);
-				review.setHb_idx(hbidx);
-				review.setRequest_status("대기");
+	    for (int id : uniqueReviewIds) {
+	        if ("일반".equals(userLevel)) {
+	            ReviewVO review = review_dao.getReviewById(id);
+	            if (review != null && review.getUser_id().equals(userId)) {
+	                deletedCount += review_dao.delete(id);
+	            } else {
+	                redirectAttributes.addFlashAttribute("errorMessage", "본인이 작성한 리뷰만 삭제할 수 있습니다.");
+	                return "redirect:/review_detail.do?hbidx=" + hbidx;
+	            }
+	        }
+	        // ✅ 관리자 즉시 삭제
+	        else if ("관리자".equals(userLevel) || "총괄관리자".equals(userLevel)) {
+	            System.out.println("[디버그] 관리자 리뷰 즉시 삭제: review_id = " + id);
+	            deletedCount += review_dao.delete(id);
+	            continue;
+	        }
+	        // ✅ 2️⃣ 호스트인 경우, 모임 작성자인지 확인 후 삭제 요청 생성
+	        else if ("호스트".equals(userLevel)) {
+	            if (!userId.equals(hostUserId)) {
+	                System.out.println("[디버그] 삭제 요청 불가 - 모임 작성자가 아님: review_id = " + id);
+	                redirectAttributes.addFlashAttribute("errorMessage", "해당 모임을 작성한 호스트만 삭제 요청할 수 있습니다.");
+	                return "redirect:/review_detail.do?hbidx=" + hbidx;
+	            }
 
-				review_dao.insertDeleteRequest(review);
-			}
-		}
+	            if (review_dao.isDeleteRequestExists(id)) {
+	                System.out.println("[디버그] 호스트 이미 삭제 요청이 존재하는 리뷰: review_id = " + id);
+	                continue;
+	            }
 
-		if (deletedCount > 0) {
-			redirectAttributes.addFlashAttribute("message", "선택된 리뷰가 성공적으로 삭제되었습니다.");
-		} else {
-			redirectAttributes.addFlashAttribute("message", "리뷰 삭제에 실패했습니다.");
-		}
+	            ReviewVO review = new ReviewVO();
+	            review.setReview_id(id);
+	            review.setRequested_by(userId);
+	            review.setHb_idx(hbidx);
+	            review.setRequest_status("대기");
 
-		return "redirect:/review_detail.do?hbidx=" + hbidx;
+	            review_dao.insertDeleteRequest(review);
+	        }
+	    }
+
+	    if (deletedCount > 0) {
+	        redirectAttributes.addFlashAttribute("message", "선택된 리뷰가 성공적으로 삭제되었습니다.");
+	    } else {
+	        redirectAttributes.addFlashAttribute("message", "리뷰 삭제에 실패했습니다.");
+	    }
+
+	    return "redirect:/review_detail.do?hbidx=" + hbidx;
 	}
+
 
 	// 관리자 리뷰 삭제 요청 목록 보기
 	@RequestMapping("/admin_review_detail.do")

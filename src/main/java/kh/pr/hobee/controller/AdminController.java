@@ -1,6 +1,7 @@
 package kh.pr.hobee.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,6 +97,26 @@ public class AdminController {
 
 		// 다른 조건을 처리하거나 디버그 추가
 		System.out.println("[디버그] 사용자 ID: " + user.getId() + " - 권한 확인 완료");
+		
+		//총 회원 수 가져오기
+	      List<UsersVO> user_list = users_dao.selectList();
+	      int usertotal = user_list.size();
+	      
+	      //미등록 호스트 수
+	      List<HostVO> hostList = admin_dao.ad_host_select();
+	      int hosttotal = hostList.size(); 
+	      
+	      //
+	      List<HobeeVO> hobee_apply_list = hobeedao.applyList();
+	      int programtotal = hobee_apply_list.size();
+	      
+	      model.addAttribute("usertotal", usertotal); // 총 회원 수
+	      model.addAttribute("hosttotal", hosttotal); // 미등록 호스트 수
+	      model.addAttribute("programtotal", programtotal); // 미등록 호스트 수
+	      
+	      
+	      // 날짜 가져오기
+	      model.addAttribute("now", new Date());
 
 		return Common.VIEW_PATH + "admin/admin_main.jsp";
 	}

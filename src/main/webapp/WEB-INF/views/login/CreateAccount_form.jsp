@@ -176,10 +176,7 @@
   <div id="signupContainer">
     <form id="signupForm" name="signupForm" novalidate>
       <div class="black-line"></div>
-      <div class="form-group">
-        <label for="user_name">이름 *</label>
-        <input id="user_name" type="text" name="user_name" placeholder="이름을 입력해 주세요." required>
-      </div>
+
       <div class="form-group input-with-button name-box">
         <label for="id">아이디 *</label>
         <input id="id" type="text" name="id" placeholder="아이디 입력해 주세요." required>
@@ -187,8 +184,8 @@
       </div>
        <div id="checkResult"></div>
       <div class="form-group">
-        <label for="phone">휴대폰 번호 *</label>
-        <input id="phone" type="tel" name="phone" placeholder="010-1234-5678" required>
+        <label for="user_name">이름 *</label>
+        <input id="user_name" type="text" name="user_name" placeholder="이름을 입력해 주세요." required>
       </div>
       <div class="form-group">
         <label for="user_pwd">비밀번호 *</label>
@@ -197,6 +194,10 @@
       <div class="form-group">
         <label for="confirmPassword">비밀번호 확인 *</label>
         <input id="confirmPassword" type="password" name="confirmPassword" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">휴대폰 번호 *</label>
+        <input id="phone" type="tel" name="phone" placeholder="010-1234-5678" required>
       </div>
       <div class="form-group">
         <label for="user_email">이메일 *</label>

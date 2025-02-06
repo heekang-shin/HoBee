@@ -6,11 +6,7 @@
   <meta charset="UTF-8">
 
   <title>회원가입</title>
-  
-  <!-- 파비콘 -->
-  <link rel="icon" href="/hobee/resources/images/Favicon.png">
-	
-  <link rel="stylesheet" href="resources/css/common.css">
+  <link rel="stylesheet" href="resources/css/main.css">
   <link rel="stylesheet" href="resources/css/CreateAccount_form.css">
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -27,14 +23,13 @@
 
         if (!id) {
             // 아이디 입력 유효성 검사
-            checkResultLabel.innerText = "아이디를 입력해 주세요.";
+            checkResultLabel.innerText = "아이디를 입력해주세요.";
             checkResultLabel.style.color = "red"; // 경고 메시지 스타일
-            checkResultLabel.style.marginBottom = "10px";
             return;
         }
 
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "check_duplicate.do", true);
+        xhr.open("POST", "admin_check_duplicate.do", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
         xhr.onreadystatechange = function () {
@@ -44,17 +39,14 @@
                 if (result === "fail") {
                     checkResultLabel.innerText = "이미 사용 중인 아이디입니다.";
                     checkResultLabel.style.color = "red";
-                    checkResultLabel.style.marginBottom = "10px";
                     isIdAvailable = false;
                 } else if (result === "true") {
                     checkResultLabel.innerText = "사용 가능한 아이디입니다.";
                     checkResultLabel.style.color = "green";
-                    checkResultLabel.style.marginBottom = "10px";
                     isIdAvailable = true;
                 } else {
                     checkResultLabel.innerText = "알 수 없는 오류가 발생했습니다.";
                     checkResultLabel.style.color = "red";
-                    checkResultLabel.style.marginBottom = "10px";
                 }
             }
         };
@@ -69,8 +61,6 @@
         let id = document.getElementById("id");
         let user_pwd = document.getElementById("user_pwd");
         let confirmPassword = document.getElementById("confirmPassword");
-        let user_email = document.getElementById("user_email");
-        let birth_date = document.getElementById("birth_date");
         let phone = document.getElementById('phone');
 
         // 이름 검증
@@ -108,28 +98,7 @@
             user_pwd.setCustomValidity("");
         }
 
-        // 비밀번호 확인 검증
-        if (user_pwd.value !== confirmPassword.value) {
-            confirmPassword.setCustomValidity("비밀번호가 일치하지 않습니다.");
-        } else {
-            confirmPassword.setCustomValidity("");
-        }
-
-        // 이메일 검증
-        let emailRegex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-        if (!user_email.value.trim() || !emailRegex.test(user_email.value)) {
-            user_email.setCustomValidity("유효한 이메일 주소를 입력해주세요.");
-        } else {
-            user_email.setCustomValidity("");
-        }
-
-        // 생년월일 검증
-        if (!birth_date.value.trim()) {
-            birth_date.setCustomValidity("생년월일을 입력해주세요.");
-        } else {
-            birth_date.setCustomValidity("");
-        }
-
+       
         // 모든 입력 필드 검증 결과 반환
         return document.getElementById("signupForm").reportValidity();
     }
@@ -142,7 +111,7 @@
         console.log("버튼눌림?");
         let form = document.getElementById("signupForm");
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "create_account.do", true);
+        xhr.open("POST", "admin_account.do", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
         xhr.onreadystatechange = function () {
@@ -169,7 +138,7 @@
 
   <!-- 회원가입 제목 -->
   <div id="signupHeader">
-    <h1 id="signupTitle">회원가입</h1>
+    <h1 id="signupTitle">관리자 계정 생성</h1>
   </div>
 
   <!-- 회원가입 폼 -->
@@ -178,14 +147,14 @@
       <div class="black-line"></div>
       <div class="form-group">
         <label for="user_name">이름 *</label>
-        <input id="user_name" type="text" name="user_name" placeholder="이름을 입력해 주세요." required>
+        <input id="user_name" type="text" name="user_name" required>
       </div>
-      <div class="form-group input-with-button name-box">
+      <div class="form-group input-with-button">
         <label for="id">아이디 *</label>
-        <input id="id" type="text" name="id" placeholder="아이디 입력해 주세요." required>
+        <input id="id" type="text" name="id" placeholder="아이디 입력" required>
         <button type="button" class="btn-inline" onclick="chk();">중복확인</button>
       </div>
-       <div id="checkResult"></div>
+      <div id="checkResult"></div>
       <div class="form-group">
         <label for="phone">휴대폰 번호 *</label>
         <input id="phone" type="tel" name="phone" placeholder="010-1234-5678" required>
@@ -197,14 +166,6 @@
       <div class="form-group">
         <label for="confirmPassword">비밀번호 확인 *</label>
         <input id="confirmPassword" type="password" name="confirmPassword" required>
-      </div>
-      <div class="form-group">
-        <label for="user_email">이메일 *</label>
-        <input id="user_email" type="email" name="user_email" placeholder="이메일을 입력해 주세요." required>
-      </div>
-      <div class="form-group">
-        <label for="birth_date">생년월일 *</label>
-        <input id="birth_date" type="date" name="birth_date" required>
       </div>
       <div id="signupFooter">
         <button type="button" onclick="submitForm()">가입하기</button>

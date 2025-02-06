@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+/* 전체 페이지 배경을 흰색으로 설정 */
+html, body {
+    background-color: white !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* 주요 컨테이너 배경을 흰색으로 설정 */
+#wrapper, .content, .table-container, .dashboard, .mypage-container {
+    background-color: white !important;
+}
+
+/* 📌 테이블 기본 스타일 유지 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 16px;
+    background-color: white !important;
+    border: 1px solid var(--border-color-gray); /* 기존 테두리 유지 */
+}
+
+/* 📌 테이블 헤더 (thead) */
+thead {
+    border-top: 2px solid var(--color-black);
+    font-weight: bold;
+    height: 60px;
+    background-color: white !important;
+    border-bottom: 2px solid var(--border-color-gray);
+}
+
+/* 📌 테이블 행 (tr) */
+tbody tr {
+    border-bottom: 1px solid var(--border-color-gray);
+}
+
+/* 📌 테이블 셀 (td, th) */
+th, td {
+    height: 54px;
+    padding: 12px;
+    background-color: white !important;
+    font-weight: 400;
+}
+
+/* 📌 홀수 행과 짝수 행 색상 유지 */
+tbody tr:nth-child(odd) {
+    background-color: white !important;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9 !important; /* 기존 스타일 유지 */
+}
+
+/* 📌 체크박스 스타일 */
+input[type="checkbox"] {
+    cursor: pointer;
+}
+
+/* 📌 삭제 및 수정 버튼 스타일 */
+.applybtn-box {
+    width: 1100px;
+    height: 42px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.applybtn-box input[type="button"] {
+    width: 100px;
+    height: 42px;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #DCDCDC;
+}
+
+/* 📌 버튼 hover 효과 */
+.applybtn-box input[type="button"]:hover {
+    background-color: #f0f0f0 !important;
+}
+
+/* 📌 페이지 네비게이션 */
+.pagination {
+    background-color: white !important;
+}

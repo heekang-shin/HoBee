@@ -1,6 +1,6 @@
 package kh.pr.hobee.controller;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -108,120 +108,221 @@ public class ReviewController {
 		return kh.pr.hobee.common.Common.VIEW_PATH + "detail/review_detail.jsp";
 	}
 
+	// ✅ 리뷰 삭제 처리 (일반 사용자 & 관리자 & 호스트)
 	@RequestMapping("deleteReview.do")
 	public String deleteReview(int[] review_id, int hbidx, RedirectAttributes redirectAttributes) {
-		// 세션에서 사용자 정보 확인
-		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
-		if (user == null) {
-			redirectAttributes.addFlashAttribute("message", "로그인이 필요합니다.");
-			return "redirect:/login_form.do";
-		}
+	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
 
-		// 사용자 레벨 확인
-		String userLevel = user.getLv(); // "일반", "호스트", "관리자", "총괄관리자"
-		String userId = user.getId(); // 현재 로그인한 사용자 ID
-		System.out.println("[디버그] 로그인한 사용자 레벨: " + userLevel);
-		System.out.println("[디버그] 로그인한 사용자 ID: " + userId);
+	    // ✅ 1️ 로그인 체크
+	    if (user == null) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "로그인이 필요합니다.");
+	        return "redirect:/review_detail.do?hbidx=" + hbidx;
+	    }
 
-		if (review_id == null || review_id.length == 0) {
-			redirectAttributes.addFlashAttribute("message", "삭제할 리뷰를 선택하세요.");
-			return "redirect:/review_detail.do?hbidx=" + hbidx;
-		}
+	    String userLevel = user.getLv(); // 사용자의 권한 (일반, 호스트, 관리자 등)
+	    String userId = user.getId(); // 현재 로그인한 사용자 ID
 
-		int deletedCount = 0;
-		for (int id : review_id) {
-			if ("일반".equals(userLevel)) {
-				ReviewVO review = review_dao.getReviewById(id); // 특정 리뷰 조회
-				if (review != null && review.getUser_id() != null && review.getUser_id().equals(userId)) {
-					int res = review_dao.delete(id);
-					if (res > 0) {
-						deletedCount++;
-						System.out.println("[디버그] 본인 리뷰 삭제 성공: review_id = " + id);
-					} else {
-						System.out.println("[디버그] 본인 리뷰 삭제 실패: review_id = " + id);
-					}
-				} else {
-					System.out.println("[디버그] 본인이 작성하지 않은 리뷰입니다: review_id = " + id);
-					redirectAttributes.addFlashAttribute("errorMessage", "본인이 작성한 리뷰만 삭제할 수 있습니다.");
-					return "redirect:/review_detail.do?hbidx=" + hbidx;
-				}
-			} else if ("호스트".equals(userLevel)) {
-				// 호스트일 경우 삭제 요청 메시지를 추가
-				redirectAttributes.addFlashAttribute("infoMessage", "리뷰 삭제를 요청하겠습니까?");
-				return "redirect:/review_detail.do?hbidx=" + hbidx; // 적절한 경로로 리다이렉트
-			} else if ("관리자".equals(userLevel) || "총괄관리자".equals(userLevel)) {
-				int res = review_dao.delete(id);
-				if (res > 0) {
-					deletedCount++;
-					System.out.println("[디버그] 관리자/총괄관리자 리뷰 삭제 성공: review_id = " + id);
-				} else {
-					System.out.println("[디버그] 관리자/총괄관리자 리뷰 삭제 실패: review_id = " + id);
-				}
-			}
-		}
+	    // ✅ 2️ 해당 모임을 생성한 호스트의 user_id 조회
+	    String hostUserId = review_dao.getHostUserIdByHbidx(hbidx);
+	    System.out.println("[디버그] 모임 작성자 ID: " + hostUserId);
+	    System.out.println("[디버그] 현재 로그인한 사용자 ID: " + userId);
 
-		if (deletedCount > 0) {
-			redirectAttributes.addFlashAttribute("message", "선택된 리뷰가 성공적으로 삭제되었습니다.");
-		} else if ("호스트".equals(userLevel)) {
-			redirectAttributes.addFlashAttribute("message", "리뷰 삭제 요청이 접수되었습니다.");
-		} else {
-			redirectAttributes.addFlashAttribute("message", "리뷰 삭제에 실패했습니다.");
-		}
+	    // ✅ 3️ 중복된 리뷰 ID 제거 (리스트에서 중복 제거)
+	    List<Integer> uniqueReviewIds = new ArrayList<Integer>();
+	    for (int id : review_id) {
+	        if (!uniqueReviewIds.contains(id)) {
+	            uniqueReviewIds.add(id);
+	        }
+	    }
 
-		return "redirect:/review_detail.do?hbidx=" + hbidx;
+	    System.out.println("[디버그] 중복 제거 후 삭제 요청된 리뷰 ID 목록: " + uniqueReviewIds);
+
+	    int deletedCount = 0; // 실제 삭제된 리뷰 개수 확인을 위한 변수
+
+	    // ✅ 4️ 리뷰 삭제 또는 삭제 요청 로직 수행
+	    for (int id : uniqueReviewIds) {
+	        ReviewVO review = review_dao.getReviewById(id);
+
+	        // ✅ 4-1️ 리뷰 ID가 DB에 존재하는지 확인
+	        if (review == null) {
+	            System.out.println("[디버그] 리뷰 ID: " + id + " -> DB에 존재하지 않음");
+	            continue;
+	        }
+
+	        System.out.println("[디버그] 현재 리뷰 ID: " + id + ", 작성자: " + review.getUser_id());
+
+	        // ✅ 4-2️ 일반 사용자는 본인 리뷰만 삭제 가능
+	        if ("일반".equals(userLevel)) {
+	            if (review.getUser_id().equals(userId)) {
+	                int result = review_dao.delete(id);
+	                System.out.println("[디버그] 일반 유저 리뷰 삭제 결과: " + result);
+	                deletedCount += result;
+	            } else {
+	                redirectAttributes.addFlashAttribute("errorMessage", "본인이 작성한 리뷰만 삭제할 수 있습니다.");
+	                return "redirect:/review_detail.do?hbidx=" + hbidx;
+	            }
+	        }
+	        // ✅ 4-3️ 관리자 및 총괄관리자는 언제든 즉시 삭제 가능
+	        else if ("관리자".equals(userLevel) || "총괄관리자".equals(userLevel)) {
+	            int result = review_dao.delete(id);
+	            System.out.println("[디버그] 관리자 리뷰 삭제 결과: " + result);
+	            deletedCount += result;
+	        }
+	        // ✅ 4-4️ 호스트의 경우 처리 (삭제 요청 vs 즉시 삭제)
+	        else if ("호스트".equals(userLevel)) {
+	            // ✅ 4-4-1️ 호스트 본인이 작성한 리뷰는 즉시 삭제 가능
+	            if (review.getUser_id().equals(userId)) { 
+	                int result = review_dao.delete(id);
+	                System.out.println("[디버그] 호스트 본인 리뷰 삭제 결과: " + result);
+	                deletedCount += result;
+	            } 
+	         // ✅ 4-4-2️ 다른 호스트의 모임이면 삭제 요청 불가능
+	            else if (Integer.parseInt(hostUserId) != user.getUser_Id()) { 
+	                System.out.println("[디버그] 삭제 요청 불가 - 모임 작성자가 아님: 로그인한 ID = " + userId + ", 모임 개설자 ID = " + hostUserId);
+	                redirectAttributes.addFlashAttribute("errorMessage", "해당 모임을 작성한 호스트만 리뷰 삭제 요청을 할 수 있습니다.");
+	                return "redirect:/review_detail.do?hbidx=" + hbidx;
+	            }
+
+	            // ✅ 4-4-3️ 모임 개설자는 삭제 요청 가능 (이미 요청된 경우 중복 방지)
+	            else { 
+	                if (review_dao.isDeleteRequestExists(id)) {
+	                    System.out.println("[디버그] 호스트 이미 삭제 요청이 존재하는 리뷰: review_id = " + id);
+	                    continue;
+	                }
+
+	                System.out.println("[디버그] 호스트가 리뷰 삭제 요청 생성: review_id = " + id);
+	                ReviewVO deleteRequest = new ReviewVO();
+	                deleteRequest.setReview_id(id);
+	                deleteRequest.setRequested_by(userId);
+	                deleteRequest.setHb_idx(hbidx);
+	                deleteRequest.setRequest_status("대기");
+
+	                review_dao.insertDeleteRequest(deleteRequest);
+	            }
+
+	        }
+	    }
+
+	    // ✅ 5️ 삭제 성공 여부 메시지 설정
+	    if (deletedCount > 0) {
+	        redirectAttributes.addFlashAttribute("message", "선택된 리뷰가 성공적으로 삭제되었습니다.");
+	    } else {
+	        redirectAttributes.addFlashAttribute("message", "리뷰 삭제에 실패했습니다.");
+	    }
+
+	    return "redirect:/review_detail.do?hbidx=" + hbidx;
 	}
 
+
+
+	// 관리자 리뷰 삭제 요청 목록 보기
+	@RequestMapping("/admin_review_detail.do")
+	public String adminReviewDetail(Model model) {
+
+		// '대기' 상태의 삭제 요청 목록 조회
+		List<ReviewVO> pendingReviews = review_dao.getPendingDeleteRequests();
+
+		// 디버깅 로그
+		System.out.println("[디버그] 삭제 요청된 리뷰 개수: " + pendingReviews.size());
+
+		// 모델에 데이터 추가
+		model.addAttribute("deleteRequests", pendingReviews);
+
+		return kh.pr.hobee.common.Common.VIEW_PATH + "admin/admin_review_detail.jsp"; // JSP 페이지로 이동
+	}
+
+	// ✅ 삭제 요청 승인 (관리자)
+	@RequestMapping("approveDeleteRequest.do")
+	public String approveDeleteRequest(int review_id, RedirectAttributes redirectAttributes) {
+		if (!checkAdminAccess()) {
+			return "redirect:/admin_review_detail.do";
+		}
+
+		// 1️ 리뷰 테이블에서 삭제
+		int res = review_dao.delete(review_id);
+
+		if (res > 0) {
+			// 2️ 삭제 요청 테이블에서 해당 요청 제거
+			review_dao.deleteDeleteRequest(review_id);
+
+			redirectAttributes.addFlashAttribute("message", "리뷰 삭제가 승인되었습니다.");
+		} else {
+			redirectAttributes.addFlashAttribute("errorMessage", "리뷰 삭제 승인에 실패하였습니다.");
+		}
+
+		return "redirect:/admin_review_detail.do"; // ✅ 수정된 리다이렉트 경로
+	}
+
+	// ✅ 삭제 요청 거절 (관리자)
+	@RequestMapping("rejectDeleteRequest.do")
+	public String rejectDeleteRequest(int review_id, RedirectAttributes redirectAttributes) {
+		if (!checkAdminAccess()) {
+			return "redirect:/adminReviewRequests.do";
+		}
+
+		review_dao.updateDeleteRequestStatus(review_id, "거절");
+		redirectAttributes.addFlashAttribute("message", "리뷰 삭제 요청이 거절되었습니다.");
+
+		return "redirect:/admin_review_detail.do"; // ✅ 수정된 리다이렉트 경로
+	}
+
+	// 중복체크 관리자 권한
+	private boolean checkAdminAccess() {
+		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+
+		if (user == null) {
+			return false;
+		}
+
+		String userLevel = user.getLv();
+		return "관리자".equals(userLevel) || "총괄관리자".equals(userLevel);
+	}
+	// 작성한 리뷰
 	@RequestMapping("MyReviews.do")
-	public String myReviewsAndDelete(int[] review_id, Model model, int hbidx) {
-		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
-		if (user == null) {
-			model.addAttribute("errorMessage", "로그인이 필요합니다.");
-			return kh.pr.hobee.common.Common.VIEW_PATH + "login/login_form.jsp"; // 로그인 페이지로 리다이렉트
-		}
+	public String myReviewsAndDelete(Model model) {
+	    UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
+	    if (user == null) {
+	        model.addAttribute("errorMessage", "로그인이 필요합니다.");
+	        return kh.pr.hobee.common.Common.VIEW_PATH + "login/login_form.jsp"; // 로그인 페이지로 리다이렉트
+	    }
 
-		String userId = user.getId();
-		List<ReviewVO> myReviews = review_dao.getReviewsByUserId(userId); // 본인 리뷰 조회
+	    String userId = user.getId();
+	    
+	    // 리뷰 목록 조회 (모임명 포함)
+	    List<ReviewVO> myReviews = review_dao.getReviewsByUserId(userId); 
+	    
+	    if (myReviews != null && !myReviews.isEmpty()) {
+	        model.addAttribute("reviews", myReviews);
+	        model.addAttribute("reviewCount", myReviews.size());
+	    } else {
+	        model.addAttribute("errorMessage", "작성한 리뷰가 없습니다.");
+	    }
 
-		if (myReviews != null && !myReviews.isEmpty()) {
-			model.addAttribute("reviews", myReviews);
-			model.addAttribute("reviewCount", myReviews.size());
-		} else {
-			model.addAttribute("errorMessage", "작성한 리뷰가 없습니다.");
-		}
-		model.addAttribute("hbidx", hbidx);
-		return kh.pr.hobee.common.Common.VIEW_PATH + "detail/my_review.jsp"; // my_review.jsp로 이동
+	    return kh.pr.hobee.common.Common.VIEW_PATH + "detail/my_review.jsp"; // my_review.jsp로 이동
 	}
 
-	@RequestMapping("delmyReview.do")
-	public String delmyReview(int[] review_id, int hbidx, Model model) {
-		System.out.println("[디버그] 전달받은 hbidx: " + hbidx);
-		System.out.println("[디버그] 전달받은 review_id: " + Arrays.toString(review_id));
+	  @RequestMapping("delmyReview.do")
+	    public String deleteMyReviews(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+	        UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
 
-		UsersVO user = (UsersVO) session.getAttribute("loggedInUser");
-		if (user == null) {
-			model.addAttribute("errorMessage", "로그인이 필요합니다.");
-			return "redirect:/login_form.do";
-		}
+	        // ✅ 로그인 체크
+	        if (user == null) {
+	            return "redirect:/login_form.do";
+	        }
 
-		String userId = user.getId();
-		int deletedCount = 0;
+	        // ✅ 삭제할 리뷰 ID 가져오기
+	        String[] reviewIdArray = request.getParameterValues("review_id");
+	        if (reviewIdArray == null || reviewIdArray.length == 0) {
+	            return "redirect:/MyReviews.do";
+	        }
 
-		if (review_id != null && review_id.length > 0) {
-			for (int id : review_id) {
-				ReviewVO review = review_dao.getReviewById(id);
-				if (review != null && review.getUser_id().equals(userId)) {
-					deletedCount += review_dao.delete(id);
-				}
-			}
-		}
+	        // ✅ ReviewDAO의 delete() 메서드 사용하여 삭제
+	        for (String id : reviewIdArray) {
+	            review_dao.delete(Integer.parseInt(id));
+	        }
 
-		if (deletedCount > 0) {
-			model.addAttribute("successMessage", "선택한 리뷰가 성공적으로 삭제되었습니다.");
-		} else {
-			model.addAttribute("errorMessage", "삭제할 리뷰를 선택하거나 권한이 없습니다.");
-		}
+	        return "redirect:/MyReviews.do";
+	    }
 
-		return "redirect:/MyReviews.do?hbidx=" + hbidx;
-	}
 
 }

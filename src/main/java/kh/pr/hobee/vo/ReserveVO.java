@@ -1,8 +1,9 @@
+
 package kh.pr.hobee.vo;
 
 public class ReserveVO {
 	private int reserve_id, category_num, hb_idx, user_id, price;
-	private String reserve_date, hb_title, hb_date,user_name;
+	private String reserve_date, hb_title, hb_date, user_name;
 
 	public String getUser_name() {
 		return user_name;
@@ -77,4 +78,3 @@ public class ReserveVO {
 	}
 
 }
-

@@ -22,13 +22,12 @@ import kh.pr.hobee.vo.WishlistVO;
 
 @Controller
 public class InvenController {
-	
+
 	InvenDAO inven_dao;
 
 	public void setInven_dao(InvenDAO inven_dao) {
 		this.inven_dao = inven_dao;
 	}
-	
 	ReviewDAO review_dao;
 
 	public void setReview_dao(ReviewDAO review_dao) {
@@ -45,7 +44,7 @@ public class InvenController {
 		if (arr != null) {
 			sel = arr;
 		}
-		
+
 		List<CategoryVO> cate_list = inven_dao.selectInven(category); // 카테고리 하위의 세부 카테고리 받아오기
 		List<HobeeVO> hobee_list = null;// 모임을 받아오고 전달하기 위한 list 생성
 		
@@ -60,9 +59,10 @@ public class InvenController {
 		model.addAttribute("hobee_list", hobee_list);
 		return "/WEB-INF/views/inventory/inven.jsp";
 	}
-	
-	//상세페이지
+
+	// 상세페이지
 	@RequestMapping("/hobee_detail.do")
+
 	public String detail(Model model, int hbidx, Integer page) {
 		
 		System.out.println("inven 컨트롤러[디버그] 전달받은 hbidx: " + hbidx); // 디버깅용 로그
@@ -103,6 +103,7 @@ public class InvenController {
 	    String formattedAverageRating = String.format("%.1f", averageRating);
 
 	    System.out.println("[디버그] 평균 평점: " + formattedAverageRating);
+
 	    
 	    //문의
 		List<InquiryVO> inquiries = inven_dao.getAllInquiries(hbidx);
@@ -125,7 +126,7 @@ public class InvenController {
 	    model.addAttribute("recentReviews", recentReviews); // 최신 리뷰 3개 전달
 	    model.addAttribute("formattedAverageRating", formattedAverageRating); // 포맷된 평균 평점 전달
 	    model.addAttribute("reviewCount", reviews.size()); // 리뷰 개수 전달
-	    
+
 		return "/WEB-INF/views/detail/detail.jsp";
 	}
 	

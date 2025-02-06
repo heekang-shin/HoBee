@@ -36,6 +36,7 @@
 		<beans:property name="review_dao" ref="review_daoBean" />
 	</beans:bean>
 
+
 	<beans:bean class="kh.pr.hobee.controller.PayController">
 		<beans:property name="inven_dao" ref="inven_daoBean" />
 	</beans:bean>
@@ -59,7 +60,6 @@
 	<beans:bean class="kh.pr.hobee.controller.LoginController">
 		<beans:property name="users_dao" ref="users_daoBean" />
 	</beans:bean>
-
 	<beans:bean
 		class="kh.pr.hobee.controller.NaverLoginController" />		
 	<beans:bean
@@ -86,12 +86,6 @@
 	 <!-- <beans:property name="bcp"  ref="bcp_bean"/> -->
 	 </beans:bean>
 	 
-	 <!-- 
-	<beans:bean class="kh.pr.hobee.controller.RatingController">
-		<beans:property name="review_dao" ref="review_daoBean" />
-	</beans:bean>
-	 -->
-
 
 	<!-- AdminController -->
 	<beans:bean class="kh.pr.hobee.controller.AdminController">

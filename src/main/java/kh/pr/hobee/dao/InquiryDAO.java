@@ -1,14 +1,9 @@
 package kh.pr.hobee.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import kh.pr.hobee.common.Common;
-import kh.pr.hobee.vo.HobeeVO;
 import kh.pr.hobee.vo.InquiryVO;
 
 public class InquiryDAO {

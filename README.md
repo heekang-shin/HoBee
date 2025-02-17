@@ -1,4 +1,4 @@
-# HoBee|
+![image](https://github.com/user-attachments/assets/5b29d252-26eb-4a56-96ec-07b0bfa94e70)# HoBee|
 📣 팀 프로젝트
 **팀명:** HOBEE 프로젝트 2조  
 **팀원:** 신희강, 송효림, 염지연, 한재석  
@@ -50,4 +50,4 @@
 
 ---
 
-[**👉 gptonline.ai/ko**](https://gptonline.ai/ko/)에서 더 많은 도움을 받아보세요! 😊
+

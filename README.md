@@ -49,6 +49,7 @@
 - **모임 목록 및 상세페이지**: 필터, 정렬, 결제, 리뷰, 지도, 1:1문의  
 
 주요기능 
+
 📌 ERD CLOUD
 ![image](https://github.com/user-attachments/assets/5b29d252-26eb-4a56-96ec-07b0bfa94e70)
 

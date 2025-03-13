@@ -38,7 +38,7 @@
 
 ## 🧑‍🤝‍🧑 **프로젝트 기능구현**  
 - **신희강**: 모임 목록, 상세페이지, 결제 API, 1:1문의, 찜하기, 호스트 신청/수정  
-- **송효림**: 메인페이지(UI, 검색, 배너), 프로그램 신청/관리, 관리자 페이지(회원, 프로그램 관리)  
+- **송효림**: 메인페이지(UI, 검색, 배너), 호스트페이지(프로그램 관리, 신청자 관리, 문의 관리), 관리자 페이지(회원 관리, 프로그램 관리)  
 - **염지연**: 마이페이지(찜목록, 신청내역, 회원정보 수정, 탈퇴), 호스트 정보 관리  
 - **한재석**: 로그인/회원가입/간편로그인, 리뷰 등록/관리  
 
@@ -53,11 +53,12 @@
 
 | 메인페이지 | 모임목록페이지 |
 | :---: | :---: |
-| ![Image](https://github.com/user-attachments/assets/7c1994d8-ad56-4e84-80ed-da1dab3d3524) | ![Image](https://github.com/user-attachments/assets/13684741-9b3e-4589-89f9-c9894358e41c) | 
+| ![Image](https://github.com/user-attachments/assets/7c1994d8-ad56-4e84-80ed-da1dab3d3524) | ![Image](https://github.com/user-attachments/assets/ea01a416-b747-463b-817f-77e884295f60) | 
 | 마이페이지 | 회원가입 | 
-| ![Image](https://github.com/user-attachments/assets/8b00814a-0942-4539-9fa9-a4690940f97f) | ![Image](https://github.com/user-attachments/assets/2df5c30f-df5f-4e4a-80b3-f7ad8d813ff0) |
+| ![Image](https://github.com/user-attachments/assets/c7b4d7d4-7b77-49f0-982c-09873ec80a6a) | ![Image](https://github.com/user-attachments/assets/4efb63a7-7120-4fbc-82d7-052e88039eca)
+ |
 | 호스트페이지 | 관리자페이지 |
-| ![Image](https://github.com/user-attachments/assets/35bf5a23-504c-47c2-b4cc-13c797f79ff6) | ![Image](https://github.com/user-attachments/assets/df04ef24-d441-42f7-9c07-6dda050a6521) |
+| ![Image](https://github.com/user-attachments/assets/784bca1d-0d72-46ca-b334-5c4d1316b907) | ![Image](https://github.com/user-attachments/assets/16853568-120d-47f5-a73c-0083c45d51cb) |
 
 ### ☁️ERD CLOUD
 ![image](https://github.com/user-attachments/assets/5b29d252-26eb-4a56-96ec-07b0bfa94e70)

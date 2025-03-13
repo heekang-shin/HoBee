@@ -66,9 +66,13 @@
 
 ## 📺 **시연 영상**
 
-#### 메인페이지
+#### 메인페이지,모임목록
 ---
 ![Image](https://github.com/user-attachments/assets/1c3f1ea8-1a49-4bbd-ab26-bd65501af6ff)
+
+#### 상세페이지
+---
+![Image](https://github.com/user-attachments/assets/508c8c05-b1d0-46fc-a64b-fc194445e82f)
 
 #### 마이페이지
 ---

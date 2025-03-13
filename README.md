@@ -55,8 +55,7 @@
 | :---: | :---: |
 | ![Image](https://github.com/user-attachments/assets/7c1994d8-ad56-4e84-80ed-da1dab3d3524) | ![Image](https://github.com/user-attachments/assets/ea01a416-b747-463b-817f-77e884295f60) | 
 | 마이페이지 | 회원가입 | 
-| ![Image](https://github.com/user-attachments/assets/c7b4d7d4-7b77-49f0-982c-09873ec80a6a) | ![Image](https://github.com/user-attachments/assets/4efb63a7-7120-4fbc-82d7-052e88039eca)
- |
+| ![Image](https://github.com/user-attachments/assets/c7b4d7d4-7b77-49f0-982c-09873ec80a6a) | ![Image](https://github.com/user-attachments/assets/4efb63a7-7120-4fbc-82d7-052e88039eca) |
 | 호스트페이지 | 관리자페이지 |
 | ![Image](https://github.com/user-attachments/assets/784bca1d-0d72-46ca-b334-5c4d1316b907) | ![Image](https://github.com/user-attachments/assets/16853568-120d-47f5-a73c-0083c45d51cb) |
 

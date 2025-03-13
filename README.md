@@ -1,4 +1,4 @@
-# HoBee
+# HOBEE
 ![Image](https://github.com/user-attachments/assets/aed80b01-d5b7-4b04-9462-c223f5d5dd8a)
 - **프로젝트:** HOBEE
 - **팀명:** 프로젝트 2조

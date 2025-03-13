@@ -51,13 +51,13 @@
 
 ### 🌐웹페이지
 
-| 메인페이지 | 관리자페이지 |
+| 메인페이지 | 모임목록페이지 |
 | :---: | :---: |
-| ![Image](https://github.com/user-attachments/assets/7c1994d8-ad56-4e84-80ed-da1dab3d3524) | ![Image](https://github.com/user-attachments/assets/602d9922-5194-49e5-8b03-18f16601b820) | 
-| 모임목록페이지 | 마이페이지 | 
-| ![Image](https://github.com/user-attachments/assets/9711935a-0340-4123-9d6d-f566419d484d) | ![Image](https://github.com/user-attachments/assets/38848c9f-bdf7-499b-ac20-af653e14939d) |
-| 호스트페이지 | 회원가입 페이지 |
-| ![Image](https://github.com/user-attachments/assets/66d3b340-afd7-4c1e-8b33-8460990d4e4c) | ![Image](https://github.com/user-attachments/assets/499e3240-f90f-4907-ae1c-9857116f348f) |
+| ![Image](https://github.com/user-attachments/assets/7c1994d8-ad56-4e84-80ed-da1dab3d3524) | ![Image](https://github.com/user-attachments/assets/13684741-9b3e-4589-89f9-c9894358e41c) | 
+| 마이페이지 | 회원가입 | 
+| ![Image](https://github.com/user-attachments/assets/8b00814a-0942-4539-9fa9-a4690940f97f) | ![Image](https://github.com/user-attachments/assets/2df5c30f-df5f-4e4a-80b3-f7ad8d813ff0) |
+| 호스트페이지 | 관리자페이지 |
+| ![Image](https://github.com/user-attachments/assets/35bf5a23-504c-47c2-b4cc-13c797f79ff6) | ![Image](https://github.com/user-attachments/assets/df04ef24-d441-42f7-9c07-6dda050a6521) |
 
 ### ☁️ERD CLOUD
 ![image](https://github.com/user-attachments/assets/5b29d252-26eb-4a56-96ec-07b0bfa94e70)

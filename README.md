@@ -60,7 +60,7 @@
 | **호스트페이지** | **관리자페이지** |
 | ![Image](https://github.com/user-attachments/assets/784bca1d-0d72-46ca-b334-5c4d1316b907) | ![Image](https://github.com/user-attachments/assets/16853568-120d-47f5-a73c-0083c45d51cb) |
 
-## ** ☁️ERD CLOUD**
+## **☁️ERD CLOUD**
 ![image](https://github.com/user-attachments/assets/5b29d252-26eb-4a56-96ec-07b0bfa94e70)
 
 

@@ -50,8 +50,8 @@
 - **모임 목록 및 상세페이지**: 필터, 정렬, 결제, 리뷰, 지도, 1:1문의  
 
 ### 🌐웹페이지
-| title1 | title2 |
-| --- | --- |
+| 호스트페이지 |
+|![Image](https://github.com/user-attachments/assets/66d3b340-afd7-4c1e-8b33-8460990d4e4c)| ![Image](https://github.com/user-attachments/assets/602d9922-5194-49e5-8b03-18f16601b820) |
 | 1 | 2 |
 | 4 | 5 |
 | 7 | 8 |

@@ -68,7 +68,7 @@
 
 #### 메인페이지
 ---
-![Image](https://github.com/user-attachments/assets/ebaaf484-6cdf-4308-b509-a9b17573fa8b)
+![Image](https://github.com/user-attachments/assets/1c3f1ea8-1a49-4bbd-ab26-bd65501af6ff)
 
 #### 마이페이지
 ---

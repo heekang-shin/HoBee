@@ -1,4 +1,5 @@
 # HoBee
+![Image](https://github.com/user-attachments/assets/aed80b01-d5b7-4b04-9462-c223f5d5dd8a)
 - **프로젝트:** HOBEE
 - **팀명:** 프로젝트 2조
 - **팀원:** 신희강, 송효림, 염지연, 한재석  
@@ -7,7 +8,6 @@
 ---
 
 ## 📖 **Contents**  
-![Image](https://github.com/user-attachments/assets/a1b10637-9d6f-4f9e-b169-d1ecef48ef8b)
 - 프로젝트 소개  
 - 설계의 주안점  
 - 개발환경  

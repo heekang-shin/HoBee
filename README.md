@@ -53,5 +53,6 @@
 ![image](https://github.com/user-attachments/assets/5b29d252-26eb-4a56-96ec-07b0bfa94e70)
 
 
-📌 ERD CLOUD
+📌 시연 영상
+![Image](https://github.com/user-attachments/assets/7211ade3-4883-4b32-9cb8-8fb9967f4089)
 

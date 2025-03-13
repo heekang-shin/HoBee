@@ -5,7 +5,7 @@
 
 ---
 
-📖 **Contents**  
+##📖 **Contents**  
 - 프로젝트 소개  
 - 설계의 주안점  
 - 개발환경  
@@ -48,8 +48,9 @@
 - **관리자 페이지**: 회원/호스트/프로그램/리뷰 관리  
 - **모임 목록 및 상세페이지**: 필터, 정렬, 결제, 리뷰, 지도, 1:1문의  
 
-주요기능 
-
 📌 ERD CLOUD
 ![image](https://github.com/user-attachments/assets/5b29d252-26eb-4a56-96ec-07b0bfa94e70)
+
+
+📌 ERD CLOUD
 

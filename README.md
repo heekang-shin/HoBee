@@ -52,7 +52,7 @@
 ### 🌐웹페이지
 
 | 메인페이지 | 관리자페이지 |
-| --- | --- |
+| :---: | :---: |
 | ![Image](https://github.com/user-attachments/assets/66d3b340-afd7-4c1e-8b33-8460990d4e4c) | ![Image](https://github.com/user-attachments/assets/602d9922-5194-49e5-8b03-18f16601b820) | 
 | 모임목록페이지 | 마이페이지 | 
 | ![Image](https://github.com/user-attachments/assets/9711935a-0340-4123-9d6d-f566419d484d) | ![Image](https://github.com/user-attachments/assets/38848c9f-bdf7-499b-ac20-af653e14939d) |

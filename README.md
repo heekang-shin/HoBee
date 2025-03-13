@@ -53,7 +53,7 @@
 
 | 메인페이지 | 관리자페이지 |
 | --- | --- |
-| 1 | 2 | 
+| ![Image](https://github.com/user-attachments/assets/66d3b340-afd7-4c1e-8b33-8460990d4e4c) | ![Image](https://github.com/user-attachments/assets/602d9922-5194-49e5-8b03-18f16601b820) | 
 | 4 | 5 | 
 | 7 | 8 |
 

@@ -66,6 +66,9 @@
 
 ## 📺 **시연 영상**
 
+#### 메인페이지
+![Image](https://github.com/user-attachments/assets/a360e881-25ca-4fec-b493-0918c1086606)
+
 #### 마이페이지
 ![Image](https://github.com/user-attachments/assets/d715bd63-3113-4519-a874-a0926f397502)
 

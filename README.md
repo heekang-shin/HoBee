@@ -7,6 +7,7 @@
 ---
 
 ## 📖 **Contents**  
+![Image](https://github.com/user-attachments/assets/a1b10637-9d6f-4f9e-b169-d1ecef48ef8b)
 - 프로젝트 소개  
 - 설계의 주안점  
 - 개발환경  

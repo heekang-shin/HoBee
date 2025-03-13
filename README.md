@@ -65,6 +65,16 @@
 
 
 ## 📺 **시연 영상**
-#### 관리자 페이지
+
+#### 마이페이지
+![Image](https://github.com/user-attachments/assets/d715bd63-3113-4519-a874-a0926f397502)
+
+#### 회원가입
+![Image](https://github.com/user-attachments/assets/7f885e17-105e-4fd1-a9f5-8c9751ccf799)
+
+#### 호스트 페이지
 ![Image](https://github.com/user-attachments/assets/c68ae057-5b0f-49da-8501-9d82a2c0eb3f)
+
+#### 관리자 페이지
+![Image](https://github.com/user-attachments/assets/161515d0-d14f-45ac-8e9c-825a262ce72d)
 

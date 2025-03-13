@@ -65,5 +65,5 @@
 
 ### 📺시연 영상
 #### 관리자 페이지
-![Image](https://github.com/user-attachments/assets/7211ade3-4883-4b32-9cb8-8fb9967f4089)
+![Image](https://github.com/user-attachments/assets/c68ae057-5b0f-49da-8501-9d82a2c0eb3f)
 
